@@ -1,0 +1,58 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Crystal Oscillator - No Digital I/O Pins",
+      "pin_type": "analog",
+      "example_pins": [],
+      "applies_to": "This is a crystal oscillator (XO) component with no digital input/output pins. It contains only two resonator terminals for connection to an oscillator circuit.",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Crystal Oscillator - No Digital I/O Pins",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "07229c36f1e55c8984f77caff95cb697f5026c7e932c6c8d77b9bf5a4c790fa2",
+    "source_pdf_sha256": "b146dcf2fd2494799a8a61bb3c82752288f869925f25d5021346b58eee28b8f2",
+    "pdf_size": 180164,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "MISS",
+      "tier": null,
+      "depth": null,
+      "ratio": null
+    }
+  }
+}

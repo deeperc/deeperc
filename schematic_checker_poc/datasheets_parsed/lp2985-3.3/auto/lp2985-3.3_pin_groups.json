@@ -1,0 +1,136 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Input Supply Voltage (VIN)",
+      "pin_type": "power",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "VIN pin - input supply",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": 2.5,
+      "supply_max": 16.0,
+      "supply_abs_max": 18.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "GND pin - ground reference",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "ON/OFF Enable Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "ON/OFF pin - active high enable",
+      "VIH_min": 0.85,
+      "VIL_max": 0.72,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - V_ON/OFF High = Output ON (new chip)",
+      "abs_max_source": "Absolute Maximum Ratings - ON/OFF pin voltage range (new chip)"
+    },
+    {
+      "group_name": "Bypass Capacitor Pin",
+      "pin_type": "analog",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "BYPASS pin - reference bypass capacitor connection",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings - BYPASS pin voltage range (new chip)"
+    },
+    {
+      "group_name": "Output Voltage (VOUT)",
+      "pin_type": "power",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "VOUT pin - regulated output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 9.0,
+      "supply_min": 1.2,
+      "supply_max": 5.0,
+      "supply_abs_max": 9.0,
+      "supply_rail_name": "VOUT",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings - Output voltage range (new chip)"
+    }
+  ],
+  "default_group": "ON/OFF Enable Input",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "f2b369738078079178edf658b39cd66d7be321deb5038a7b5f3f23e1ccd68138",
+    "source_pdf_sha256": "33d3eece94b1870ab0af00e5b59d50abc15ac93cfbe2614b0c2d01be91a0a1f6",
+    "pdf_size": 10384800,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 3,
+      "depth": 1,
+      "ratio": 0.6
+    }
+  }
+}

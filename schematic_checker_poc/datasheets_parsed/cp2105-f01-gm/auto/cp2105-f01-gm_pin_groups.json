@@ -1,0 +1,271 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VDD Power Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "6"
+      ],
+      "applies_to": "VDD - Digital Supply Voltage",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.2,
+      "supply_min": 3.0,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.2,
+      "supply_rail_name": "VDD",
+      "VIH_source": null,
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VIO I/O Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "VIO - I/O Supply Voltage Input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.2,
+      "supply_min": 1.8,
+      "supply_max": null,
+      "supply_abs_max": 4.2,
+      "supply_rail_name": "VIO",
+      "VIH_source": null,
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "UART and GPIO Digital I/O",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "TXD_ECI",
+        "RXD_ECI",
+        "TXD_SCI",
+        "RXD_SCI",
+        "RTS_ECI",
+        "CTS_ECI",
+        "RTS_SCI",
+        "CTS_SCI",
+        "GPIO.0_ECI",
+        "GPIO.1_ECI",
+        "GPIO.0_SCI",
+        "GPIO.1_SCI",
+        "GPIO.2_SCI"
+      ],
+      "applies_to": "UART transmit/receive, flow control, and GPIO pins",
+      "VIH_min": 0.7,
+      "VIL_max": 0.6,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 3: UART and Suspend I/O DC Electrical Characteristics (VIH = 0.7 x VIO)",
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Modem Control Digital I/O",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "DTR_ECI",
+        "DSR_ECI",
+        "DCD_ECI",
+        "RI_ECI",
+        "DTR_SCI",
+        "DSR_SCI",
+        "DCD_SCI",
+        "RI_SCI"
+      ],
+      "applies_to": "Modem control signals (DTR, DSR, DCD, RI) when in modem mode",
+      "VIH_min": 0.7,
+      "VIL_max": 0.6,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 3: UART and Suspend I/O DC Electrical Characteristics (VIH = 0.7 x VIO)",
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "SUSPEND Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "1",
+        "17"
+      ],
+      "applies_to": "SUSPEND/RI_ECI and SUSPEND/RI_SCI pins in GPIO mode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "RST Reset Pin",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "9"
+      ],
+      "applies_to": "RST - Device Reset (open-drain output or external input)",
+      "VIH_min": 0.75,
+      "VIL_max": 0.6,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 4: Reset Electrical Characteristics (VIH = 0.75 x VIO)",
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "USB Data Lines",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "3",
+        "4"
+      ],
+      "applies_to": "D+ and D- USB differential data lines",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VBUS Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "8"
+      ],
+      "applies_to": "VBUS - USB VBUS Sense Input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "REGIN Regulator Input",
+      "pin_type": "power",
+      "example_pins": [
+        "7"
+      ],
+      "applies_to": "REGIN - 5V Regulator Input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 3.0,
+      "supply_max": 5.25,
+      "supply_abs_max": null,
+      "supply_rail_name": "REGIN",
+      "VIH_source": null,
+      "abs_max_source": "Table 5: Voltage Regulator Electrical Specifications"
+    },
+    {
+      "group_name": "VPP Programming Pin",
+      "pin_type": "power",
+      "example_pins": [
+        "16"
+      ],
+      "applies_to": "VPP - One-Time Programmable ROM Programming Voltage",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 5.75,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": "VPP",
+      "VIH_source": null,
+      "abs_max_source": "Table 2: Global DC Electrical Characteristics"
+    },
+    {
+      "group_name": "GND Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "GND - Ground reference",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "UART and GPIO Digital I/O",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "ba1eff971b5e92694ea73fc9e697ac108c1b693a0869a15ecdc1984bbcadb22c",
+    "source_pdf_sha256": "5bb4356c4d088794e45b90bde0183bccff0b9277e43fa3dc85bd0361696fbff2",
+    "pdf_size": 1601911,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VDD Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "VDD"
+      ],
+      "applies_to": "Pin 1 - positive supply for logic and I/O pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": 3.0,
+      "supply_max": 5.5,
+      "supply_abs_max": 7.0,
+      "supply_rail_name": "VDD",
+      "VIH_source": null,
+      "abs_max_source": "Section 13.0 Absolute Maximum Ratings (PIC12C508A/509A)"
+    },
+    {
+      "group_name": "VSS Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "VSS"
+      ],
+      "applies_to": "Pin 8 - ground reference for logic and I/O pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "GP0/GP1 - TTL/Schmitt Trigger Bidirectional I/O",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "GP0",
+        "GP1"
+      ],
+      "applies_to": "Pins 7, 6 - bidirectional I/O with TTL input buffer and Schmitt trigger in serial programming mode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.6,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 13.3 D040/D040A (TTL buffer) and D041 (Schmitt trigger) - relative to VDD",
+      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+    },
+    {
+      "group_name": "GP2/T0CKI - Schmitt Trigger Bidirectional I/O",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "GP2/T0CKI"
+      ],
+      "applies_to": "Pin 5 - bidirectional I/O, can be configured as Timer0 clock input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.6,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 13.3 D042 (Schmitt trigger) - relative to VDD",
+      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+    },
+    {
+      "group_name": "GP3/MCLR/VPP - Input with Schmitt Trigger",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "GP3/MCLR/VPP"
+      ],
+      "applies_to": "Pin 4 - input-only port, master clear (reset) input, programming voltage input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 14.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 13.3 D042 (Schmitt trigger) - relative to VDD",
+      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: 0 to +14V"
+    },
+    {
+      "group_name": "GP4/OSC2 - TTL Bidirectional I/O",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "GP4/OSC2"
+      ],
+      "applies_to": "Pin 3 - bidirectional I/O port, oscillator crystal output in XT/LP modes",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.6,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 13.3 D040/D040A (TTL buffer) - relative to VDD",
+      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+    },
+    {
+      "group_name": "GP5/OSC1/CLKIN - TTL/Schmitt Trigger Bidirectional I/O",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "GP5/OSC1/CLKIN"
+      ],
+      "applies_to": "Pin 2 - bidirectional I/O, oscillator crystal input, external clock source input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.6,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 13.3 D040/D040A (TTL in GPIO mode) and D043 (Schmitt trigger in EXTRC mode) - relative to VDD",
+      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+    }
+  ],
+  "default_group": "GP0/GP1 - TTL/Schmitt Trigger Bidirectional I/O",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-08-01T20:12:16+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "754a25a8793d92e4b56f0026c5511cc96d0a8544bc042859e21de50d6b7780df",
+    "source_pdf_sha256": "038ccfcc9e0e8996b2668c78284ff8602e76120316319f5e6780a706ea65376a",
+    "pdf_size": 1643295,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-08-01T20:12:16+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

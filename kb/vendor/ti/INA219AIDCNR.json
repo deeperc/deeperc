@@ -1,0 +1,42 @@
+{
+  "mcu_part": "INA219AIDCNR",
+  "kb_source": "manual",
+  "kb_version": "TI INA219 datasheet (SBOS448G), SOT-23-8 \"DCN\" package variant",
+  "function_class": "fixed",
+  "provenance": {
+    "authored_by": "hand-transcribed from TI INA219 datasheet pin-description table by Nelson (class-1 authority per CLAUDE.md KB-authoring doctrine); NOT derived from the datasheets_parsed Haiku cache or any PDF read by CC",
+    "agreement_gate": "SDA/SCL 3-way (landing #1, 2026-07-12): (a) human-verified datasheet pin table (authority), (b) datasheets_parsed/ina219aidcnr/auto/ina219aidcnr_pin_groups.json Haiku cache (cross-check), (c) jetson-agx-thor-baseboard dcdc.net KiCad symbol pin names (cross-check) — all three agreed pin 5=SCL, pin 6=SDA, no disagreement.",
+    "landed": "2026-07-12",
+    "task": "NON-MCU KB LANDING #1 (investigation/experiments/nonmcu_kb_recon/landing_ina219/REPORT.md)",
+    "a0_a1_decision": "A0/A1 (address-select pins, strapped directly onto GND/VS/SDA/SCL per TI's 16-address scheme) were investigated as a possible KB addition (agreement gate passed, enum literals verified) but INITIALLY REJECTED (STOP #2, 2026-07-12) after a bare-gpio-role attempt produced 4 false FAILs (2 PROTOCOL_MISMATCH + 2 CAPABILITY_MISMATCH/M14 'dead bus') on the real jetson-agx-thor-baseboard bus — check_i2c_peripheral Step 4 and the M14 voter layer both interpreted a KB'd non-I2C-role pin wired onto an I2C net as a genuine miswiring, correct for a stray MCU GPIO pin but wrong for a fixed-function part's intentional address strap. Todo 240 (2026-07-15) built the missing schema affordance: PinFunctionEntry.strap (StrapInfo, datasheet-cited), consumed at exactly two sites (step_08d Step 4, peripheral_consensus M14 incapable_candidate) to exempt a KB'd pin with zero relevant roles from condemnation without ever letting it CONFIRM bus identity. A0/A1 below are now KB'd as strap-marked (no possible_roles, strap.datasheet_ref cited) — Phase 2 landing, see landing_ina219/REPORT_AMENDMENT.md for the original false-FAIL evidence and investigation/experiments/strap_semantics_recon/PHASE2_PREDICTION.md for the corpus-wide projection this entry was measured against."
+  },
+  "i2c_note": "INA219 is a fixed-function I2C sensor (current/power monitor), not an MCU alt-fn mux. SDA/SCL are single-purpose silicon pins — no possible_roles menu, function_class=fixed applies to them specifically. A0/A1 are address-select strap pins (Todo 240): zero possible_roles (they carry no I2C signal), marked via the `strap` field so the capability gates exempt rather than condemn them when strapped onto a bus line. Remaining non-I2C pins (IN+, IN-, GND, VS) are deliberately omitted — no bus-adjacent role, no condemnation risk to exempt.",
+  "pins": [
+    {
+      "pin_id": "SDA",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "sda", "instance": null}
+      ]
+    },
+    {
+      "pin_id": "SCL",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "scl", "instance": null}
+      ]
+    },
+    {
+      "pin_id": "A0",
+      "possible_roles": [],
+      "strap": {
+        "datasheet_ref": "SBOS448G §8.5.5.1 Serial Bus Address, Table 1 (INA219 Address Pins and Slave Addresses), p.14"
+      }
+    },
+    {
+      "pin_id": "A1",
+      "possible_roles": [],
+      "strap": {
+        "datasheet_ref": "SBOS448G §8.5.5.1 Serial Bus Address, Table 1 (INA219 Address Pins and Slave Addresses), p.14"
+      }
+    }
+  ]
+}

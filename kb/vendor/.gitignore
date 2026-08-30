@@ -1,0 +1,7 @@
+# Allow JSON KB outputs (committed artifacts)
+!*.json
+
+# Block raw vendor sources — never copy into the repo
+*.xml
+*.h
+*.c

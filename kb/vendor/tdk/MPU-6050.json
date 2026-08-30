@@ -1,0 +1,35 @@
+{
+  "mcu_part": "MPU-6050",
+  "kb_source": "manual",
+  "kb_version": "TDK InvenSense PS-MPU-6000A-00 (MPU-6000/MPU-6050 Product Specification), QFN-24 package",
+  "function_class": "fixed",
+  "provenance": {
+    "authored_by": "hand-transcribed from TDK InvenSense PS-MPU-6000A-00 pin table by Nelson (class-1 authority per CLAUDE.md KB-authoring doctrine); NOT derived from the datasheets_parsed cache or any PDF read by CC — the task explicitly withheld PDF-derived pin identity, the Nelson-verified table is the sole source",
+    "agreement_gate": "single-source (Nelson-verified pin table, 2026-07-17) — per this task's explicit instruction, pin identity was NOT cross-checked against a Haiku extraction cache or the PDF. Independent corroboration: parsing the real dumpling netlist (run_tranche1/nyuad-space__dumpling.net) via step_02_parser.parse_netlist shows U7 (part_number 'MPU-6050') carries pin_name 'SDA' on pin 24, 'SCL' on pin 23, and 'AD0' on pin 9 (KiCad pinfunction fields SDA_24/SCL_23/AD0_9, numeric-suffix-stripped by step_02_parser._logical_pin_name) — all three agree with the verified table's pin-number-to-name mapping.",
+    "landed": "2026-07-17",
+    "task": "NON-MCU KB LANDING #6 (TODO-237 template; dumpling wild-board arc — investigation/experiments/wild_board_hunt/)",
+    "aux_bus_decision": "AUX_DA (pin 6) / AUX_CL (pin 7) — MPU-6050's auxiliary I2C MASTER interface to downstream sensors — DEFERRED, not landed as I2C roles. The existing Signal enum has only I2C_SDA/I2C_SCL (no aux/secondary-bus variant), and PinRole.instance's only recognized values are numeric I2C-bus tokens matched by peripheral_roles.instance_from_net_name's regex (I2C\\d) — an ad hoc 'AUX' instance string would never be matched against any net-derived instance (dumpling's own AUX nets are named Net-(U7-AUX_CL)/Net-(U7-AUX_DA), no I2C token), so it would be schema-decorative, not functional protection. Giving AUX_DA/AUX_CL the same Signal.I2C_SDA/SCL role as the primary bus would make _is_fixed_function_i2c() true for their nets too, letting check_i2c_peripheral's net classification and cross-net completeness inference treat the auxiliary (downstream-master) bus as evidence for the primary (slave) bus's SDA/SCL completeness — a false corroboration this part's two logically distinct I2C roles do not actually share. Per SCOPE: 'an honest miss on AUX nets is acceptable; a false SDA-role conviction against AUX_DA is not.' No new vocabulary invented; AUX_DA/AUX_CL are left off this entry entirely, parked for the SPI-vocabulary/bus-topology design discussions."
+  },
+  "i2c_note": "MPU-6050 is a fixed-function I2C motion sensor (6-axis gyroscope + accelerometer), not an MCU alt-fn mux — SDA/SCL (pins 24/23) are single-purpose silicon pins in I2C-slave mode, function_class=fixed applies to them specifically. AD0 (pin 9) is an I2C address-select strap pin (legal states: tie high or tie low; selects between the two possible 7-bit slave addresses) — zero possible_roles, marked via the strap field (Todo 240) so the capability gates exempt rather than condemn it when strapped onto a bus line; AD0 also serves as SPI SDO on the SPI-capable MPU-6000 variant, but MPU-6050 is the I2C-only part per Nelson's verified table, so no SPI role is asserted here. AUX_DA/AUX_CL (pins 6/7) are DEFERRED — see provenance.aux_bus_decision. Remaining non-I2C pins (VDD, VLOGIC, GND, REGOUT, CPOUT, FSYNC, INT, CLKIN, NC/RESV pads) are deliberately omitted — no bus-adjacent role, no condemnation risk to exempt.",
+  "pins": [
+    {
+      "pin_id": "SDA",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "sda", "instance": null}
+      ]
+    },
+    {
+      "pin_id": "SCL",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "scl", "instance": null}
+      ]
+    },
+    {
+      "pin_id": "AD0",
+      "possible_roles": [],
+      "strap": {
+        "datasheet_ref": "TDK InvenSense PS-MPU-6000A-00, AD0 (I2C address LSB / SPI SDO) pin description — exact page/table not independently re-derived from the PDF, per this task's explicit scope (no PDF-derived pin identity); legal states (tie high / tie low) per Nelson's verified pin table, 2026-07-17"
+      }
+    }
+  ]
+}

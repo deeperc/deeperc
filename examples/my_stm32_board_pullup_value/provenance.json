@@ -1,0 +1,49 @@
+{
+  "fixture_file": "examples/my_stm32_board_pullup_value/my_stm32_board_pullup_value.net",
+  "purpose": "LT-27 tranche 1: hermetic demo fixture for step_08e (I2C pull-up resistor VALUE-range check) — out-of-band pull-up value.",
+  "source": {
+    "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
+    "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
+    "upstream_repo": "https://github.com/Shadaab1904/STM32-PCB-Design",
+    "upstream_commit_sha": "72a71d6dba94db2bab8bb0e1f884ef3a1e5a6df1",
+    "acquired_at": "2026-06-17T20:35:32.395614"
+  },
+  "license": {
+    "spdx": "MIT",
+    "copyright_line": "Copyright (c) 2025 Shadaab1904",
+    "source_file": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/LICENSE"
+  },
+  "mutation": {
+    "op_id": "M4_PULLUP_VALUE_OUT_OF_RANGE",
+    "description": "Change R5's declared resistance from its original pull-up value (1K5, i.e. 1.5kOhm, within the 1k-10k PASS band) to 100 (100 Ohm) — below the 250 Ohm FAIL floor. R5 sits on the /I2C2_SDA net with its other pin on the +3.3V rail, the exact I2C pull-up-site topology step_08e scans for. Same value chosen as the corpus M4-pullup 'FAIL' mutant variant documented in step_08e_pullup_value_checker.py's own module docstring.",
+    "component": "R5",
+    "field": {"name": "value", "original": "1K5", "new": "100"},
+    "diff": "exactly one (value \"1K5\") -> (value \"100\") field change on the (comp (ref \"R5\") ...) block; no other bytes in the file differ from netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net"
+  },
+  "generator": {
+    "method": "hand-authored .net edit (Python script, exact single-field replace)",
+    "note": "No edits to any pipeline code, checker code, or generate_bad_corpus.py."
+  },
+  "expected_verdict": {
+    "board_status": "has_fail",
+    "pullup_value_checks": {"warn": 0, "fail": 1, "unresolvable": 0},
+    "fail_findings": [
+      {
+        "net": "/I2C2_SDA",
+        "refdes": "R5",
+        "violation": "PULLUP_VALUE_OUT_OF_RANGE",
+        "severity": "FAIL",
+        "ohms": 100.0,
+        "value_str": "100",
+        "band": "outside 250Ω–500000Ω",
+        "pins": ["J4", "R5", "U2"],
+        "evidence": "Confirmed — pull-up R5 on I2C net /I2C2_SDA is 100Ω (from '100'), outside 250Ω–500000Ω; I2C pull-ups should be 1kΩ–10kΩ"
+      }
+    ],
+    "confidence": "high (deterministic net-topology + component-value check, no KB/cache dependency)",
+    "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
+    "unchanged_axes": "supply 5 PASS, structural 11 PASS, peripheral 2 UNRESOLVABLE, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the unmodified board"
+  },
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_pullup_value/my_stm32_board_pullup_value.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "date": "2026-08-06"
+}

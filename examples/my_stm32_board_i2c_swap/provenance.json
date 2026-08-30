@@ -1,0 +1,57 @@
+{
+  "fixture_file": "examples/my_stm32_board_i2c_swap/my_stm32_board_i2c_swap.net",
+  "purpose": "LT-18: first tracked M6 (I2C SDA/SCL swap) regression fixture; also the public README launch demo (LT-19).",
+  "source": {
+    "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
+    "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
+    "upstream_repo": "https://github.com/Shadaab1904/STM32-PCB-Design",
+    "upstream_commit_sha": "72a71d6dba94db2bab8bb0e1f884ef3a1e5a6df1",
+    "acquired_at": "2026-06-17T20:35:32.395614"
+  },
+  "license": {
+    "spdx": "MIT",
+    "copyright_line": "Copyright (c) 2025 Shadaab1904",
+    "source_file": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/LICENSE"
+  },
+  "mutation": {
+    "op_id": "M6_I2C_SDA_SCL_SWAP",
+    "description": "Relocate two (node ...) blocks so U2's I2C2 SDA/SCL pin-role assignment contradicts the net names it sits on.",
+    "component": "U2",
+    "pin_a": {"pin": "22", "pinfunction": "PB11_22", "role": "I2C_DATA", "original_net": "/I2C2_SDA", "new_net": "/I2C2_SCL"},
+    "pin_b": {"pin": "21", "pinfunction": "PB10_21", "role": "I2C_CLOCK", "original_net": "/I2C2_SCL", "new_net": "/I2C2_SDA"},
+    "role_source": "kb_possible_roles (STM32F103C8T6 KB entry; pin-function alone is a port name PB10/PB11, KB supplies the unambiguous I2C role)",
+    "diff": "exactly the two (node ...) blocks' pin/pinfunction fields swap net membership (net_a<->net_b); no other bytes in the file differ from netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net"
+  },
+  "generator": {
+    "library": "netlist_swap.py (repo root)",
+    "functions_used": ["parse_net", "find_swap_candidate", "apply_swap", "serialize_net"],
+    "kb_role_lookup": "steps.peripheral_coherence.kb_role_lookup_from over steps.peripheral_kb.load_kb('kb'), same source the detector (step_08d) fires on",
+    "repo_commit_at_generation": "4b51f81fe46e73c6906e01d91c10c1bbfea00cba",
+    "note": "Deterministic: same swap candidate (U2 pins 21/22) selected as the existing untracked bad-corpus mutant netlist_corpus/bad/semantic/My_STM32_Board_45f7f5__SEM_M6_I2C_SDA_SCL_SWAP.net; not copied from it, independently regenerated via the library for this fixture. No edits to netlist_swap.py or any pipeline code."
+  },
+  "expected_verdict": {
+    "board_status": "has_fail",
+    "peripheral_checks": {"pass": 0, "warn": 0, "fail": 2, "unresolvable": 2},
+    "fail_findings": [
+      {
+        "net": "/I2C2_SDA",
+        "violation": "ROLE_MISMATCH",
+        "severity": "FAIL",
+        "pins": ["U2.21"],
+        "evidence": "Pin U2.21 (function 'PB10') is an I2C SCL pin but sits on net '/I2C2_SDA', whose name implies I2C SDA — SDA/SCL swap (role source: kb_possible_roles)."
+      },
+      {
+        "net": "/I2C2_SCL",
+        "violation": "ROLE_MISMATCH",
+        "severity": "FAIL",
+        "pins": ["U2.22"],
+        "evidence": "Pin U2.22 (function 'PB11') is an I2C SDA pin but sits on net '/I2C2_SCL', whose name implies I2C SCL — SDA/SCL swap (role source: kb_possible_roles)."
+      }
+    ],
+    "confidence": "high (KB-sourced pin role, unambiguous, Confirmed evidence -- not a corroboration-only read)",
+    "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by the swap",
+    "unchanged_axes": "supply 5 PASS, structural 11 PASS, pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the unmodified board"
+  },
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_i2c_swap/my_stm32_board_i2c_swap.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "date": "2026-08-02"
+}

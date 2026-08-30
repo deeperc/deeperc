@@ -1,0 +1,98 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Input Pin",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Terminal (1) - Input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Not specified",
+      "abs_max_source": "Section 4-3: D.C. Voltage"
+    },
+    {
+      "group_name": "Output Pin",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "Terminal (3) - Output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Not specified",
+      "abs_max_source": "Section 4-3: D.C. Voltage"
+    },
+    {
+      "group_name": "Ground Pin",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "Terminal (2) - GND",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 0.0,
+      "supply_max": 0.0,
+      "supply_abs_max": null,
+      "supply_rail_name": "GND",
+      "VIH_source": "Not applicable",
+      "abs_max_source": "Not applicable"
+    }
+  ],
+  "default_group": "Input Pin",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "daf8fc39cb9a0910e82dcb36513f1445e5bc3113897a76cca684b60088cddfcd",
+    "source_pdf_sha256": "f122bc395860a90f46383376dabb7b9a8ce35c8d7e0d37e759fd3dac8e9de957",
+    "pdf_size": 865790,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

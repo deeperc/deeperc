@@ -1,0 +1,133 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Power Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "20"
+      ],
+      "applies_to": "VCC power supply pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": 2.0,
+      "supply_max": 6.0,
+      "supply_abs_max": 7.0,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "GND Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "10"
+      ],
+      "applies_to": "GND ground pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": "GND",
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Digital Inputs",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "1",
+        "2",
+        "4",
+        "6",
+        "8",
+        "11",
+        "13",
+        "15",
+        "17",
+        "19"
+      ],
+      "applies_to": "1OE, 1A1, 1A2, 1A3, 1A4, 2A1, 2A2, 2A3, 2A4, 2OE input pins",
+      "VIH_min": 1.5,
+      "VIL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Recommended Operating Conditions (VCC = 2V)",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Digital Outputs",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "3",
+        "5",
+        "7",
+        "9",
+        "12",
+        "14",
+        "16",
+        "18"
+      ],
+      "applies_to": "1Y1, 1Y2, 1Y3, 1Y4, 2Y1, 2Y2, 2Y3, 2Y4 output pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 1.9,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "Digital Inputs",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "a22474af80ff66fd36c2a4c7efaec14eb64b0bbbeb5f40586b4f5265004d8a1d",
+    "source_pdf_sha256": "6878002c2a6a27163aa907589c3fce975e5ef1e5ad2b54f95e5f9be62241fa94",
+    "pdf_size": 2210476,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

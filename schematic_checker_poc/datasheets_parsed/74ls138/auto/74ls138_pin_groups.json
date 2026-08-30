@@ -1,0 +1,79 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Power Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "VCC"
+      ],
+      "applies_to": "VCC power supply pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 4.75,
+      "supply_max": 5.25,
+      "supply_abs_max": 7.0,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (inferred from LS logic family standards)"
+    },
+    {
+      "group_name": "GND Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "GND"
+      ],
+      "applies_to": "Ground reference pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 0.0,
+      "supply_max": 0.0,
+      "supply_abs_max": null,
+      "supply_rail_name": "GND",
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Unable to extract - datasheet content incomplete",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "486c5a8de8571747abad3deeba2bcb49d460da96f764d487b1c232fd0a77ebff",
+    "source_pdf_sha256": "425b3f6054bc86d93813aa708eda424d4b2de4e5167c78177d783cbe7414a6c9",
+    "pdf_size": 1395020,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "INPUT (Pin 1)",
+      "pin_type": "power",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Input voltage supply pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 35.0,
+      "supply_min": 7.5,
+      "supply_max": 25.0,
+      "supply_abs_max": 35.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "GROUND (Pin 2)",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "Ground reference pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": "GND",
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "OUTPUT (Pin 3)",
+      "pin_type": "power",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "Regulated output voltage pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 4.8,
+      "VOL_max": null,
+      "absolute_max_voltage": 35.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "OUTPUT (Pin 3)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "005f5544b2a68845172f9bea00345f2f883c49fa1469b5597bdfb5e0aea1413c",
+    "source_pdf_sha256": "0d574dc9827725a8cedd83e99d299b17674e16d57aa86d3640e575e01c6ce065",
+    "pdf_size": 2583695,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

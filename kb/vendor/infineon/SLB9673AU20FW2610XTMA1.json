@@ -1,0 +1,27 @@
+{
+  "mcu_part": "SLB9673AU20FW2610XTMA1",
+  "kb_source": "manual",
+  "kb_version": "Infineon SLB9673 (Optiga TPM) datasheet, package/orderable suffix \"AU20FW2610XTMA1\"",
+  "function_class": "fixed",
+  "provenance": {
+    "authored_by": "hand-transcribed from Infineon SLB9673 datasheet pin-description table by Nelson (class-1 authority per CLAUDE.md KB-authoring doctrine); NOT derived from the datasheets_parsed Haiku cache or any PDF read by CC",
+    "agreement_gate": "3-way: (a) human-verified datasheet pin table (authority), (b) datasheets_parsed/SLB9673AU20FW2610XTMA1/auto/SLB9673AU20FW2610XTMA1_pin_groups.json Haiku cache (cross-check: 'I2C Interface Pins (SCL, SDA, TEST#, RST#, I2C_PIRQ#)' group, applies_to 'SCL (pin 30), SDA (pin 29), TEST# (pin 20), RST# (pin 17), I2C_PIRQ# (pin 18)'), (c) jetson-agx-thor-baseboard .net U14 KiCad symbol pin names (cross-check: pin 29=SDA, pin 30=SCL) -- all three agreed, no disagreement.",
+    "landed": "2026-07-13",
+    "task": "NON-MCU KB LANDING #5 -- capstone of the batch (investigation/experiments/nonmcu_kb_recon/landing_slb9673/REPORT.md). Corrects the original nonmcu_kb_recon's Q2 finding that this part had 'no SDA/SCL group extracted' -- re-verified during the BQ25672 landing's batch-assessment section, the cache DOES have a usable I2C group; the earlier recon read was incomplete, not the cache."
+  },
+  "i2c_note": "SLB9673 is a fixed-function I2C TPM (Trusted Platform Module), not an MCU alt-fn mux. SDA/SCL are single-purpose silicon pins -- no possible_roles menu, function_class=fixed applies to them specifically. Per the interim protocol-pins-only standard (adopted after INA219's STOP #2 -- see kb/vendor/ti/INA219AIDCNR.json provenance.a0_a1_decision), TEST#, RST#, I2C_PIRQ#, VDD, GND, GPIO_00/01/02, and the NC/NCI pads are deliberately NOT KB'd here. On jetson-agx-thor-baseboard (U14), none of these land on the I2C_SYS bus: RST#(17) ties to a transistor gate net (Net-(Q1-D)), TEST#(20) straps high to +3V3, I2C_PIRQ#(18) has its own dedicated net (/Peripherals/TPM_IRQ or /TPM_IRQ depending on hierarchical sheet), GPIO_00/01/02 are unconnected, VDD/GND/EP tie to +3V3/GND -- so this landing carries no STOP-2-shape strap-on-bus churn risk. U14's SDA/SCL wiring on the real board is already correct (no swap). This is the fifth and capstone landing of the initial non-MCU KB batch: with SLB9673 landed, every currently-KB-able resident of the jetson I2C_SYS bus (INA219 x5, AT24CS01, PCAL6408A, SLB9673) is now covered -- the bus's residual Step-7 UNRESOLVABLE churn (a connector and a test point, neither a real IC, both permanently un-KB-able) is a stable, fully-accounted-for floor, not an open gap.",
+  "pins": [
+    {
+      "pin_id": "SDA",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "sda", "instance": null}
+      ]
+    },
+    {
+      "pin_id": "SCL",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "scl", "instance": null}
+      ]
+    }
+  ]
+}

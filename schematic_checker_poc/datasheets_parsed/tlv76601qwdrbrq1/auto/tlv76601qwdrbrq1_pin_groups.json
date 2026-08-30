@@ -1,0 +1,174 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Input Supply (IN)",
+      "pin_type": "power",
+      "example_pins": [
+        "IN"
+      ],
+      "applies_to": "Input power supply pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": 2.5,
+      "supply_max": 16.0,
+      "supply_abs_max": 18.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Section 6.1"
+    },
+    {
+      "group_name": "Ground (GND)",
+      "pin_type": "power",
+      "example_pins": [
+        "GND"
+      ],
+      "applies_to": "Ground pins (4, 6)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Output (OUT)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "OUT"
+      ],
+      "applies_to": "Output voltage pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Section 6.1 (VIN + 0.3V or 18V, whichever is smaller)"
+    },
+    {
+      "group_name": "Enable (EN)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "EN"
+      ],
+      "applies_to": "Enable control pin",
+      "VIH_min": 1.2,
+      "VIL_max": 0.4,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics, Section 6.5 (VEN(HIGH))",
+      "abs_max_source": "Absolute Maximum Ratings, Section 6.1"
+    },
+    {
+      "group_name": "Feedback (FB) - Adjustable Version",
+      "pin_type": "analog",
+      "example_pins": [
+        "FB"
+      ],
+      "applies_to": "Feedback pin for adjustable output voltage version",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Section 6.1"
+    },
+    {
+      "group_name": "Sense (SNS) - Fixed Version",
+      "pin_type": "analog",
+      "example_pins": [
+        "SNS"
+      ],
+      "applies_to": "Output sense pin for fixed output voltage version",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Section 6.1 (VIN + 0.3V or 18V, whichever is smaller)"
+    },
+    {
+      "group_name": "No Connect (NC)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "NC"
+      ],
+      "applies_to": "Not internally connected pins (2, 7)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Output (OUT)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "3ae8ced38bb8c7a0770ff9a12b77defac9154c27367a4c1f4065bc92c39221b2",
+    "source_pdf_sha256": "7a8cd5cd79ea8a1f6c053d5a5fee1b9f37058a86ff5cba7cb6ba596ae5a28876",
+    "pdf_size": 2600694,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

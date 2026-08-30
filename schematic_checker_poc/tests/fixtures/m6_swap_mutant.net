@@ -1,0 +1,1394 @@
+(export
+	(version "E")
+	(design
+		(source "HDMI.kicad_sch")
+		(date "")
+		(tool "")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title "CM5 MINIMA")
+				(company "Pierluigi Colangeli")
+				(rev "3.1")
+				(date "")
+				(source "HDMI.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "C501")
+			(value "100n")
+			(footprint "CM5IO:C_0402_1005Metric")
+			(datasheet "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM155R71C104KA88-01.pdf")
+			(fields
+				(field
+					(name "Field4") "Farnell")
+				(field
+					(name "Field5") "2611911")
+				(field
+					(name "Field6") "RM EMK105 B7104KV-F")
+				(field
+					(name "Field7") "TAIYO YUDEN EUROPE GMBH")
+				(field
+					(name "Part Description") "	0.1uF 10% 16V Ceramic Capacitor X7R 0402 (1005 Metric)")
+				(field
+					(name "Field8") "110091611")
+				(field
+					(name "Footprint") "CM5IO:C_0402_1005Metric")
+				(field
+					(name "Datasheet") "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM155R71C104KA88-01.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "CM5IO")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Field4")
+				(value "Farnell")
+			)
+			(property
+				(name "Field5")
+				(value "2611911")
+			)
+			(property
+				(name "Field6")
+				(value "RM EMK105 B7104KV-F")
+			)
+			(property
+				(name "Field7")
+				(value "TAIYO YUDEN EUROPE GMBH")
+			)
+			(property
+				(name "Part Description")
+				(value "	0.1uF 10% 16V Ceramic Capacitor X7R 0402 (1005 Metric)")
+			)
+			(property
+				(name "Field8")
+				(value "110091611")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "../../../tmp/EXPORTTMP/HDMI.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "89836f30-8cf7-440e-a24c-68685f6082f3")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C502")
+			(value "100n")
+			(footprint "CM5IO:C_0402_1005Metric")
+			(datasheet "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM155R71C104KA88-01.pdf")
+			(fields
+				(field
+					(name "Field4") "Farnell")
+				(field
+					(name "Field5") "2611911")
+				(field
+					(name "Field6") "RM EMK105 B7104KV-F")
+				(field
+					(name "Field7") "TAIYO YUDEN EUROPE GMBH")
+				(field
+					(name "Part Description") "	0.1uF 10% 16V Ceramic Capacitor X7R 0402 (1005 Metric)")
+				(field
+					(name "Field8") "110091611")
+				(field
+					(name "Footprint") "CM5IO:C_0402_1005Metric")
+				(field
+					(name "Datasheet") "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM155R71C104KA88-01.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "CM5IO")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Field4")
+				(value "Farnell")
+			)
+			(property
+				(name "Field5")
+				(value "2611911")
+			)
+			(property
+				(name "Field6")
+				(value "RM EMK105 B7104KV-F")
+			)
+			(property
+				(name "Field7")
+				(value "TAIYO YUDEN EUROPE GMBH")
+			)
+			(property
+				(name "Part Description")
+				(value "	0.1uF 10% 16V Ceramic Capacitor X7R 0402 (1005 Metric)")
+			)
+			(property
+				(name "Field8")
+				(value "110091611")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "../../../tmp/EXPORTTMP/HDMI.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f26f1622-b990-4732-9618-71e4c9d8eabf")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D401")
+			(value "PUSB3F96X")
+			(footprint "CM5IO:DFN2510A-10_L2.5-W1.0-P0.50-BL")
+			(datasheet "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+			(fields
+				(field
+					(name "LCSC Part") "C478121")
+				(field
+					(name "Footprint") "CM5IO:DFN2510A-10_L2.5-W1.0-P0.50-BL")
+				(field
+					(name "Datasheet") "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "")
+				(part "PUSB3F96X_1")
+				(description "")
+			)
+			(property
+				(name "LCSC Part")
+				(value "C478121")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "../../../tmp/EXPORTTMP/HDMI.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "2984f6b8-4208-477d-9254-a5500a743d11")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "8")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D402")
+			(value "PUSB3F96X")
+			(footprint "CM5IO:DFN2510A-10_L2.5-W1.0-P0.50-BL")
+			(datasheet "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+			(fields
+				(field
+					(name "LCSC Part") "C478121")
+				(field
+					(name "Footprint") "CM5IO:DFN2510A-10_L2.5-W1.0-P0.50-BL")
+				(field
+					(name "Datasheet") "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "")
+				(part "PUSB3F96X_1")
+				(description "")
+			)
+			(property
+				(name "LCSC Part")
+				(value "C478121")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "../../../tmp/EXPORTTMP/HDMI.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c31acd18-5f65-4ae3-8825-7c5e48b5e958")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "8")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D403")
+			(value "PUSB3F96X")
+			(footprint "CM5IO:DFN2510A-10_L2.5-W1.0-P0.50-BL")
+			(datasheet "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+			(fields
+				(field
+					(name "LCSC Part") "C478121")
+				(field
+					(name "Footprint") "CM5IO:DFN2510A-10_L2.5-W1.0-P0.50-BL")
+				(field
+					(name "Datasheet") "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "")
+				(part "PUSB3F96X_1")
+				(description "")
+			)
+			(property
+				(name "LCSC Part")
+				(value "C478121")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "../../../tmp/EXPORTTMP/HDMI.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "e1369d70-1171-4896-8c7a-94fabb80918d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "8")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J501")
+			(value "GT-HD001B-CNNG1")
+			(footprint "CM5IO:EDAC 690-019-298-412")
+			(datasheet "https://www.tme.eu/Document/f15dffbcfad8545e17826f72d36911c8/206A-SEAN-R03.pdf")
+			(fields
+				(field
+					(name "Field5")
+				)
+				(field
+					(name "Field6")
+				)
+				(field
+					(name "Part Description") "HDMI Connector, Right Angle, 19 Contacts, Receptacle, Surface Mount, Surface Mount Right Angle")
+				(field
+					(name "Footprint") "CM5IO:EDAC 690-019-298-412")
+				(field
+					(name "Datasheet") "https://www.tme.eu/Document/f15dffbcfad8545e17826f72d36911c8/206A-SEAN-R03.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "CM5IO")
+				(part "HDMI_A_1.4")
+				(description "HDMI 1.4+ type A connector")
+			)
+			(property
+				(name "Field5")
+				(value "")
+			)
+			(property
+				(name "Field6")
+				(value "")
+			)
+			(property
+				(name "Part Description")
+				(value "HDMI Connector, Right Angle, 19 Contacts, Receptacle, Surface Mount, Surface Mount Right Angle")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "../../../tmp/EXPORTTMP/HDMI.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "hdmi conn")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "HDMI*A*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b81f8111-f1aa-4510-998c-1c5851674e21")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "SH1")
+						)
+						(pin
+							(num "SH2")
+						)
+						(pin
+							(num "SH4")
+						)
+						(pin
+							(num "SH3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U405")
+			(value "STMPS2151STR")
+			(footprint "CM5IO:SOT-23-5")
+			(datasheet "https://lcsc.com/product-detail/PMIC-Power-Distribution-Switches_STMicroelectronics_STMPS2151STR_STMPS2151STR_C135998.html")
+			(fields
+				(field
+					(name "LCSC Part") "C135998")
+				(field
+					(name "Footprint") "CM5IO:SOT-23-5")
+				(field
+					(name "Datasheet") "https://lcsc.com/product-detail/PMIC-Power-Distribution-Switches_STMicroelectronics_STMPS2151STR_STMPS2151STR_C135998.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "CM5IO")
+				(part "STMPS2151STR")
+				(description "")
+			)
+			(property
+				(name "LCSC Part")
+				(value "C135998")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "../../../tmp/EXPORTTMP/HDMI.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ceeb7acb-01b2-4db5-bfad-52d99be4bf6f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+	)
+	(groups)
+	(variants)
+	(libparts
+		(libpart
+			(lib "")
+			(part "PUSB3F96X_1")
+			(docs "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+			(fields
+				(field
+					(name "Reference") "D402")
+				(field
+					(name "Value") "PUSB3F96X")
+				(field
+					(name "Footprint") "EasyEDA:DFN2510A-10_L2.5-W1.0-P0.50-BL")
+				(field
+					(name "Datasheet") "https://lcsc.com/product-detail/Diodes-ESD_Nexperia-PUSB3F96_C478121.html")
+				(field
+					(name "Description")
+				)
+				(field
+					(name "LCSC Part") "C478121")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "CH1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "CH2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "CH3")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "CH4")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "NC")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "NC")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "9")
+					(name "NC")
+					(type "passive")
+				)
+				(pin
+					(num "10")
+					(name "NC")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "CM5IO")
+			(part "C")
+			(description "Unpolarized capacitor")
+			(footprints
+				(fp "C_*")
+			)
+			(fields
+				(field
+					(name "Reference") "C")
+				(field
+					(name "Value") "C")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Unpolarized capacitor")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "CM5IO")
+			(part "HDMI_A_1.4")
+			(description "HDMI 1.4+ type A connector")
+			(docs "https://en.wikipedia.org/wiki/HDMI")
+			(footprints
+				(fp "HDMI*A*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "HDMI_A_1.4")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet") "https://en.wikipedia.org/wiki/HDMI")
+				(field
+					(name "Description") "HDMI 1.4+ type A connector")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "D2+")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "D2S")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "D2-")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "D1+")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "D1S")
+					(type "power_in")
+				)
+				(pin
+					(num "6")
+					(name "D1-")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "D0+")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "D0S")
+					(type "power_in")
+				)
+				(pin
+					(num "9")
+					(name "D0-")
+					(type "passive")
+				)
+				(pin
+					(num "10")
+					(name "CK+")
+					(type "passive")
+				)
+				(pin
+					(num "11")
+					(name "CKS")
+					(type "power_in")
+				)
+				(pin
+					(num "12")
+					(name "CK-")
+					(type "passive")
+				)
+				(pin
+					(num "13")
+					(name "CEC")
+					(type "bidirectional")
+				)
+				(pin
+					(num "14")
+					(name "UTILITY/HEAC+")
+					(type "passive")
+				)
+				(pin
+					(num "15")
+					(name "SCL")
+					(type "passive")
+				)
+				(pin
+					(num "16")
+					(name "SDA")
+					(type "bidirectional")
+				)
+				(pin
+					(num "17")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "18")
+					(name "+5V")
+					(type "power_in")
+				)
+				(pin
+					(num "19")
+					(name "HPD/HEAC-")
+					(type "passive")
+				)
+				(pin
+					(num "SH1")
+					(name "SH")
+					(type "passive")
+				)
+				(pin
+					(num "SH2")
+					(name "SH")
+					(type "passive")
+				)
+				(pin
+					(num "SH3")
+					(name "SH")
+					(type "passive")
+				)
+				(pin
+					(num "SH4")
+					(name "SH")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "CM5IO")
+			(part "STMPS2151STR")
+			(docs "https://lcsc.com/product-detail/PMIC-Power-Distribution-Switches_STMicroelectronics_STMPS2151STR_STMPS2151STR_C135998.html")
+			(fields
+				(field
+					(name "Reference") "U405")
+				(field
+					(name "Value") "STMPS2151STR")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23-5")
+				(field
+					(name "Datasheet") "https://lcsc.com/product-detail/PMIC-Power-Distribution-Switches_STMicroelectronics_STMPS2151STR_STMPS2151STR_C135998.html")
+				(field
+					(name "Description")
+				)
+				(field
+					(name "LCSC Part") "C135998")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "VOUT")
+					(type "power_out")
+				)
+				(pin
+					(num "2")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "FAULT")
+					(type "output")
+				)
+				(pin
+					(num "4")
+					(name "EN")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "VIN")
+					(type "power_in")
+				)
+			)
+		)
+	)
+	(libraries)
+	(nets
+		(net
+			(code "1")
+			(name "+5V")
+			(class "Default")
+			(node
+				(ref "C501")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U405")
+				(pin "4")
+				(pinfunction "EN_4")
+				(pintype "input")
+			)
+			(node
+				(ref "U405")
+				(pin "5")
+				(pinfunction "VIN_5")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "2")
+			(name "/HDMI_C.CEC")
+			(class "Default")
+			(node
+				(ref "D403")
+				(pin "1")
+				(pinfunction "CH1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D403")
+				(pin "10")
+				(pinfunction "NC_10")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "13")
+				(pinfunction "CEC_13")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "3")
+			(name "/HDMI_C.CK_N")
+			(class "Default")
+			(node
+				(ref "D401")
+				(pin "5")
+				(pinfunction "CH4_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "D401")
+				(pin "6")
+				(pinfunction "NC_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "12")
+				(pinfunction "CK-_12")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "4")
+			(name "/HDMI_C.CK_P")
+			(class "Default")
+			(node
+				(ref "D401")
+				(pin "4")
+				(pinfunction "CH3_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "D401")
+				(pin "7")
+				(pinfunction "NC_7")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "10")
+				(pinfunction "CK+_10")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "5")
+			(name "/HDMI_C.D0_N")
+			(class "Default")
+			(node
+				(ref "D401")
+				(pin "2")
+				(pinfunction "CH2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D401")
+				(pin "9")
+				(pinfunction "NC_9")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "9")
+				(pinfunction "D0-_9")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "6")
+			(name "/HDMI_C.D0_P")
+			(class "Default")
+			(node
+				(ref "D401")
+				(pin "1")
+				(pinfunction "CH1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D401")
+				(pin "10")
+				(pinfunction "NC_10")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "7")
+				(pinfunction "D0+_7")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "7")
+			(name "/HDMI_C.D1_N")
+			(class "Default")
+			(node
+				(ref "D402")
+				(pin "5")
+				(pinfunction "CH4_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "D402")
+				(pin "6")
+				(pinfunction "NC_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "6")
+				(pinfunction "D1-_6")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "8")
+			(name "/HDMI_C.D1_P")
+			(class "Default")
+			(node
+				(ref "D402")
+				(pin "4")
+				(pinfunction "CH3_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "D402")
+				(pin "7")
+				(pinfunction "NC_7")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "4")
+				(pinfunction "D1+_4")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "9")
+			(name "/HDMI_C.D2_N")
+			(class "Default")
+			(node
+				(ref "D402")
+				(pin "2")
+				(pinfunction "CH2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D402")
+				(pin "9")
+				(pinfunction "NC_9")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "3")
+				(pinfunction "D2-_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "10")
+			(name "/HDMI_C.D2_P")
+			(class "Default")
+			(node
+				(ref "D402")
+				(pin "1")
+				(pinfunction "CH1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D402")
+				(pin "10")
+				(pinfunction "NC_10")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "1")
+				(pinfunction "D2+_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "11")
+			(name "/HDMI_C.HOTPLUG")
+			(class "Default")
+			(node
+				(ref "D403")
+				(pin "2")
+				(pinfunction "CH2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D403")
+				(pin "9")
+				(pinfunction "NC_9")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "19")
+				(pinfunction "HPD/HEAC-_19")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "12")
+			(name "/HDMI_C.SCL")
+			(class "Default")
+			(node
+				(ref "D403")
+				(pin "5")
+				(pinfunction "CH4_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "D403")
+				(pin "6")
+				(pinfunction "NC_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "16")
+				(pinfunction "SDA_16")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "13")
+			(name "/HDMI_C.SDA")
+			(class "Default")
+			(node
+				(ref "D403")
+				(pin "4")
+				(pinfunction "CH3_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "D403")
+				(pin "7")
+				(pinfunction "NC_7")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "15")
+				(pinfunction "SCL_15")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "15")
+			(name "GND")
+			(class "Default")
+			(node
+				(ref "C501")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C502")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D401")
+				(pin "3")
+				(pinfunction "GND_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "D401")
+				(pin "8")
+				(pinfunction "GND_8")
+				(pintype "passive")
+			)
+			(node
+				(ref "D402")
+				(pin "3")
+				(pinfunction "GND_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "D402")
+				(pin "8")
+				(pinfunction "GND_8")
+				(pintype "passive")
+			)
+			(node
+				(ref "D403")
+				(pin "3")
+				(pinfunction "GND_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "D403")
+				(pin "8")
+				(pinfunction "GND_8")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "11")
+				(pinfunction "CKS_11")
+				(pintype "power_in")
+			)
+			(node
+				(ref "J501")
+				(pin "17")
+				(pinfunction "GND_17")
+				(pintype "power_in")
+			)
+			(node
+				(ref "J501")
+				(pin "2")
+				(pinfunction "D2S_2")
+				(pintype "power_in")
+			)
+			(node
+				(ref "J501")
+				(pin "5")
+				(pinfunction "D1S_5")
+				(pintype "power_in")
+			)
+			(node
+				(ref "J501")
+				(pin "8")
+				(pinfunction "D0S_8")
+				(pintype "power_in")
+			)
+			(node
+				(ref "J501")
+				(pin "SH1")
+				(pinfunction "SH_SH1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "SH2")
+				(pinfunction "SH_SH2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "SH3")
+				(pinfunction "SH_SH3")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "SH4")
+				(pinfunction "SH_SH4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U405")
+				(pin "2")
+				(pinfunction "GND_2")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "16")
+			(name "HDMI_+5V")
+			(class "Default")
+			(node
+				(ref "C502")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J501")
+				(pin "18")
+				(pinfunction "+5V_18")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U405")
+				(pin "1")
+				(pinfunction "VOUT_1")
+				(pintype "power_out")
+			)
+		)
+	)
+)

@@ -1,0 +1,213 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Supply Pins",
+      "pin_type": "power",
+      "example_pins": [
+        "VCC"
+      ],
+      "applies_to": "Digital supply voltage pins (VCC on pins 4, 6, 20, 22)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 2.7,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "AVCC Supply Pin",
+      "pin_type": "power",
+      "example_pins": [
+        "AVCC"
+      ],
+      "applies_to": "Analog supply voltage for ADC and analog comparator (pin 20)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 2.7,
+      "supply_max": 5.5,
+      "supply_abs_max": null,
+      "supply_rail_name": "AVCC",
+      "VIH_source": null,
+      "abs_max_source": "DC Characteristics (ADC section)"
+    },
+    {
+      "group_name": "GND Pins",
+      "pin_type": "power",
+      "example_pins": [
+        "GND"
+      ],
+      "applies_to": "Ground pins (pins 3, 5, 11, 21)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Port B, C, D Digital I/O (except XTAL1, RESET)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "PB0",
+        "PB1",
+        "PB2",
+        "PB3",
+        "PB4",
+        "PB5",
+        "PC0",
+        "PC1",
+        "PC2",
+        "PC3",
+        "PC4",
+        "PC5",
+        "PD0",
+        "PD1",
+        "PD2",
+        "PD3",
+        "PD4",
+        "PD5",
+        "PD6",
+        "PD7"
+      ],
+      "applies_to": "General purpose digital I/O pins on ports B, C, D",
+      "VIH_min": 0.6,
+      "VIL_max": 0.3,
+      "VOH_min": 2.3,
+      "VOL_max": 0.5,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Characteristics - Input high voltage (except XTAL1 and RESET pin)",
+      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
+    },
+    {
+      "group_name": "XTAL1 Pin",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "PB6"
+      ],
+      "applies_to": "Crystal oscillator input / external clock input (pin 9)",
+      "VIH_min": 0.7,
+      "VIL_max": 0.1,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Characteristics - Input high voltage, XTAL1 pin",
+      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
+    },
+    {
+      "group_name": "RESET Pin",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "PC6"
+      ],
+      "applies_to": "Reset input pin (pin 1)",
+      "VIH_min": 0.9,
+      "VIL_max": 0.1,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 13.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Characteristics - Input high voltage, RESET pin",
+      "abs_max_source": "Absolute Maximum Ratings - Voltage on RESET with respect to ground"
+    },
+    {
+      "group_name": "AREF Pin",
+      "pin_type": "analog",
+      "example_pins": [
+        "AREF"
+      ],
+      "applies_to": "Analog reference voltage pin (pin 21)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
+    },
+    {
+      "group_name": "ADC6, ADC7 Analog Input Pins",
+      "pin_type": "analog",
+      "example_pins": [
+        "ADC6",
+        "ADC7"
+      ],
+      "applies_to": "Analog input pins for ADC (pins 19, 22)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
+    }
+  ],
+  "default_group": "Port B, C, D Digital I/O (except XTAL1, RESET)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T23:54:49+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "059fa9664ac793ad5c2c9c256136dc27409e43e1cca379bab576c57a83a594aa",
+    "source_pdf_sha256": "fb84858d0b12c695a12b13f0c74b962d81210247d440c7a24c0ed23dfabfdfaf",
+    "pdf_size": 8585103,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T23:54:49+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full_sliced",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 3,
+      "depth": 1,
+      "ratio": 0.769
+    }
+  }
+}

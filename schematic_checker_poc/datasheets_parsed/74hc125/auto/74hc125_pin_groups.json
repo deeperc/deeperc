@@ -1,0 +1,145 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "14"
+      ],
+      "applies_to": "Positive supply voltage pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": 2.0,
+      "supply_max": 6.0,
+      "supply_abs_max": 7.0,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "GND",
+      "pin_type": "power",
+      "example_pins": [
+        "7"
+      ],
+      "applies_to": "Ground reference",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Input A (1A, 2A, 3A, 4A)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "2",
+        "5",
+        "9",
+        "12"
+      ],
+      "applies_to": "Data input pins for each of the four channels",
+      "VIH_min": 1.5,
+      "VIL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Recommended Operating Conditions (VCC=2V)",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Output Enable (1OE, 2OE, 3OE, 4OE)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "1",
+        "4",
+        "10",
+        "13"
+      ],
+      "applies_to": "Active-low output enable control pins for each channel",
+      "VIH_min": 1.5,
+      "VIL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Recommended Operating Conditions (VCC=2V)",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Output Y (1Y, 2Y, 3Y, 4Y)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "3",
+        "6",
+        "8",
+        "11"
+      ],
+      "applies_to": "Three-state output pins for each of the four channels",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 1.9,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "Input A (1A, 2A, 3A, 4A)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "1960ce9a0f1ed716983c28d5e870624f377514814c18d6fe6a5132336d355898",
+    "source_pdf_sha256": "597b8b0982df1412501e83d891ac99f3c1fd8630062c1d42b0a6ee9053941040",
+    "pdf_size": 2109905,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

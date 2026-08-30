@@ -1,0 +1,407 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "PVIN - Power Supply Input (Switching)",
+      "pin_type": "power",
+      "example_pins": [
+        "1",
+        "11",
+        "12",
+        "39",
+        "40"
+      ],
+      "applies_to": "Input switching voltage pins that supply the power switches",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": 2.95,
+      "supply_max": 17.0,
+      "supply_abs_max": 20.0,
+      "supply_rail_name": "PVIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VIN - Power Supply Input (Bias)",
+      "pin_type": "power",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "Input bias voltage pin that supplies control circuitry",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": 4.5,
+      "supply_max": 17.0,
+      "supply_abs_max": 20.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VOUT - Output Voltage",
+      "pin_type": "power",
+      "example_pins": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "41"
+      ],
+      "applies_to": "Output voltage pins connected to internal inductor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 0.6,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": "VOUT",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "PGND - Power Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "20",
+        "21",
+        "31",
+        "32",
+        "33"
+      ],
+      "applies_to": "Power stage return current path pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "AGND - Analog Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "2",
+        "23"
+      ],
+      "applies_to": "Analog control circuit ground reference pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "PH - Phase Switch Node",
+      "pin_type": "analog",
+      "example_pins": [
+        "10",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "42"
+      ],
+      "applies_to": "Phase node pins connected to internal inductor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "INH/UVLO - Inhibit and UVLO Control",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "30"
+      ],
+      "applies_to": "Inhibit and undervoltage lockout adjustment pin",
+      "VIH_min": 1.3,
+      "VIL_max": 1.1,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "PWRGD - Power Good Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "8"
+      ],
+      "applies_to": "Open-drain power good flag output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.3,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "RT/CLK - Frequency Setting and Clock Input",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "22"
+      ],
+      "applies_to": "Frequency setting resistor connection and external clock synchronization",
+      "VIH_min": 2.0,
+      "VIL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "SENSE+ - Remote Sense Input",
+      "pin_type": "analog",
+      "example_pins": [
+        "27"
+      ],
+      "applies_to": "Remote sense connection to output voltage",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VADJ - Output Voltage Adjustment",
+      "pin_type": "analog",
+      "example_pins": [
+        "26"
+      ],
+      "applies_to": "Output voltage setting resistor connection",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "SS/TR - Soft Start and Tracking",
+      "pin_type": "analog",
+      "example_pins": [
+        "28"
+      ],
+      "applies_to": "Soft-start capacitor and tracking voltage input",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "STSEL - Soft Start or Tracking Feature Select",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "29"
+      ],
+      "applies_to": "Feature selection pin for soft-start or tracking mode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "SYNC_OUT - Synchronization Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "7"
+      ],
+      "applies_to": "180-degree out-of-phase clock signal output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "ILIM - Current Limit Threshold",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "6"
+      ],
+      "applies_to": "Current limit threshold adjustment pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "OCP_SEL - Overcurrent Protection Select",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "Overcurrent protection mode selection pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "ISHARE - Current Share",
+      "pin_type": "analog",
+      "example_pins": [
+        "25"
+      ],
+      "applies_to": "Current sharing pin for parallel operation",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "DNC - Do Not Connect",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "5",
+        "9",
+        "24"
+      ],
+      "applies_to": "Pins connected to internal circuitry that must be isolated",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "DNC - Do Not Connect",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "f44ac09f4d70762acc09b62916c4c1f8c6da1de2a24163889334a0432f8f533f",
+    "source_pdf_sha256": "6bcbea8e459b03eb66fb5062959c47da2596f0e5eea8f1f221d71f1c7d26f499",
+    "pdf_size": 1362539,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

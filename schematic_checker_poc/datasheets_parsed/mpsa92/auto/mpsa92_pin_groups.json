@@ -1,0 +1,98 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Collector (C) - High Voltage PNP",
+      "pin_type": "power",
+      "example_pins": [
+        "C"
+      ],
+      "applies_to": "Collector pin of PNP transistor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": -300.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum ratings - Collector-Emitter-voltage VCE0 (B open)"
+    },
+    {
+      "group_name": "Base (B) - Control Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "B"
+      ],
+      "applies_to": "Base pin of PNP transistor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": -5.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum ratings - Emitter-Base-voltage VEB0 (C open)"
+    },
+    {
+      "group_name": "Emitter (E) - Return",
+      "pin_type": "power",
+      "example_pins": [
+        "E"
+      ],
+      "applies_to": "Emitter pin of PNP transistor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Collector (C) - High Voltage PNP",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "bba9eb27b22adfbc6cb6ada964fea5bfa8ec5a9c4be4dd7d7229391038e26c3a",
+    "source_pdf_sha256": "062f17af60ebd4a8dd143b1aaf2a1cab104031e6605f4ea32fd0ad0b2de98ed9",
+    "pdf_size": 306618,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

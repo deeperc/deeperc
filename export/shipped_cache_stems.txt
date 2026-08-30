@@ -1,0 +1,125 @@
+# export/shipped_cache_stems.txt — the LT-38 ship-list: the 114 publish-eligible
+# datasheet-cache stems, VERBATIM from the Phase 3a recon report Step 1
+# (investigation/recon_reports/lt38_phase3a_packaging_recon.md). FROZEN: this
+# enumeration is never re-derived at build time — the esd5451n precedent (an
+# unrelated cache landing between census and recon drifted the census checksum
+# without touching the 114). One stem per line; blank lines and # comments are
+# ignored. TWO stems contain a literal embedded space and are single lines:
+#   'mpu-6000 mpu-6050' and 'stm32f405 stm32f407'. Never split on whitespace.
+# Selection criteria (census §3/§8a): SDK-path extractor, hash-valid, no path
+# leakage, no unpublishable verbatim content, and NOT Digi-Key-derived —
+# ship-list ∩ DK-derived = 0, which is what keeps census §9 satisfied.
+1n4004
+1n4007
+1n4148
+1n5401
+2n7000
+2n7002
+5272_ams1117-3.3
+74ahc1g00
+74ahc1g14
+74hc125
+74hc240pwr
+74ls04
+74ls138
+74ls245
+74ls541
+74ls688
+74lvc2g17gv
+ao3400a
+ao3401a
+ap2112k-1.8trg1
+ap2161w
+ap7366-w5-7
+at24cm02-sshd-b
+atmega328p-mu
+atmega328p-pu
+b3u-1000pm
+b5819w
+bat43
+bat54a
+bc237
+bc307
+bc546
+bmp280
+bsh103
+bss138lt1g
+cg0603mlc-05e
+cp2105-f01-gm
+cstne16m0v530000r0
+cus10s30
+dac8562sdsc
+ds-000292-icm-42605-v1.7_0
+ds90lv027aqma_nopb
+dw02s
+esp-wroom-32
+esp32-c6-wroom-1-n8
+esp32-wroom-32d
+esp32-wroom-32e-n16
+esp32-wroom-32e-n4
+esp32-wrover-e
+fdn340p
+fdv301n
+fqp3n30
+fqp3p20
+ft230xq-r
+icl7660
+ina180a1
+irf540n-datasheet-en
+lm358n
+lm3670mf
+lm66200
+lm7805
+lmr54410dbvr
+lmv358idgkr
+lmz31704rvqt
+lp2985-3.3
+lp3982ild-3.3
+m20-9980245
+max3430esa
+mcp73831-2-ot
+mf-msmf050-2
+mh2029-300y
+mic5219-3.3ym5
+mic5219-500ma-peak-output-ldo-regulator-ds20006021a
+mmbt2222a
+mpsa42
+mpsa92
+mpu-6000 mpu-6050
+opa1641
+pic12c508a
+pic16f54
+pmeg3015ej
+pmeg4005ej
+pmv48xp
+ref5030aid
+rp2040_stamp
+si5340b-d-gm
+sir182dp
+sn74hc595
+sn74ls125a
+sn74lv166ans
+sn74lvc1g14dbvr
+sn74lvc2g126dct
+sn74lvch16t245dgg
+sn74vmeh22501dggr
+stm32f103c8
+stm32f405 stm32f407
+stm32f411
+tl072
+tl072cd
+tlv1117lv33dcyr
+tlv75533pdbv
+tlv76601qwdrbrq1
+tp4054
+tps27081addcr
+tps3840pl30dbvr
+tps51200drct
+tps5430dda
+tps564247drlr
+tps61230drc
+tps62125dsg
+tps62153rgtt
+tps62902rpjr
+usblc6-2
+w25q16jvss

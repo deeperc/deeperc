@@ -1,0 +1,137 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Supply Voltage (VIN1, VIN2)",
+      "pin_type": "power",
+      "example_pins": [
+        "VIN1",
+        "VIN2"
+      ],
+      "applies_to": "Input power supply pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 1.6,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "GND"
+      ],
+      "applies_to": "Device ground pins (1, 5)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Output Power (VOUT)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "VOUT"
+      ],
+      "applies_to": "Output power pins (2, 7)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 0.0,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": "VOUT",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Control Pin - ON (Active Low Enable)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "ON"
+      ],
+      "applies_to": "Active low enable pin (4)",
+      "VIH_min": 0.8,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 0.0,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics (VON reference voltage)",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Status Pin - ST (Open Drain Output)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "ST"
+      ],
+      "applies_to": "Status indication pin (8)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 0.0,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "Control Pin - ON (Active Low Enable)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "adb35785cfd9f1377be953edd2f79b7bdfbc4d515ad32193e48c2dd06748b238",
+    "source_pdf_sha256": "0a70747e607286b215b82b35244d60eca9eba0a50728d83a96cbbc7fade75d85",
+    "pdf_size": 1957146,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": 2,
+  "source_hash": "13779ce7400313d06972ade7a9de9130cd33e53d2493fffac4ad46c3f64185df",
+  "guard_config_hash": "05fd27fdaa60ce21bc14ffcf26fae63c2154b7def9c40c25585009e6a94ab8bb",
+  "residual_unpatchable": 16,
+  "patched_pages_total": 0,
+  "truncated": false,
+  "completed_at": "2026-07-28T05:20:32+00:00"
+}

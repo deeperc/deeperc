@@ -1,0 +1,49 @@
+{
+  "fixture_file": "examples/my_stm32_board_floating_gnd/my_stm32_board_floating_gnd.net",
+  "purpose": "LT-27 tranche 1: hermetic demo fixture for step_08c (structural integrity) — floating ground pin.",
+  "source": {
+    "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
+    "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
+    "upstream_repo": "https://github.com/Shadaab1904/STM32-PCB-Design",
+    "upstream_commit_sha": "72a71d6dba94db2bab8bb0e1f884ef3a1e5a6df1",
+    "acquired_at": "2026-06-17T20:35:32.395614"
+  },
+  "license": {
+    "spdx": "MIT",
+    "copyright_line": "Copyright (c) 2025 Shadaab1904",
+    "source_file": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/LICENSE"
+  },
+  "mutation": {
+    "op_id": "M7_FLOATING_POWER_GND",
+    "description": "Relocate U1 (AMS1117-3.3) pin 1 (GND) off the shared 'GND' net onto a new, dedicated single-pin orphan net — same technique as the corpus M7 floating-power mutation operator (generate_bad_corpus.op_M7), applied directly to the exported .net rather than at the schematic level.",
+    "component": "U1",
+    "pin": {"pin": "1", "pinfunction": "GND_1", "pin_name": "GND", "pintype": "power_in", "original_net": "GND", "new_net": "/FLOATING_U1_1"},
+    "diff": "the (node (ref \"U1\") (pin \"1\") ...) block is removed from the \"GND\" net and re-added as the sole node of a new net (code \"9001\", name \"/FLOATING_U1_1\"); no other bytes in the file differ from netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net"
+  },
+  "generator": {
+    "method": "hand-authored .net edit (Python script, line-exact block move), mirroring generate_bad_corpus.op_M7's disconnect-then-relabel-to-orphan-net technique",
+    "note": "No edits to any pipeline code, checker code, or generate_bad_corpus.py. Not copied from any existing bad-corpus mutant file."
+  },
+  "expected_verdict": {
+    "board_status": "has_fail",
+    "structural_checks": {"pass": 10, "warn": 0, "fail": 1},
+    "fail_findings": [
+      {
+        "refdes": "U1",
+        "part_number": "AMS1117-3.3",
+        "pin": "GND (pin 1)",
+        "pin_kind": "ground",
+        "connected_net": "/FLOATING_U1_1",
+        "expected_kind": "ground_net",
+        "status": "FAIL",
+        "confidence": "high",
+        "evidence_label": "Ground pin GND on U1 is on a single-pin net '/FLOATING_U1_1' — effectively floating; source-text MPN match: none"
+      }
+    ],
+    "confidence": "high (deterministic net-topology check, no KB/cache dependency)",
+    "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
+    "unchanged_axes": "supply 5 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the unmodified board"
+  },
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_floating_gnd/my_stm32_board_floating_gnd.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "date": "2026-08-06"
+}

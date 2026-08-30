@@ -1,0 +1,79 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Rectifier Diode - Cathode",
+      "pin_type": "analog",
+      "example_pins": [
+        "Cathode"
+      ],
+      "applies_to": "Cathode terminal of 1N4004 rectifier diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 400.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum ratings - Repetitive peak reverse voltage (V_RRM)"
+    },
+    {
+      "group_name": "Rectifier Diode - Anode",
+      "pin_type": "analog",
+      "example_pins": [
+        "Anode"
+      ],
+      "applies_to": "Anode terminal of 1N4004 rectifier diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 400.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum ratings - Repetitive peak reverse voltage (V_RRM)"
+    }
+  ],
+  "default_group": "Rectifier Diode - Anode",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "c9e04f79ea1c674ff1c02a6d71313aebace61e4dee87838d515dbf6b3b1a6adf",
+    "source_pdf_sha256": "8e71f04016840fad434a5afe811c06d69c3a833ca84d7f7d711f26efd13c58c3",
+    "pdf_size": 262095,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

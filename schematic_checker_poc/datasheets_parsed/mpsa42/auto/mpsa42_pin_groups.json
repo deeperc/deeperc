@@ -1,0 +1,117 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Collector (C) - High Voltage Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "C"
+      ],
+      "applies_to": "Collector pin of NPN transistor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.5,
+      "absolute_max_voltage": 300.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum ratings - Collector-Emitter-voltage (MPSA42)"
+    },
+    {
+      "group_name": "Collector (C) - High Voltage Output (MPSA44)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "C"
+      ],
+      "applies_to": "Collector pin of NPN transistor (MPSA44 variant)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.75,
+      "absolute_max_voltage": 400.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum ratings - Collector-Emitter-voltage (MPSA44)"
+    },
+    {
+      "group_name": "Base (B) - Digital Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "B"
+      ],
+      "applies_to": "Base pin of NPN transistor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.9,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum ratings - Emitter-Base-voltage (VEB)"
+    },
+    {
+      "group_name": "Emitter (E) - Ground Reference",
+      "pin_type": "power",
+      "example_pins": [
+        "E"
+      ],
+      "applies_to": "Emitter pin (ground reference for NPN transistor)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 0.0,
+      "supply_max": 0.0,
+      "supply_abs_max": null,
+      "supply_rail_name": "GND",
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Collector (C) - High Voltage Output",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "edd981bebd1264d450a03898e70d6b73c5d7c1ff7c0862e624458fd7b135e357",
+    "source_pdf_sha256": "c3eb4a9138a2c75df1800adb9d6e53fb40d3021a2ab4dec679b83b51059d18ee",
+    "pdf_size": 1188627,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

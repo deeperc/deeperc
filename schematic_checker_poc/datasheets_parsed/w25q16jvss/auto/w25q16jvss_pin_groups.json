@@ -1,0 +1,139 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Power Supply (VCC)",
+      "pin_type": "power",
+      "example_pins": [
+        "8"
+      ],
+      "applies_to": "VCC pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.6,
+      "supply_min": 2.7,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.6,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground (GND)",
+      "pin_type": "power",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "GND pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Digital Input - Chip Select",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "/CS pin",
+      "VIH_min": 2.1,
+      "VIL_max": 0.9,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Electrical Characteristics",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Digital Input - Clock",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "6"
+      ],
+      "applies_to": "CLK pin",
+      "VIH_min": 2.1,
+      "VIL_max": 0.9,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Electrical Characteristics",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Bidirectional I/O - Data and Control",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "2",
+        "3",
+        "5",
+        "7"
+      ],
+      "applies_to": "DI (IO0), DO (IO1), /WP (IO2), /HOLD (IO3) pins",
+      "VIH_min": 2.1,
+      "VIL_max": 0.9,
+      "VOH_min": 3.4,
+      "VOL_max": 0.2,
+      "absolute_max_voltage": 4.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Electrical Characteristics",
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "Bidirectional I/O - Data and Control",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "30d69b02b6d98d285b7e76183244fbdaa0700d7897db8686ed9da770ad40f388",
+    "source_pdf_sha256": "6d23cdf57fd63fc2c2de517707e293beaf70f3f47b424bf58510666294c04d82",
+    "pdf_size": 2938591,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

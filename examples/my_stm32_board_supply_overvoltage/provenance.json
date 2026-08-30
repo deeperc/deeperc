@@ -1,0 +1,53 @@
+{
+  "fixture_file": "examples/my_stm32_board_supply_overvoltage/my_stm32_board_supply_overvoltage.net",
+  "purpose": "LT-27 tranche 2: hermetic demo fixture for step_08b (supply-voltage check) — STM32 VDD pin reassigned onto the board's own 5V rail, exceeding the shipped stm32f103c8 cache's absolute-max rating.",
+  "source": {
+    "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
+    "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
+    "upstream_repo": "https://github.com/Shadaab1904/STM32-PCB-Design",
+    "upstream_commit_sha": "72a71d6dba94db2bab8bb0e1f884ef3a1e5a6df1",
+    "acquired_at": "2026-06-17T20:35:32.395614"
+  },
+  "license": {
+    "spdx": "MIT",
+    "copyright_line": "Copyright (c) 2025 Shadaab1904",
+    "source_file": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/LICENSE"
+  },
+  "mutation": {
+    "op_id": "M1_SUPPLY_OVERVOLTAGE",
+    "description": "Relocate one of U2's (STM32F103C8T6) three VDD pins (pin 24, pinfunction VDD_24) from the board's 3.3V rail ('+3.3V', where its two sibling VDD pins and VBAT/VDDA remain) onto the board's own USB 'VBUS' net — already inferred+confirmed at 5.0V by step_06/07 on the UNMODIFIED board (no CLI/mutation needed to establish the 5V rail). This exceeds the STM32F103C8T6's absolute-maximum VDD rating (4.0V, sourced from the shipped datasheets_parsed/stm32f103c8 cache's 'VDD/VSS Power Supply Pins' group, abs_max_source 'Table 6: Voltage characteristics'). No net was invented — VBUS's 5V classification is native to the pristine anchor board.",
+    "component": "U2",
+    "pin": {"pin": "24", "pinfunction": "VDD_24", "pin_name": "VDD", "pintype": "power_in", "original_net": "+3.3V", "new_net": "VBUS"},
+    "diff": "the (node (ref \"U2\") (pin \"24\") ...) block is removed from the \"+3.3V\" net and re-added as a node of the existing \"VBUS\" net (code \"18\"); no other bytes in the file differ from netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net"
+  },
+  "generator": {
+    "method": "hand-authored .net edit (Python script, line-exact block move)",
+    "note": "No edits to any pipeline code, checker code, generate_bad_corpus.py, or cache/KB data. step_08b_supply_checker.py is unchanged; the abs_max=4.0V ceiling and its 'Table 6' provenance come entirely from the pre-existing, git-tracked datasheets_parsed/stm32f103c8/auto/stm32f103c8_pin_groups.json cache (LT-25 §5(i) ship-list, landed in 2019d9d)."
+  },
+  "expected_verdict": {
+    "board_status": "has_fail",
+    "supply_checks": {"pass": 4, "warn": 0, "fail": 1, "unresolvable": 0},
+    "fail_findings": [
+      {
+        "refdes": "U2",
+        "part_number": "STM32F103C8T6",
+        "supply_pin": "VDD (pin 24)",
+        "connected_net": "VBUS",
+        "actual_voltage_v": 5.0,
+        "rated_min_v": 2.0,
+        "rated_max_v": 3.6,
+        "rated_abs_max_v": 4.0,
+        "status": "FAIL",
+        "confidence": "high",
+        "evidence_label": "actual 5.0V exceeds supply absolute max 4.0V — device damage"
+      }
+    ],
+    "confidence": "high (deterministic voltage-vs-cache-limit comparison; abs_max sourced from the shipped stm32f103c8 pin_groups cache, not invented by this fixture)",
+    "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
+    "unchanged_axes": "signal 0, structural 11 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the unmodified board; remaining supply rows (VBAT, VDD pin36, VDD pin48, VDDA) stay PASS unchanged"
+  },
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_supply_overvoltage/my_stm32_board_supply_overvoltage.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "arg_surface_note": "run_checks.py's parser accepts --board PATH, not --netlist (that flag belongs to main.py). Confirmed via --help; --board is the form used here and in the t1 fixtures.",
+  "run_transcript": "investigation/recon_reports/lt27_t2_fail_transcript.txt (untracked; no STALE/Note provenance lines appeared this run — both cached parts' provenance read as current)",
+  "date": "2026-08-07"
+}

@@ -1,0 +1,137 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VIN Supply Rail",
+      "pin_type": "power",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "VIN pin - source terminal of power PFET Q1",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 8.0,
+      "supply_min": 1.0,
+      "supply_max": 8.0,
+      "supply_abs_max": 8.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VOUT Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "2",
+        "3"
+      ],
+      "applies_to": "VOUT pins - drain terminal of power PFET Q1",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 8.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "ON/OFF Control Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "ON/OFF pin - active high enable input",
+      "VIH_min": 1.0,
+      "VIL_max": 0.2,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 8.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - ON-TIME CHARACTERISTICS",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "R1/C1 Gate Control",
+      "pin_type": "analog",
+      "example_pins": [
+        "6"
+      ],
+      "applies_to": "R1/C1 pin - gate terminal of power PFET Q1",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 8.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "R2 Slew Rate Control",
+      "pin_type": "analog",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "R2 pin - source terminal of NMOS Q2, slew rate control resistor connection",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 8.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "ON/OFF Control Input",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "47646784ba70d3b4a8ee4aa30e8160725881f9176657c6075a0d149716dd1c51",
+    "source_pdf_sha256": "7d88b004c00a39cb7bc603cd5cd55dfd5c0a1170d17231396b7ce3dc14885e05",
+    "pdf_size": 779828,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

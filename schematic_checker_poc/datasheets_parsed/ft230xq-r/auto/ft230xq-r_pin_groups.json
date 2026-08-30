@@ -1,0 +1,218 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Supply Rail",
+      "pin_type": "power",
+      "example_pins": [
+        "VCC"
+      ],
+      "applies_to": "VCC supply pin (pin 10 QFN, pin 12 SSOP)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": 2.97,
+      "supply_max": 5.25,
+      "supply_abs_max": 5.5,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Table 5.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VCCIO Supply Rail",
+      "pin_type": "power",
+      "example_pins": [
+        "VCCIO"
+      ],
+      "applies_to": "VCCIO supply pin (pin 1 QFN, pin 3 SSOP)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": 1.62,
+      "supply_max": 3.63,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": "VCCIO",
+      "VIH_source": null,
+      "abs_max_source": "Table 5.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "3V3OUT Regulator Output",
+      "pin_type": "power",
+      "example_pins": [
+        "3V3OUT"
+      ],
+      "applies_to": "3V3OUT pin (pin 8 QFN, pin 10 SSOP)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 2.97,
+      "VOL_max": 0.2,
+      "absolute_max_voltage": 3.63,
+      "supply_min": 2.97,
+      "supply_max": 3.63,
+      "supply_abs_max": null,
+      "supply_rail_name": "3V3OUT",
+      "VIH_source": null,
+      "abs_max_source": "Table 5.7 USB I/O Pin Characteristics"
+    },
+    {
+      "group_name": "GND",
+      "pin_type": "power",
+      "example_pins": [
+        "GND"
+      ],
+      "applies_to": "Ground pins (pins 3, 13, 17 QFN; pins 5, 13 SSOP)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "USB PHY Inputs (USBDP, USBDM)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "USBDP",
+        "USBDM"
+      ],
+      "applies_to": "USB differential pair pins (pins 6, 7 QFN; pins 8, 9 SSOP)",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.63,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 5.7 USB I/O Pin Characteristics",
+      "abs_max_source": "Table 5.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "RESET# Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "RESET#"
+      ],
+      "applies_to": "Reset input pin (pin 9 QFN, pin 11 SSOP)",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 5.4 I/O Pin Characteristics VCCIO = +3.3V",
+      "abs_max_source": "Table 5.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "UART Digital Outputs (TXD, RTS#)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "TXD",
+        "RTS#"
+      ],
+      "applies_to": "UART transmit and RTS output pins (pins 15, 16 QFN; pins 1, 2 SSOP)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 2.97,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "UART Digital Inputs (RXD, CTS#)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "RXD",
+        "CTS#"
+      ],
+      "applies_to": "UART receive and CTS input pins (pins 2, 4 QFN; pins 4, 6 SSOP)",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 5.4 I/O Pin Characteristics VCCIO = +3.3V",
+      "abs_max_source": "Table 5.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "CBUS Bidirectional I/O (CBUS0, CBUS1, CBUS2, CBUS3)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "CBUS0",
+        "CBUS1",
+        "CBUS2",
+        "CBUS3"
+      ],
+      "applies_to": "Configurable CBUS pins (pins 12, 11, 5, 14 QFN; pins 15, 14, 7, 16 SSOP)",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": 2.97,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 5.4 I/O Pin Characteristics VCCIO = +3.3V",
+      "abs_max_source": "Table 5.1 Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "CBUS Bidirectional I/O (CBUS0, CBUS1, CBUS2, CBUS3)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "5a80f7a871c11bccf3e7afa2cc596bfb3e2d7f6833936345b9b6a571a14b15c6",
+    "source_pdf_sha256": "401cd311733d43b55a894d2aa24c969cd998d67abf27b09c98d242a90f3743a2",
+    "pdf_size": 1011624,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

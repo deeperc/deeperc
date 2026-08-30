@@ -1,0 +1,1670 @@
+{
+  "mcu_part": "RP2040",
+  "kb_source": "manual",
+  "kb_version": "pico-sdk hardware/gpio.h function-select table (gpio.h)",
+  "extraction_timestamp": "2026-06-26T05:01:31.989766+00:00",
+  "i2c_note": "RP2040 I2C is a FIXED per-pin mux: each GPIO maps to one I2C signal+instance (GPIO%4: 0\u2192I2C0 SDA, 1\u2192I2C0 SCL, 2\u2192I2C1 SDA, 3\u2192I2C1 SCL). Parsed from the pico-sdk gpio.h function-select table (F3=I2C), three-way agreement gated (parsed F3 vs %4 rule). NOT matrix-routed.",
+  "peripheral_routing": {
+    "i2c": "fixed",
+    "uart": "fixed",
+    "spi": "fixed"
+  },
+  "pins": [
+    {
+      "pin_id": "GPIO0",
+      "position": "0",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART0",
+          "config_hint": "UART0 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM0",
+          "config_hint": "PWM0 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO1",
+      "position": "1",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART0",
+          "config_hint": "UART0 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM0",
+          "config_hint": "PWM0 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO2",
+      "position": "2",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 SCK"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART0",
+          "config_hint": "UART0 CTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM1",
+          "config_hint": "PWM1 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO3",
+      "position": "3",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 TX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rts",
+          "instance": "UART0",
+          "config_hint": "UART0 RTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM1",
+          "config_hint": "PWM1 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO4",
+      "position": "4",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART1",
+          "config_hint": "UART1 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM2",
+          "config_hint": "PWM2 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO5",
+      "position": "5",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART1",
+          "config_hint": "UART1 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM2",
+          "config_hint": "PWM2 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO6",
+      "position": "6",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 SCK"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART1",
+          "config_hint": "UART1 CTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM3",
+          "config_hint": "PWM3 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO7",
+      "position": "7",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 TX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rts",
+          "instance": "UART1",
+          "config_hint": "UART1 RTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM3",
+          "config_hint": "PWM3 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO8",
+      "position": "8",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART1",
+          "config_hint": "UART1 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM4",
+          "config_hint": "PWM4 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO9",
+      "position": "9",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART1",
+          "config_hint": "UART1 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM4",
+          "config_hint": "PWM4 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO10",
+      "position": "10",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 SCK"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART1",
+          "config_hint": "UART1 CTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM5",
+          "config_hint": "PWM5 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO11",
+      "position": "11",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 TX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rts",
+          "instance": "UART1",
+          "config_hint": "UART1 RTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM5",
+          "config_hint": "PWM5 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO12",
+      "position": "12",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART0",
+          "config_hint": "UART0 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM6",
+          "config_hint": "PWM6 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO13",
+      "position": "13",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART0",
+          "config_hint": "UART0 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM6",
+          "config_hint": "PWM6 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO14",
+      "position": "14",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 SCK"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART0",
+          "config_hint": "UART0 CTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM7",
+          "config_hint": "PWM7 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO15",
+      "position": "15",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 TX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rts",
+          "instance": "UART0",
+          "config_hint": "UART0 RTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM7",
+          "config_hint": "PWM7 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO16",
+      "position": "16",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART0",
+          "config_hint": "UART0 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM0",
+          "config_hint": "PWM0 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO17",
+      "position": "17",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART0",
+          "config_hint": "UART0 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM0",
+          "config_hint": "PWM0 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO18",
+      "position": "18",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 SCK"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART0",
+          "config_hint": "UART0 CTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM1",
+          "config_hint": "PWM1 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO19",
+      "position": "19",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 TX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rts",
+          "instance": "UART0",
+          "config_hint": "UART0 RTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM1",
+          "config_hint": "PWM1 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO20",
+      "position": "20",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART1",
+          "config_hint": "UART1 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM2",
+          "config_hint": "PWM2 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "clock",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLOCK GPIN0"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO21",
+      "position": "21",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART1",
+          "config_hint": "UART1 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM2",
+          "config_hint": "PWM2 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "clock",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLOCK GPOUT0"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO22",
+      "position": "22",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 SCK"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART1",
+          "config_hint": "UART1 CTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM3",
+          "config_hint": "PWM3 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "clock",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLOCK GPIN1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO23",
+      "position": "23",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI0",
+          "config_hint": "SPI0 TX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rts",
+          "instance": "UART1",
+          "config_hint": "UART1 RTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM3",
+          "config_hint": "PWM3 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "clock",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLOCK GPOUT1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO24",
+      "position": "24",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART1",
+          "config_hint": "UART1 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM4",
+          "config_hint": "PWM4 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "clock",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLOCK GPOUT2"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO25",
+      "position": "25",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART1",
+          "config_hint": "UART1 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM4",
+          "config_hint": "PWM4 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "clock",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLOCK GPOUT3"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO26",
+      "position": "26",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 SCK"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART1",
+          "config_hint": "UART1 CTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM5",
+          "config_hint": "PWM5 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO27",
+      "position": "27",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 TX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rts",
+          "instance": "UART1",
+          "config_hint": "UART1 RTS"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": "I2C1 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM5",
+          "config_hint": "PWM5 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB OVCUR DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO28",
+      "position": "28",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 RX"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART0",
+          "config_hint": "UART0 TX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SDA"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM6",
+          "config_hint": "PWM6 A"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS DET"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO29",
+      "position": "29",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "SPI1 CSn"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART0",
+          "config_hint": "UART0 RX"
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C0",
+          "config_hint": "I2C0 SCL"
+        },
+        {
+          "peripheral": "pwm",
+          "signal": null,
+          "instance": "PWM6",
+          "config_hint": "PWM6 B"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "SIO"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO0",
+          "config_hint": "PIO0"
+        },
+        {
+          "peripheral": "pio",
+          "signal": null,
+          "instance": "PIO1",
+          "config_hint": "PIO1"
+        },
+        {
+          "peripheral": "usb",
+          "signal": null,
+          "instance": null,
+          "config_hint": "USB VBUS EN"
+        }
+      ]
+    }
+  ]
+}

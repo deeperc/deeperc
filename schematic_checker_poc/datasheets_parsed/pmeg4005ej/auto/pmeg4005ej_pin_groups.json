@@ -1,0 +1,79 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Cathode (K) - Schottky Diode",
+      "pin_type": "power",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Pin 1 - Cathode terminal of Schottky barrier rectifier",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 40.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": 40.0,
+      "supply_rail_name": "VR (Reverse Voltage)",
+      "VIH_source": null,
+      "abs_max_source": "Table 5. Limiting values"
+    },
+    {
+      "group_name": "Anode (A) - Schottky Diode",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "Pin 2 - Anode terminal of Schottky barrier rectifier",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 40.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": 40.0,
+      "supply_rail_name": "VR (Reverse Voltage)",
+      "VIH_source": null,
+      "abs_max_source": "Table 5. Limiting values"
+    }
+  ],
+  "default_group": "Anode (A) - Schottky Diode",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "43a28de2006877ab669db6b3dd9daa8aef9013f13309b4a40c824675994dc893",
+    "source_pdf_sha256": "2f175f457d5f753f01eccdea9dd3b1bb6a69f85a1c58e669974325e72df92a04",
+    "pdf_size": 184273,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

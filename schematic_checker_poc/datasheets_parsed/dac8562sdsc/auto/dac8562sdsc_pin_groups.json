@@ -1,0 +1,159 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Power Supply (AVDD)",
+      "pin_type": "power",
+      "example_pins": [
+        "9"
+      ],
+      "applies_to": "AVDD pin - analog power supply",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 2.7,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": "AVDD",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "GND pin - ground reference",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Digital Logic Inputs (Schmitt-Trigger)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "applies_to": "CLR, SYNC, SCLK, DIN pins - digital control inputs with Schmitt-trigger logic",
+      "VIH_min": 0.7,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - Logic Inputs (7.5)",
+      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+    },
+    {
+      "group_name": "LDAC Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "LDAC pin - negative edge-triggered latch/load control input",
+      "VIH_min": 0.7,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - Logic Inputs (7.5)",
+      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+    },
+    {
+      "group_name": "Analog Outputs",
+      "pin_type": "analog",
+      "example_pins": [
+        "1",
+        "2"
+      ],
+      "applies_to": "VOUT_A, VOUT_B pins - analog voltage outputs",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 0.0,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+    },
+    {
+      "group_name": "Reference Input/Output (Bidirectional)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "10"
+      ],
+      "applies_to": "VREFIN/VREFOUT pin - bidirectional reference voltage pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 2.495,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+    }
+  ],
+  "default_group": "Digital Logic Inputs (Schmitt-Trigger)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-03T17:49:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "eb9172f0f64d6a6f344f516c81dd786c6707850ea13bc722a0dc51b384ca4b5c",
+    "source_pdf_sha256": "3fbba20baac4cf7e3b38e5f73196a8f4e9d936280de5881cbc9e8b5df33b1549",
+    "pdf_size": 2177293,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-03T17:49:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

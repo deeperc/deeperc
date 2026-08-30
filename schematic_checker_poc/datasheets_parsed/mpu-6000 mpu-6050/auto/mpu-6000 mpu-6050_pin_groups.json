@@ -1,0 +1,283 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VDD Power Supply (MPU-6000 and MPU-6050)",
+      "pin_type": "power",
+      "example_pins": [
+        "13"
+      ],
+      "applies_to": "VDD pin on both MPU-6000 and MPU-6050",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 2.375,
+      "supply_max": 3.46,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": "VDD",
+      "VIH_source": null,
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VLOGIC Reference Voltage (MPU-6050 only)",
+      "pin_type": "power",
+      "example_pins": [
+        "8"
+      ],
+      "applies_to": "VLOGIC pin on MPU-6050 only",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 1.71,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": "VLOGIC",
+      "VIH_source": null,
+      "abs_max_source": "Section 6.3 and Section 6.9"
+    },
+    {
+      "group_name": "Digital Inputs - MPU-6000 (SDI/SDA, AD0, SCLK/SCL, FSYNC, /CS, CLKIN)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "24",
+        "9",
+        "23",
+        "11",
+        "8",
+        "1"
+      ],
+      "applies_to": "All digital input pins on MPU-6000",
+      "VIH_min": 0.7,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 6.4 Digital Inputs (VIH = 0.7*VDD)",
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings (Input Voltage Level: -0.5V to VDD + 0.5V)"
+    },
+    {
+      "group_name": "Digital Inputs - MPU-6050 (SDA, AD0, SCL, FSYNC, CLKIN)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "24",
+        "9",
+        "23",
+        "11",
+        "1"
+      ],
+      "applies_to": "All digital input pins on MPU-6050",
+      "VIH_min": 0.7,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 6.4 Digital Inputs (VIH = 0.7*VLOGIC for MPU-6050)",
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings (Input Voltage Level: -0.5V to VDD + 0.5V)"
+    },
+    {
+      "group_name": "Digital Outputs - MPU-6000 (SDO, INT)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "9",
+        "12"
+      ],
+      "applies_to": "SDO and INT pins on MPU-6000",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 0.9,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings (Input Voltage Level: -0.5V to VDD + 0.5V)"
+    },
+    {
+      "group_name": "Digital Outputs - MPU-6050 (AD0, INT)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "9",
+        "12"
+      ],
+      "applies_to": "AD0 and INT pins on MPU-6050",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 0.9,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings (Input Voltage Level: -0.5V to VDD + 0.5V)"
+    },
+    {
+      "group_name": "Primary I2C Bus - MPU-6000 (SCL, SDA)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "23",
+        "24"
+      ],
+      "applies_to": "SCL/SCLK and SDA/SDI pins on MPU-6000 I2C mode",
+      "VIH_min": 0.7,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 6.5 Primary I2C I/O (VIH = 0.7*VDD to VDD + 0.5V)",
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Primary I2C Bus - MPU-6050 (SCL, SDA)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "23",
+        "24"
+      ],
+      "applies_to": "SCL and SDA pins on MPU-6050",
+      "VIH_min": 0.7,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 6.5 Primary I2C I/O (VIH = 0.7*VLOGIC to VLOGIC + 0.5V)",
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Auxiliary I2C Bus (AUX_CL, AUX_DA)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "7",
+        "6"
+      ],
+      "applies_to": "AUX_CL and AUX_DA pins on both MPU-6000 and MPU-6050",
+      "VIH_min": 0.7,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Section 6.5 Auxiliary I2C I/O (VIH = 0.7*VLOGIC to VLOGIC + 0.5V)",
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings (Input Voltage Level: -0.5V to VDD + 0.5V)"
+    },
+    {
+      "group_name": "REGOUT Filter Capacitor Connection",
+      "pin_type": "analog",
+      "example_pins": [
+        "10"
+      ],
+      "applies_to": "REGOUT pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 2.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings (REGOUT: -0.5V to 2V)"
+    },
+    {
+      "group_name": "CPOUT Charge Pump Capacitor Connection",
+      "pin_type": "analog",
+      "example_pins": [
+        "20"
+      ],
+      "applies_to": "CPOUT pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 30.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Section 6.9 Absolute Maximum Ratings (CPOUT 2.5V \u2264 VDD \u2264 3.6V: -0.5V to 30V)"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "18"
+      ],
+      "applies_to": "GND pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 0.0,
+      "supply_max": 0.0,
+      "supply_abs_max": null,
+      "supply_rail_name": "GND",
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Digital Inputs - MPU-6000 (SDI/SDA, AD0, SCLK/SCL, FSYNC, /CS, CLKIN)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-18T00:36:12+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "f15c01b57825d2b454ac68e57cc4ab10cdda2e321a8ab7a3f3f0d081f314daa6",
+    "source_pdf_sha256": "a4fdf69590b8cbab1cf0a5bcd359327b0ac022061fb233855aff2e191e7e3584",
+    "pdf_size": 1637351,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-18T00:36:12+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "MISS",
+      "tier": null,
+      "depth": null,
+      "ratio": null
+    }
+  }
+}

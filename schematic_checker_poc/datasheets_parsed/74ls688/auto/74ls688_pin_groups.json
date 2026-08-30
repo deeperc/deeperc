@@ -1,0 +1,58 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Unable to extract - datasheet content incomplete",
+      "pin_type": "digital_input",
+      "example_pins": [],
+      "applies_to": "No electrical specifications tables found in provided markdown",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Unable to extract - datasheet content incomplete",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-03T18:19:30+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "cd773f140216d527d50aaa88ae917ad9b1b33da621a1393040ad1d11c92dd4f7",
+    "source_pdf_sha256": "e4e9dac219dc55ff5b67f7ee378eb44bae5e70bb4de444aa66dfb1ed7a69d97c",
+    "pdf_size": 1669653,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-03T18:19:30+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "mcu_part": "AT24CS01-SSHM-B",
+  "kb_source": "manual",
+  "kb_version": "Microchip AT24CS01 datasheet (DS20006330A), SOIC-8 \"SSHM\" package variant",
+  "function_class": "fixed",
+  "provenance": {
+    "authored_by": "hand-transcribed from Microchip AT24CS01 datasheet pin-description table by Nelson (class-1 authority per CLAUDE.md KB-authoring doctrine); NOT derived from the datasheets_parsed Haiku cache or any PDF read by CC",
+    "agreement_gate": "3-way: (a) human-verified datasheet pin table (authority), (b) datasheets_parsed/AT24CS01-SSHM-B/auto/AT24CS01-SSHM-B_pin_groups.json Haiku cache (cross-check: 'Serial Clock Input (SCL)' / 'Serial Data Bidirectional (SDA)' groups), (c) jetson-agx-thor-baseboard top-level .net U54 KiCad symbol pin names (cross-check) — all three agreed pin 5=SDA, pin 6=SCL, no disagreement on pin IDENTITY. Note: U54's actual board wiring swaps these nets (a pre-existing corpus defect, already caught by check_i2c_coherence via pin_function independent of this KB entry) -- that is a WIRING fault, not a disagreement about which silicon pin is SDA vs SCL, and did not block this gate.",
+    "landed": "2026-07-13",
+    "task": "NON-MCU KB LANDING #2 (investigation/experiments/nonmcu_kb_recon/landing_at24cs01/REPORT.md)"
+  },
+  "i2c_note": "AT24CS01 is a fixed-function I2C EEPROM (1 Kbit, 128x8), not an MCU alt-fn mux. SDA/SCL are single-purpose silicon pins -- no possible_roles menu, function_class=fixed applies to them specifically. Per the interim protocol-pins-only standard (adopted after the INA219 landing's STOP #2 -- see kb/vendor/ti/INA219AIDCNR.json provenance.a0_a1_decision), address/config/strap pins (A0, A1, A2, WP) are deliberately NOT KB'd here regardless of their board wiring -- no schema affordance exists yet for 'known, intentional, non-participating bus pin'. On jetson-agx-thor-baseboard (U54) these four pins are all tied to GND, not to any bus net, so this landing carries no STOP-2-shape churn risk from them.",
+  "pins": [
+    {
+      "pin_id": "SDA",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "sda", "instance": null}
+      ]
+    },
+    {
+      "pin_id": "SCL",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "scl", "instance": null}
+      ]
+    }
+  ]
+}

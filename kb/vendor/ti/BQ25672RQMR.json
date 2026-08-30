@@ -1,0 +1,27 @@
+{
+  "mcu_part": "BQ25672RQMR",
+  "kb_source": "manual",
+  "kb_version": "TI BQ25672 datasheet, package/orderable suffix \"RQMR\"",
+  "function_class": "fixed",
+  "provenance": {
+    "authored_by": "hand-transcribed from TI BQ25672 datasheet pin-description table by Nelson (class-1 authority per CLAUDE.md KB-authoring doctrine); NOT derived from the datasheets_parsed Haiku cache or any PDF read by CC",
+    "agreement_gate": "3-way: (a) human-verified datasheet pin table (authority), (b) datasheets_parsed/BQ25672RQMR/auto/BQ25672RQMR_pin_groups.json Haiku cache (cross-check: 'I2C Clock Pin' example_pins ['SCL'], 'I2C Data Pin' example_pins ['SDA']), (c) openair-max One-Air-Max.net/Solar-Module.net U5 KiCad symbol pin names (cross-check: pin 14=SCL, pin 15=SDA) — all three agreed, no disagreement.",
+    "landed": "2026-07-13",
+    "task": "NON-MCU KB LANDING #4 (investigation/experiments/nonmcu_kb_recon/landing_bq25672/REPORT.md)"
+  },
+  "i2c_note": "BQ25672 is a fixed-function I2C battery charger, not an MCU alt-fn mux. SDA/SCL are single-purpose silicon pins -- no possible_roles menu, function_class=fixed applies to them specifically. Per the interim protocol-pins-only standard (adopted after INA219's STOP #2 -- see kb/vendor/ti/INA219AIDCNR.json provenance.a0_a1_decision), STAT, INT, CE, QON, OTG, ILIM_HIZ, TS, PROG/REGN, and every power-path pin (VBUS/PMID/SW1/SW2/SYS/BAT/BATP/GND/ACDRV1/ACDRV2/BTST1/BTST2/VAC1/VAC2/SDRV) are deliberately NOT KB'd here. On the openair-max board (U5), none of these excluded pins land on the SDA/SCL bus -- STAT ties to an LED indicator net, QON/CE/TS/BATP/SDRV/PMID/INT are isolated stubs or unconnected, ILIM_HIZ has its own dedicated net, the rest are power-path with their own nets -- so this landing carries no STOP-2-shape strap-on-bus churn risk. Note: this symbol's pins 6/7 are marked NC (no-connect), not separately labeled D+/D- as the dispatch's exclusion list anticipated -- this design/symbol variant does not expose USB BC1.2 detection pins at all; harmless (nothing to exclude that isn't already absent). First non-MCU landing off the jetson-agx-thor-baseboard corpus board -- lives on openair-max (One-Air-Max.net top-level + Solar-Module.net hierarchical sub-sheet) instead.",
+  "pins": [
+    {
+      "pin_id": "SDA",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "sda", "instance": null}
+      ]
+    },
+    {
+      "pin_id": "SCL",
+      "possible_roles": [
+        {"peripheral": "i2c", "signal": "scl", "instance": null}
+      ]
+    }
+  ]
+}

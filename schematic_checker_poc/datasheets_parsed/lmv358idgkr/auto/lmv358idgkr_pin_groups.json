@@ -1,0 +1,146 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Positive Supply (VCC+)",
+      "pin_type": "power",
+      "example_pins": [
+        "VCC+"
+      ],
+      "applies_to": "Positive supply pin for all devices (LMV321 pin 5, LMV358 pin 8, LMV324 pin 4)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": 2.7,
+      "supply_max": 5.5,
+      "supply_abs_max": 5.5,
+      "supply_rail_name": "VCC+",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Negative Supply (GND)",
+      "pin_type": "power",
+      "example_pins": [
+        "GND"
+      ],
+      "applies_to": "Negative supply/ground pin for all devices (LMV321 pin 2, LMV358 pin 4, LMV324 pin 11)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 0.0,
+      "supply_min": 0.0,
+      "supply_max": 0.0,
+      "supply_abs_max": 0.0,
+      "supply_rail_name": "GND",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Noninverting Input (IN+)",
+      "pin_type": "analog",
+      "example_pins": [
+        "1IN+",
+        "2IN+",
+        "3IN+",
+        "4IN+"
+      ],
+      "applies_to": "Noninverting input pins for all amplifiers",
+      "VIH_min": 0.0,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.7,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics (common-mode input voltage range at VCC=2.7V shows 0 to 1.7V)",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Inverting Input (IN-)",
+      "pin_type": "analog",
+      "example_pins": [
+        "1IN-",
+        "2IN-",
+        "3IN-",
+        "4IN-"
+      ],
+      "applies_to": "Inverting input pins for all amplifiers",
+      "VIH_min": 0.0,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.7,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics (common-mode input voltage range at VCC=2.7V shows 0 to 1.7V)",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Output (OUT)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "OUT",
+        "1OUT",
+        "2OUT",
+        "3OUT",
+        "4OUT"
+      ],
+      "applies_to": "Output pins for all amplifiers",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": -0.1,
+      "VOL_max": 0.18,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "Noninverting Input (IN+)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "0e3559ee8f104d4b0d0c3721fe38baa6046f9981e6331c11abca1878163c5af3",
+    "source_pdf_sha256": "17d4aab5006683766ec1fadb83d1953e5d4ad768864629fcd21412e795e568f3",
+    "pdf_size": 2605337,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

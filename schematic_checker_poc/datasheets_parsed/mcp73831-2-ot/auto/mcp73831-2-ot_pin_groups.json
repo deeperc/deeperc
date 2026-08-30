@@ -1,0 +1,155 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Supply Input (VDD)",
+      "pin_type": "power",
+      "example_pins": [
+        "VDD"
+      ],
+      "applies_to": "Battery Management Input Supply pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": 3.75,
+      "supply_max": 6.0,
+      "supply_abs_max": 7.0,
+      "supply_rail_name": "VDD",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground Reference (VSS)",
+      "pin_type": "power",
+      "example_pins": [
+        "VSS"
+      ],
+      "applies_to": "Battery Management 0V Reference",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Battery Charge Control Output (VBAT)",
+      "pin_type": "analog",
+      "example_pins": [
+        "VBAT"
+      ],
+      "applies_to": "Battery Charge Control Output - drain terminal of internal P-channel MOSFET",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Charge Status Output (STAT)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "STAT"
+      ],
+      "applies_to": "Charge Status Output - tri-state on MCP73831, open-drain on MCP73832",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 1.0,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "DC Characteristics"
+    },
+    {
+      "group_name": "Current Regulation Set (PROG)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "PROG"
+      ],
+      "applies_to": "Current Regulation Set and Charge Control Enable",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "All Inputs and Outputs (General)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "All pins except VDD, VSS"
+      ],
+      "applies_to": "All input and output pins with respect to VSS",
+      "VIH_min": -0.3,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Absolute Maximum Ratings",
+      "abs_max_source": "Absolute Maximum Ratings - All Inputs and Outputs w.r.t. VSS: -0.3 to (VDD+0.3)V"
+    }
+  ],
+  "default_group": "All Inputs and Outputs (General)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "d29a1c8ccc3e651ca5474c57670f63374aff35c74126d209049c45898d7f22b2",
+    "source_pdf_sha256": "75297f2a5235599368381adfb63df2652cc22d757f171f388147b2ab3d32776f",
+    "pdf_size": 889186,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 3,
+      "depth": 1,
+      "ratio": 0.769
+    }
+  }
+}

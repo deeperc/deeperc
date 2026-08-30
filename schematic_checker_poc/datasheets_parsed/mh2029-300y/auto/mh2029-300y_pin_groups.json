@@ -1,0 +1,61 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Ferrite Bead - MH2029-300Y",
+      "pin_type": "power",
+      "example_pins": [
+        "Terminal 1",
+        "Terminal 2"
+      ],
+      "applies_to": "All terminals of the MH2029-300Y ferrite bead chip component",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "N/A - Ferrite bead (passive component)",
+      "abs_max_source": "N/A - Ferrite bead (passive component)"
+    }
+  ],
+  "default_group": "Ferrite Bead - MH2029-300Y",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "f3a03b783df04b2496968c6ce8acf15353dc8c62fe453a7eb53a5ee3acc58047",
+    "source_pdf_sha256": "f69bf75b28f61b1fbf2e624f4e79203a320b70bc79d697bccda720a08d7e989e",
+    "pdf_size": 461987,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

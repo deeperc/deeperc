@@ -1,0 +1,276 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VDD/VSS Power Supply Pins",
+      "pin_type": "power",
+      "example_pins": [
+        "VDD",
+        "VSS"
+      ],
+      "applies_to": "All VDD and VSS pins throughout the device",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": 1.8,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": "VDD",
+      "VIH_source": null,
+      "abs_max_source": "Table 11: Voltage characteristics"
+    },
+    {
+      "group_name": "VDDA/VSSA Analog Power Supply Pins",
+      "pin_type": "power",
+      "example_pins": [
+        "VDDA",
+        "VSSA"
+      ],
+      "applies_to": "Analog power supply pins for ADC, DAC, and PLL",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": 1.8,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": "VDDA",
+      "VIH_source": null,
+      "abs_max_source": "Table 11: Voltage characteristics"
+    },
+    {
+      "group_name": "VBAT Backup Power Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "VBAT"
+      ],
+      "applies_to": "Backup domain power supply for RTC and backup registers",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": 1.65,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": "VBAT",
+      "VIH_source": null,
+      "abs_max_source": "Table 11: Voltage characteristics"
+    },
+    {
+      "group_name": "5V-Tolerant I/O Pins (FT type)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "PA0",
+        "PA1",
+        "PA2",
+        "PA3",
+        "PA4",
+        "PA5",
+        "PA6",
+        "PA7",
+        "PB0",
+        "PB1",
+        "PC0",
+        "PC1",
+        "PC2",
+        "PC3"
+      ],
+      "applies_to": "All FT (5V-tolerant) I/O pins",
+      "VIH_min": 0.45,
+      "VIL_max": 0.3,
+      "VOH_min": 2.4,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 48: I/O static characteristics (VIH for FT pins at 2.7V < VDD < 3.6V)",
+      "abs_max_source": "Table 11: Voltage characteristics (5V-tolerant input)"
+    },
+    {
+      "group_name": "3.3V-Tolerant I/O Pins (TTa type)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "PA4",
+        "PA5",
+        "PA6",
+        "PA7",
+        "PC4",
+        "PC5"
+      ],
+      "applies_to": "All TTa (3.3V-tolerant) I/O pins directly connected to ADC",
+      "VIH_min": 0.45,
+      "VIL_max": 0.3,
+      "VOH_min": 2.4,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 48: I/O static characteristics (VIH for TTa pins at 2.7V < VDD < 3.6V)",
+      "abs_max_source": "Table 11: Voltage characteristics (TTa input)"
+    },
+    {
+      "group_name": "NRST Reset Pin",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "NRST"
+      ],
+      "applies_to": "Reset pin with embedded weak pull-up",
+      "VIH_min": 0.7,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 51: NRST pin characteristics (VIH_NRST for CMOS ports at 1.8V \u2264 VDD \u2264 3.6V)",
+      "abs_max_source": "Table 11: Voltage characteristics (5V-tolerant input)"
+    },
+    {
+      "group_name": "BOOT0 Pin",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "BOOT0"
+      ],
+      "applies_to": "Boot configuration pin",
+      "VIH_min": 0.17,
+      "VIL_max": 0.1,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 48: I/O static characteristics (VIH for BOOT0 pin)",
+      "abs_max_source": "Table 11: Voltage characteristics (BOOT0 input)"
+    },
+    {
+      "group_name": "Standard Digital I/O Pins",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "PB2",
+        "PB3",
+        "PB4",
+        "PB5",
+        "PD0",
+        "PD1",
+        "PD2",
+        "PD3",
+        "PE0",
+        "PE1"
+      ],
+      "applies_to": "Standard 3.3V digital I/O pins (not 5V-tolerant)",
+      "VIH_min": 0.45,
+      "VIL_max": 0.3,
+      "VOH_min": 2.4,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 48: I/O static characteristics (VIH for standard pins at 2.7V < VDD < 3.6V)",
+      "abs_max_source": "Table 11: Voltage characteristics (standard input)"
+    },
+    {
+      "group_name": "Analog Input Pins (ADC)",
+      "pin_type": "analog",
+      "example_pins": [
+        "PA0",
+        "PA1",
+        "PA2",
+        "PA3",
+        "PA4",
+        "PA5",
+        "PA6",
+        "PA7",
+        "PB0",
+        "PB1",
+        "PC0",
+        "PC1",
+        "PC2",
+        "PC3",
+        "PC4",
+        "PC5"
+      ],
+      "applies_to": "ADC input channels",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 67: ADC characteristics (conversion voltage range 0 to VREF+)"
+    },
+    {
+      "group_name": "DAC Output Pins",
+      "pin_type": "analog",
+      "example_pins": [
+        "PA4",
+        "PA5"
+      ],
+      "applies_to": "DAC output channels",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 0.2,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 74: DAC characteristics (DAC_OUT voltage range)"
+    }
+  ],
+  "default_group": "Standard Digital I/O Pins",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-17T18:55:40+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "d30a938ea471b93d444cdfc237f19612f4411e577be51d87213653bec2220ff7",
+    "source_pdf_sha256": "1f41b4fa49a9960215ebb76cd0a75f20241db82eed60d308345a80463caeed22",
+    "pdf_size": 2792056,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-17T18:55:40+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "MISS",
+      "tier": null,
+      "depth": null,
+      "ratio": null
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Power Supply (VDD33)",
+      "pin_type": "power",
+      "example_pins": [
+        "3V3",
+        "VDD33"
+      ],
+      "applies_to": "Main power supply pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": 3.0,
+      "supply_max": 3.6,
+      "supply_abs_max": 3.6,
+      "supply_rail_name": "VDD33",
+      "VIH_source": null,
+      "abs_max_source": "Table 6-1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "GND",
+        "EPAD"
+      ],
+      "applies_to": "Ground pins (pins 1, 28, 29)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Digital I/O (3.3V)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "IO0",
+        "IO1",
+        "IO2",
+        "IO3",
+        "IO4",
+        "IO5",
+        "IO6",
+        "IO7",
+        "IO8",
+        "IO9",
+        "IO10",
+        "IO11",
+        "IO12",
+        "IO13",
+        "IO15",
+        "IO18",
+        "IO19",
+        "IO20",
+        "IO21",
+        "IO22",
+        "IO23"
+      ],
+      "applies_to": "General purpose GPIO pins",
+      "VIH_min": 0.75,
+      "VIL_max": 0.25,
+      "VOH_min": 0.8,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 6-3 DC Characteristics (3.3V, 25\u00b0C) - VIH = 0.75\u00d7VDD",
+      "abs_max_source": "Table 6-1 Absolute Maximum Ratings - VDD33 Max"
+    },
+    {
+      "group_name": "Digital Input (EN/CHIP_PU)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "EN"
+      ],
+      "applies_to": "Chip enable pin (pin 3)",
+      "VIH_min": 0.75,
+      "VIL_max": 0.25,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 6-3 DC Characteristics - VIH_nRST = 0.75\u00d7VDD",
+      "abs_max_source": "Table 6-1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "UART Interface (TXD0/RXD0)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "TXD0",
+        "RXD0"
+      ],
+      "applies_to": "UART pins (pins 24, 25)",
+      "VIH_min": 0.75,
+      "VIL_max": 0.25,
+      "VOH_min": 0.8,
+      "VOL_max": 0.1,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 6-3 DC Characteristics",
+      "abs_max_source": "Table 6-1 Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "Digital I/O (3.3V)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "d9139bab746a1ecfaef6fa3ce73fa9914d3dfbcf3a8af914786f550af84cf226",
+    "source_pdf_sha256": "163020762fa6d499e0c611c5a13e78ad9d4720b421c6bc5e14e16fc748862b73",
+    "pdf_size": 938372,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

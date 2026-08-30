@@ -1,0 +1,157 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "8"
+      ],
+      "applies_to": "VCC positive supply pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.0,
+      "supply_min": 2.97,
+      "supply_max": 3.63,
+      "supply_abs_max": 5.0,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "GND",
+      "pin_type": "power",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "Ground reference",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Driver Input (DI)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "Driver input logic control",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Electrical Characteristics - Driver Logic",
+      "abs_max_source": "Absolute Maximum Ratings (VCC + 0.3V)"
+    },
+    {
+      "group_name": "Control Inputs (DE, RE)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "2",
+        "3"
+      ],
+      "applies_to": "Driver Enable (DE) and Receiver Enable (RE) control pins",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "DC Electrical Characteristics - Control",
+      "abs_max_source": "Absolute Maximum Ratings (VCC + 0.3V)"
+    },
+    {
+      "group_name": "Receiver Output (RO)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Receiver output logic level",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 2.7,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (VCC + 0.3V)"
+    },
+    {
+      "group_name": "RS-485 Bus Lines (A, B)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "6",
+        "7"
+      ],
+      "applies_to": "Differential RS-485 transceiver outputs/inputs (A noninverting, B inverting)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 80.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (\u00b180V fault protection)"
+    }
+  ],
+  "default_group": "RS-485 Bus Lines (A, B)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "4161b5cfda5d0edb9d2c6763071d285fbf4cd52f16e8a64714cfe649ec813435",
+    "source_pdf_sha256": "4493b2150fb162de6acaedff12d586e8387a1a4b87e77f41c9a6c98845b1a199",
+    "pdf_size": 244124,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VIN Supply Rail",
+      "pin_type": "power",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Input voltage supply pin VIN",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": 3.0,
+      "supply_max": 16.0,
+      "supply_abs_max": 18.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground Pins",
+      "pin_type": "power",
+      "example_pins": [
+        "3",
+        "4"
+      ],
+      "applies_to": "GND (pin 3) and AGND (pin 4) ground pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 0.3,
+      "supply_min": -0.1,
+      "supply_max": 0.1,
+      "supply_abs_max": 0.3,
+      "supply_rail_name": "GND/AGND",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "SW Switch Node",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "Switch node connection between high-side and low-side NFET (pin 2)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": -1.0,
+      "supply_max": 16.0,
+      "supply_abs_max": 20.0,
+      "supply_rail_name": "SW",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "EN Enable Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "Enable input to converter (pin 5)",
+      "VIH_min": 1.07,
+      "VIL_max": 1.2,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": -0.1,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - LOGIC THRESHOLD",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "FB Feedback Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "6"
+      ],
+      "applies_to": "Converter feedback input (pin 6)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": -0.1,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "FB Feedback Input",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "4fc394879da381896770650748bd0cdc1bfbb6af11fd86a496c4648d21c63aed",
+    "source_pdf_sha256": "cd59523a03e670fd9f9c0a7acca795bad0f428ca97de2914365bd6f96ef92a55",
+    "pdf_size": 1825399,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

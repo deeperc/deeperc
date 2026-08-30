@@ -1,0 +1,794 @@
+{
+  "mcu_part": "esp32",
+  "kb_source": "vendor_header",
+  "kb_version": "esp-idf (see path used at extraction time)",
+  "extraction_timestamp": "2026-07-11T18:01:24.547945+00:00",
+  "i2c_note": "ESP32 I2C (I2CEXT0/I2CEXT1) is GPIO-matrix routed \u2014 any GPIO supports I2C. No fixed IOMUX I2C pins exist. The checker returns UNRESOLVABLE for ESP32 I2C nets.",
+  "peripheral_routing": {
+    "i2c": "matrix",
+    "uart": "matrix",
+    "spi": "matrix"
+  },
+  "pins": [
+    {
+      "pin_id": "GPIO0",
+      "position": "0",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_TX_CLK"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO0"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLK_OUT1"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO1",
+      "position": "1",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_RXD2"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO1"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLK_OUT3"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART0",
+          "config_hint": "U0TXD"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO2",
+      "position": "2",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "SD_DATA0"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI2",
+          "config_hint": "HS2_DATA0"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO2"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "HSPIWP"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO3",
+      "position": "3",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO3"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "CLK_OUT2"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART0",
+          "config_hint": "U0RXD"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO4",
+      "position": "4",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_TX_ER"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "SD_DATA1"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI2",
+          "config_hint": "HS2_DATA1"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO4"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "HSPIHD"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO5",
+      "position": "5",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_RX_CLK"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "HS1_DATA6"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO5"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "VSPICS0"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO6",
+      "position": "6",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO7",
+      "position": "7",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO8",
+      "position": "8",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO9",
+      "position": "9",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO10",
+      "position": "10",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO11",
+      "position": "11",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO12",
+      "position": "12",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_TXD3"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "SD_DATA2"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI2",
+          "config_hint": "HS2_DATA2"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO12"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "HSPIQ"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "MTDI"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO13",
+      "position": "13",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_RX_ER"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "SD_DATA3"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI2",
+          "config_hint": "HS2_DATA3"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO13"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "HSPID"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "MTCK"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO14",
+      "position": "14",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_TXD2"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "SD_CLK"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI2",
+          "config_hint": "HS2_CLK"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO14"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "HSPICLK"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "MTMS"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO15",
+      "position": "15",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_RXD3"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "SD_CMD"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI2",
+          "config_hint": "HS2_CMD"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO15"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "HSPICS0"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "MTDO"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO16",
+      "position": "16",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_CLK_OUT"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART2",
+          "config_hint": "U2RXD"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "HS1_DATA4"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO16"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO17",
+      "position": "17",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_CLK_OUT_180"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART2",
+          "config_hint": "U2TXD"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "HS1_DATA5"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO17"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO18",
+      "position": "18",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "HS1_DATA7"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO18"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "VSPICLK"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO19",
+      "position": "19",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_TXD0"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "UART0",
+          "config_hint": "U0CTS"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO19"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "VSPIQ"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO20",
+      "position": "20",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO20"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO21",
+      "position": "21",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_TX_EN"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO21"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "VSPIHD"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO22",
+      "position": "22",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_TXD1"
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "UART0",
+          "config_hint": "U0RTS"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO22"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "VSPIWP"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO23",
+      "position": "23",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "SPI1",
+          "config_hint": "HS1_STROBE"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO23"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": "VSPID"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO24",
+      "position": "24",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO24"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO25",
+      "position": "25",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_RXD0"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO25"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO26",
+      "position": "26",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_RXD1"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO26"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO27",
+      "position": "27",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": "EMAC_RX_DV"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO27"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO32",
+      "position": "32",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO32"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO33",
+      "position": "33",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO33"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO34",
+      "position": "34",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO34"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO35",
+      "position": "35",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO35"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO36",
+      "position": "36",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO36"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO37",
+      "position": "37",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO37"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO38",
+      "position": "38",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO38"
+        }
+      ]
+    },
+    {
+      "pin_id": "GPIO39",
+      "position": "39",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": "GPIO39"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Schottky Diode Anode",
+      "pin_type": "analog",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Anode terminal of Schottky barrier diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 30.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "MAXIMUM RATINGS"
+    },
+    {
+      "group_name": "Schottky Diode Cathode",
+      "pin_type": "analog",
+      "example_pins": [
+        "2",
+        "3"
+      ],
+      "applies_to": "Cathode terminal(s) of Schottky barrier diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 30.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "MAXIMUM RATINGS"
+    }
+  ],
+  "default_group": "Schottky Diode Anode",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "7fa71ac1120a850cfab85d8277325579a9e575036eef5215653c4db44e29a7ce",
+    "source_pdf_sha256": "527ef62a5872625f4133bc670428c63b629f2b7ed7d32d58fb74241bdd0465a9",
+    "pdf_size": 227697,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

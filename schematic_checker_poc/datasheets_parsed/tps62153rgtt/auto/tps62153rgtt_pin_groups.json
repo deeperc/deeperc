@@ -1,0 +1,198 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Supply Voltage (PVIN, AVIN)",
+      "pin_type": "power",
+      "example_pins": [
+        "PVIN (11, 12)",
+        "AVIN (10)"
+      ],
+      "applies_to": "Power supply pins for both power stage and control circuitry",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": 3.0,
+      "supply_max": 17.0,
+      "supply_abs_max": 20.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (Section 7.1)"
+    },
+    {
+      "group_name": "Ground (PGND, AGND)",
+      "pin_type": "power",
+      "example_pins": [
+        "PGND (15, 16)",
+        "AGND (6)",
+        "Exposed Thermal Pad"
+      ],
+      "applies_to": "Power ground and analog ground connections",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Digital Control Inputs (EN, DEF, FSW)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "EN (13)",
+        "DEF (8)",
+        "FSW (7)"
+      ],
+      "applies_to": "Enable, output voltage scaling, and frequency selection pins",
+      "VIH_min": 0.65,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - CONTROL section (Section 7.5)",
+      "abs_max_source": "Absolute Maximum Ratings (Section 7.1)"
+    },
+    {
+      "group_name": "Analog Feedback Input (FB)",
+      "pin_type": "analog",
+      "example_pins": [
+        "FB (5)"
+      ],
+      "applies_to": "Voltage feedback pin for adjustable output voltage versions",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (Section 7.1)"
+    },
+    {
+      "group_name": "Soft-Start/Tracking Input (SS/TR)",
+      "pin_type": "analog",
+      "example_pins": [
+        "SS/TR (9)"
+      ],
+      "applies_to": "Soft-start capacitor and tracking voltage pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings - Pin voltage (Section 7.1, EN/SS/TR range: VIN + 0.3V)"
+    },
+    {
+      "group_name": "Output Voltage Sense (VOS)",
+      "pin_type": "analog",
+      "example_pins": [
+        "VOS (14)"
+      ],
+      "applies_to": "Output voltage sense and control loop connection",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (Section 7.1)"
+    },
+    {
+      "group_name": "Power Good Output (PG)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "PG (4)"
+      ],
+      "applies_to": "Open-drain power good indicator output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.3,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (Section 7.1)"
+    },
+    {
+      "group_name": "Switch Node (SW)",
+      "pin_type": "analog",
+      "example_pins": [
+        "SW (1, 2, 3)"
+      ],
+      "applies_to": "Internal MOSFET switch node connection to inductor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings - Pin voltage (Section 7.1, SW range: -0.3V to VIN + 0.3V)"
+    }
+  ],
+  "default_group": "Digital Control Inputs (EN, DEF, FSW)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "86f01b60feb79d3419dd1940bd1163905b20b4ed37063c4ed43c1baaada11cb7",
+    "source_pdf_sha256": "81e0acf0290ce9d8b54f53af5edd4540a8b69e765809abd9c209f1089777875b",
+    "pdf_size": 2614476,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

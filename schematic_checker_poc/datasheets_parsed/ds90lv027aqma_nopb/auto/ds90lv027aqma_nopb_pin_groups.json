@@ -1,0 +1,121 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Power Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "VCC pin - positive power supply",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": 3.0,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "GND Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "GND pin - ground reference",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "TTL/CMOS Digital Inputs",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "2",
+        "3"
+      ],
+      "applies_to": "DI1, DI2 - TTL/CMOS driver input pins",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - VIH",
+      "abs_max_source": "Absolute Maximum Ratings - Input voltage, DI"
+    },
+    {
+      "group_name": "LVDS Differential Outputs",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "applies_to": "DO+1, DO-1, DO+2, DO-2 - LVDS differential driver output pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 1.4,
+      "VOL_max": 1.1,
+      "absolute_max_voltage": 3.9,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings - Output voltage, DO\u00b1"
+    }
+  ],
+  "default_group": "LVDS Differential Outputs",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "dab0444274ce306d74f102601989cbeb61f714d923ff938f4c087dec83cd58b3",
+    "source_pdf_sha256": "6eccb968c04f13822c9de64a5798bbc1d09847e92a9686108abb062577467208",
+    "pdf_size": 1223059,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "MISS",
+      "tier": null,
+      "depth": null,
+      "ratio": null
+    }
+  }
+}

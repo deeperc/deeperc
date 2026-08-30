@@ -1,0 +1,30 @@
+# This IS the complete runtime manifest for the public tier: the check path
+# (parse a netlist, run the deterministic checkers against cached datasheet
+# extractions and the peripheral KB, print a report — no API key or network
+# access needed) AND the user-runnable extractor (steps/extractors.py's default
+# haiku_pdfplumber impl, which fires on a cache miss and needs an Anthropic key).
+#
+# Deliberately still excluded: the private-tier deps (the L2 vendor-lookup
+# client, MinerU/torch, ollama client, ...) that build/refresh the datasheet
+# cache and KB via the corpus/L2/KB-authoring tooling. Those live private-side,
+# not in this file.
+pdfplumber==0.11.9
+rich==15.0.0
+anthropic==0.115.0
+# python-dotenv is load-bearing, not incidental: HaikuPdfplumberExtractor._api_key()
+# reads ANTHROPIC_API_KEY from .env via dotenv_values() first — without this
+# package installed, that resolution silently fell back to None (A4-1 in
+# investigation/recon_reports/extractor_public_scoping_recon.md) even with the
+# key correctly set in .env. The ANTHROPIC_API_KEY env var is still an explicit
+# fallback if .env can't be read.
+python-dotenv==1.2.2
+# requests is imported at MODULE level by download_datasheets.py:23 (shipped).
+# It was also imported at module level by two now-excluded L2 vendor-lookup
+# files (LT-35 Phase 2 — see export/MANIFEST's EXCLUDED STEPS); that optional
+# path degrades cleanly when the import fails (one "L2 vendor lookup: off"
+# line, LT-23), so the check path runs without it — but "runs without it" is
+# not the same as "is not imported by it", and every module that imports it
+# ships. Leaving it out made test files uncollectable in the exported tree
+# while the private tree stayed green, because the private venv had it
+# incidentally. Enumerated and moved here by LT-15 Phase B.1 STEP 2b.
+requests==2.33.1

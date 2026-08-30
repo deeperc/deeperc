@@ -1,0 +1,61 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "PTC Resettable Fuse - Two Terminal Device",
+      "pin_type": "power",
+      "example_pins": [
+        "Terminal 1",
+        "Terminal 2"
+      ],
+      "applies_to": "All MF-MSMF series models including MF-MSMF050 and variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 8.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "N/A - not a logic device",
+      "abs_max_source": "Electrical Characteristics table - Vmax column"
+    }
+  ],
+  "default_group": "PTC Resettable Fuse - Two Terminal Device",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "f7ef4f710cc2555d5402d1bca147a49c6d0458c3836ad61434ab22e41c5e2073",
+    "source_pdf_sha256": "29ef0851c8c9beeeaa5c90da0222a31bae7bbb2ae9c63629f60e5b3dcab8c2d6",
+    "pdf_size": 1319254,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 3,
+      "depth": 1,
+      "ratio": 0.833
+    }
+  }
+}

@@ -1,0 +1,144 @@
+(export
+	(version "E")
+	(design
+		(source "todo409_local_ground_labels.kicad_sch")
+		(date "")
+		(tool "")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title "TODO-409 Option 1-G reproducer")
+				(company "")
+				(rev "")
+				(date "")
+				(source "todo409_local_ground_labels.kicad_sch")
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "U1")
+			(value "MCU1000")
+			(footprint "Package_QFP:LQFP-48")
+			(libsource
+				(lib "MCU")
+				(part "MCU1000")
+				(description "Synthetic STM32-shaped MCU (TODO-409 fixture)")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "11111111-1111-1111-1111-111111111111")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C1")
+			(value "100n")
+			(footprint "Capacitor_SMD:C_0402_1005Metric")
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "22222222-2222-2222-2222-222222222222")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+	)
+	(groups)
+	(variants)
+	(libparts)
+	(libraries)
+	(nets
+		(net
+			(code "1")
+			(name "VDD")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "1")
+				(pinfunction "VDD_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "C1")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "2")
+			(name "VDDA")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "2")
+				(pinfunction "VDDA_2")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "3")
+			(name "/GND")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "3")
+				(pinfunction "VSS_3")
+				(pintype "power_in")
+			)
+			(node
+				(ref "C1")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "4")
+			(name "/GNDA")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "4")
+				(pinfunction "VSSA_4")
+				(pintype "power_in")
+			)
+		)
+	)
+)

@@ -1,0 +1,121 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Input Supply Voltage (VIN)",
+      "pin_type": "power",
+      "example_pins": [
+        "VIN",
+        "INPUT"
+      ],
+      "applies_to": "Input voltage supply pin for all package variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 16.0,
+      "supply_min": 2.7,
+      "supply_max": 15.0,
+      "supply_abs_max": 16.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Section 5.1"
+    },
+    {
+      "group_name": "Output Voltage (VOUT)",
+      "pin_type": "power",
+      "example_pins": [
+        "VOUT",
+        "OUTPUT"
+      ],
+      "applies_to": "Output voltage pin for all package variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Section 5.1 (VOUT \u2264 VIN + 0.3V or 16V, whichever is smaller)"
+    },
+    {
+      "group_name": "Adjust/Ground Pin (ADJ/GND)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "ADJ/GND",
+        "1"
+      ],
+      "applies_to": "Adjust pin for adjustable output option; Ground pin for fixed output option",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "No Connect (NC)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "NC",
+        "8"
+      ],
+      "applies_to": "No connect pin in DRJ package only",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Adjust/Ground Pin (ADJ/GND)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "168967280ffafad2134ac3573ffe8d8fc3098981036597c0c57c3aa5440814b0",
+    "source_pdf_sha256": "a38bff5e536eb7519e6030e734a759af16f6847f2c88c57e4d4378a080511688",
+    "pdf_size": 2567479,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "MISS",
+      "tier": null,
+      "depth": null,
+      "ratio": null
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Power Supply (VDD33)",
+      "pin_type": "power",
+      "example_pins": [
+        "2",
+        "38"
+      ],
+      "applies_to": "3V3 and GND pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": 3.0,
+      "supply_max": 3.6,
+      "supply_abs_max": 3.6,
+      "supply_rail_name": "VDD33",
+      "VIH_source": null,
+      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Digital I/O (3.3V domain)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "16",
+        "23",
+        "24",
+        "25",
+        "26",
+        "29",
+        "30",
+        "31",
+        "33",
+        "35",
+        "36",
+        "37"
+      ],
+      "applies_to": "GPIO pins in VDD3P3_CPU, VDD3P3_RTC, and VDD_SDIO power domains",
+      "VIH_min": 2.475,
+      "VIL_max": 0.825,
+      "VOH_min": 2.64,
+      "VOL_max": 0.33,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 15: DC Characteristics (3.3V, 25\u00b0C) - VIH = 0.75\u00d7VDD",
+      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Analog Input (ADC)",
+      "pin_type": "analog",
+      "example_pins": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "applies_to": "SENSOR_VP, SENSOR_VN, IO34, IO35, IO32, IO33, IO25, IO26 (ADC pins)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Module Enable (EN)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "EN pin - module enable signal",
+      "VIH_min": 2.475,
+      "VIL_max": 0.825,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 15: DC Characteristics (3.3V, 25\u00b0C) - VIH = 0.75\u00d7VDD",
+      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "UART Interface",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "34",
+        "35"
+      ],
+      "applies_to": "RXD0 (GPIO3), TXD0 (GPIO1) - UART pins",
+      "VIH_min": 2.475,
+      "VIL_max": 0.825,
+      "VOH_min": 2.64,
+      "VOL_max": 0.33,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Table 15: DC Characteristics (3.3V, 25\u00b0C) - VIH = 0.75\u00d7VDD",
+      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "Digital I/O (3.3V domain)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "72ef901d57cab5648f47dba5e590faa71f0c5963238dea419544369c907d8cb5",
+    "source_pdf_sha256": "ca632257a99c32903b932501e7f3dfe172a87e3179e6b9290f667bf11ef02c55",
+    "pdf_size": 1424942,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

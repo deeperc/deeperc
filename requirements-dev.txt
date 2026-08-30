@@ -1,0 +1,15 @@
+# Development dependencies — everything needed to RUN THE TEST SUITE, and nothing
+# else. Install on top of requirements.txt:
+#
+#     pip install -r requirements.txt -r requirements-dev.txt
+#
+# The split is deliberate and mirrors requirements.txt's own framing: that file is
+# the complete *runtime* manifest (the check path plus the user-runnable
+# extractor), so a user who only wants to check netlists never installs a test
+# framework. `make test` installs both.
+#
+# Provenance: LT-15 Phase B found that the public tier shipped a `test` target and
+# a 88-file test suite with no way to run either — `make test` on a fresh
+# requirements.txt-only venv died on "No module named pytest". This file closes
+# that gap without widening the runtime manifest. LT-15 Phase B.1 STEP 2a.
+pytest==9.0.3

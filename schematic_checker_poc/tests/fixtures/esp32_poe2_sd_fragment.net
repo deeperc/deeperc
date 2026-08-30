@@ -1,0 +1,78 @@
+(export (version "E")
+	(design
+		(source "esp32_poe2_sd_fragment.net")
+		(date "2026-05-10")
+		(tool "Eeschema 10.0.1")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title "ESP32-PoE2 SD Card Subcircuit Fragment")
+				(company "OLIMEX LTD.")
+				(rev "B")
+				(date "2024-03-05")
+				(source "ESP32-PoE2_Rev_B.kicad_sch")
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "C7")
+			(value "47uF/6.3V/20%/X5R/C0805")
+		)
+		(comp
+			(ref "L2")
+			(value "FB0805/600R/2A")
+		)
+		(comp
+			(ref "MICRO_SD1")
+			(value "TFC-WPAPR-08-LF")
+		)
+	)
+	(nets
+		(net
+			(code "1")
+			(name "GND")
+			(class "Default")
+			(node
+				(ref "C7")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "2")
+			(name "+3.3V")
+			(class "Default")
+			(node
+				(ref "L2")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "3")
+			(name "Net-(MICRO_SD1-VDD)")
+			(class "Default")
+			(node
+				(ref "C7")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "L2")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "MICRO_SD1")
+				(pin "4")
+				(pinfunction "VDD_4")
+				(pintype "power_in")
+			)
+		)
+	)
+)

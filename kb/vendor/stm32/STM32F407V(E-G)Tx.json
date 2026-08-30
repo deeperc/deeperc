@@ -1,0 +1,3428 @@
+{
+  "mcu_part": "STM32F407V(E-G)Tx",
+  "kb_source": "vendor_xml",
+  "kb_version": "STM32CubeMX at /usr/local/STMicroelectronics/STM32Cube/STM32CubeMX",
+  "extraction_timestamp": "2026-08-29T17:09:10.277990+00:00",
+  "peripheral_routing": {
+    "i2c": "fixed",
+    "uart": "fixed",
+    "spi": "fixed",
+    "tim": "fixed"
+  },
+  "pins": [
+    {
+      "pin_id": "PE2",
+      "position": "1",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE3",
+      "position": "2",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE4",
+      "position": "3",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE5",
+      "position": "4",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM9",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE6",
+      "position": "5",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM9",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC13",
+      "position": "7",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC14",
+      "position": "8",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC15",
+      "position": "9",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PH0",
+      "position": "12",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PH1",
+      "position": "13",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC0",
+      "position": "15",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN10"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN10"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN10"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC1",
+      "position": "16",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC2",
+      "position": "17",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN12"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN12"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN12"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "miso",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC3",
+      "position": "18",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN13"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN13"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN13"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "mosi",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA0",
+      "position": "23",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN0"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN0"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN0"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM2",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM5",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM8",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART4",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA1",
+      "position": "24",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN1"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN1"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN1"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM5",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART4",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA2",
+      "position": "25",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN2"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN2"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN2"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM5",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM9",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA3",
+      "position": "26",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN3"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN3"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "IN3"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM5",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM9",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA4",
+      "position": "29",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN4"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN4"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "DAC",
+          "config_hint": "OUT1"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "nss",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "nss",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA5",
+      "position": "30",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN5"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN5"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "DAC",
+          "config_hint": "OUT2"
+        },
+        {
+          "peripheral": "spi",
+          "signal": "sck",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM2",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH1N"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA6",
+      "position": "31",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN6"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN6"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "miso",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM13",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM1",
+          "config_hint": "BKIN"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM8",
+          "config_hint": "BKIN"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA7",
+      "position": "32",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN7"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN7"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "mosi",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM14",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH1N"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH1N"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC4",
+      "position": "33",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN14"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN14"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC5",
+      "position": "34",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB0",
+      "position": "35",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN8"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN8"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH2N"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH2N"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB1",
+      "position": "36",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "IN9"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "IN9"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH3N"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH3N"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB2",
+      "position": "37",
+      "possible_roles": [
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE7",
+      "position": "38",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM1",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE8",
+      "position": "39",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH1N"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE9",
+      "position": "40",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "DAC",
+          "config_hint": "EXTI9"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE10",
+      "position": "41",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH2N"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE11",
+      "position": "42",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE12",
+      "position": "43",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH3N"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE13",
+      "position": "44",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE14",
+      "position": "45",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE15",
+      "position": "46",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM1",
+          "config_hint": "BKIN"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB10",
+      "position": "47",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "sck",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB11",
+      "position": "48",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB12",
+      "position": "51",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "rx",
+          "instance": "CAN2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": null,
+          "instance": "I2C2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "nss",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM1",
+          "config_hint": "BKIN"
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB13",
+      "position": "52",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "tx",
+          "instance": "CAN2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "sck",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH1N"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB14",
+      "position": "53",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "miso",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM12",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH2N"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH2N"
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB15",
+      "position": "54",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "mosi",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM12",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH3N"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH3N"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD8",
+      "position": "55",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD9",
+      "position": "56",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "DAC",
+          "config_hint": "EXTI9"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD10",
+      "position": "57",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD11",
+      "position": "58",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD12",
+      "position": "59",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD13",
+      "position": "60",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD14",
+      "position": "61",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD15",
+      "position": "62",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC6",
+      "position": "63",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART6",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC7",
+      "position": "64",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART6",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC8",
+      "position": "65",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART6",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC9",
+      "position": "66",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "DAC",
+          "config_hint": "EXTI9"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM8",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA8",
+      "position": "67",
+      "possible_roles": [
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA9",
+      "position": "68",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "DAC",
+          "config_hint": "EXTI9"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": null,
+          "instance": "I2C3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA10",
+      "position": "69",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA11",
+      "position": "70",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": "rx",
+          "instance": "CAN1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM1",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "USART1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA12",
+      "position": "71",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "tx",
+          "instance": "CAN1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM1",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA13",
+      "position": "72",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA14",
+      "position": "76",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PA15",
+      "position": "77",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI15"
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "nss",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "nss",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM2",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC10",
+      "position": "78",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "sck",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART4",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC11",
+      "position": "79",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC1",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC2",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "ADC3",
+          "config_hint": "EXTI11"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "miso",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART4",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PC12",
+      "position": "80",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "mosi",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "UART5",
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD0",
+      "position": "81",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "rx",
+          "instance": "CAN1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD1",
+      "position": "82",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "tx",
+          "instance": "CAN1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD2",
+      "position": "83",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM3",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "UART5",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD3",
+      "position": "84",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "cts",
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD4",
+      "position": "85",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD5",
+      "position": "86",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD6",
+      "position": "87",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PD7",
+      "position": "88",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "uart",
+          "signal": null,
+          "instance": "USART2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB3",
+      "position": "89",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "sck",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "sck",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM2",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB4",
+      "position": "90",
+      "possible_roles": [
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "miso",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "miso",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB5",
+      "position": "91",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "rx",
+          "instance": "CAN2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": null,
+          "instance": "I2C1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "mosi",
+          "instance": "SPI1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "mosi",
+          "instance": "SPI3",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM3",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB6",
+      "position": "92",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "tx",
+          "instance": "CAN2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "tx",
+          "instance": "USART1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB7",
+      "position": "93",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH2"
+        },
+        {
+          "peripheral": "uart",
+          "signal": "rx",
+          "instance": "USART1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB8",
+      "position": "95",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "rx",
+          "instance": "CAN1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "scl",
+          "instance": "I2C1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM10",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH3"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PB9",
+      "position": "96",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": "tx",
+          "instance": "CAN1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": "DAC",
+          "config_hint": "EXTI9"
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "i2c",
+          "signal": "sda",
+          "instance": "I2C1",
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": null,
+          "instance": "I2S2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "spi",
+          "signal": "nss",
+          "instance": "SPI2",
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM11",
+          "config_hint": "CH1"
+        },
+        {
+          "peripheral": "tim",
+          "signal": "ch",
+          "instance": "TIM4",
+          "config_hint": "CH4"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE0",
+      "position": "97",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "tim",
+          "signal": null,
+          "instance": "TIM4",
+          "config_hint": "ETR"
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    },
+    {
+      "pin_id": "PE1",
+      "position": "98",
+      "possible_roles": [
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "other",
+          "signal": null,
+          "instance": null,
+          "config_hint": null
+        },
+        {
+          "peripheral": "gpio",
+          "signal": "gpio",
+          "instance": null,
+          "config_hint": null
+        }
+      ]
+    }
+  ]
+}

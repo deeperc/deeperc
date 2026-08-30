@@ -1,0 +1,98 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Drain (D) - Power MOSFET Drain",
+      "pin_type": "power",
+      "example_pins": [
+        "D"
+      ],
+      "applies_to": "Drain terminal of N-Channel MOSFET",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 300.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": 300.0,
+      "supply_rail_name": "VDS",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Source (S) - Power MOSFET Source",
+      "pin_type": "power",
+      "example_pins": [
+        "S"
+      ],
+      "applies_to": "Source terminal of N-Channel MOSFET",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Gate (G) - Digital Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "G"
+      ],
+      "applies_to": "Gate control terminal",
+      "VIH_min": 3.0,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 30.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - On Characteristics (VGS(th) minimum)",
+      "abs_max_source": "Absolute Maximum Ratings (VGSS)"
+    }
+  ],
+  "default_group": "Gate (G) - Digital Input",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "23d314ba2f25d9c9171fa6ca30a3e0259938982ac8d436be9a92fc144997acca",
+    "source_pdf_sha256": "6c3b63ba5adad03e6587e0ec3478cc0e06938085cc6cff855ab5a60d0334ba34",
+    "pdf_size": 766635,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

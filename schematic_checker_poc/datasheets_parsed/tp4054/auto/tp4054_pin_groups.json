@@ -1,0 +1,136 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VCC Power Supply",
+      "pin_type": "power",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "VCC pin - positive input voltage",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": 4.25,
+      "supply_max": 6.5,
+      "supply_abs_max": 7.0,
+      "supply_rail_name": "VCC",
+      "VIH_source": null,
+      "abs_max_source": "Maximum rating (Note 1)"
+    },
+    {
+      "group_name": "GND Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "GND pin - ground terminal",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "BAT Charging Output",
+      "pin_type": "analog",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "BAT pin - charging current output terminal",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum rating (Note 1)"
+    },
+    {
+      "group_name": "PROG Programming/Monitoring",
+      "pin_type": "analog",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "PROG pin - charging current programming, monitoring, and shutdown terminal",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 0.3,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum rating (Note 1)"
+    },
+    {
+      "group_name": "CHRG Status Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "CHRG pin - open drain charging status output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.6,
+      "absolute_max_voltage": 10.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum rating (Note 1)"
+    }
+  ],
+  "default_group": "CHRG Status Output",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-05T00:32:16+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "502fbf7efda51f7aa8dda75f3a960f7f1ce917c6741e6edd8b85b15100fefd1c",
+    "source_pdf_sha256": "de47a5eb26c5b5d8fad4667be3a113b6894be53747a0c776723807ac1291aa0d",
+    "pdf_size": 795132,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-05T00:32:16+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

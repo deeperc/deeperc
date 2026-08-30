@@ -1,0 +1,48 @@
+{
+  "fixture_file": "examples/my_stm32_board_pullup_presence/my_stm32_board_pullup_presence.net",
+  "purpose": "LT-27 tranche 1: hermetic demo fixture for step_08g (pull-up-PRESENCE check, Family 1 generic open-drain/open-collector) — an OD/OC-declared output with no pull-up path.",
+  "source": {
+    "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
+    "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
+    "upstream_repo": "https://github.com/Shadaab1904/STM32-PCB-Design",
+    "upstream_commit_sha": "72a71d6dba94db2bab8bb0e1f884ef3a1e5a6df1",
+    "acquired_at": "2026-06-17T20:35:32.395614"
+  },
+  "license": {
+    "spdx": "MIT",
+    "copyright_line": "Copyright (c) 2025 Shadaab1904",
+    "source_file": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/LICENSE"
+  },
+  "mutation": {
+    "op_id": "PULLUP_PRESENCE_FAMILY1_OD_NO_PULLUP",
+    "description": "Flip U2 (STM32F103C8T6) pin 37's declared KiCad pintype from 'bidirectional' to 'open_collector' on the /SWCLK net (an SWD debug net wired to connector J3). /SWCLK was chosen because it already has >=2 non-passive refdes (J3 connector + U2 MCU — step_08g's _is_passive_refdes only excludes R*/C*/L*/FB* refdes prefixes, so a connector counts as non-passive), is not power/ground, is not I2C-classified (so not suppressed in favor of M3/NO_PULLUP), and carries no resistor or diode bridging it to a positive rail — so once the pin reads as open-collector it has no pull-up path.",
+    "component": "U2",
+    "pin": {"pin": "37", "pinfunction": "PA14_37", "pin_name": "PA14", "net": "/SWCLK", "original_pintype": "bidirectional", "new_pintype": "open_collector"},
+    "diff": "exactly one (pintype \"bidirectional\") -> (pintype \"open_collector\") field change on U2's pin-37 (node ...) block within the \"/SWCLK\" net; no other bytes in the file differ from netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net"
+  },
+  "generator": {
+    "method": "hand-authored .net edit (Python script, exact single-field replace)",
+    "note": "No edits to any pipeline code, checker code, or generate_bad_corpus.py. No KB additions."
+  },
+  "expected_verdict": {
+    "board_status": "has_warn",
+    "pullup_presence_checks": {"warn": 1},
+    "warn_findings": [
+      {
+        "net": "/SWCLK",
+        "family": "generic_od",
+        "violation": "OPEN_DRAIN_NO_PULLUP",
+        "severity": "WARN",
+        "pins": ["U2.37"],
+        "corroboration": [],
+        "evidence": "Open-collector/open-drain output(s) [U2.PA14] drive net '/SWCLK' with no pull-up path to a positive rail (direct R, or a correctly-oriented diode+R). An OD output only sinks — without a pull-up the net has no defined high level.",
+        "activation": "od_pintype"
+      }
+    ],
+    "confidence": "medium (WARN-tier by design — v1 presence-only, no value-range judgement)",
+    "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
+    "unchanged_axes": "supply 5 PASS, structural 11 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, output_conflict 0 FAIL -- byte-identical to the unmodified board"
+  },
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_pullup_presence/my_stm32_board_pullup_presence.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "date": "2026-08-06"
+}

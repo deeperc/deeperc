@@ -1,0 +1,213 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VIN Supply Rail",
+      "pin_type": "power",
+      "example_pins": [
+        "10"
+      ],
+      "applies_to": "VIN input supply pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": 2.375,
+      "supply_max": 3.5,
+      "supply_abs_max": 3.6,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VLDOIN Supply Rail",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "VLDOIN LDO supply input pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": 1.1,
+      "supply_max": 3.5,
+      "supply_abs_max": 3.6,
+      "supply_rail_name": "VLDOIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground Pins",
+      "pin_type": "power",
+      "example_pins": [
+        "4",
+        "8"
+      ],
+      "applies_to": "GND and PGND signal and power ground pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 0.3,
+      "supply_min": -0.1,
+      "supply_max": 0.1,
+      "supply_abs_max": 0.3,
+      "supply_rail_name": "GND",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "REFIN Reference Input",
+      "pin_type": "analog",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "REFIN reference voltage input pin",
+      "VIH_min": 0.5,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Recommended Operating Conditions",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "EN Enable Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "7"
+      ],
+      "applies_to": "EN enable control input pin",
+      "VIH_min": 1.7,
+      "VIL_max": 0.3,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - UVLO AND EN LOGIC THRESHOLD",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VO Output",
+      "pin_type": "analog",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "VO power output pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VOSNS Voltage Sense Input",
+      "pin_type": "analog",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "VOSNS remote voltage sense input pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "REFOUT Reference Output",
+      "pin_type": "analog",
+      "example_pins": [
+        "6"
+      ],
+      "applies_to": "REFOUT reference voltage output pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "PGOOD Power Good Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "9"
+      ],
+      "applies_to": "PGOOD open-drain power good indicator output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "VO Output",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "48e0e3f5857dc0f0634e97ac7da335331fb91844f229b216f5f3ce1d23697837",
+    "source_pdf_sha256": "0d50d4deae8ac03a101b66444ae572aed4510507be29da1b1f4876c91b5443d4",
+    "pdf_size": 1767123,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

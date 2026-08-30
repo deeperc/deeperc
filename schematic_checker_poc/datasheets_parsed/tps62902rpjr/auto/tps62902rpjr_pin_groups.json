@@ -1,0 +1,212 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Power Supply (VIN)",
+      "pin_type": "power",
+      "example_pins": [
+        "6"
+      ],
+      "applies_to": "VIN - Power supply input pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": 3.0,
+      "supply_max": 17.0,
+      "supply_abs_max": 18.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "4"
+      ],
+      "applies_to": "GND - Ground pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Enable Input (EN)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "5"
+      ],
+      "applies_to": "EN - Enable input pin",
+      "VIH_min": 0.97,
+      "VIL_max": 0.93,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics, Table 6.5 - V_IH",
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1"
+    },
+    {
+      "group_name": "Mode/SmartConfig Input (MODE/S-CONF)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "7"
+      ],
+      "applies_to": "MODE/S-CONF - Device mode selection and SmartConfig pin",
+      "VIH_min": 1.0,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 18.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics, Table 6.5 - V_IH_MODE",
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1"
+    },
+    {
+      "group_name": "Switch Node (SW)",
+      "pin_type": "analog",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "SW - Switch pin of the converter",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 23.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1 - SW (AC, less than 10ns)"
+    },
+    {
+      "group_name": "Output Voltage Sense (VOS)",
+      "pin_type": "analog",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "VOS - Output voltage sense pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1"
+    },
+    {
+      "group_name": "Feedback/VSET Pin (FB/VSET)",
+      "pin_type": "analog",
+      "example_pins": [
+        "9"
+      ],
+      "applies_to": "FB/VSET - Voltage feedback input or output voltage setting pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1"
+    },
+    {
+      "group_name": "Soft Start/Tracking Pin (SS/TR)",
+      "pin_type": "analog",
+      "example_pins": [
+        "8"
+      ],
+      "applies_to": "SS/TR - Soft start/tracking pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1"
+    },
+    {
+      "group_name": "Power Good Output (PG)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "PG - Open-drain power good output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 18.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings, Table 6.1"
+    }
+  ],
+  "default_group": "Feedback/VSET Pin (FB/VSET)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "1978f0a0587e5f83788b503b59eba27293abaec98084a4e87a5bc44b6dc330f6",
+    "source_pdf_sha256": "3d2c9e0c2980db42afe431669f0fd1a8db0d361883ae64418dd5975b0223f791",
+    "pdf_size": 7108255,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

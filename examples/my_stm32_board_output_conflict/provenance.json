@@ -1,0 +1,53 @@
+{
+  "fixture_file": "examples/my_stm32_board_output_conflict/my_stm32_board_output_conflict.net",
+  "purpose": "LT-27 tranche 1: hermetic demo fixture for step_08f (output-conflict / M2) — two distinct-refdes push-pull output drivers shorted onto one net.",
+  "source": {
+    "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
+    "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
+    "upstream_repo": "https://github.com/Shadaab1904/STM32-PCB-Design",
+    "upstream_commit_sha": "72a71d6dba94db2bab8bb0e1f884ef3a1e5a6df1",
+    "acquired_at": "2026-06-17T20:35:32.395614"
+  },
+  "license": {
+    "spdx": "MIT",
+    "copyright_line": "Copyright (c) 2025 Shadaab1904",
+    "source_file": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/LICENSE"
+  },
+  "mutation": {
+    "op_id": "M2_OUTPUT_CONFLICT",
+    "description": "Relocate two power_out-typed pins from two DIFFERENT components — U1 (AMS1117-3.3) pin 2 (VO, the 3.3V regulator output) and J1 (USB connector) pin 1 (VBUS, the USB 5V source) — off their original nets ('+3.3V' and 'VBUS', both excluded from step_08f as power-net-named) onto one new, non-power-named net. This models a realistic defect (a 5V USB source directly shorted to a 3.3V regulator output) using the checker's own primary signal (KiCad-native pintype=power_out, cross-refdes). The first attempt at this fixture (moving one pin onto the existing '+3.3V' net) was found NOT to trigger the checker — that net's name matches step_06's POWER_NET_RE, which step_08f's own SKIPPED_POWER_GROUND gate excludes before the driver-count logic ever runs; corrected by using a freshly-named, non-power net instead.",
+    "components": ["U1", "J1"],
+    "pins": [
+      {"component": "U1", "pin": "2", "pinfunction": "VO_2", "pin_name": "VO", "pintype": "power_out", "original_net": "+3.3V"},
+      {"component": "J1", "pin": "1", "pinfunction": "VBUS_1", "pin_name": "VBUS", "pintype": "power_out", "original_net": "VBUS"}
+    ],
+    "new_net": "/REG_USB_SHORT",
+    "diff": "the two (node ...) blocks for U1.2 and J1.1 are removed from their original nets ('+3.3V', 'VBUS') and re-added as the two nodes of a new net (code \"9002\", name \"/REG_USB_SHORT\"); no other bytes in the file differ from netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net"
+  },
+  "generator": {
+    "method": "hand-authored .net edit (Python script, line-exact block move)",
+    "note": "No edits to any pipeline code, checker code, or generate_bad_corpus.py. m2_output_conflict.py (step_08f) is unchanged."
+  },
+  "expected_verdict": {
+    "board_status": "has_fail",
+    "output_conflict_checks": {"fail": 1},
+    "fail_findings": [
+      {
+        "net": "/REG_USB_SHORT",
+        "violation": "OUTPUT_CONFLICT",
+        "status": "FAIL",
+        "severity": "critical",
+        "drivers": [
+          {"refdes": "J1", "pin_id": "1", "pin_name": "VBUS", "pintype": "power_out"},
+          {"refdes": "U1", "pin_id": "2", "pin_name": "VO", "pintype": "power_out"}
+        ],
+        "evidence_label": "Confirmed — ≥2 push-pull output drivers on net /REG_USB_SHORT: J1.1, U1.2; source-text MPN match: none"
+      }
+    ],
+    "confidence": "high (deterministic net-topology check on KiCad-native pintype, no KB/cache dependency)",
+    "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
+    "unchanged_axes": "supply 5 PASS, structural 11 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, pullup_presence 0 WARN -- identical checker verdict counts to the unmodified board (extracted-pin-spec count moves 39->40 as a side effect of the two relocated pins no longer sitting on a recognized power/ground net; this does not change any checker's finding count)"
+  },
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_output_conflict/my_stm32_board_output_conflict.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "date": "2026-08-06"
+}

@@ -1,0 +1,79 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Cathode (K)",
+      "pin_type": "power",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Pin 1 - Cathode terminal of Schottky diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 30.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 5. Limiting values - V_R (reverse voltage)"
+    },
+    {
+      "group_name": "Anode (A)",
+      "pin_type": "power",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "Pin 2 - Anode terminal of Schottky diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 30.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Table 5. Limiting values - V_R (reverse voltage)"
+    }
+  ],
+  "default_group": "Anode (A)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "808f1840d5191285c0b963ef7b7eeaeeef4942d9f0a2d009ea32fe1b6d5d3cff",
+    "source_pdf_sha256": "2092b1abcf9e4566e675c4ddcc344c82b63faf180feb1117af6b94849fb6add1",
+    "pdf_size": 183820,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

@@ -1,0 +1,27 @@
+(export (version "E")
+  (components
+    (comp (ref "U1")
+      (value "STM32F103C8T6")
+      (fields
+        (field (name "MPN") "STM32F103C8T6"))
+      (pins
+        (pin (num "25") (name "PB6") (type "bidirectional"))
+        (pin (num "26") (name "PB7") (type "bidirectional"))))
+    (comp (ref "U2")
+      (value "GenericI2CSensor2")
+      (fields
+        (field (name "MPN") "GENERIC_I2C_SENSOR_2"))
+      (pins
+        (pin (num "1") (name "SCL") (type "input"))
+        (pin (num "2") (name "SDA") (type "bidirectional")))))
+  (nets
+    (net
+      (code "1")
+      (name "Net-(U1-I2C1_SCL_3V3{slash}PB6)")
+      (node (ref "U1") (pin "25"))
+      (node (ref "U2") (pin "1")))
+    (net
+      (code "2")
+      (name "Net-(U1-I2C1_SDA_3V3{slash}PB7)")
+      (node (ref "U1") (pin "26"))
+      (node (ref "U2") (pin "2")))))

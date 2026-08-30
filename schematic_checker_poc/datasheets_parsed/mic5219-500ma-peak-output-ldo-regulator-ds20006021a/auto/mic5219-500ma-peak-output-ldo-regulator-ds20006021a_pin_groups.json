@@ -1,0 +1,175 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Supply Input (VIN)",
+      "pin_type": "power",
+      "example_pins": [
+        "IN"
+      ],
+      "applies_to": "Supply input pin on all packages",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": 2.5,
+      "supply_max": 12.0,
+      "supply_abs_max": 20.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "GND",
+        "EP"
+      ],
+      "applies_to": "Ground pins on all packages (GND pins and exposed pad)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Regulator Output (VOUT)",
+      "pin_type": "analog",
+      "example_pins": [
+        "OUT"
+      ],
+      "applies_to": "Regulator output pin on all packages",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Enable/Shutdown Input (EN)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "EN"
+      ],
+      "applies_to": "Enable/shutdown control input on all packages",
+      "VIH_min": 2.0,
+      "VIL_max": 0.18,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - ENABLE Input Logic-High Voltage",
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Reference Bypass (BYP)",
+      "pin_type": "analog",
+      "example_pins": [
+        "BYP"
+      ],
+      "applies_to": "Reference bypass capacitor connection on MSOP-8 and VDFN packages (fixed voltage versions)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Adjust Input (ADJ)",
+      "pin_type": "analog",
+      "example_pins": [
+        "ADJ"
+      ],
+      "applies_to": "Feedback/adjust input on adjustable versions (TDFN and SOT23-5 adjustable)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "No Connect (NC)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "NC"
+      ],
+      "applies_to": "No connect pins on TDFN package",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Regulator Output (VOUT)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "9e044907ee2fe593946ca52dd71312bfdb7deebf8a5160e2874a178494a833dc",
+    "source_pdf_sha256": "75b54e281b470424bbbb03dfb14cd44fd045ca07c2b397090b9cb03dc4eb7a8d",
+    "pdf_size": 1209830,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "WEAK",
+      "tier": 3,
+      "depth": 6,
+      "ratio": 0.137
+    }
+  }
+}

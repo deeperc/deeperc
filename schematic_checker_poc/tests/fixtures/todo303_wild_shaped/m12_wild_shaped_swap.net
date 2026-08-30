@@ -1,0 +1,27 @@
+(export (version "E")
+  (components
+    (comp (ref "U1")
+      (value "STM32F103C8T6")
+      (fields
+        (field (name "MPN") "STM32F103C8T6"))
+      (pins
+        (pin (num "15") (name "PA6") (type "bidirectional"))
+        (pin (num "16") (name "PA7") (type "bidirectional"))))
+    (comp (ref "U2")
+      (value "GenericSPIFlash")
+      (fields
+        (field (name "MPN") "GENERIC_SPI_FLASH"))
+      (pins
+        (pin (num "1") (name "MOSI") (type "input"))
+        (pin (num "2") (name "MISO") (type "output")))))
+  (nets
+    (net
+      (code "1")
+      (name "Net-(U1-~{SPI0_MOSI}{slash}PA7)")
+      (node (ref "U1") (pin "16"))
+      (node (ref "U2") (pin "2")))
+    (net
+      (code "2")
+      (name "Net-(U1-~{SPI0_MISO}{slash}PA6)")
+      (node (ref "U1") (pin "15"))
+      (node (ref "U2") (pin "1")))))

@@ -1,0 +1,193 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "VIN Supply Rail",
+      "pin_type": "power",
+      "example_pins": [
+        "VIN"
+      ],
+      "applies_to": "Input supply voltage pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": 3.0,
+      "supply_max": 17.0,
+      "supply_abs_max": 20.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "GND Power Return",
+      "pin_type": "power",
+      "example_pins": [
+        "GND"
+      ],
+      "applies_to": "Ground supply pin and exposed thermal pad",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "EN Enable Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "EN"
+      ],
+      "applies_to": "Enable comparator input pin",
+      "VIH_min": 1.16,
+      "VIL_max": 1.12,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 0.3,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - Enable Comparator Threshold and Hysteresis",
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "EN_hys Enable Hysteresis Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "EN_hys"
+      ],
+      "applies_to": "Enable hysteresis open-drain output pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "FB Feedback Input",
+      "pin_type": "analog",
+      "example_pins": [
+        "FB"
+      ],
+      "applies_to": "Feedback pin for output voltage regulation",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.6,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "VOS Output Voltage Sense",
+      "pin_type": "analog",
+      "example_pins": [
+        "VOS"
+      ],
+      "applies_to": "Output voltage sense pin for DCS-Control circuitry",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 12.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "SW Switch Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "SW"
+      ],
+      "applies_to": "Internal MOSFET switch pin connected to inductor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 23.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "PG Power Good Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "PG"
+      ],
+      "applies_to": "Open-drain power good output pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.3,
+      "absolute_max_voltage": 12.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    }
+  ],
+  "default_group": "VIN Supply Rail",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-03T18:35:01+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "e1a73ae6a547d015cf3008a041729f9566de36c6668dc7b2806bc9042cf41bea",
+    "source_pdf_sha256": "f8b75a3819731fbda1ab8bcee9b055fc62fe0b4d47608914933bc7779de64857",
+    "pdf_size": 8624688,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-03T18:35:01+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

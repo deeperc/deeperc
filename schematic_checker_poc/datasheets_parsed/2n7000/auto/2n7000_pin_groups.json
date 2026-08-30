@@ -1,0 +1,98 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Drain (Power/Signal)",
+      "pin_type": "analog",
+      "example_pins": [
+        "3"
+      ],
+      "applies_to": "Drain pin of N-channel MOSFET",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 60.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "MAXIMUM RATINGS - Drain Source Voltage (VDSS)"
+    },
+    {
+      "group_name": "Gate (Digital Input)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "2"
+      ],
+      "applies_to": "Gate pin of N-channel MOSFET",
+      "VIH_min": 0.8,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "ELECTRICAL CHARACTERISTICS - Gate Threshold Voltage (VGS(th)) Min",
+      "abs_max_source": "MAXIMUM RATINGS - Gate-Source Voltage (\u00b120V)"
+    },
+    {
+      "group_name": "Source (Power/Signal)",
+      "pin_type": "analog",
+      "example_pins": [
+        "1"
+      ],
+      "applies_to": "Source pin of N-channel MOSFET",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 60.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "MAXIMUM RATINGS - Drain Source Voltage (VDSS)"
+    }
+  ],
+  "default_group": "Gate (Digital Input)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "682eb3eb05ffeda030c67c9407b1cd8accbd3046041b4b4743701f69e08ba337",
+    "source_pdf_sha256": "b9cfecc7be11b19ac817e3160d6c862494f28cae0bdc3e826ab83ab15749c228",
+    "pdf_size": 154396,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

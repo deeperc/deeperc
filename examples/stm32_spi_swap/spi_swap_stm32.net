@@ -1,0 +1,1268 @@
+(export
+	(version "E")
+	(design
+		(source "spi-swap-stm32/spi_swap_stm32.kicad_sch")
+		(date "2026-08-29T10:45:46")
+		(tool "Eeschema 10.0.2")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title)
+				(company)
+				(rev)
+				(date)
+				(source "spi_swap_stm32.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "U1")
+			(value "STM32F103C8Tx")
+			(footprint "Package_QFP:LQFP-48_7x7mm_P0.5mm")
+			(datasheet "https://www.st.com/resource/en/datasheet/stm32f103c8.pdf")
+			(description "STMicroelectronics Arm Cortex-M3 MCU, 64KB flash, 20KB RAM, 72 MHz, 2.0-3.6V, 37 GPIO, LQFP48")
+			(fields
+				(field
+					(name "Footprint") "Package_QFP:LQFP-48_7x7mm_P0.5mm")
+				(field
+					(name "Datasheet") "https://www.st.com/resource/en/datasheet/stm32f103c8.pdf")
+				(field
+					(name "Description") "STMicroelectronics Arm Cortex-M3 MCU, 64KB flash, 20KB RAM, 72 MHz, 2.0-3.6V, 37 GPIO, LQFP48")
+			)
+			(libsource
+				(lib "MCU_ST_STM32F1")
+				(part "STM32F103C8Tx")
+				(description "STMicroelectronics Arm Cortex-M3 MCU, 64KB flash, 20KB RAM, 72 MHz, 2.0-3.6V, 37 GPIO, LQFP48")
+			)
+			(property
+				(name "Sheetname")
+				(value "Root")
+			)
+			(property
+				(name "Sheetfile")
+				(value "spi_swap_stm32.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "Arm Cortex-M3 STM32F1 STM32F103")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LQFP*7x7mm*P0.5mm*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d0dc80ef-9aab-456c-8184-a67e2830678c")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "44")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "39")
+						)
+						(pin
+							(num "40")
+						)
+						(pin
+							(num "41")
+						)
+						(pin
+							(num "42")
+						)
+						(pin
+							(num "43")
+						)
+						(pin
+							(num "45")
+						)
+						(pin
+							(num "46")
+						)
+						(pin
+							(num "21")
+						)
+						(pin
+							(num "22")
+						)
+						(pin
+							(num "25")
+						)
+						(pin
+							(num "26")
+						)
+						(pin
+							(num "27")
+						)
+						(pin
+							(num "28")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "24")
+						)
+						(pin
+							(num "36")
+						)
+						(pin
+							(num "23")
+						)
+						(pin
+							(num "35")
+						)
+						(pin
+							(num "47")
+						)
+						(pin
+							(num "48")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "29")
+						)
+						(pin
+							(num "30")
+						)
+						(pin
+							(num "31")
+						)
+						(pin
+							(num "32")
+						)
+						(pin
+							(num "33")
+						)
+						(pin
+							(num "34")
+						)
+						(pin
+							(num "37")
+						)
+						(pin
+							(num "38")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U2")
+			(value "ADS8319IBDRCR")
+			(footprint "DRC0010F")
+			(datasheet "https://www.ti.com/lit/gpn/ads8319")
+			(fields
+				(field
+					(name "Footprint") "DRC0010F")
+				(field
+					(name "Datasheet") "https://www.ti.com/lit/gpn/ads8319")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "2026-07-10_13-42-57")
+				(part "ADS8319IBDRCR")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "Root")
+			)
+			(property
+				(name "Sheetfile")
+				(value "spi_swap_stm32.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "ADS8319IBDRCR")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "DRC0010F")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d34002ae-f237-4aff-94bc-37af2a79b53f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "5")
+						)
+					)
+				)
+			)
+		)
+	)
+	(groups)
+	(variants)
+	(libparts
+		(libpart
+			(lib "2026-07-10_13-42-57")
+			(part "ADS8319IBDRCR")
+			(docs "https://www.ti.com/lit/gpn/ads8319")
+			(footprints
+				(fp "DRC0010F")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "ADS8319IBDRCR")
+				(field
+					(name "Footprint") "DRC0010F")
+				(field
+					(name "Datasheet") "https://www.ti.com/lit/gpn/ads8319")
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "REFIN")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "+VA")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "IN+")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "IN-")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "6")
+					(name "CONVST")
+					(type "input")
+				)
+				(pin
+					(num "7")
+					(name "SDO")
+					(type "output")
+				)
+				(pin
+					(num "8")
+					(name "SCLK")
+					(type "input")
+				)
+				(pin
+					(num "9")
+					(name "SDI")
+					(type "input")
+				)
+				(pin
+					(num "10")
+					(name "+VBD")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "MCU_ST_STM32F1")
+			(part "STM32F103C8Tx")
+			(description "STMicroelectronics Arm Cortex-M3 MCU, 64KB flash, 20KB RAM, 72 MHz, 2.0-3.6V, 37 GPIO, LQFP48")
+			(docs "https://www.st.com/resource/en/datasheet/stm32f103c8.pdf")
+			(footprints
+				(fp "LQFP*7x7mm*P0.5mm*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "STM32F103C8Tx")
+				(field
+					(name "Footprint") "Package_QFP:LQFP-48_7x7mm_P0.5mm")
+				(field
+					(name "Datasheet") "https://www.st.com/resource/en/datasheet/stm32f103c8.pdf")
+				(field
+					(name "Description") "STMicroelectronics Arm Cortex-M3 MCU, 64KB flash, 20KB RAM, 72 MHz, 2.0-3.6V, 37 GPIO, LQFP48")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "VBAT")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "PC13")
+					(type "bidirectional")
+				)
+				(pin
+					(num "3")
+					(name "PC14")
+					(type "bidirectional")
+				)
+				(pin
+					(num "4")
+					(name "PC15")
+					(type "bidirectional")
+				)
+				(pin
+					(num "5")
+					(name "PD0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "6")
+					(name "PD1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "7")
+					(name "NRST")
+					(type "input")
+				)
+				(pin
+					(num "8")
+					(name "VSSA")
+					(type "power_in")
+				)
+				(pin
+					(num "9")
+					(name "VDDA")
+					(type "power_in")
+				)
+				(pin
+					(num "10")
+					(name "PA0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "11")
+					(name "PA1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "12")
+					(name "PA2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "13")
+					(name "PA3")
+					(type "bidirectional")
+				)
+				(pin
+					(num "14")
+					(name "PA4")
+					(type "bidirectional")
+				)
+				(pin
+					(num "15")
+					(name "PA5")
+					(type "bidirectional")
+				)
+				(pin
+					(num "16")
+					(name "PA6")
+					(type "bidirectional")
+				)
+				(pin
+					(num "17")
+					(name "PA7")
+					(type "bidirectional")
+				)
+				(pin
+					(num "18")
+					(name "PB0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "19")
+					(name "PB1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "20")
+					(name "PB2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "21")
+					(name "PB10")
+					(type "bidirectional")
+				)
+				(pin
+					(num "22")
+					(name "PB11")
+					(type "bidirectional")
+				)
+				(pin
+					(num "23")
+					(name "VSS")
+					(type "power_in")
+				)
+				(pin
+					(num "24")
+					(name "VDD")
+					(type "power_in")
+				)
+				(pin
+					(num "25")
+					(name "PB12")
+					(type "bidirectional")
+				)
+				(pin
+					(num "26")
+					(name "PB13")
+					(type "bidirectional")
+				)
+				(pin
+					(num "27")
+					(name "PB14")
+					(type "bidirectional")
+				)
+				(pin
+					(num "28")
+					(name "PB15")
+					(type "bidirectional")
+				)
+				(pin
+					(num "29")
+					(name "PA8")
+					(type "bidirectional")
+				)
+				(pin
+					(num "30")
+					(name "PA9")
+					(type "bidirectional")
+				)
+				(pin
+					(num "31")
+					(name "PA10")
+					(type "bidirectional")
+				)
+				(pin
+					(num "32")
+					(name "PA11")
+					(type "bidirectional")
+				)
+				(pin
+					(num "33")
+					(name "PA12")
+					(type "bidirectional")
+				)
+				(pin
+					(num "34")
+					(name "PA13")
+					(type "bidirectional")
+				)
+				(pin
+					(num "35")
+					(name "VSS")
+					(type "passive")
+				)
+				(pin
+					(num "36")
+					(name "VDD")
+					(type "power_in")
+				)
+				(pin
+					(num "37")
+					(name "PA14")
+					(type "bidirectional")
+				)
+				(pin
+					(num "38")
+					(name "PA15")
+					(type "bidirectional")
+				)
+				(pin
+					(num "39")
+					(name "PB3")
+					(type "bidirectional")
+				)
+				(pin
+					(num "40")
+					(name "PB4")
+					(type "bidirectional")
+				)
+				(pin
+					(num "41")
+					(name "PB5")
+					(type "bidirectional")
+				)
+				(pin
+					(num "42")
+					(name "PB6")
+					(type "bidirectional")
+				)
+				(pin
+					(num "43")
+					(name "PB7")
+					(type "bidirectional")
+				)
+				(pin
+					(num "44")
+					(name "BOOT0")
+					(type "input")
+				)
+				(pin
+					(num "45")
+					(name "PB8")
+					(type "bidirectional")
+				)
+				(pin
+					(num "46")
+					(name "PB9")
+					(type "bidirectional")
+				)
+				(pin
+					(num "47")
+					(name "VSS")
+					(type "passive")
+				)
+				(pin
+					(num "48")
+					(name "VDD")
+					(type "power_in")
+				)
+			)
+		)
+	)
+	(libraries
+		(library
+			(logical "2026-07-10_13-42-57")
+			(uri "C:/Users/nelso/OneDrive/Desktop/schecker_windows/validation_boards/kicad_parts/ul_ADS8319IBDRCR/KiCADv6/2026-07-10_13-42-57.kicad_sym")
+		)
+		(library
+			(logical "MCU_ST_STM32F1")
+			(uri "${KICAD10_SYMBOL_DIR}/MCU_ST_STM32F1.kicad_sym")
+		)
+	)
+	(nets
+		(net
+			(code "1")
+			(name "/CSb")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "14")
+				(pinfunction "PA4_14")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U2")
+				(pin "6")
+				(pinfunction "CONVST_6")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "2")
+			(name "/MISO")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "17")
+				(pinfunction "PA7_17")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U2")
+				(pin "7")
+				(pinfunction "SDO_7")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "3")
+			(name "/MOSI")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "16")
+				(pinfunction "PA6_16")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U2")
+				(pin "9")
+				(pinfunction "SDI_9")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "4")
+			(name "/SCLK")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "15")
+				(pinfunction "PA5_15")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U2")
+				(pin "8")
+				(pinfunction "SCLK_8")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "5")
+			(name "/VIN+")
+			(class "Default")
+			(node
+				(ref "U2")
+				(pin "3")
+				(pinfunction "IN+_3")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "6")
+			(name "/VIN-")
+			(class "Default")
+			(node
+				(ref "U2")
+				(pin "4")
+				(pinfunction "IN-_4")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "7")
+			(name "/Vref")
+			(class "Default")
+			(node
+				(ref "U2")
+				(pin "1")
+				(pinfunction "REFIN_1")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "8")
+			(name "3V3")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "24")
+				(pinfunction "VDD_24")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "36")
+				(pinfunction "VDD_36")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "48")
+				(pinfunction "VDD_48")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U2")
+				(pin "10")
+				(pinfunction "+VBD_10")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "9")
+			(name "5V")
+			(class "Default")
+			(node
+				(ref "U2")
+				(pin "2")
+				(pinfunction "+VA_2")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "10")
+			(name "GND")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "23")
+				(pinfunction "VSS_23")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "35")
+				(pinfunction "VSS_35")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "47")
+				(pinfunction "VSS_47")
+				(pintype "passive")
+			)
+			(node
+				(ref "U2")
+				(pin "5")
+				(pinfunction "GND_5")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "11")
+			(name "GNDA")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "8")
+				(pinfunction "VSSA_8")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "12")
+			(name "VBAT")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "1")
+				(pinfunction "VBAT_1")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "13")
+			(name "VDDA_3V3")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "9")
+				(pinfunction "VDDA_9")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "14")
+			(name "unconnected-(U1-BOOT0-Pad44)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "44")
+				(pinfunction "BOOT0_44")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "15")
+			(name "unconnected-(U1-NRST-Pad7)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "7")
+				(pinfunction "NRST_7")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "16")
+			(name "unconnected-(U1-PA0-Pad10)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "10")
+				(pinfunction "PA0_10")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "17")
+			(name "unconnected-(U1-PA1-Pad11)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "11")
+				(pinfunction "PA1_11")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "18")
+			(name "unconnected-(U1-PA2-Pad12)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "12")
+				(pinfunction "PA2_12")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "19")
+			(name "unconnected-(U1-PA3-Pad13)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "13")
+				(pinfunction "PA3_13")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "20")
+			(name "unconnected-(U1-PA8-Pad29)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "29")
+				(pinfunction "PA8_29")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "21")
+			(name "unconnected-(U1-PA9-Pad30)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "30")
+				(pinfunction "PA9_30")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "22")
+			(name "unconnected-(U1-PA10-Pad31)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "31")
+				(pinfunction "PA10_31")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "23")
+			(name "unconnected-(U1-PA11-Pad32)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "32")
+				(pinfunction "PA11_32")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "24")
+			(name "unconnected-(U1-PA12-Pad33)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "33")
+				(pinfunction "PA12_33")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "25")
+			(name "unconnected-(U1-PA13-Pad34)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "34")
+				(pinfunction "PA13_34")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "26")
+			(name "unconnected-(U1-PA14-Pad37)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "37")
+				(pinfunction "PA14_37")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "27")
+			(name "unconnected-(U1-PA15-Pad38)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "38")
+				(pinfunction "PA15_38")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "28")
+			(name "unconnected-(U1-PB0-Pad18)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "18")
+				(pinfunction "PB0_18")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "29")
+			(name "unconnected-(U1-PB1-Pad19)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "19")
+				(pinfunction "PB1_19")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "30")
+			(name "unconnected-(U1-PB2-Pad20)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "20")
+				(pinfunction "PB2_20")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "31")
+			(name "unconnected-(U1-PB3-Pad39)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "39")
+				(pinfunction "PB3_39")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "32")
+			(name "unconnected-(U1-PB4-Pad40)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "40")
+				(pinfunction "PB4_40")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "33")
+			(name "unconnected-(U1-PB5-Pad41)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "41")
+				(pinfunction "PB5_41")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "34")
+			(name "unconnected-(U1-PB6-Pad42)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "42")
+				(pinfunction "PB6_42")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "35")
+			(name "unconnected-(U1-PB7-Pad43)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "43")
+				(pinfunction "PB7_43")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "36")
+			(name "unconnected-(U1-PB8-Pad45)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "45")
+				(pinfunction "PB8_45")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "37")
+			(name "unconnected-(U1-PB9-Pad46)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "46")
+				(pinfunction "PB9_46")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "38")
+			(name "unconnected-(U1-PB10-Pad21)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "21")
+				(pinfunction "PB10_21")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "39")
+			(name "unconnected-(U1-PB11-Pad22)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "22")
+				(pinfunction "PB11_22")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "40")
+			(name "unconnected-(U1-PB12-Pad25)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "25")
+				(pinfunction "PB12_25")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "41")
+			(name "unconnected-(U1-PB13-Pad26)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "26")
+				(pinfunction "PB13_26")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "42")
+			(name "unconnected-(U1-PB14-Pad27)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "27")
+				(pinfunction "PB14_27")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "43")
+			(name "unconnected-(U1-PB15-Pad28)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "28")
+				(pinfunction "PB15_28")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "44")
+			(name "unconnected-(U1-PC13-Pad2)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "2")
+				(pinfunction "PC13_2")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "45")
+			(name "unconnected-(U1-PC14-Pad3)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "3")
+				(pinfunction "PC14_3")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "46")
+			(name "unconnected-(U1-PC15-Pad4)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "4")
+				(pinfunction "PC15_4")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "47")
+			(name "unconnected-(U1-PD0-Pad5)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "5")
+				(pinfunction "PD0_5")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "48")
+			(name "unconnected-(U1-PD1-Pad6)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "6")
+				(pinfunction "PD1_6")
+				(pintype "bidirectional")
+			)
+		)
+	)
+)

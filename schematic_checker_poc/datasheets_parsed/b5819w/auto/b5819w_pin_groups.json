@@ -1,0 +1,119 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Anode (A) - Power Input",
+      "pin_type": "power",
+      "example_pins": [
+        "A"
+      ],
+      "applies_to": "Anode terminal of Schottky diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Cathode (C) - Power Output",
+      "pin_type": "power",
+      "example_pins": [
+        "C"
+      ],
+      "applies_to": "Cathode terminal of Schottky diode",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "B5819W Reverse Blocking Voltage",
+      "pin_type": "analog",
+      "example_pins": [
+        "A",
+        "C"
+      ],
+      "applies_to": "B5819W device reverse voltage rating",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 40.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Maximum Ratings table - Maximum Blocking Voltage"
+    },
+    {
+      "group_name": "B5819W Forward Voltage Drop",
+      "pin_type": "analog",
+      "example_pins": [
+        "A",
+        "C"
+      ],
+      "applies_to": "B5819W forward voltage at 1.0A, TJ=25\u00b0C",
+      "VIH_min": 0.45,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.9,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - Instantaneous Forward Voltage",
+      "abs_max_source": "Electrical Characteristics - Instantaneous Forward Voltage"
+    }
+  ],
+  "default_group": "B5819W Reverse Blocking Voltage",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "0674faa3d01fabd2f5a3e8108fa68436c74547f9e68923144bbed2b76bce8175",
+    "source_pdf_sha256": "7e262a5428da9a444701ad68cc77a74d52255223a07526379400cd324457f9ab",
+    "pdf_size": 1431749,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

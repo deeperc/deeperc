@@ -1,0 +1,179 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Positive Supply Rail (VCC+)",
+      "pin_type": "power",
+      "example_pins": [
+        "VCC+"
+      ],
+      "applies_to": "All positive supply pins across all packages",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": 4.5,
+      "supply_max": 40.0,
+      "supply_abs_max": 42.0,
+      "supply_rail_name": "VCC+",
+      "VIH_source": null,
+      "abs_max_source": "Section 5.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Negative Supply Rail (VCC-)",
+      "pin_type": "power",
+      "example_pins": [
+        "VCC-"
+      ],
+      "applies_to": "All negative supply pins across all packages",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": -40.0,
+      "supply_max": 0.0,
+      "supply_abs_max": null,
+      "supply_rail_name": "VCC-",
+      "VIH_source": null,
+      "abs_max_source": "Section 5.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Noninverting Input (IN+)",
+      "pin_type": "analog",
+      "example_pins": [
+        "IN+",
+        "1IN+",
+        "2IN+",
+        "3IN+",
+        "4IN+"
+      ],
+      "applies_to": "Noninverting input pins on all amplifier channels",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Inverting Input (IN-)",
+      "pin_type": "analog",
+      "example_pins": [
+        "IN-",
+        "1IN-",
+        "2IN-",
+        "3IN-",
+        "4IN-"
+      ],
+      "applies_to": "Inverting input pins on all amplifier channels",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Output (OUT)",
+      "pin_type": "analog",
+      "example_pins": [
+        "OUT",
+        "1OUT",
+        "2OUT",
+        "3OUT",
+        "4OUT"
+      ],
+      "applies_to": "Output pins on all amplifier channels",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 0.105,
+      "VOL_max": 0.215,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "No Connect (NC)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "NC"
+      ],
+      "applies_to": "No connect pins - should not be connected",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Analog Input/Output",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1,
+    "r1_correction": {
+      "date": "2026-08-14",
+      "fields_changed": [
+        "pin_groups[Positive Supply Rail (VCC+)].absolute_max_voltage",
+        "pin_groups[Positive Supply Rail (VCC+)].supply_abs_max"
+      ],
+      "pdf_table_cites": [
+        "Section 5.1 Absolute Maximum Ratings, Supply voltage row: 'All NS and PS packages; All TL07xM devices -0.3 to 36 / All other devices 0 to 42' -- TL072CD is a D-package part, 'All other devices' bucket, 42 is the correct supply_abs_max (matches the bucket both flavors already use for supply_min/supply_max)",
+        "Section 5.1 Absolute Maximum Ratings, Common-mode voltage row: 'All other devices (VCC-)-0.5 to (VCC+)+0.5' -- no fixed flat constant is authorized for a per-pin VCC+ absolute_max_voltage under the 'All other devices' bucket (VS-relative only); the prior 36.0 was the NS/PS-only row's Supply-voltage MAX, misapplied here"
+      ],
+      "note": "TODO-345 R1 composite convergence"
+    }
+  },
+  "provenance": {
+    "source_hash": "8d905c1a04026515a44fe536bd3a337c31182c1b82c11fef7736ec6cc4462643",
+    "source_pdf_sha256": "9e70de9951eed70f8d8290bcfd8d86b7333e0c6738f9499687b6e02893eace4b",
+    "pdf_size": 6080711,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

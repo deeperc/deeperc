@@ -1,0 +1,189 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Supply Input (VIN)",
+      "pin_type": "power",
+      "example_pins": [
+        "IN"
+      ],
+      "applies_to": "Supply input pin for all package variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": 2.5,
+      "supply_max": 12.0,
+      "supply_abs_max": 20.0,
+      "supply_rail_name": "VIN",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Ground",
+      "pin_type": "power",
+      "example_pins": [
+        "GND",
+        "EP"
+      ],
+      "applies_to": "Ground pins for all package variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Regulator Output (VOUT)",
+      "pin_type": "analog",
+      "example_pins": [
+        "OUT"
+      ],
+      "applies_to": "Regulator output pin for all package variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Enable Input (EN)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "EN"
+      ],
+      "applies_to": "Enable/shutdown control input for all package variants",
+      "VIH_min": 2.0,
+      "VIL_max": 0.18,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": "Electrical Characteristics - ENABLE Input Logic-High Voltage",
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Bypass/Reference Capacitor Pin (BYP)",
+      "pin_type": "analog",
+      "example_pins": [
+        "BYP"
+      ],
+      "applies_to": "Reference bypass pin for fixed-voltage variants (SOT23-5, VDFN, TDFN, MSOP)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Adjust/Feedback Input (ADJ)",
+      "pin_type": "analog",
+      "example_pins": [
+        "ADJ"
+      ],
+      "applies_to": "Feedback input for adjustable-voltage variants (SOT23-5, TDFN, MSOP)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "No Connect (NC)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "NC"
+      ],
+      "applies_to": "No connect pin on VDFN-6 package",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Regulator Output (VOUT)",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1,
+    "r1_correction": {
+      "date": "2026-08-14",
+      "fields_changed": [
+        "pin_groups[Ground].example_pins",
+        "pin_groups[No Connect (NC)] (group added)",
+        "default_group"
+      ],
+      "pdf_table_cites": [
+        "Table 3-1 PIN DESCRIPTIONS (p.12): 'EP -- -- GND  Ground: Internally connected to the exposed pad. Connect externally to GND pin.' -- documents an EP pin explicitly tied to GND on the TDFN-6 package; the prior omission was a completeness gap",
+        "Table 3-1 PIN DESCRIPTIONS (p.12): '5 (NC) 4 (ADJ) 4 (ADJ)  ADJ  Adjust (input)...' -- the VDFN-6 column's pin-5 position is documented as (NC), a no-connect on that package/voltage-variant combination; group added matching the ds20006021a member's shape (example_pins=[\"NC\"], all thresholds null)",
+        "Mechanism note (not a PDF fact): resolve_pin_spec_from_groups (step_04b_extractor.py:140-145) excludes pin_type==\"power\" groups from Priority-2 default-group fallback; Ground's pin_type is \"power\", so the prior default_group=\"Ground\" could never actually be selected (inert by construction). Converged to \"Regulator Output (VOUT)\" (pin_type=\"analog\"), a live selectable default, matching the ds20006021a member"
+      ],
+      "note": "TODO-345 R1 composite convergence"
+    }
+  },
+  "provenance": {
+    "source_hash": "9e044907ee2fe593946ca52dd71312bfdb7deebf8a5160e2874a178494a833dc",
+    "source_pdf_sha256": "75b54e281b470424bbbb03dfb14cd44fd045ca07c2b397090b9cb03dc4eb7a8d",
+    "pdf_size": 1209830,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}

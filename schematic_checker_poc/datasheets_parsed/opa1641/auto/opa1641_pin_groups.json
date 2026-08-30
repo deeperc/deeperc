@@ -1,0 +1,167 @@
+{
+  "pin_groups": [
+    {
+      "group_name": "Positive Supply Rail (V+)",
+      "pin_type": "power",
+      "example_pins": [
+        "V+"
+      ],
+      "applies_to": "Positive (highest) power supply pins on all variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 40.0,
+      "supply_min": 4.5,
+      "supply_max": 36.0,
+      "supply_abs_max": 40.0,
+      "supply_rail_name": "V+",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Negative Supply Rail (V-)",
+      "pin_type": "power",
+      "example_pins": [
+        "V-"
+      ],
+      "applies_to": "Negative (lowest) power supply pins on all variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": -40.0,
+      "supply_min": -36.0,
+      "supply_max": -4.5,
+      "supply_abs_max": -40.0,
+      "supply_rail_name": "V-",
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Inverting Input",
+      "pin_type": "analog",
+      "example_pins": [
+        "-IN",
+        "-INA",
+        "-INB",
+        "-INC",
+        "-IND"
+      ],
+      "applies_to": "Inverting input pins on all variants (OPA1641, OPA1642, OPA1644)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (input voltage range: (V-)-0.5 to (V+)+0.5)"
+    },
+    {
+      "group_name": "Non-Inverting Input",
+      "pin_type": "analog",
+      "example_pins": [
+        "+IN",
+        "+INA",
+        "+INB",
+        "+INC",
+        "+IND"
+      ],
+      "applies_to": "Non-inverting input pins on all variants (OPA1641, OPA1642, OPA1644)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (input voltage range: (V-)-0.5 to (V+)+0.5)"
+    },
+    {
+      "group_name": "Output",
+      "pin_type": "analog",
+      "example_pins": [
+        "OUT",
+        "OUTA",
+        "OUTB",
+        "OUTC",
+        "OUTD"
+      ],
+      "applies_to": "Output pins on all variants (OPA1641, OPA1642, OPA1644)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": "Absolute Maximum Ratings (output swing: (V-)+0.2 to (V+)-0.2 at RL=10k\u03a9, or (V-)+0.35 to (V+)-0.35 at RL=2k\u03a9)"
+    },
+    {
+      "group_name": "No Connection",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "NC"
+      ],
+      "applies_to": "No connection pins (pins 1, 5, 8 on OPA1641; pins 1, 8 on OPA1642)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "VIH_source": null,
+      "abs_max_source": null
+    }
+  ],
+  "default_group": "Output",
+  "extraction_meta": {
+    "extractor": "claude-code",
+    "model": "claude-haiku-4-5-20251001",
+    "extracted_at": "2026-07-02T04:16:23+00:00",
+    "schema_version": 1
+  },
+  "provenance": {
+    "source_hash": "84c71da85c1e86a604f8791eb1b4744cdae9815e54fcab1afe9d86b559bddda0",
+    "source_pdf_sha256": "045c41581ea9aa55a5c307639677104fd6911f6bb0e78fa1870cc5a180dfe38b",
+    "pdf_size": 1484333,
+    "parse_config": {
+      "max_pdf_size_for_mineru": 3145728,
+      "target_phrases": [
+        "Absolute maximum ratings",
+        "Current characteristics",
+        "General operating conditions",
+        "I/O port characteristics",
+        "Input voltage",
+        "VIH",
+        "VIL",
+        "Voltage characteristics"
+      ],
+      "mineru_version": "1.3.12",
+      "provenance_schema_version": 1
+    },
+    "parse_quality": "current_code_full",
+    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "extractor_impl": "haiku_pdfplumber",
+    "input_path": "pdfplumber_full",
+    "doc_identity": {
+      "class": "STRONG",
+      "tier": 1,
+      "depth": 0,
+      "ratio": 1.0
+    }
+  }
+}
