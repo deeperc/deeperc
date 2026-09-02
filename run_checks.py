@@ -560,7 +560,7 @@ def _format_board_console_summary(result: dict) -> str:
 # summary's per-axis table above.
 
 def _peripheral_detail(r: dict) -> list[str]:
-    lines = [r["evidence"]]
+    lines = [r.get("evidence")]
     if r.get("kb_provenance"):
         lines.append(f"KB sources: {', '.join(r['kb_provenance'])}")
     return lines
@@ -568,9 +568,9 @@ def _peripheral_detail(r: dict) -> list[str]:
 
 def _supply_detail(r: dict) -> list[str]:
     return [
-        f"{r['refdes']} ({r['part_number']})  pin={r['supply_pin']}  net={r['connected_net']}",
-        f"{r['actual_voltage_v']}V vs rated {r['rated_min_v']}V-{r['rated_max_v']}V "
-        f"(abs max {r['rated_abs_max_v']}V)",
+        f"{r.get('refdes')} ({r.get('part_number')})  pin={r.get('supply_pin')}  net={r.get('connected_net')}",
+        f"{r.get('actual_voltage_v')}V vs rated {r.get('rated_min_v')}V-{r.get('rated_max_v')}V "
+        f"(abs max {r.get('rated_abs_max_v')}V)",
         f"evidence: {r.get('evidence_label')}",
         f"confidence: {r.get('confidence')}",
     ]
@@ -578,7 +578,7 @@ def _supply_detail(r: dict) -> list[str]:
 
 def _structural_detail(r: dict) -> list[str]:
     lines = [
-        f"{r['refdes']}  pin={r['pin']}  net={r['connected_net']}",
+        f"{r.get('refdes')}  pin={r.get('pin')}  net={r.get('connected_net')}",
         f"evidence: {r.get('evidence_label')}",
     ]
     if r.get("finding_code"):
@@ -613,15 +613,28 @@ def _pullup_presence_detail(r: dict) -> list[str]:
     return [f"family={r.get('family')}  pins={r.get('pins')}", r.get("evidence")]
 
 
-# (axis_label, report_bucket_key, severity_field, identifier_field, detail_fn)
+# identifier_field is a callable r -> str (not a bare field name): most axes just look
+# up one key, but supply's identity needs three (refdes/pin/net) to distinguish
+# multiple UNRESOLVABLE pins on the same component — TODO-417 half 1 (renderer-only;
+# the report JSON already carried this, run_checks.py just wasn't reading it, see
+# logs/recon_417_428.md Q3).
+def _id(field: str):
+    return lambda r: r.get(field)
+
+
+def _supply_id(r: dict) -> str:
+    return f"{r.get('refdes')} {r.get('supply_pin')} <- {r.get('connected_net')}"
+
+
+# (axis_label, report_bucket_key, severity_field, identifier_fn, detail_fn)
 _FINDINGS_AXES = (
-    ("signal",           "results",                      "status",   "net",    _signal_detail),
-    ("supply",           "power_supply_results",         "status",   "refdes", _supply_detail),
-    ("structural",       "structural_integrity_results", "status",   "refdes", _structural_detail),
-    ("peripheral",       "peripheral_integrity_results",  "severity", "net",    _peripheral_detail),
-    ("pullup_value",     "pullup_value_results",          "severity", "net",    _pullup_value_detail),
-    ("output_conflict",  "output_conflict_results",       "status",   "net",    _output_conflict_detail),
-    ("pullup_presence",  "pullup_presence_results",       "severity", "net",    _pullup_presence_detail),
+    ("signal",           "results",                      "status",   _id("net"),    _signal_detail),
+    ("supply",           "power_supply_results",         "status",   _supply_id,    _supply_detail),
+    ("structural",       "structural_integrity_results", "status",   _id("refdes"), _structural_detail),
+    ("peripheral",       "peripheral_integrity_results",  "severity", _id("net"),    _peripheral_detail),
+    ("pullup_value",     "pullup_value_results",          "severity", _id("net"),    _pullup_value_detail),
+    ("output_conflict",  "output_conflict_results",       "status",   _id("net"),    _output_conflict_detail),
+    ("pullup_presence",  "pullup_presence_results",       "severity", _id("net"),    _pullup_presence_detail),
 )
 
 
@@ -634,15 +647,36 @@ def _collect_findings(report: dict, severity: str) -> list[tuple]:
     return found
 
 
+def _count_pass(report: dict) -> int:
+    """Total VERDICT_MOVING entries at PASS across all axes — never itemized
+    individually (see _render_findings), only counted for the hidden-PASS note."""
+    n = 0
+    for axis, bucket_key, sev_field, id_field, detail_fn in _FINDINGS_AXES:
+        for r in (report.get(bucket_key) or []):
+            if r.get(sev_field) == "PASS":
+                n += 1
+    return n
+
+
 def _unresolvable_line(r: dict) -> str:
+    """The cause, then its citation: when the entry carries a structured
+    unresolvable_reason (signal axis today), lead with it and keep the evidence
+    label as a bracketed source rather than dropping it. Other axes are
+    unchanged (evidence, then evidence_label, then unresolvable_reason)."""
+    reason = r.get("unresolvable_reason")
+    if reason:
+        label = r.get("evidence_label")
+        return f"{reason} [{label}]".strip() if label else reason.strip()
     text = r.get("evidence") or r.get("evidence_label") or r.get("unresolvable_reason") or ""
     return text.strip()
 
 
 def _render_findings(report: dict) -> str:
-    """Every FAIL and WARN across all axes (evidence-backed), FAILs first, then one
-    compact line per UNRESOLVABLE entry. PASS entries are never itemized here — their
-    counts are already in the per-axis table _format_board_console_summary prints."""
+    """Every FAIL and WARN across all axes (evidence-backed), FAILs first; then each
+    UNRESOLVABLE entry rendered the same way (header line + the axis's own indented
+    detail lines, reusing detail_fn rather than a separate compact format); then, if
+    any VERDICT_MOVING entries were PASS and therefore not itemized, one summary line
+    with the count. PASS entries are never itemized individually."""
     lines: list[str] = []
     fails = _collect_findings(report, "FAIL")
     warns = _collect_findings(report, "WARN")
@@ -652,7 +686,7 @@ def _render_findings(report: dict) -> str:
         lines.append("FINDINGS")
         for severity, group in (("FAIL", fails), ("WARN", warns)):
             for axis, id_field, detail_fn, r in group:
-                lines.append(f"\n  [{severity}] {axis} — {r.get(id_field)}")
+                lines.append(f"\n  [{severity}] {axis} — {id_field(r)}")
                 for detail_line in detail_fn(r):
                     if detail_line:
                         lines.append(f"    {detail_line}")
@@ -660,7 +694,22 @@ def _render_findings(report: dict) -> str:
     if unresolvables:
         lines.append("\nUNRESOLVABLE" if fails or warns else "UNRESOLVABLE")
         for axis, id_field, detail_fn, r in unresolvables:
-            lines.append(f"  {axis} {r.get(id_field)} — {_unresolvable_line(r)}")
+            header = f"\n  {axis} {id_field(r)} — {_unresolvable_line(r)}"
+            lines.append(header)
+            header_text = header.strip()
+            # Header already states the axis/id/reason line — drop any detail_fn
+            # line that just repeats it verbatim (e.g. peripheral's detail_fn
+            # leads with the same evidence string _unresolvable_line already used
+            # as the header, since that axis has no separate unresolvable_reason).
+            for detail_line in detail_fn(r):
+                if detail_line and detail_line.strip() not in header_text:
+                    lines.append(f"    {detail_line}")
+
+    n_pass = _count_pass(report)
+    if n_pass:
+        if lines:
+            lines.append("")
+        lines.append(f"  ({n_pass} PASS finding(s) not shown — full detail in the JSON report)")
 
     return "\n".join(lines)
 

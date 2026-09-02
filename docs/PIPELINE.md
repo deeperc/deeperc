@@ -228,7 +228,8 @@ summary at the end.
 | `[STEP 08]` | `signal` | Driver voltage against receiver input threshold, per signal net |
 | `[STEP 08b]` | `supply` | Each supply pin's rail against the part's rated range |
 | `[STEP 08c]` | `structural` | Floating power, connectivity integrity |
-| `[STEP 08d]` | `peripheral` | Pin-role and net-name coherence for I2C, SPI, UART — [see below](#inside-step-08d--why-one-box-is-not-one-check) |
+| `[STEP 08d]` | `peripheral` | Pin-role and net-name coherence for I2C, SPI — [see below](#inside-step-08d--why-one-box-is-not-one-check) |
+| `[STEP 08d]` | `peripheral` | UART: device-relative bus capability — a TX/RX signal landing on a KB-known pin with no UART capability (no net names consulted; no TX↔RX swap detection) |
 | `[STEP 08e]` | `pullup_value` | I2C pull-up resistor value range |
 | `[STEP 08f]` | `output_conflict` | Push-pull outputs shorted to one another |
 | `[STEP 08g]` | `pullup_presence` | Missing pull-ups on open-drain, flash CS, SD families |

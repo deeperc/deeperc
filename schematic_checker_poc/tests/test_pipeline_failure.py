@@ -25,17 +25,24 @@ import pipeline
 import run_checks as rct
 
 PARSE_BOARD = next(REPO.glob("netlist_corpus/**/STM32F030K6.kicad_sch"), None)
-pytestmark = pytest.mark.skipif(PARSE_BOARD is None, reason="parse-error fixture board not on disk")
 
 # TODO-426: main.py's exit code must gate on the cross-axis classify_report() verdict,
 # not just the signal-only (step_08) fail bucket — my_stm32_board_i2c_swap has a
 # peripheral-only FAIL (SDA/SCL swap) with a zero signal-bucket fail count, so the old
 # `report["summary"]["fail"]` check exited 0 on a has_fail board.
 I2C_SWAP_BOARD = REPO / "examples" / "my_stm32_board_i2c_swap" / "my_stm32_board_i2c_swap.net"
-ALL_PASS_BOARD = (REPO / "netlist_corpus" / "esp32" / "olimex" / "ESP32-EVB" /
-                  "HARDWARE" / "REV-F" / "ESP32-EVB_Rev_F.net")
+# TODO-428: repointed from an unmanifested netlist_corpus board to the shipped,
+# manifested corrected twin — this fixture (and therefore this test) now exists
+# and runs in a public clone, not only in the private corpus checkout. The twin
+# is the swap board with its I2C2 SDA/SCL crossing fixed; it still classifies
+# all_pass with the swap board's 2 unrelated peripheral UNRESOLVABLE findings
+# present (logs/recon_417_428.md Part 2 / Notion TODO-428's ruled semantics:
+# UNRESOLVABLE never blocks all_pass).
+ALL_PASS_BOARD = (REPO / "examples" / "my_stm32_board_i2c_fixed" /
+                  "my_stm32_board_i2c_fixed.net")
 
 
+@pytest.mark.skipif(PARSE_BOARD is None, reason="parse-error fixture board not on disk")
 def test_run_board_returns_typed_parse_failure():
     ctx = pipeline.PipelineContext(netlist_path=str(PARSE_BOARD), skip_confirm=True)
     outcome = pipeline.run_board(ctx)
@@ -46,6 +53,7 @@ def test_run_board_returns_typed_parse_failure():
     assert "kicad_sch" in outcome.detail.lower() or "not a netlist" in outcome.detail.lower()
 
 
+@pytest.mark.skipif(PARSE_BOARD is None, reason="parse-error fixture board not on disk")
 def test_surface2_corpus_fullrun_eligibility_skips_it():
     eligible, resolved, blocking, nonblocking = rct.is_eligible(
         PARSE_BOARD, REPO / "netlist_corpus" / "datasheets")
@@ -53,6 +61,7 @@ def test_surface2_corpus_fullrun_eligibility_skips_it():
     assert any("PARSE_ERROR" in b for b in blocking)
 
 
+@pytest.mark.skipif(PARSE_BOARD is None, reason="parse-error fixture board not on disk")
 def test_run_one_maps_failure_to_pipeline_error(tmp_path):
     result = rct.run_one(
         netlist_path=PARSE_BOARD, corpus_dir=REPO / "netlist_corpus",
@@ -62,6 +71,7 @@ def test_run_one_maps_failure_to_pipeline_error(tmp_path):
     assert result["failed_at_step"] == "step_02"
 
 
+@pytest.mark.skipif(PARSE_BOARD is None, reason="parse-error fixture board not on disk")
 def test_surface1_main_py_exit1_stderr(tmp_path):
     r = subprocess.run(
         [sys.executable, str(POC / "main.py"), "--netlist", str(PARSE_BOARD), "--skip-confirm"],
@@ -71,6 +81,7 @@ def test_surface1_main_py_exit1_stderr(tmp_path):
     assert not (tmp_path / "report.json").exists()
 
 
+@pytest.mark.skipif(PARSE_BOARD is None, reason="parse-error fixture board not on disk")
 def test_surface3_corpus_board_d7b_exits_nonzero(tmp_path):
     r = subprocess.run(
         [sys.executable, str(REPO / "run_checks.py"), "--board", str(PARSE_BOARD),
@@ -102,3 +113,16 @@ def test_main_py_exits_0_on_all_pass(tmp_path):
         capture_output=True, text=True, cwd=tmp_path)
     assert "all_pass" in r.stdout
     assert r.returncode == 0
+
+    # TODO-428: pin the ruled semantics (all_pass WITH UNRESOLVABLE findings
+    # present, never blocked by them) on this exact fixture, so a future
+    # verdict-vocabulary change fails loudly here rather than silently.
+    import json
+    r2 = subprocess.run(
+        [sys.executable, str(REPO / "run_checks.py"), "--board", str(ALL_PASS_BOARD),
+         "--skip-confirm", "--output-dir", str(tmp_path)],
+        capture_output=True, text=True)
+    assert r2.returncode == 0
+    report = json.loads((tmp_path / "reports" / "my_stm32_board_i2c_fixed.json").read_text())
+    assert report["summary"]["total_unresolvable"] == 2
+    assert report["summary"]["total_fail"] == 0

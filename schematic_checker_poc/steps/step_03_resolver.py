@@ -1373,6 +1373,28 @@ def build_provenance(pdf_path: str, *, parse_quality: str | None = None,
     return prov
 
 
+# TODO-418: per-(pdf, run) dedupe for the "different copy" staleness note —
+# mirrors the module-scope once-guard pattern _log_l2_disabled_once uses
+# above. Without it this note fires once per LOAD, and the same part's cache
+# can be loaded more than once in a single board run (the warm-cache-shortcut
+# peek in pipeline._try_warm_cache_shortcut, then the Step 04b load of the
+# same part) — printing the identical line twice for one board.
+_STALE_NOTE_LOGGED_PDFS: set[str] = set()
+
+
+def _log_stale_copy_note_once(pdf_path: str) -> None:
+    if pdf_path in _STALE_NOTE_LOGGED_PDFS:
+        return
+    _STALE_NOTE_LOGGED_PDFS.add(pdf_path)
+    logger.warning(
+        "[STEP 03] Note: cached pin data for %s was built from a different "
+        "copy of this datasheet (vendor PDFs vary between downloads). Using "
+        "cached pin data (currency not checked — use --refresh <part-stem> "
+        "if the PDF changed).",
+        os.path.basename(pdf_path),
+    )
+
+
 def check_cache_provenance(pdf_path: str | None, cached: dict) -> str:
     """Load-time stale detector — LOG ONLY (never auto-invalidates/re-extracts).
     Returns 'current' | 'stale' | 'legacy_unverified' | 'current_no_pdf_verify'.
@@ -1437,13 +1459,7 @@ def check_cache_provenance(pdf_path: str | None, cached: dict) -> str:
         # sha256 mismatch) — accurate to say so unconditionally, unlike the
         # shared parse_config path below where a pure config change (no PDF
         # change at all) could also land here.
-        logger.warning(
-            "[STEP 03] Note: cached pin data for %s was built from a different "
-            "copy of this datasheet (vendor PDFs vary between downloads). Using "
-            "cached pin data (currency not checked — use --refresh <part-stem> "
-            "if the PDF changed).",
-            os.path.basename(pdf_path),
-        )
+        _log_stale_copy_note_once(pdf_path)
         return "stale"
 
     # ext == "gemma_mineru" or ext is None: existing fast path + fallback hash,
@@ -1459,13 +1475,7 @@ def check_cache_provenance(pdf_path: str | None, cached: dict) -> str:
         "Detector only; not auto-invalidated.",
         os.path.basename(pdf_path), prov.get("parse_quality"),
     )
-    logger.warning(
-        "[STEP 03] Note: cached pin data for %s was built from a different "
-        "copy of this datasheet (vendor PDFs vary between downloads). Using "
-        "cached pin data (currency not checked — use --refresh <part-stem> "
-        "if the PDF changed).",
-        os.path.basename(pdf_path),
-    )
+    _log_stale_copy_note_once(pdf_path)
     return "stale"
 
 

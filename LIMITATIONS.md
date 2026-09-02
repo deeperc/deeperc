@@ -19,6 +19,88 @@
 - Sheet-local (`/`-prefixed) POWER labels are not classified as rails by the
   deterministic tier; affected supply checks report `UNRESOLVABLE`, never
   `FAIL`. Ground labels are handled. (TODO-409 power-side residual.)
+- Pull-up presence is decided by a walk that only traverses two-pin passives.
+  Resistor networks and arrays (multi-pin `RN*`/`RP*` parts) are skipped
+  entirely, because the netlist does not encode which internal element pairs
+  with which package pin — so a real pull-up routed through a network reads as
+  absent. Today the one known false case (an I²C bus pulled up through a
+  network) is suppressed as a side effect of the name-path corroboration gate,
+  not by understanding the network; the open-drain pin-type path has no such
+  gate. An open-drain net whose only pull-up runs through a resistor network
+  can therefore still produce a false "pull-up missing" finding. If your board
+  uses networks for bus pull-ups, treat that finding as a prompt to look, not a
+  verdict.
+- KiCad names a no-connect pin's net `unconnected-(REFDES-PINNAME-PadN)`, which
+  embeds the pin's role text. The net-name classifier reads those names
+  truthfully on purpose; each peripheral checker then excludes them with its
+  own containment guard (three copies, pinned to one pattern by a test). No
+  shipped check is affected. The limitation is structural: a new consumer of
+  net-name roles that does not add the guard will treat no-connect pins as bus
+  members.
+- Extracted datasheet values pass a small deterministic validation twice. At
+  use time the check is visible: a supply range that fails it (for example a
+  minimum equal to its maximum) makes every check on that pin report
+  `UNRESOLVABLE`, with the reason named in the evidence. At extraction time
+  the same check runs in advisory mode only: it emits an info-level log line,
+  and the cache file is written as extracted. A cache entry therefore carries
+  no mark that it was flagged, and a report built from a clean cache cannot
+  show that a value was ever questioned. If you need that audit trail, run
+  the extraction with info-level logging enabled (`main.py` does this by
+  default; `run_checks.py` does not and has no flag to raise it).
+- UART is checked as device-relative capability, not as pin-role coherence: a
+  TX or RX signal landing on a KB-known pin with no UART capability is a FAIL,
+  and nothing else is evaluated. A TX↔RX swap between two UART-capable
+  devices produces no finding — not even `UNRESOLVABLE` — because each side is
+  a plausible UART endpoint on its own and the check never compares the two.
+  The generic output-conflict check can catch a TX-to-TX net only when KiCad
+  types both pins strictly as outputs, and then reports it as an output
+  conflict, not a UART issue.
+
+## When the shipped cache refuses to serve a part
+
+The cached extractions that ship in `schematic_checker_poc/datasheets_parsed/`
+are listed, with a SHA-256 each, in `CACHE_MANIFEST.json` in that directory.
+Every time a shipped cache file is about to be served, its on-disk hash is
+checked against the manifest. Three outcomes:
+
+1. **Match** — served as shipped cache. This is every run on a clean clone.
+2. **Mismatch, but the part's datasheet PDF is on disk and its content hash
+   matches the cache's recorded source** — served, with a warning, as a
+   legitimate local re-extraction rather than as shipped cache. This is what
+   you get after running `--refresh` on a shipped part.
+3. **Mismatch and no PDF verifies it** — refused. The run log carries:
+
+```
+[STEP 03] REFUSING cache <path> — shipped-cache manifest integrity check
+FAILED (expected sha256 <a>, found <b>) and no local PDF verifies it. This
+part will be reported UNRESOLVABLE; supply the datasheet PDF or restore the
+published cache file.
+```
+
+   and every datasheet-backed check on that part reports `UNRESOLVABLE` with
+   the same " (no part data in the cache — see LIMITATIONS.md to add parts)"
+   text as a part that was never cached. Nothing is served from a file that
+   cannot be traced to either the published manifest or a datasheet you hold.
+
+**What it means.** A shipped cache file was modified — edited by hand, partially
+written, or replaced — and there is no local datasheet to vouch for the new
+contents. It is not a tool fault and not a bad part; it is the check that keeps
+"Cache-sourced" from meaning "whatever is on disk."
+
+**How to recover.** Either restores the verdicts:
+
+- Put the published file back:
+  `git checkout -- schematic_checker_poc/datasheets_parsed/<stem>/<stem>_pin_groups.json`
+- Or place the part's datasheet PDF under `netlist_corpus/datasheets/` and
+  re-run; if the cache was produced from that PDF, outcome 2 applies. If it
+  was not, run with `--refresh <stem>` to re-extract from it (needs an
+  extraction backend; see the README).
+
+**What it never touches.** Only files listed in the manifest are governed.
+Caches you extract for your own parts are unlisted and are served under the
+normal provenance rules, never refused. A tree with no manifest at all (a
+development checkout) runs with no governance and reports `cache_version` as
+null in the report header.
 
 ## Extending coverage
 

@@ -1,0 +1,33 @@
+{
+  "fixture_file": "examples/my_stm32_board_i2c_fixed/my_stm32_board_i2c_fixed.net",
+  "purpose": "TODO-428: the corrected twin of my_stm32_board_i2c_swap -- the README's before/after demo, and a public-clone-runnable all_pass fixture (TODO-426's all_pass regression test now runs against this board instead of an unmanifested corpus board).",
+  "source": {
+    "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
+    "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
+    "upstream_repo": "https://github.com/Shadaab1904/STM32-PCB-Design",
+    "upstream_commit_sha": "72a71d6dba94db2bab8bb0e1f884ef3a1e5a6df1",
+    "acquired_at": "2026-06-17T20:35:32.395614"
+  },
+  "license": {
+    "spdx": "MIT",
+    "copyright_line": "Copyright (c) 2025 Shadaab1904",
+    "source_file": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/LICENSE"
+  },
+  "derived_from": {
+    "fixture": "examples/my_stm32_board_i2c_swap/my_stm32_board_i2c_swap.net",
+    "op_id": "M6_I2C_SDA_SCL_SWAP_CORRECTED",
+    "description": "Reverts the swap dir's two (node ...) blocks under nets /I2C2_SCL and /I2C2_SDA: U2 pin 21 (PB10, I2C_CLOCK) restored to /I2C2_SCL, U2 pin 22 (PB11, I2C_DATA) restored to /I2C2_SDA. No other bytes differ from my_stm32_board_i2c_swap.net.",
+    "component": "U2",
+    "pin_a": {"pin": "21", "pinfunction": "PB10_21", "role": "I2C_CLOCK", "net": "/I2C2_SCL"},
+    "pin_b": {"pin": "22", "pinfunction": "PB11_22", "role": "I2C_DATA", "net": "/I2C2_SDA"}
+  },
+  "expected_verdict": {
+    "board_status": "all_pass",
+    "peripheral_checks": {"pass": 0, "warn": 0, "fail": 0, "unresolvable": 2},
+    "fail_findings": [],
+    "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the swap board, unaffected by the correction",
+    "unchanged_axes": "supply 5 PASS, structural 11 PASS, pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the swap board"
+  },
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_i2c_fixed/my_stm32_board_i2c_fixed.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "date": "2026-08-30"
+}

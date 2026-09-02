@@ -3,7 +3,7 @@
 A deterministic-first schematic checker for KiCad. It parses a netlist, resolves
 each component against cached datasheet extractions and a structured peripheral
 knowledge base, and runs a fixed battery of checkers — supply voltage, structural
-connectivity, peripheral pin-role/net-name coherence, pull-up presence/value,
+connectivity, peripheral pin-role coherence and bus capability, pull-up presence/value,
 output conflicts — to flag concrete, evidence-backed defects that KiCad's
 built-in ERC cannot see. Any LLM-generated text in a report explains a verdict
 the deterministic checks already reached; it never asserts one on its own.
@@ -70,9 +70,9 @@ RUN TIME — your machine. No key, no PDFs, no network, no LLM.
 ## What runs where: three tiers
 
 1. **The shipped example parts — full checks, no keys, no PDFs, no GPU, no
-   LLM.** The repo ships pin-group caches for the demo board's two resolved
-   parts (AMS1117-3.3, STM32F103C8T6), integrity-hashed against the
-   datasheets they were extracted from. Every check runs on a fresh clone.
+   LLM.** The repo ships pin-group caches for 114 parts, listed with hashes
+   in `schematic_checker_poc/datasheets_parsed/CACHE_MANIFEST.json`, including the demo board's two resolved parts
+   (AMS1117-3.3, STM32F103C8T6). Every check runs on a fresh clone.
    The console's `Supply evidence` block labels each datasheet-backed
    finding `Cache-sourced — … (not locally verified)`; fetch the two vendor
    PDFs yourself and the same findings are re-labelled `Confirmed — …` (see
@@ -107,7 +107,7 @@ pip install -r requirements.txt
 nothing else to install. (Tests need `requirements-dev.txt`; see
 [Running the tests](#running-the-tests).)
 
-## 30-second demo
+## 30-second demo (after a one-time pip install)
 
 ```bash
 python3 run_checks.py --board examples/my_stm32_board_i2c_swap/my_stm32_board_i2c_swap.net --skip-confirm
@@ -182,10 +182,16 @@ FINDINGS
     kb_possible_roles). (MCU KB — no datasheet required)
 
 UNRESOLVABLE
+
   peripheral /I2C2_SCL — Cannot fully verify net '/I2C2_SCL': MPN(s) not in KB:
   ['Conn_01x04_Pin']. (MCU KB — no datasheet required)
+    KB sources: VENDOR_XML
+
   peripheral /I2C2_SDA — Cannot fully verify net '/I2C2_SDA': MPN(s) not in KB:
   ['Conn_01x04_Pin']. (MCU KB — no datasheet required)
+    KB sources: VENDOR_XML
+
+  (16 PASS finding(s) not shown — full detail in the JSON report)
 ```
 
 The 2 FAILs are the injected defect:
@@ -202,22 +208,185 @@ evidence` block carries `(not locally verified)` because no datasheet is on
 disk. The `RESULT` box's `UNRESOLVABLE: 2` is the two I2C nets' connector,
 whose MPN isn't in the KB.
 
+**Then fix it.** `examples/my_stm32_board_i2c_fixed/` is the same board with
+the I2C2 SDA/SCL crossing corrected — `U2`'s two pins are back on their
+correct nets:
+
+```bash
+python3 run_checks.py --board examples/my_stm32_board_i2c_fixed/my_stm32_board_i2c_fixed.net --skip-confirm
+```
+
+```
+─────────────────────────────────────
+  RESULT: all_pass
+─────────────────────────────────────
+  FAIL:            0
+  WARN:            0
+  UNRESOLVABLE:    2
+
+  Full report: <repo>/corpus_results/reports/my_stm32_board_i2c_fixed.json
+─────────────────────────────────────
+...
+
+UNRESOLVABLE
+
+  peripheral /I2C2_SCL — Cannot fully verify net '/I2C2_SCL': MPN(s) not in KB:
+  ['Conn_01x04_Pin']. (MCU KB — no datasheet required)
+    KB sources: VENDOR_XML
+
+  peripheral /I2C2_SDA — Cannot fully verify net '/I2C2_SDA': MPN(s) not in KB:
+  ['Conn_01x04_Pin']. (MCU KB — no datasheet required)
+    KB sources: VENDOR_XML
+
+  (16 PASS finding(s) not shown — full detail in the JSON report)
+```
+
+(From `schematic_checker_poc/`: `main.py --netlist
+../examples/my_stm32_board_i2c_fixed/my_stm32_board_i2c_fixed.net
+--skip-confirm` prints `[VERDICT] all_pass` and exits `0`.)
+
+The board passes — the injected I2C defect is gone. The two `UNRESOLVABLE`
+lines remain because the 4-pin connector has no entry in the peripheral
+knowledge base, a gap the swap fix doesn't touch, and DeepERC says so rather
+than guessing.
+
 **A second example — an MCU-side SPI swap, no datasheet needed.**
 `examples/stm32_spi_swap/` wires an STM32F103C8Tx (KiCad's stock
 symbol name, unedited) to an ADS8319 ADC with MOSI and MISO crossed
 on the MCU side (PA6/PA7). The MCU's symbol pins carry no SPI names,
 so the finding comes from the peripheral knowledge base:
 
+Re-running a board writes `corpus_results/reports/<stem>.json` and
+overwrites the previous run's report; pass `--output-dir <dir>` to keep
+each state (the report lands at `<dir>/reports/<stem>.json`).
+
 ```bash
-python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-confirm
+python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-confirm \
+    --output-dir corpus_results/spi_no_rails
 ```
 
-Expect `FAIL 2 / WARN 0 / UNRESOLVABLE 8`, both FAILs `(role source:
-kb_possible_roles)`. The eight UNRESOLVABLE lines are the checker
-declining to guess. Four are the MCU's supply pins on nets named
-`3V3` and `VBAT` that nothing on this bare board drives, so their
-voltages can't be confirmed from topology. Tell it what they are —
-save this as `spi_swap_stm32.net.rails.json` next to the netlist:
+The corpus/datasheets `WARN:` lines from the 30-second demo above don't
+reappear here — that earlier run already created `netlist_corpus/datasheets/`.
+
+Console output, captured from a clean public export (env-stripped, no
+credentials):
+
+```
+[STEP 03] L2 vendor lookup: off (optional — the vendor-lookup extension
+isn't installed, or no credentials are configured). Using local
+datasheets only.
+[STEP 03] WARNING: No datasheet found for 'ADS8319IBDRCR'.
+...
+
+─────────────────────────────────────
+  RESULT: has_fail
+─────────────────────────────────────
+  FAIL:            2
+  WARN:            0
+  UNRESOLVABLE:    8
+
+  Full report:
+  <repo>/corpus_results/spi_no_rails/reports/spi_swap_stm32.json
+─────────────────────────────────────
+
+[STEP 08b] Supply evidence:
+  UNRESOLVABLE  U1 STM32F103C8Tx VBAT (pin 1) <- VBAT  —  Net voltage
+  not confirmed (not locally verified)
+  UNRESOLVABLE  U1 STM32F103C8Tx VDD (pin 24) <- 3V3  —  Net voltage
+  not confirmed (not locally verified)
+  UNRESOLVABLE  U1 STM32F103C8Tx VDD (pin 36) <- 3V3  —  Net voltage
+  not confirmed (not locally verified)
+  UNRESOLVABLE  U1 STM32F103C8Tx VDD (pin 48) <- 3V3  —  Net voltage
+  not confirmed (not locally verified)
+  PASS          U1 STM32F103C8Tx VDDA (pin 9) <- VDDA_3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.4V - 3.6V (not
+  locally verified)
+
+Status: has_fail
+  signal           0 PASS  0 WARN  0 FAIL  4 UNRESOLVABLE
+  supply           1 PASS  0 WARN  0 FAIL  4 UNRESOLVABLE
+  structural       10 PASS  0 WARN  0 FAIL
+  peripheral       0 PASS  0 WARN  2 FAIL  0 UNRESOLVABLE
+  pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
+  output_conflict  0 FAIL
+  pullup_presence  0 WARN
+  (0.0s)
+
+FINDINGS
+
+  [FAIL] peripheral — /MOSI
+    Pin U1.16 (function 'PA6') is an SPI MISO pin but sits on net
+    '/MOSI', whose name implies SPI MOSI — MOSI/MISO swap (role
+    source: kb_possible_roles). (MCU KB — no datasheet required)
+
+  [FAIL] peripheral — /MISO
+    Pin U1.17 (function 'PA7') is an SPI MOSI pin but sits on net
+    '/MISO', whose name implies SPI MISO — MOSI/MISO swap (role
+    source: kb_possible_roles). (MCU KB — no datasheet required)
+
+UNRESOLVABLE
+
+  signal /CSb — Receiver specs unknown — U2 pin specs not extracted
+  (signal_score too low or datasheet section not found)
+  [Assumed/low-confidence]
+    driver=U1  receiver=U2 pin=CONVST
+    evidence: Assumed/low-confidence
+    confidence: low
+
+  signal /MISO — Receiver specs unknown — U2 pin specs not extracted
+  (signal_score too low or datasheet section not found)
+  [Assumed/low-confidence]
+    driver=U1  receiver=U2 pin=SDO
+    evidence: Assumed/low-confidence
+    confidence: low
+
+  signal /MOSI — Receiver specs unknown — U2 pin specs not extracted
+  (signal_score too low or datasheet section not found)
+  [Assumed/low-confidence]
+    driver=U1  receiver=U2 pin=SDI
+    evidence: Assumed/low-confidence
+    confidence: low
+
+  signal /SCLK — Receiver specs unknown — U2 pin specs not extracted
+  (signal_score too low or datasheet section not found)
+  [Assumed/low-confidence]
+    driver=U1  receiver=U2 pin=SCLK
+    evidence: Assumed/low-confidence
+    confidence: low
+
+  supply U1 VBAT (pin 1) <- VBAT — Net voltage not confirmed (not
+  locally verified)
+    U1 (STM32F103C8Tx)  pin=VBAT (pin 1)  net=VBAT
+    NoneV vs rated 1.8V-3.6V (abs max 3.6V)
+    evidence: Net voltage not confirmed (not locally verified)
+    confidence: low
+
+  supply U1 VDD (pin 24) <- 3V3 — Net voltage not confirmed (not
+  locally verified)
+    U1 (STM32F103C8Tx)  pin=VDD (pin 24)  net=3V3
+    NoneV vs rated 2.0V-3.6V (abs max 4.0V)
+    evidence: Net voltage not confirmed (not locally verified)
+    confidence: low
+
+  supply U1 VDD (pin 36) <- 3V3 — Net voltage not confirmed (not
+  locally verified)
+    U1 (STM32F103C8Tx)  pin=VDD (pin 36)  net=3V3
+    NoneV vs rated 2.0V-3.6V (abs max 4.0V)
+    evidence: Net voltage not confirmed (not locally verified)
+    confidence: low
+
+  supply U1 VDD (pin 48) <- 3V3 — Net voltage not confirmed (not
+  locally verified)
+    U1 (STM32F103C8Tx)  pin=VDD (pin 48)  net=3V3
+    NoneV vs rated 2.0V-3.6V (abs max 4.0V)
+    evidence: Net voltage not confirmed (not locally verified)
+    confidence: low
+
+  (11 PASS finding(s) not shown — full detail in the JSON report)
+```
+
+Tell it what they are — save this as `spi_swap_stm32.net.rails.json`
+next to the netlist:
 
 ```json
 {
@@ -227,13 +396,228 @@ save this as `spi_swap_stm32.net.rails.json` next to the netlist:
 }
 ```
 
-Re-run the same command: `FAIL 2 / WARN 0 / UNRESOLVABLE 4`, and all
-five MCU supply pins now pass against their rated ranges. The
-remaining four are the ADC's signal pins — its datasheet isn't in
-the shipped cache, so its pin specs are unknown, and the checker
-says so rather than assuming. (Declare `VBAT` at 3.7 instead and
-you get a third FAIL: the F103's VBAT absolute maximum is 3.6 V.
-That is the point.)
+```bash
+python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-confirm \
+    --output-dir corpus_results/spi_with_rails
+```
+
+Console output for this state:
+
+```
+[STEP 03] L2 vendor lookup: off (optional — the vendor-lookup extension
+isn't installed, or no credentials are configured). Using local
+datasheets only.
+[STEP 03] WARNING: No datasheet found for 'ADS8319IBDRCR'.
+...
+
+─────────────────────────────────────
+  RESULT: has_fail
+─────────────────────────────────────
+  FAIL:            2
+  WARN:            0
+  UNRESOLVABLE:    4
+
+  Full report:
+  <repo>/corpus_results/spi_with_rails/reports/spi_swap_stm32.json
+─────────────────────────────────────
+
+[STEP 08b] Supply evidence:
+  PASS          U1 STM32F103C8Tx VBAT (pin 1) <- VBAT  —
+  Cache-sourced — supply 3.0V within rated range 1.8V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 24) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 36) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 48) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDDA (pin 9) <- VDDA_3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.4V - 3.6V (not
+  locally verified)
+
+Status: has_fail
+  signal           0 PASS  0 WARN  0 FAIL  4 UNRESOLVABLE
+  supply           5 PASS  0 WARN  0 FAIL  0 UNRESOLVABLE
+  structural       10 PASS  0 WARN  0 FAIL
+  peripheral       0 PASS  0 WARN  2 FAIL  0 UNRESOLVABLE
+  pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
+  output_conflict  0 FAIL
+  pullup_presence  0 WARN
+  (0.0s)
+
+FINDINGS
+
+  [FAIL] peripheral — /MOSI
+    Pin U1.16 (function 'PA6') is an SPI MISO pin but sits on net
+    '/MOSI', whose name implies SPI MOSI — MOSI/MISO swap (role
+    source: kb_possible_roles). (MCU KB — no datasheet required)
+
+  [FAIL] peripheral — /MISO
+    Pin U1.17 (function 'PA7') is an SPI MOSI pin but sits on net
+    '/MISO', whose name implies SPI MISO — MOSI/MISO swap (role
+    source: kb_possible_roles). (MCU KB — no datasheet required)
+
+UNRESOLVABLE
+
+  signal /CSb — Driver voltage unknown — U2 power domain ambiguous (2
+  rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA4
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  signal /MISO — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA7
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  signal /MOSI — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA6
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  signal /SCLK — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA5
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  (15 PASS finding(s) not shown — full detail in the JSON report)
+```
+
+Declare `VBAT` at 3.7 instead of 3.0 in the rails sidecar and re-run:
+
+```bash
+python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-confirm \
+    --output-dir corpus_results/spi_bad_vbat
+```
+
+Console output for this state:
+
+```
+[STEP 03] L2 vendor lookup: off (optional — the vendor-lookup extension
+isn't installed, or no credentials are configured). Using local
+datasheets only.
+[STEP 03] WARNING: No datasheet found for 'ADS8319IBDRCR'.
+...
+
+─────────────────────────────────────
+  RESULT: has_fail
+─────────────────────────────────────
+  FAIL:            3
+  WARN:            0
+  UNRESOLVABLE:    4
+
+  Full report:
+  <repo>/corpus_results/spi_bad_vbat/reports/spi_swap_stm32.json
+─────────────────────────────────────
+
+[STEP 08b] Supply evidence:
+  FAIL          U1 STM32F103C8Tx VBAT (pin 1) <- VBAT  —
+  Cache-sourced — actual 3.7V exceeds supply absolute max 3.6V —
+  device damage (Table 6: Voltage characteristics) (not locally
+  verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 24) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 36) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 48) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDDA (pin 9) <- VDDA_3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.4V - 3.6V (not
+  locally verified)
+
+Status: has_fail
+  signal           0 PASS  0 WARN  0 FAIL  4 UNRESOLVABLE
+  supply           4 PASS  0 WARN  1 FAIL  0 UNRESOLVABLE
+  structural       10 PASS  0 WARN  0 FAIL
+  peripheral       0 PASS  0 WARN  2 FAIL  0 UNRESOLVABLE
+  pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
+  output_conflict  0 FAIL
+  pullup_presence  0 WARN
+  (4.1s)
+
+FINDINGS
+
+  [FAIL] supply — U1 VBAT (pin 1) <- VBAT
+    U1 (STM32F103C8Tx)  pin=VBAT (pin 1)  net=VBAT
+    3.7V vs rated 1.8V-3.6V (abs max 3.6V)
+    evidence: Cache-sourced — actual 3.7V exceeds supply absolute max
+    3.6V — device damage (Table 6: Voltage characteristics) (not
+    locally verified)
+    confidence: high
+
+  [FAIL] peripheral — /MOSI
+    Pin U1.16 (function 'PA6') is an SPI MISO pin but sits on net
+    '/MOSI', whose name implies SPI MOSI — MOSI/MISO swap (role
+    source: kb_possible_roles). (MCU KB — no datasheet required)
+
+  [FAIL] peripheral — /MISO
+    Pin U1.17 (function 'PA7') is an SPI MOSI pin but sits on net
+    '/MISO', whose name implies SPI MISO — MOSI/MISO swap (role
+    source: kb_possible_roles). (MCU KB — no datasheet required)
+
+UNRESOLVABLE
+
+  signal /CSb — Driver voltage unknown — U2 power domain ambiguous (2
+  rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA4
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  signal /MISO — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA7
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  signal /MOSI — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA6
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  signal /SCLK — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA5
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    confidence: low
+
+  (14 PASS finding(s) not shown — full detail in the JSON report)
+```
+
+That is the point.
 
 ## Verifying the cache locally
 
@@ -248,8 +632,10 @@ label on each `Supply evidence` line says which it did:
 - `Cache-sourced — … (not locally verified)` — no local PDF.
 - `Cache-sourced — … (local datasheet differs from cache source)` — a local
   PDF is present but doesn't match; the report also carries a drift warning.
-  Vendors re-render PDFs periodically, so this is the label you will most
-  likely see for AMS1117-3.3 — expected, not an error.
+  Vendors re-render PDFs periodically; the AMS1117-3.3 asset on the vendor
+  page has already rotated once since the shipped cache was built, so a
+  fetched copy will most likely trip the report's drift warning — expected,
+  not an error.
 
 To see the labels change, fetch two files:
 
@@ -331,7 +717,21 @@ for the full picture in either case.
 
 `main.py` writes its JSON report to `./report.json` in the current working
 directory (unlike `run_checks.py --board`, which writes to
-`corpus_results/reports/<board-stem>.json`).
+`corpus_results/reports/<board-stem>.json`). From `schematic_checker_poc/`:
+
+```bash
+python3 main.py --netlist ../examples/my_stm32_board_i2c_swap/my_stm32_board_i2c_swap.net --skip-confirm
+```
+
+```
+  Full report: ./report.json
+─────────────────────────────────────
+...
+[VERDICT] has_fail
+```
+
+Exits `1` — this is the swap board (the same defect as the 30-second demo
+above), so `has_fail` is expected.
 
 In the JSON report, `summary.pass`/`warn`/`fail`/`unresolvable` are the
 signal-net (`[STEP 08]`) bucket only — the same four keys the box printed
@@ -405,7 +805,7 @@ dependencies, so check that fits your use case before installing it.
 ## Running the tests
 
 ```bash
-pip install -r requirements-dev.txt
+pip install -r requirements.txt -r requirements-dev.txt
 make test
 ```
 
