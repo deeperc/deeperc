@@ -61,11 +61,11 @@ RUN TIME — your machine. No key, no PDFs, no network, no LLM.
         └──► explanation text, optional. Uses a local model if one
              is running, canned text if not. Never changes a
              verdict, never leaves your machine.
-
-  Step-by-step detail, the eight-stage peripheral checker, the
-  run-time gates, and how the evidence label is measured:
-  docs/PIPELINE.md
 ```
+
+Step-by-step detail — the eight-stage peripheral checker, the
+run-time gates, and how the evidence label is measured — is
+in [docs/PIPELINE.md](docs/PIPELINE.md).
 
 ## What runs where: three tiers
 
@@ -827,3 +827,5 @@ KB authoring is only about the peripheral role/topology tables.
 - Report explanation text is LLM-generated where a local model is available;
   when it isn't, findings carry a one-line note instead. Verdicts are never
   affected either way.
+- For how the precision/recall numbers this project reports are measured, see
+  [CORPUS.md](docs/CORPUS.md).
