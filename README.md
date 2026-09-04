@@ -829,3 +829,5 @@ KB authoring is only about the peripheral role/topology tables.
   affected either way.
 - For how the precision/recall numbers this project reports are measured, see
   [CORPUS.md](docs/CORPUS.md).
+- The full, current list — including release-specific limitations — lives in
+  [LIMITATIONS.md](LIMITATIONS.md).

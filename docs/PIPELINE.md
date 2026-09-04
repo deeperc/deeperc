@@ -4,7 +4,7 @@
 > `2026-08-15+852cfb49d06a`. If this document and the code disagree, the code
 > is right.
 
-The [README](README.md) carries a two-lane summary. This is the same
+The [README](../README.md) carries a two-lane summary. This is the same
 architecture with the detail left in: what ships as data and what makes it,
 what happens on your machine, where the deterministic gates sit, how the
 peripheral checker actually reaches a verdict, and what the evidence label on
@@ -70,7 +70,7 @@ where a model authoring the data would be most tempting and most damaging — a
 wrong pin role in `kb/` becomes a wrong verdict, with nothing downstream to
 catch it.
 
-The upstream defects in [FINDINGS.md](FINDINGS.md) arrived by three different
+The upstream defects in [FINDINGS.md](../FINDINGS.md) arrived by three different
 routes: one from the knowledge base alone, one from a supply check against a
 datasheet-derived rating, and one from pin-function evidence on a part the
 knowledge base had never seen. No single lane carries the tool. Entries come either from
@@ -203,7 +203,7 @@ mismatches, the consensus vote across a part's pins, and the UART invariant
 all stop firing, because there is no part entry left to compare against. What
 survives is the evidence the netlist carries on its own face — a pin literally
 named `SDA`, `SCL`, `MOSI` or `MISO` still contradicts the bus it is wired to.
-That path is how the third defect in [FINDINGS.md](FINDINGS.md) was found, on a
+That path is how the third defect in [FINDINGS.md](../FINDINGS.md) was found, on a
 part the knowledge base had never seen.
 
 So a failed load leaves the bucket **thinner, not empty** — and a thin
@@ -243,7 +243,7 @@ The report's `summary.pass`/`warn`/`fail`/`unresolvable` hoist only the
 ## Inside `[STEP 08d]` — why one box is not one check
 
 This is the checker behind the upstream defects in
-[FINDINGS.md](FINDINGS.md). It is not a single pass comparing a pin's role to
+[FINDINGS.md](../FINDINGS.md). It is not a single pass comparing a pin's role to
 its net's name. It is eight ordered stages, and most of them exist to
 **withhold** a finding rather than to emit one.
 

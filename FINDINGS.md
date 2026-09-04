@@ -10,7 +10,7 @@ A property all three findings share: **each one is invisible to KiCad's ERC.** A
 | 2 | Antmicro Artix DC-SCM | 1.8 V flash ×4 wired to 3.3 V rail | Supply overvoltage | 2026-07-17 | Open ([issue #6](https://github.com/antmicro/artix-dc-scm/issues/6)) |
 | 3 | Tronex TRNXSDR carrier | I²C bus crossed at root sheet (PMIC + clock gen) | I²C role coherence (zero-KB) | 2026-07-19 | Open ([issue #1](https://github.com/acruxcz/TRNXSDR-carrier/issues/1)) |
 
-Status column reflects upstream state as of 2026-08-22.
+Status column reflects upstream state as of 2026-09-03.
 
 ---
 

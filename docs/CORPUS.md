@@ -94,7 +94,7 @@ that vocabulary:
 - **Evidence tiers.** Every non-UNRESOLVABLE finding carries how its evidence
   was obtained: `Confirmed — §X.Y` (extracted from a datasheet present locally),
   `Cache-sourced — §X.Y (not locally verified)`, or
-  `Cache-sourced — §X.Y (local datasheet differs)`. An orthogonal `Assumed`
+  `Cache-sourced — §X.Y (local datasheet differs from cache source)`. An orthogonal `Assumed`
   marker flags any value the checker inferred rather than read.
 
 "Precision gate" means what it says: the measurement is whether FAILs on
