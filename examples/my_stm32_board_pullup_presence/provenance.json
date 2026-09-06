@@ -43,6 +43,7 @@
     "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
     "unchanged_axes": "supply 5 PASS, structural 11 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, output_conflict 0 FAIL -- byte-identical to the unmodified board"
   },
-  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_pullup_presence/my_stm32_board_pullup_presence.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_pullup_presence/my_stm32_board_pullup_presence.net --skip-confirm",
+  "corpus_note": "netlist_corpus/ paths above are the author's private working corpus, not shipped in this repo; source.upstream_repo is the resolvable, public pointer to the original board.",
   "date": "2026-08-06"
 }

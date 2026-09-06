@@ -2,7 +2,7 @@
 
 Two layers, deliberately separate:
   * the CLASSIFIER (classify_netlist_uart) — the decision, tested in isolation;
-  * the LIVE EMIT (step_08d check_i2c_peripheral) — that a decision becomes a
+  * the LIVE EMIT (step_08d check_peripheral_buses) — that a decision becomes a
     UART_CAPABILITY_MISMATCH FAIL, and that the INVARIANT holds at the emit site:
     a FAIL fires ONLY on KB-confirmed incapability (matrix / KB-absent / CAN-suppressed /
     unconfirmed can never produce one). Wired live in Phase 2 (2026-07-11).
@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from steps.peripheral_kb import Signal, KBSource, Peripheral, PeripheralRouting, PinRole, PinFunctionEntry
 from steps.uart_capability import classify_netlist_uart
 from steps.step_08d_peripheral_checker import (
-    check_i2c_peripheral, PeripheralViolation, Severity,
+    check_peripheral_buses, PeripheralViolation, Severity, FindingReason,
 )
 
 
@@ -167,7 +167,7 @@ def test_kb_uart_possible_role_alone_never_confirms_a_correct_i2c_bus():
     assert result.confirmed_usart_nets == 0   # an alt-fn map is not a wiring decision
     assert result.findings == []
     # and live: a correct I2C bus emits no UART finding at all
-    assert _uart_findings(check_i2c_peripheral(nl, kb, {})) == []
+    assert _uart_findings(check_peripheral_buses(nl, kb, {})) == []
 
 
 # ── Test 3: net-name-only "USART"-suggestive net, no endpoint confirmation ────
@@ -300,7 +300,7 @@ def test_esp32_style_matrix_uart_routing_clears_never_incapable():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Phase 2 — LIVE EMIT (step_08d check_i2c_peripheral -> UART_CAPABILITY_MISMATCH)
+# Phase 2 — LIVE EMIT (step_08d check_peripheral_buses -> UART_CAPABILITY_MISMATCH)
 #
 # The classifier tests above prove the DECISION. These prove the WIRING, and that
 # THE INVARIANT survives it: a FAIL fires ONLY on KB-confirmed incapability. The
@@ -330,7 +330,7 @@ def test_live_incapable_pin_emits_uart_capability_fail_with_evidence():
         ],
         nets=[Net("/D30_USART3RX", [("U6", "2"), ("U5", "28")])],
     )
-    fails = _uart_fails(check_i2c_peripheral(nl, kb, {}))
+    fails = _uart_fails(check_peripheral_buses(nl, kb, {}))
     assert len(fails) == 1
     f = fails[0]
     assert f.net == "/D30_USART3RX"
@@ -345,7 +345,12 @@ def test_live_incapable_pin_emits_uart_capability_fail_with_evidence():
 def test_live_kb_absent_pin_never_emits_a_uart_fail():
     """INVARIANT (KB-absence half): the destination has no KB entry at all, so the
     checker CANNOT assert incapability -> it stands down. A FAIL here would be a false
-    positive (this is the shape of M14's Variant-B stand-down control)."""
+    positive (this is the shape of M14's Variant-B stand-down control).
+
+    TODO-417 H2 (D4, scope item 5): the invariant under test — never a FAIL — is
+    unchanged; what changes is that "stand down" no longer means "emit nothing at
+    all". ClassifyResult.cleared is now surfaced as ONE UNRESOLVABLE finding
+    (reason UART_CLEARED_UNRESOLVABLE) instead of being silently discarded."""
     kb = {}   # MYSTERY_IC not in the KB -- nor is anything else
     nl = Netlist(
         components=[
@@ -354,14 +359,22 @@ def test_live_kb_absent_pin_never_emits_a_uart_fail():
         ],
         nets=[Net("/D30_USART3RX", [("U6", "2"), ("U7", "3")])],
     )
-    assert _uart_findings(check_i2c_peripheral(nl, kb, {})) == []
+    findings = _uart_findings(check_peripheral_buses(nl, kb, {}))
+    assert all(f.severity != Severity.FAIL for f in findings), "must never FAIL"
+    assert len(findings) == 1
+    assert findings[0].severity == Severity.UNRESOLVABLE
+    assert findings[0].reason == FindingReason.UART_CLEARED_UNRESOLVABLE
+    assert findings[0].pins == ["U7.3"]
 
 
 def test_live_matrix_routed_pin_never_emits_a_uart_fail():
     """INVARIANT (matrix half): an ESP32-class part routes UART through a GPIO matrix,
     so ANY pin can serve UART -- 'incapable' is not a statement the KB can make. The
     routing flag short-circuits to PERIPHERAL_UNCONSTRAINED (8eceea5) and the pin is
-    cleared, never flagged."""
+    cleared, never flagged with a FAIL.
+
+    TODO-417 H2 (D4, scope item 5): same update as the KB-absence half above —
+    "cleared" now surfaces as an UNRESOLVABLE finding, not silence."""
     kb = {}
     routing = {"matrixmcu": {Peripheral.UART: PeripheralRouting.MATRIX}}
     nl = Netlist(
@@ -371,7 +384,12 @@ def test_live_matrix_routed_pin_never_emits_a_uart_fail():
         ],
         nets=[Net("N7", [("U6", "2"), ("U9", "7")])],
     )
-    assert _uart_findings(check_i2c_peripheral(nl, kb, routing)) == []
+    findings = _uart_findings(check_peripheral_buses(nl, kb, routing))
+    assert all(f.severity != Severity.FAIL for f in findings), "must never FAIL"
+    assert len(findings) == 1
+    assert findings[0].severity == Severity.UNRESOLVABLE
+    assert findings[0].reason == FindingReason.UART_CLEARED_UNRESOLVABLE
+    assert findings[0].pins == ["U9.7"]
 
 
 def test_live_can_transceiver_net_is_silent_not_a_uart_fail():
@@ -388,7 +406,7 @@ def test_live_can_transceiver_net_is_silent_not_a_uart_fail():
         ],
         nets=[Net("/D24_CANTX", [("U3", "1"), ("U5", "62")])],
     )
-    assert _uart_findings(check_i2c_peripheral(nl, kb, {})) == []
+    assert _uart_findings(check_peripheral_buses(nl, kb, {})) == []
 
 
 def test_live_unconfirmed_net_is_silent_even_with_a_uart_shaped_name():
@@ -404,4 +422,53 @@ def test_live_unconfirmed_net_is_silent_even_with_a_uart_shaped_name():
         ],
         nets=[Net("/USART3_TX", [("J1", "1"), ("U9", "P1")])],
     )
-    assert _uart_findings(check_i2c_peripheral(nl, kb, {})) == []
+    assert _uart_findings(check_peripheral_buses(nl, kb, {})) == []
+
+
+# ── TODO-417 H2 scope item 5: ClassifyResult.cleared surfaced as UNRESOLVABLE ──
+# Previously entirely discarded (only `.findings` was read). Only the
+# genuinely-unresolvable reason ("KB_ABSENT_OR_MATRIX_UNRESOLVABLE") is
+# surfaced; "HAS_UART_ROLE" cleared entries are resolved/capable, no finding.
+# NOTE: test_live_kb_absent_pin_never_emits_a_uart_fail and
+# test_live_matrix_routed_pin_never_emits_a_uart_fail (above) now each also
+# produce ONE such UNRESOLVABLE finding — their `== []` assertions are updated
+# in the D4 commit-B cycle (golden/schema-consumer fallout, see the end-of-task
+# report); this test covers the NEW grouping behavior directly.
+
+def test_multiple_cleared_kb_absent_pins_on_one_net_grouped_into_one_finding():
+    """TWO KB-absent candidate victims on the SAME confirmed-USART net -> ONE
+    UNRESOLVABLE finding, pins naming both, reason UART_CLEARED_UNRESOLVABLE."""
+    kb = {}
+    nl = Netlist(
+        components=[
+            Component("U6", "CH340C", [PinRef("2", "BUS", "TXD_2")], value="CH340C"),
+            Component("U7", "MYSTERY_IC1", [PinRef("3", "BUS", "3_3")], value="MYSTERY_IC1"),
+            Component("U8", "MYSTERY_IC2", [PinRef("4", "BUS", "4_4")], value="MYSTERY_IC2"),
+        ],
+        nets=[Net("BUS", [("U6", "2"), ("U7", "3"), ("U8", "4")])],
+    )
+    findings = _uart_findings(check_peripheral_buses(nl, kb, {}))
+    cleared = [f for f in findings if f.reason == FindingReason.UART_CLEARED_UNRESOLVABLE]
+    assert len(cleared) == 1, f"expected 1 grouped finding; got {findings}"
+    f = cleared[0]
+    assert f.severity == Severity.UNRESOLVABLE
+    assert set(f.pins) == {"U7.3", "U8.4"}
+    assert f.net == "BUS"
+
+
+def test_has_uart_role_cleared_entry_produces_no_finding():
+    """A KB-resolved candidate WITH a UART role ('HAS_UART_ROLE') is genuinely
+    capable — cleared, not unresolved. No finding for it."""
+    kb = {
+        ("KNOWN_UART_PART", "5"): PinFunctionEntry(
+            "KNOWN_UART_PART", "5",
+            [PinRole(Peripheral.UART, "USART1", Signal.UART_RX, KBSource.VENDOR_XML)]),
+    }
+    nl = Netlist(
+        components=[
+            Component("U6", "CH340C", [PinRef("2", "BUS", "TXD_2")], value="CH340C"),
+            Component("U9", "KNOWN_UART_PART", [PinRef("5", "BUS", "5")], value="KNOWN_UART_PART"),
+        ],
+        nets=[Net("BUS", [("U6", "2"), ("U9", "5")])],
+    )
+    assert _uart_findings(check_peripheral_buses(nl, kb, {})) == []

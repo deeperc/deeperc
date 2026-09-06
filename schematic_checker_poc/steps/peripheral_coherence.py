@@ -88,6 +88,9 @@ class CoherenceViolation:
     net_role:     str   # the net-name-implied role (the contradiction)
     status:       str   # "FAIL" | "UNRESOLVABLE"
     source:       str   # "pin_function" | "kb_possible_roles"
+    # TODO-417 H2 (scope item 3): WHICH guard produced an UNRESOLVABLE status —
+    # "matrix" | "kb_instance_disagreement" | None (FAIL, no guard fired).
+    guard:        str | None = None
 
 
 def find_coherence_violations(
@@ -154,8 +157,10 @@ def find_coherence_violations(
             if pin_role not in signal_pair or pin_role == net_role:
                 continue
             status = "FAIL"
+            guard = None   # TODO-417 H2 (scope item 3): which UNRESOLVABLE guard fired
             if from_kb and matrix_lookup is not None and matrix_lookup(comp.refdes):
                 status = "UNRESOLVABLE"
+                guard = "matrix"
             elif from_kb and kb_instance_lookup is not None:
                 # R-B: KB instance vs net-asserted instance. Disagreement only —
                 # a bare-token net or a KB entry with no instance stays admissible.
@@ -164,10 +169,11 @@ def find_coherence_violations(
                 if (net_instance is not None and kb_instance is not None
                         and net_instance.upper() != kb_instance.upper()):
                     status = "UNRESOLVABLE"
+                    guard = "kb_instance_disagreement"
             out.append(CoherenceViolation(
                 refdes=comp.refdes, pin_id=pin.pin_id, pin_function=pin.pin_name,
                 net=pin.net, pin_role=pin_role.value, net_role=net_role.value,
-                status=status, source=source))
+                status=status, source=source, guard=guard))
     return out
 
 

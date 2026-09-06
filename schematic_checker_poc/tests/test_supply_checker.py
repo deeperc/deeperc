@@ -10,6 +10,7 @@ from steps.step_08b_supply_checker import (
     evaluate_supply,
     is_negative_rail,
     SUPPLY_PIN_NAMES,
+    SupplyUnresolvableReason,
 )
 from steps.step_02_parser import ComponentIR, PinIR
 
@@ -533,3 +534,53 @@ def test_pass_label_round_trips_through_tier_rewrite_tier2_and_tier3():
         "Cache-sourced — supply 3.3V within rated range 3.0V - 3.6V "
         "(local datasheet differs from cache source)"
     )
+
+
+# ── TODO-417 H2 scope item 4: SupplyCheckResult.unresolvable_reason (7-site enum) ──
+# evidence_label strings are UNCHANGED (renderer compat) — these tests assert the
+# NEW parallel enum field alongside the pre-existing evidence_label behavior.
+
+def test_negative_rail_reason():
+    comp = ComponentIR("U1", "TL072CD", "", [PinIR("4", "VCC-", "-12V")])
+    pg = {"TL072CD": {"pin_groups": [
+        {"pin_type": "power", "supply_rail_name": "VCC-", "supply_min": -40.0, "supply_max": 0.0}]}}
+    results = check_component_supplies([comp], pg, {"-12V": -12.0})
+    assert results[0].unresolvable_reason == SupplyUnresolvableReason.NEGATIVE_RAIL
+
+
+def test_spec_not_extracted_reason():
+    comp = ComponentIR("U1", "UNKNOWNPART", "", [PinIR("1", "VCC", "+3V3")])
+    results = check_component_supplies([comp], {}, {"+3V3": 3.3})
+    assert len(results) == 1
+    assert results[0].status == "UNRESOLVABLE"
+    assert results[0].unresolvable_reason == SupplyUnresolvableReason.SPEC_NOT_EXTRACTED
+
+
+def test_net_voltage_not_confirmed_reason():
+    """evaluate_supply()'s own baseline UNRESOLVABLE (no confirmed voltage at
+    all) — the 8th, non-downgrade site, given its own enum member for
+    completeness (not one of D2's 7 cause sites)."""
+    comp = ComponentIR("U1", "SOMEPART", "", [PinIR("1", "VCC", "+UNCONFIRMED_NET")])
+    pg = {"SOMEPART": {"pin_groups": [
+        {"pin_type": "power", "supply_rail_name": "VCC",
+         "supply_min": 3.0, "supply_max": 3.6, "supply_abs_max": 4.1}]}}
+    results = check_component_supplies([comp], pg, {})
+    assert len(results) == 1
+    assert results[0].status == "UNRESOLVABLE"
+    assert results[0].unresolvable_reason == SupplyUnresolvableReason.NET_VOLTAGE_NOT_CONFIRMED
+
+
+def test_rail_name_mismatch_reason():
+    comp = ComponentIR("U56", "HD3SS3220IRNHR", "", [
+        PinIR("8", "VCC33", "+3V3"),
+        PinIR("30", "VDD5", "+5V"),
+    ])
+    spec = {"pin_groups": [{
+        "pin_type": "power", "supply_rail_name": "VCC33",
+        "supply_min": 2.0, "supply_max": 3.6, "supply_abs_max": 4.6,
+    }]}
+    results = check_component_supplies(
+        [comp], {"HD3SS3220IRNHR": spec}, {"+3V3": 3.3, "+5V": 5.0})
+    by_pin = {r.supply_pin_name: r for r in results}
+    assert by_pin["VCC33"].unresolvable_reason is None   # PASS -> no reason
+    assert by_pin["VDD5"].unresolvable_reason == SupplyUnresolvableReason.RAIL_NAME_MISMATCH

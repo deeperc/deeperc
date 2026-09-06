@@ -45,7 +45,7 @@ from steps.peripheral_consensus import (                                 # noqa:
     evaluate_bus_consensus, MemberClass, BusVerdict,
 )
 from steps.step_08d_peripheral_checker import (                          # noqa: E402
-    check_i2c_peripheral, PeripheralViolation, Severity,
+    check_peripheral_buses, PeripheralViolation, Severity,
 )
 
 _DS = "INA219 datasheet SBOS448G §7.3.3 (A0/A1 address-select pins)"
@@ -248,7 +248,7 @@ def test_gate_a_strap_pin_no_condemnation_and_resolved():
     resolves OK it is counted RESOLVED — it never enters Step-7's missing_mpns,
     so there is no UNRESOLVABLE churn either. Zero findings."""
     kb, nl = _jetson_strap_netlist(lambda m, p: _strap_pin(m, p))
-    findings = check_i2c_peripheral(nl, kb, {})
+    findings = check_peripheral_buses(nl, kb, {})
     assert _fails(findings) == []
     assert _unresolvable(findings) == [], (
         "a KB-resolved strap pin must count RESOLVED, not produce UNRESOLVABLE churn")
@@ -261,7 +261,7 @@ def test_gate_a_identical_pin_without_strap_is_condemned():
     exactly as today. This proves the exemption — not some other change — is
     what silences the strap case."""
     kb, nl = _jetson_strap_netlist(lambda m, p: _bare_gpio_pin(m, p))
-    findings = check_i2c_peripheral(nl, kb, {})
+    findings = check_peripheral_buses(nl, kb, {})
     protocol = [f for f in findings
                 if f.violation == PeripheralViolation.PROTOCOL_MISMATCH
                 and f.severity == Severity.FAIL]
@@ -369,7 +369,7 @@ def test_invariant_no_hole_nonstrap_miswire_still_fires():
         nets=[Net("/I2C.SDA", [("U1", "SCL"), ("U1", "A0")]),
               Net("/I2C.SCL", [("U1", "SDA")])],
     )
-    fails = _fails(check_i2c_peripheral(nl, kb, {}))
+    fails = _fails(check_peripheral_buses(nl, kb, {}))
     assert len(fails) == 2
     assert all("SDA/SCL swap" in f.evidence for f in fails)
 
@@ -408,7 +408,7 @@ def test_kbd_doubles_variant_a_a0_tied_to_scl_stays_silent():
               Net("/I2C_{SYS}.SDA", [("U66", "SDA"), ("R2", "1")]),
               Net("+3V3", [("R1", "2"), ("R2", "2")])],
     )
-    findings = check_i2c_peripheral(nl, kb, {})
+    findings = check_peripheral_buses(nl, kb, {})
     assert _fails(findings) == []
     assert _cap_fails(findings) == []
     assert _unresolvable(findings) == []
@@ -428,6 +428,6 @@ def test_kbd_doubles_variant_b_sda_swap_still_fails():
         nets=[Net("/I2C_{SYS}.SDA", [("U60", "SCL")]),
               Net("/I2C_{SYS}.SCL", [("U60", "SDA")])],
     )
-    fails = _fails(check_i2c_peripheral(nl, kb, {}))
+    fails = _fails(check_peripheral_buses(nl, kb, {}))
     assert len(fails) == 2
     assert all("SDA/SCL swap" in f.evidence for f in fails)

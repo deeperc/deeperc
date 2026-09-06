@@ -22,7 +22,7 @@
   },
   "generator": {
     "method": "hand-authored .net edit (Python script, line-exact block move)",
-    "note": "No edits to any pipeline code, checker code, generate_bad_corpus.py, or cache/KB data. step_08b_supply_checker.py is unchanged; the abs_max=4.0V ceiling and its 'Table 6' provenance come entirely from the pre-existing, git-tracked datasheets_parsed/stm32f103c8/auto/stm32f103c8_pin_groups.json cache (LT-25 §5(i) ship-list, landed in 2019d9d)."
+    "note": "No edits to any pipeline code, checker code, generate_bad_corpus.py, or cache/KB data. step_08b_supply_checker.py is unchanged; the abs_max=4.0V ceiling and its 'Table 6' provenance come entirely from the pre-existing, git-tracked datasheets_parsed/stm32f103c8/auto/stm32f103c8_pin_groups.json cache (LT-25 §5(i) ship-list, landed at a pre-release private revision)."
   },
   "expected_verdict": {
     "board_status": "has_fail",
@@ -46,8 +46,8 @@
     "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
     "unchanged_axes": "signal 0, structural 11 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the unmodified board; remaining supply rows (VBAT, VDD pin36, VDD pin48, VDDA) stay PASS unchanged"
   },
-  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_supply_overvoltage/my_stm32_board_supply_overvoltage.net --datasheets-dir netlist_corpus/datasheets --skip-confirm",
+  "verified_by": "python3 run_checks.py --board examples/my_stm32_board_supply_overvoltage/my_stm32_board_supply_overvoltage.net --skip-confirm",
   "arg_surface_note": "run_checks.py's parser accepts --board PATH, not --netlist (that flag belongs to main.py). Confirmed via --help; --board is the form used here and in the t1 fixtures.",
-  "run_transcript": "investigation/recon_reports/lt27_t2_fail_transcript.txt (untracked; no STALE/Note provenance lines appeared this run — both cached parts' provenance read as current)",
+  "corpus_note": "netlist_corpus/ paths above are the author's private working corpus, not shipped in this repo; source.upstream_repo is the resolvable, public pointer to the original board.",
   "date": "2026-08-07"
 }

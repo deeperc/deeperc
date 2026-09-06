@@ -421,6 +421,91 @@ def test_is_rail_name_recognizer():
     assert not _is_rail_name("")
 
 
+# ── TODO-453 (ruled F2, D3-v2 corrected battery) ──────────────────────────────
+# _RAIL_TOKEN_RE branch 1 is .match()-anchored at start only, so any name
+# BEGINNING with a rail token reads as a rail — including control/monitor-tap
+# names like PWR_CTRL. Full-string anchoring was REJECTED (recon PART A5: 22 of
+# 6,166 precision-corpus names are recognized only via branch-1 prefix, most of
+# them genuine rails — anchoring would de-recognize far more than it fixes).
+# Fix instead: reject a branch-1 match when the ENTIRE remainder after the rail
+# token is exactly one of _CTRL / _SENS / _MON / _MON_<anything> / _PWR_ON —
+# anchored-tail-exact, not a general suffix ban. Six of the 22 A5 names ARE the
+# blacklist targets themselves (precision correction on the TODO-453 card,
+# 2026-09-04) — the guard is zero COLLATERAL de-recognition of the other 16,
+# not zero de-recognition overall. Branch 3 (underscore-suffix) separately
+# gains VBAT/VIN tokens (acruxcz TRNXSDR-carrier wild-board WARNs).
+
+@pytest.mark.parametrize("name", [
+    "PWR_CTRL", "PWR_SENS", "VIN_PWR_ON", "/DCDC/VIN_PWR_ON",
+    "VBUS_MON_UP", "/VBUS_MON_UP", "/USB Hub/VBUS_MON_UP",
+])
+def test_control_suffix_blacklist_targets_rejected(name):
+    # The 6 A5 control/monitor-tap names (2 with path-prefix decoration) —
+    # branch-1 prefix match is rejected once the remainder is exactly a
+    # blacklisted control-suffix shape.
+    assert _is_rail_name(name) is False
+
+
+@pytest.mark.parametrize("name", [
+    "/+VCC_FMC", "/PWR_3,3-5V", "/Expansion connector/+VCC_FMC",
+    "/Power input/Vin_fused", "/Power input/Vin_protected",
+    "/VCC_SENSE-ERROR*", "/VDD1A-2A", "/VDDCR", "/Vin_fused",
+    "/Vin_protected", "/pic_sockets/VCC_PIC", "VCC_IN", "VCC_PSADC",
+    "VCC_PSDDR_PLL", "VCC_PSPLL", "VREFH0",
+])
+def test_a5_keeper_names_unaffected(name):
+    # The 16 non-target A5 names — zero collateral de-recognition by
+    # construction (the whole point of the anchored-tail-exact shape over
+    # full-string anchoring).
+    assert _is_rail_name(name) is True
+
+
+def test_vcc_sense_error_near_miss_guard():
+    # One character from the _SENS target ("_SENSE-ERROR*" vs "_SENS") — the
+    # blacklist requires the ENTIRE remainder to equal the blacklisted shape,
+    # not merely start with it, so this keeper must not be swept in.
+    assert _is_rail_name("/VCC_SENSE-ERROR*") is True
+
+
+@pytest.mark.parametrize("name", [
+    "PWRBUTTON_NOT_A_RAIL",  # no underscore boundary — prefix overbreadth (as before)
+    "PWR_CTRL_3V3",          # trailing qualifier after the target shape
+])
+def test_documented_residuals_still_recognized(name):
+    # Accepted residual (RULED block): pure prefix overbreadth without an
+    # exact control-suffix tail survives — narrowed, not eliminated.
+    assert _is_rail_name(name) is True
+
+
+@pytest.mark.parametrize("name", [
+    "/Clocking/CLK_PWR_VBAT", "USB_VIN",
+])
+def test_branch3_vbat_vin_suffix_newly_true(name):
+    # Branch-3 underscore-suffix addition: VBAT/VIN newly recognized when
+    # preceded by an underscore boundary.
+    assert _is_rail_name(name) is True
+
+
+def test_branch3_concatenated_suffix_stays_false():
+    # TPSVIN ("TPS"+"VIN" concatenated, no underscore boundary) is NOT caught
+    # by the branch-3 VIN addition — the ruled fix targets the *underscore*-
+    # suffix list specifically, not a bare substring/concatenation match.
+    # NOTE: the D3-v2 dispatch predicted this name as NEW-TRUE alongside
+    # CLK_PWR_VBAT/USB_VIN; actual regex semantics disagree (TPSVIN has no
+    # underscore before VIN, so the underscore-anchored branch-3 pattern can
+    # never match it regardless of vocabulary). Flagged as a documented W1/W2
+    # partial MISS in the D3-v2 end-of-task report — zero design ambiguity,
+    # zero gate impact (the source board, acruxcz TRNXSDR-carrier, is a wild
+    # board, not a v2_11 precision-gate member).
+    assert _is_rail_name("TPSVIN") is False
+
+
+def test_pwr_led_k_not_blacklist_shaped():
+    # /PWR_LED_K's remainder ("_LED_K") is not one of the blacklisted control
+    # suffixes — an examples-fixture regression guard (README example board).
+    assert _is_rail_name("/PWR_LED_K") is True
+
+
 def test_rail_named_multipin_net_passes():
     """Recognized power pin on a rail-named MULTI-pin net (step_06-unconfirmed)
     → PASS via branch 2.5. Mirrors the rp2040 /DVDD and Debugger /nRF52_VDD seeds."""

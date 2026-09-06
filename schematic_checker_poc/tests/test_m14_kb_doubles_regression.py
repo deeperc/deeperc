@@ -18,7 +18,7 @@ stand-down becomes DELIBERATE (asserted here via pairing_source) rather than
 an accident of KB sparsity.
 
 Uses the REAL code path end-to-end: pair_buses + evaluate_bus_consensus + the
-live M14 emission block in check_i2c_peripheral (not a reimplementation) --
+live M14 emission block in check_peripheral_buses (not a reimplementation) --
 same invariant-testing style as test_capability_misroute_checker.py.
 """
 import os
@@ -31,7 +31,7 @@ from steps.peripheral_kb import (
     Signal, KBSource, Peripheral, PinRole, PinFunctionEntry,
 )
 from steps.step_08d_peripheral_checker import (
-    check_i2c_peripheral, PeripheralViolation, Severity,
+    check_peripheral_buses, PeripheralViolation, Severity,
 )
 from steps.peripheral_bus_pairing import pair_buses, AMBIGUOUS_PAIRING
 from steps.peripheral_coherence import I2C_PAIR, _KB_SIGNAL_TO_ROLE
@@ -138,7 +138,7 @@ def test_scenario_a_bridge_not_kbd_stands_down_and_still_pairs_kb_instance():
     assert real_buses[0].pairing_source == "kb_instance"
     assert real_buses[0].bus_id == "I2C1"
 
-    findings = check_i2c_peripheral(nl, _KB_MCU_ONLY, {})
+    findings = check_peripheral_buses(nl, _KB_MCU_ONLY, {})
     assert _cap_fails(findings) == []
 
 
@@ -165,7 +165,7 @@ def test_scenario_b_bridge_kbd_uart_only_no_false_fail():
         "only verdict admissibility changes")
     assert real_buses[0].bus_id == "I2C1"
 
-    findings = check_i2c_peripheral(nl, kb, {})
+    findings = check_peripheral_buses(nl, kb, {})
     fails = _cap_fails(findings)
     assert fails == [], (
         f"M14-F1 regression: kb_instance-only bus identity produced a "

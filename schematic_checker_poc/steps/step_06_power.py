@@ -59,7 +59,7 @@ def _survey_emit(records: list[dict]) -> None:
 
 POWER_NET_RE = re.compile(
     r'^(?:'
-    r'VCC\w*|VDD\w*|AVDD\w*|DVDD\w*|PVDD\w*|'   # VCC, VDD variants
+    r'VCC\w*|/?VDD\w*|AVDD\w*|DVDD\w*|PVDD\w*|'  # VCC, VDD variants (VDD: KiCad leading '/', TODO-452)
     r'VSS\w*|GND\w*|AGND\w*|DGND\w*|PGND\w*|'   # GND variants
     r'PWR\w*|POWER\w*|SUPPLY\w*|'                 # generic power names
     r'V\d+V\d*|P\d+V\d*|'                         # V3V3, P3V3, V1V8, P5V0
@@ -67,8 +67,8 @@ POWER_NET_RE = re.compile(
     r'\+\d+\.\d+V\d*|\-\d+\.\d+V\d*|'             # +3.3V, +5.0V, -12.5V
     r'.*_3V3$|.*_5V0?$|.*_1V8$|.*_1V2$|'         # suffix patterns: VCC_3V3
     r'.*_12V$|.*_24V$|.*_48V$|'                   # higher voltage suffixes
-    r'VREF\w*|VBAT\w*|VBUS\w*|VCAP\w*|'          # special supply names
-    r'VIN\w*|VOUT\w*|VREG\w*|'                    # regulator nets
+    r'VREF\w*|/?VBAT\w*|/?VBUS\w*|VCAP\w*|'      # special supply names (VBAT/VBUS: KiCad leading '/', TODO-452)
+    r'/?VIN\w*|/?VOUT\w*|VREG\w*|/?VSYS\w*|'      # regulator nets (VIN/VOUT/VSYS: KiCad leading '/', TODO-452/F6)
     r'EP|PAD|EPAD'                                 # thermal/exposed pads
     r')$',
     re.IGNORECASE
@@ -353,7 +353,7 @@ def infer_power_nets(ir, rail_map=None) -> tuple[list[PowerRail], list[str]]:
 
     # ── Top tier (TODO-134): user-supplied confirmed rail map ──────────────
     # Highest precedence — a user DECLARATION overrides Tier-1/Fix-γ inference.
-    # INERT when rail_map is None (the run_corpus_test path): every branch is
+    # INERT when rail_map is None (the run_checks path): every branch is
     # guarded, so the deterministic output is byte-identical when unused.
     _rail_index = rail_map_mod.build_index(rail_map) if rail_map else None
     _rail_matched_keys: set[str] = set()

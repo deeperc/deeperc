@@ -1,7 +1,7 @@
 """
 Phase 1.1.b: KB-anchored I2C peripheral mismatch detector.
 
-check_i2c_peripheral(netlist, kb, peripheral_routing=None) -> list[PeripheralFinding]
+check_peripheral_buses(netlist, kb, peripheral_routing=None) -> list[PeripheralFinding]
 
 Net classification
 ------------------
@@ -63,6 +63,23 @@ class Severity(Enum):
     PASS         = "PASS"
 
 
+# TODO-417 H2: structured reason for a finding, replacing prose-only attribution.
+# One shared enum across every PeripheralFinding emit site (Step-7/Step-3 KB-
+# coverage gaps, coherence-block guard identity, M14 consensus-path surfacing,
+# M15 UART-cleared surfacing) — all populate the same `PeripheralFinding.reason`
+# field, so a consumer has one place to look regardless of which check fired.
+class FindingReason(Enum):
+    KB_MISSING                  = "KB_MISSING"                    # Step 7
+    PIN_NOT_IN_KB                = "PIN_NOT_IN_KB"                  # Step 7
+    NO_MPN                       = "NO_MPN"                         # Step 7
+    PERIPHERAL_UNCONSTRAINED      = "PERIPHERAL_UNCONSTRAINED"       # Step 3 / pre-classify gate
+    COHERENCE_MATRIX_GUARD        = "COHERENCE_MATRIX_GUARD"         # M6/M12 UNRESOLVABLE branch
+    COHERENCE_KB_INSTANCE_GUARD   = "COHERENCE_KB_INSTANCE_GUARD"    # M6/M12 UNRESOLVABLE branch
+    M14_TIE_UNRESOLVABLE         = "M14_TIE_UNRESOLVABLE"           # consensus 1-1 instance tie
+    M14_CONSENSUS_MINORITY       = "M14_CONSENSUS_MINORITY"         # consensus cross-device minority
+    UART_CLEARED_UNRESOLVABLE    = "UART_CLEARED_UNRESOLVABLE"      # M15 .cleared surfacing
+
+
 @dataclass
 class PeripheralFinding:
     violation:     PeripheralViolation
@@ -71,6 +88,7 @@ class PeripheralFinding:
     pins:          list           # list[str], e.g. ["U1.PB6", "U2.SDA"]
     evidence:      str
     kb_provenance: list = field(default_factory=list)  # list[KBSource]
+    reason:        FindingReason | None = None  # TODO-417 H2 structured attribution
 
 
 # ── Internal lookup status ────────────────────────────────────────────────────
@@ -80,6 +98,11 @@ class _LookupStatus(Enum):
     KB_MISSING               = "kb_missing"
     PIN_NOT_IN_KB            = "pin_not_in_kb"
     PERIPHERAL_UNCONSTRAINED = "peripheral_unconstrained"
+    # TODO-417 H2: a component with no MPN at all (effective_mpn falsy) is a
+    # DISTINCT cause from KB_MISSING ("we had an MPN, it's just not in our KB")
+    # — there was never anything to look up. Checked first in _resolve_pin,
+    # before canonicalization/matrix routing (both meaningless on an empty MPN).
+    NO_MPN                   = "no_mpn"
 
 
 # ── MPN canonicalization ──────────────────────────────────────────────────────
@@ -158,6 +181,14 @@ def _is_passive_refdes(refdes: str) -> bool:
     return r.startswith(("R", "C", "L")) or r.startswith("FB")
 
 
+# TODO-417 H2 (scope item 3): CoherenceViolation.guard -> FindingReason, for the
+# M6/M12 coherence-block UNRESOLVABLE branch. None (FAIL, no guard) -> no reason.
+_COHERENCE_GUARD_REASON = {
+    "matrix": FindingReason.COHERENCE_MATRIX_GUARD,
+    "kb_instance_disagreement": FindingReason.COHERENCE_KB_INSTANCE_GUARD,
+}
+
+
 # ── Net classification helpers ────────────────────────────────────────────────
 
 _I2C_NET_RE = re.compile(r'(?:I2C|SDA|SCL)', re.I)
@@ -189,7 +220,7 @@ def _net_signal_hint(net_name: str):
 
 def _classify_i2c_net(net, comps_by_refdes, pinname_by_ref_id, kb,
                       peripheral_routing) -> bool:
-    """True if ``net`` is an I2C net, per the check_i2c_peripheral Step-1 rule.
+    """True if ``net`` is an I2C net, per the check_peripheral_buses Step-1 rule.
 
     Primary: any non-passive pin resolves a fixed-function I2C KB entry (ALL roles
     I2C). Secondary: net name matches the I2C pattern AND ≥1 pin is I2C-capable
@@ -227,7 +258,7 @@ def _classify_i2c_net(net, comps_by_refdes, pinname_by_ref_id, kb,
 
 
 def is_i2c_classified_net(net, netlist, kb, peripheral_routing=None) -> bool:
-    """Public wrapper: is ``net`` I2C-classified per check_i2c_peripheral's gate?
+    """Public wrapper: is ``net`` I2C-classified per check_peripheral_buses's gate?
 
     Builds the lookup maps from ``netlist`` and delegates to `_classify_i2c_net`.
     step_08g's generic-OD family calls THIS to suppress on I2C nets (M3/NO_PULLUP
@@ -366,6 +397,13 @@ def _resolve_pin(mpn: str, pin_id: str, kb: dict, peripheral_routing: dict | Non
 
     Returns (_LookupStatus, PinFunctionEntry | None).
     """
+    # TODO-417 H2: no MPN at all (effective_mpn falsy — resolved_mpn=None and
+    # part_number="") is checked before canonicalization/matrix routing, both of
+    # which are meaningless on an empty string. Distinct from KB_MISSING: there
+    # was never anything to look up.
+    if not mpn:
+        return _LookupStatus.NO_MPN, None
+
     # Check matrix routing first (before even looking up the pin)
     canonical = canonicalize_mpn_for_kb(mpn)
     routing_for_mcu = (peripheral_routing or {}).get(canonical)
@@ -397,9 +435,44 @@ def _resolve_pin(mpn: str, pin_id: str, kb: dict, peripheral_routing: dict | Non
     return _LookupStatus.OK, entry
 
 
+def _peripheral_unconstrained_finding(net_name: str, unconstrained: list) -> "PeripheralFinding":
+    """One aggregated UNRESOLVABLE finding for ALL PERIPHERAL_UNCONSTRAINED pins on
+    a net (TODO-417 H2 scope item 2 — break-after-first removed at both call sites).
+    ``unconstrained`` is ``[(refdes, pin_id, mpn), ...]``. The single-pin case (by
+    far the common one) keeps its evidence text BYTE-IDENTICAL to the pre-H2 wording;
+    only a genuinely multi-pin net (new, rare) gets the aggregated list form."""
+    if len(unconstrained) == 1:
+        refdes, pin_id, mpn = unconstrained[0]
+        canonical = canonicalize_mpn_for_kb(mpn)
+        evidence = (
+            f"Cannot verify I2C wiring on net {net_name!r}. "
+            f"{mpn} (canonical: {canonical}) routes I2C via the GPIO matrix — "
+            "any GPIO can serve as SDA or SCL. Pin assignment correctness "
+            "depends on firmware configuration, not schematic pin choice."
+        )
+    else:
+        mpns = [m for _r, _p, m in unconstrained]
+        canonicals = sorted({canonicalize_mpn_for_kb(m) for _r, _p, m in unconstrained})
+        evidence = (
+            f"Cannot verify I2C wiring on net {net_name!r}. "
+            f"{mpns} (canonical: {canonicals}) route I2C via the GPIO matrix — "
+            "any GPIO can serve as SDA or SCL. Pin assignment correctness "
+            "depends on firmware configuration, not schematic pin choice."
+        )
+    return PeripheralFinding(
+        violation=PeripheralViolation.ROLE_MISMATCH,
+        severity=Severity.UNRESOLVABLE,
+        net=net_name,
+        pins=[f"{r}.{p}" for r, p, _m in unconstrained],
+        evidence=evidence,
+        kb_provenance=[],
+        reason=FindingReason.PERIPHERAL_UNCONSTRAINED,
+    )
+
+
 # ── Main checker ──────────────────────────────────────────────────────────────
 
-def check_i2c_peripheral(
+def check_peripheral_buses(
     netlist,
     kb: dict,
     peripheral_routing: dict | None = None,
@@ -446,6 +519,9 @@ def check_i2c_peripheral(
             # non-I2C net stays silent; do NOT touch classification itself — the
             # net still skips Steps 2-9 exactly as before.
             if _I2C_NET_RE.search(net.name):
+                # TODO-417 H2 (scope item 2): record ALL qualifying pins, not just
+                # the first — one aggregated finding per net, break removed.
+                _unconstrained = []
                 for refdes, pin_id in net.pins:
                     comp = comps_by_refdes.get(refdes)
                     if comp is None or _is_passive_refdes(comp.refdes):
@@ -454,22 +530,9 @@ def check_i2c_peripheral(
                         comp.effective_mpn, pin_id, kb, peripheral_routing,
                         pinname_by_ref_id.get((refdes, pin_id)))
                     if status == _LookupStatus.PERIPHERAL_UNCONSTRAINED:
-                        canonical = canonicalize_mpn_for_kb(comp.effective_mpn)
-                        findings.append(PeripheralFinding(
-                            violation=PeripheralViolation.ROLE_MISMATCH,
-                            severity=Severity.UNRESOLVABLE,
-                            net=net.name,
-                            pins=[f"{refdes}.{pin_id}"],
-                            evidence=(
-                                f"Cannot verify I2C wiring on net {net.name!r}. "
-                                f"{comp.effective_mpn} (canonical: {canonical}) routes I2C via "
-                                "the GPIO matrix — any GPIO can serve as SDA or SCL. Pin "
-                                "assignment correctness depends on firmware configuration, "
-                                "not schematic pin choice."
-                            ),
-                            kb_provenance=[],
-                        ))
-                        break  # one UNRESOLVABLE per net is enough
+                        _unconstrained.append((refdes, pin_id, comp.effective_mpn))
+                if _unconstrained:
+                    findings.append(_peripheral_unconstrained_finding(net.name, _unconstrained))
             continue
 
         # ── Step 2: resolve all non-passive pins on this net ─────────────────
@@ -485,26 +548,14 @@ def check_i2c_peripheral(
         net_findings: list[PeripheralFinding] = []
 
         # ── Step 3: PERIPHERAL_UNCONSTRAINED → UNRESOLVABLE (early exit) ─────
-        peripheral_unconstrained = False
-        for refdes, pin_id, mpn, status, entry in Results:
-            if status == _LookupStatus.PERIPHERAL_UNCONSTRAINED:
-                canonical = canonicalize_mpn_for_kb(mpn)
-                findings.append(PeripheralFinding(
-                    violation=PeripheralViolation.ROLE_MISMATCH,
-                    severity=Severity.UNRESOLVABLE,
-                    net=net.name,
-                    pins=[f"{refdes}.{pin_id}"],
-                    evidence=(
-                        f"Cannot verify I2C wiring on net {net.name!r}. "
-                        f"{mpn} (canonical: {canonical}) routes I2C via the GPIO matrix — "
-                        "any GPIO can serve as SDA or SCL. Pin assignment correctness "
-                        "depends on firmware configuration, not schematic pin choice."
-                    ),
-                    kb_provenance=[],
-                ))
-                peripheral_unconstrained = True
-                break  # one UNRESOLVABLE per net is enough
-        if peripheral_unconstrained:
+        # TODO-417 H2 (scope item 2): record ALL qualifying pins, not just the
+        # first — one aggregated finding per net, break removed.
+        _unconstrained3 = [
+            (refdes, pin_id, mpn) for refdes, pin_id, mpn, status, entry in Results
+            if status == _LookupStatus.PERIPHERAL_UNCONSTRAINED
+        ]
+        if _unconstrained3:
+            findings.append(_peripheral_unconstrained_finding(net.name, _unconstrained3))
             continue  # this net is done; downstream nets/post-loop blocks still run
 
         # ── Step 4: PROTOCOL_MISMATCH ─────────────────────────────────────────
@@ -605,28 +656,42 @@ def check_i2c_peripheral(
         # Must come before NO_PULLUP so that KB-missing UNRESOLVABLE is visible
         # when we decide whether to suppress the pull-up warning.
         if not protocol_mismatch_emitted:
-            missing_mpns = [
-                mpn for _rd, _pi, mpn, status, _e in Results
-                if status in (_LookupStatus.KB_MISSING, _LookupStatus.PIN_NOT_IN_KB)
-            ]
-            if missing_mpns:
+            # TODO-417 H2 (scope item 1): populate `pins` with the missing-MPN
+            # endpoints' pin names, and distinguish KB_MISSING / PIN_NOT_IN_KB /
+            # NO_MPN via a structured `reason` (not folded into one prose string).
+            # Grouped by status: the common single-status-per-net case still emits
+            # exactly one finding (byte-shape unchanged besides pins/reason); a net
+            # that genuinely mixes reasons emits one per reason (new, rare).
+            _missing_reason_map = {
+                _LookupStatus.KB_MISSING: FindingReason.KB_MISSING,
+                _LookupStatus.PIN_NOT_IN_KB: FindingReason.PIN_NOT_IN_KB,
+                _LookupStatus.NO_MPN: FindingReason.NO_MPN,
+            }
+            _missing_by_status: dict = {}
+            for _rd, _pi, mpn, status, _e in Results:
+                if status in _missing_reason_map:
+                    _missing_by_status.setdefault(status, []).append((_rd, _pi, mpn))
+            if _missing_by_status:
                 provenance = [
                     src
                     for _rd, _pi, _mpn, status, entry in Results
                     if status == _LookupStatus.OK and entry
                     for src in {r.source for r in entry.roles}
                 ]
-                net_findings.append(PeripheralFinding(
-                    violation=PeripheralViolation.ROLE_MISMATCH,
-                    severity=Severity.UNRESOLVABLE,
-                    net=net.name,
-                    pins=[],
-                    evidence=(
-                        f"Cannot fully verify net {net.name!r}: "
-                        f"MPN(s) not in KB: {missing_mpns}."
-                    ),
-                    kb_provenance=list(set(provenance)),
-                ))
+                for status, entries in _missing_by_status.items():
+                    missing_mpns = [mpn for _rd, _pi, mpn in entries]
+                    net_findings.append(PeripheralFinding(
+                        violation=PeripheralViolation.ROLE_MISMATCH,
+                        severity=Severity.UNRESOLVABLE,
+                        net=net.name,
+                        pins=[f"{_rd}.{_pi}" for _rd, _pi, _mpn in entries],
+                        evidence=(
+                            f"Cannot fully verify net {net.name!r}: "
+                            f"MPN(s) not in KB: {missing_mpns}."
+                        ),
+                        kb_provenance=list(set(provenance)),
+                        reason=_missing_reason_map[status],
+                    ))
 
         # ── Step 8: NO_PULLUP_DETECTED ────────────────────────────────────────
         # Suppressed behind a real electrical FAIL on this net (PROTOCOL / INSTANCE
@@ -751,6 +816,7 @@ def check_i2c_peripheral(
                 f"{_net_sig} — SDA/SCL swap (role source: {v.source})."
             ),
             kb_provenance=[],
+            reason=_COHERENCE_GUARD_REASON.get(v.guard),
         ))
 
     # ── M12/M99: SPI MOSI/MISO/SCK coherence (cross-net swap) ─────────────────
@@ -796,6 +862,7 @@ def check_i2c_peripheral(
                 f"{_net_sig} — {_swap_tail} (role source: {v.source})."
             ),
             kb_provenance=[],
+            reason=_COHERENCE_GUARD_REASON.get(v.guard),
         ))
 
     # ── M14: CAPABILITY MISROUTE (Phase 3, VERDICT-MOVING) ────────────────────
@@ -827,7 +894,7 @@ def check_i2c_peripheral(
     # import back into THIS module). Runs on every board; pair_buses returns [] for a
     # board with no I2C role nets, so the added cost is bounded.
     from .peripheral_bus_pairing import pair_buses, AMBIGUOUS_PAIRING, has_independent_identity
-    from .peripheral_consensus import evaluate_bus_consensus, m6_flagged_pins, MemberClass
+    from .peripheral_consensus import evaluate_bus_consensus, m6_flagged_pins, MemberClass, BusVerdict
     from .peripheral_coherence import I2C_PAIR, _KB_SIGNAL_TO_ROLE
 
     _paired, _ = pair_buses(
@@ -836,6 +903,7 @@ def check_i2c_peripheral(
     )
     _m6_flagged = m6_flagged_pins(netlist, kb, peripheral_routing)
     _cap_emitted: set = set()   # (net, refdes, pin_id) — de-dup within this block only
+    _unres_emitted: set = set()   # (net, refdes, pin_id) — de-dup for the TIE/consensus branch below
     for _bus in _paired:
         if _bus.pairing_source == AMBIGUOUS_PAIRING:
             continue
@@ -845,6 +913,61 @@ def check_i2c_peripheral(
             netlist, _bus, I2C_PAIR, kb=kb, peripheral_routing=peripheral_routing,
             kb_signal_to_role=_KB_SIGNAL_TO_ROLE, m6_flagged=_m6_flagged,
         )
+        # TODO-433 ruling (fail_mode != "capability" site): TIE_UNRESOLVABLE (a
+        # 1-1 instance-vote tie, no minority picked) and the cross-device
+        # MINORITY_CONTRADICTS consensus path (fail_mode == "consensus") were
+        # previously silently discarded — D1 fact 6 confirmed `_cons.verdict` was
+        # never read at all. Both are now surfaced as UNRESOLVABLE (never FAIL —
+        # neither is a KB-confirmed hard fact the way "capability" is; the
+        # consensus path stays report-only for verdict purposes, same INVARIANT
+        # as before). AMBIGUOUS_PAIRING / kb_instance-only pairing stay silent by
+        # design (TODO-233 gate) — already excluded above.
+        if _cons.verdict == BusVerdict.TIE_UNRESOLVABLE.value:
+            _key = (_bus.net_a, _bus.net_b)
+            if _key not in _unres_emitted:
+                _unres_emitted.add(_key)
+                _tie_pins = [f"{_m.refdes}.{_m.pin_id}" for _m in _cons.members
+                             if _m.asserted_role is not None]
+                findings.append(PeripheralFinding(
+                    violation=PeripheralViolation.CAPABILITY_MISMATCH,
+                    severity=Severity.UNRESOLVABLE,
+                    net=f"{_bus.net_a}/{_bus.net_b}",
+                    pins=_tie_pins,
+                    evidence=(
+                        f"Cannot resolve paired I2C bus {_bus.bus_id!r} "
+                        f"({_bus.net_a!r}/{_bus.net_b!r}): a 1-1 instance-vote tie "
+                        "among corroborating voters — no minority picked, "
+                        "consensus insufficient to prefer one instance over the other."
+                    ),
+                    kb_provenance=[],
+                    reason=FindingReason.M14_TIE_UNRESOLVABLE,
+                ))
+            continue
+        if _cons.fail_mode == "consensus":
+            for _m in _cons.members:
+                if _m.classification != MemberClass.MINORITY_CONTRADICTS.value:
+                    continue
+                _key = (_m.net, _m.refdes, _m.pin_id)
+                if _key in _unres_emitted:
+                    continue
+                _unres_emitted.add(_key)
+                findings.append(PeripheralFinding(
+                    violation=PeripheralViolation.CAPABILITY_MISMATCH,
+                    severity=Severity.UNRESOLVABLE,
+                    net=_m.net,
+                    pins=[f"{_m.refdes}.{_m.pin_id}"],
+                    evidence=(
+                        f"Member {_m.refdes}.{_m.pin_id} on net {_m.net!r} (paired bus "
+                        f"{_bus.bus_id!r}) asserts the minority role/instance vs. the "
+                        f"bus majority ({_cons.distinct_voter_devices} voter device(s)) "
+                        "— cross-device disagreement, not KB-confirmed incapability; "
+                        "reported as UNRESOLVABLE, not FAIL "
+                        f"(additive to M6/M12; caught_by_m6={_m.caught_by_m6})."
+                    ),
+                    kb_provenance=[],
+                    reason=FindingReason.M14_CONSENSUS_MINORITY,
+                ))
+            continue
         if _cons.fail_mode != "capability":   # INVARIANT gate — capability path only
             continue
         for _m in _cons.members:
@@ -910,7 +1033,9 @@ def check_i2c_peripheral(
     # _is_passive_refdes / _LookupStatus back out of THIS module).
     from .uart_capability import classify_netlist_uart
 
-    for _uf in classify_netlist_uart(netlist, kb, peripheral_routing).findings:
+    _uart_result = classify_netlist_uart(netlist, kb, peripheral_routing)
+
+    for _uf in _uart_result.findings:
         _inc = _uf.incapable_endpoint
         if _inc is None or not _uf.confirming_endpoints:
             continue   # INVARIANT: an unconfirmed net can never produce a FAIL
@@ -934,6 +1059,33 @@ def check_i2c_peripheral(
                 f"UART on this pin. (net name never consulted)"
             ),
             kb_provenance=_inc.kb_sources,
+        ))
+
+    # TODO-417 H2 (scope item 5): ClassifyResult.cleared was entirely discarded
+    # (D1 fact 6). Only the genuinely-unresolvable reason ("KB_ABSENT_OR_MATRIX_
+    # UNRESOLVABLE" — a candidate victim pin we could neither confirm nor condemn)
+    # is now surfaced, as UNRESOLVABLE, one finding per (net) grouping every such
+    # pin. "HAS_UART_ROLE" cleared entries are genuinely resolved/capable — no
+    # finding for those (nothing unresolved to report).
+    _cleared_by_net: dict = {}
+    for _c in _uart_result.cleared:
+        if _c["reason"] != "KB_ABSENT_OR_MATRIX_UNRESOLVABLE":
+            continue
+        _cleared_by_net.setdefault(_c["net"], []).append(_c)
+    for _net_name, _entries in _cleared_by_net.items():
+        _mpns = [_e["mpn"] for _e in _entries]
+        findings.append(PeripheralFinding(
+            violation=PeripheralViolation.UART_CAPABILITY_MISMATCH,
+            severity=Severity.UNRESOLVABLE,
+            net=_net_name,
+            pins=[f"{_e['refdes']}.{_e['pin_id']}" for _e in _entries],
+            evidence=(
+                f"Cannot fully verify confirmed-USART net {_net_name!r}: "
+                f"candidate pin(s) {_mpns} are KB-absent or matrix-routed — neither "
+                "confirmed nor excludable as UART-capable."
+            ),
+            kb_provenance=[],
+            reason=FindingReason.UART_CLEARED_UNRESOLVABLE,
         ))
 
     return findings

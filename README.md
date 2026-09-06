@@ -354,29 +354,29 @@ UNRESOLVABLE
     evidence: Assumed/low-confidence
     confidence: low
 
-  supply U1 VBAT (pin 1) <- VBAT — Net voltage not confirmed (not
-  locally verified)
+  supply U1 VBAT (pin 1) <- VBAT — NET_VOLTAGE_NOT_CONFIRMED [Net
+  voltage not confirmed (not locally verified)]
     U1 (STM32F103C8Tx)  pin=VBAT (pin 1)  net=VBAT
     NoneV vs rated 1.8V-3.6V (abs max 3.6V)
     evidence: Net voltage not confirmed (not locally verified)
     confidence: low
 
-  supply U1 VDD (pin 24) <- 3V3 — Net voltage not confirmed (not
-  locally verified)
+  supply U1 VDD (pin 24) <- 3V3 — NET_VOLTAGE_NOT_CONFIRMED [Net
+  voltage not confirmed (not locally verified)]
     U1 (STM32F103C8Tx)  pin=VDD (pin 24)  net=3V3
     NoneV vs rated 2.0V-3.6V (abs max 4.0V)
     evidence: Net voltage not confirmed (not locally verified)
     confidence: low
 
-  supply U1 VDD (pin 36) <- 3V3 — Net voltage not confirmed (not
-  locally verified)
+  supply U1 VDD (pin 36) <- 3V3 — NET_VOLTAGE_NOT_CONFIRMED [Net
+  voltage not confirmed (not locally verified)]
     U1 (STM32F103C8Tx)  pin=VDD (pin 36)  net=3V3
     NoneV vs rated 2.0V-3.6V (abs max 4.0V)
     evidence: Net voltage not confirmed (not locally verified)
     confidence: low
 
-  supply U1 VDD (pin 48) <- 3V3 — Net voltage not confirmed (not
-  locally verified)
+  supply U1 VDD (pin 48) <- 3V3 — NET_VOLTAGE_NOT_CONFIRMED [Net
+  voltage not confirmed (not locally verified)]
     U1 (STM32F103C8Tx)  pin=VDD (pin 48)  net=3V3
     NoneV vs rated 2.0V-3.6V (abs max 4.0V)
     evidence: Net voltage not confirmed (not locally verified)
@@ -826,7 +826,10 @@ KB authoring is only about the peripheral role/topology tables.
   pull-up presence) and assumes you still run ERC for structural rule checking.
 - Report explanation text is LLM-generated where a local model is available;
   when it isn't, findings carry a one-line note instead. Verdicts are never
-  affected either way.
+  affected either way. LLM explanation is attempted only for signal- and
+  supply-check FAIL/WARN findings, and only when a local model is available;
+  verdicts never depend on it. Structural findings' evidence tiers appear in
+  the JSON report regardless; the console only shows a summary subset.
 - For how the precision/recall numbers this project reports are measured, see
   [CORPUS.md](docs/CORPUS.md).
 - The full, current list — including release-specific limitations — lives in

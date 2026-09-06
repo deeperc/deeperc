@@ -964,6 +964,12 @@ def classify_report(report: dict) -> str:
       (i.e. `all_pass` outranks `has_unresolvable_only`; a board with a PASS and an
       UNRESOLVABLE classifies all_pass — matching the legacy function, whose branch
       order checks passes before unres).
+
+    Structural bounded-LLM guarantee (TODO-417 H2 rider, recon PART B2): this
+    function reads ONLY each VERDICT_MOVING spec's report bucket + its already-
+    fixed ``status``/``severity`` field — never an ``explanation`` key — so no
+    Ollama outcome (success, timeout, or any other failure) can ever reach a
+    board verdict.
     """
     if report.get("pipeline_error"):
         return "pipeline_error"

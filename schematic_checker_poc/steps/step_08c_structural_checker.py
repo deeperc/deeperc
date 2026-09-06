@@ -167,29 +167,50 @@ _RAIL_TOKEN_RE = re.compile(
     r'VDDA|VDDD|VDDIO|VBAT|VBUS|VSYS|VREF|VIN|VOUT|VSW|PWR'
     r')(?:$|[_/A-Z0-9])'
     r'|^[A-Z]{0,6}\d+V\d*(?:$|[_/A-Z0-9])'
-    r'|.*_(?:VDD|VCC|VDDA|VDDD|VDDIO|AVDD|DVDD|PVDD|PWR|VBUS|VSW)\d*$',
+    r'|.*_(?:VDD|VCC|VDDA|VDDD|VDDIO|AVDD|DVDD|PVDD|PWR|VBUS|VSW|VBAT|VIN)\d*$',
     re.IGNORECASE,
 )
 # Back-compat alias (no external caller, but kept to avoid import surprises).
 _RAIL_NAME_RE = _RAIL_TOKEN_RE
 
+# TODO-453 (ruled F2): full-string anchoring branch 1 was REJECTED as net-harmful
+# (recon PART A5 — 22 of 6,166 precision-corpus names are recognized only via
+# branch-1 prefix match, most of them genuine rails; anchoring would de-recognize
+# far more than it fixes). Fix instead: reject a branch-1 match when the ENTIRE
+# remainder after the token is exactly one of these control/monitor-tap suffixes
+# — anchored-tail-exact, not a general suffix ban. A longer or differently-shaped
+# remainder (e.g. "_SENSE-ERROR*", "_CTRL_3V3") still recognizes as before.
+_RAIL_TOKEN_CONTROL_SUFFIX_RE = re.compile(
+    r'^(?:'
+    r'VCC|VDD|AVCC|AVDD|DVCC|DVDD|PVCC|PVDD|IOVCC|IOVDD|COREVDD|'
+    r'VDDA|VDDD|VDDIO|VBAT|VBUS|VSYS|VREF|VIN|VOUT|VSW|PWR'
+    r')(?:_CTRL|_SENS|_MON(?:_\w*)?|_PWR_ON)$',
+    re.IGNORECASE,
+)
+
 
 def _is_rail_name(net_name: str) -> bool:
     """True when a net NAME looks like a power rail — a power keyword, a \\d+V
-    voltage token (optionally domain-prefixed), or a _VDD/_VCC/_PWR/_VBUS/_VSW
-    suffix — in ANY '/'-or-whitespace-delimited segment. Voltage-agnostic:
-    recognition only, never a voltage assertion."""
+    voltage token (optionally domain-prefixed), or a _VDD/_VCC/_PWR/_VBUS/_VSW/
+    _VBAT/_VIN suffix — in ANY '/'-or-whitespace-delimited segment. A bare rail
+    token followed by an exact control/monitor-tap suffix (_CTRL/_SENS/_MON.../
+    _PWR_ON) is rejected (TODO-453). Voltage-agnostic: recognition only, never
+    a voltage assertion."""
     if not net_name:
         return False
     norm = normalize_net_name(net_name)
     # Split on path '/' + whitespace; strip a per-segment leading polarity marker
     # (normalize_net_name only strips the LEADING +/- of the whole string, but an
     # embedded segment can carry its own, e.g. ".../+3V3_AUX").
-    return any(
-        _RAIL_TOKEN_RE.match(seg.lstrip("+-"))
-        for seg in re.split(r"[/\s]+", norm)
-        if seg.lstrip("+-")
-    )
+    for seg in re.split(r"[/\s]+", norm):
+        seg = seg.lstrip("+-")
+        if not seg:
+            continue
+        if _RAIL_TOKEN_CONTROL_SUFFIX_RE.match(seg):
+            continue
+        if _RAIL_TOKEN_RE.match(seg):
+            return True
+    return False
 
 
 def _is_ground_pin_name(pin_name: str) -> bool:

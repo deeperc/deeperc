@@ -22,7 +22,7 @@ token via peripheral_roles.instance_from_net_name — an invented 'AUX'
 instance string would be schema-decorative, not functional, and dumpling's
 own AUX nets (Net-(U7-AUX_CL)/Net-(U7-AUX_DA)) carry no I2C token anyway.
 Landing AUX_DA/AUX_CL under the same Signal.I2C_SDA/SCL roles as the primary
-bus would let check_i2c_peripheral's net classification / completeness
+bus would let check_peripheral_buses's net classification / completeness
 inference treat the auxiliary (downstream-master) bus as corroborating the
 primary (slave) bus — a false claim this part's own KB entry must not make.
 Per SCOPE: an honest miss on AUX nets is acceptable; a false SDA-role
@@ -36,7 +36,7 @@ keys (verified by parsing the real dumpling netlist — see the KB entry's
 provenance.agreement_gate).
 
 Uses the REAL loaded KB (`kb/vendor/tdk/MPU-6050.json`) via
-load_peripheral_kb, and the real check_i2c_peripheral / check_i2c_coherence
+load_peripheral_kb, and the real check_peripheral_buses / check_i2c_coherence
 code paths end-to-end — same invariant-testing style as
 test_kb_fixed_function_ina219.py.
 """
@@ -53,7 +53,7 @@ sys.path.insert(0, os.path.join(_HERE, "..", ".."))  # repo root -> peripheral_d
 from steps.peripheral_kb import load_peripheral_kb                       # noqa: E402
 from steps.peripheral_coherence import check_i2c_coherence               # noqa: E402
 from steps.step_08d_peripheral_checker import (                          # noqa: E402
-    canonicalize_mpn_for_kb, check_i2c_peripheral, _is_fixed_function_i2c,
+    canonicalize_mpn_for_kb, check_peripheral_buses, _is_fixed_function_i2c,
     Severity,
 )
 
@@ -143,7 +143,7 @@ def test_mpu6050_kb_entry_is_sda_scl_plus_strap_marked_ad0_aux_deferred():
 def test_correctly_wired_mpu6050_zero_findings():
     """The 0-FP contract: a correctly-wired MPU-6050 (SDA-on-SDA-net,
     SCL-on-SCL-net, dumpling pin-name shape, real pull-ups) produces zero
-    findings from both check_i2c_coherence (M6) and check_i2c_peripheral."""
+    findings from both check_i2c_coherence (M6) and check_peripheral_buses."""
     kb, routing = _load_real_kb()
     ir = _ir([
         _Comp("U7", "MPU-6050", [
@@ -154,13 +154,13 @@ def test_correctly_wired_mpu6050_zero_findings():
         _pullup("R2", "/I2C3_SDA"),
     ])
     assert check_i2c_coherence(ir, kb, routing, canonicalize_mpn_for_kb) == []
-    assert check_i2c_peripheral(ir, kb, routing) == []
+    assert check_peripheral_buses(ir, kb, routing) == []
 
 
 def test_cross_net_swap_fires_m6_role_fail():
     """A cross-net SDA/SCL swap (SDA pin landing on the SCL-named net and vice
     versa) is caught as a ROLE-level FAIL by M6 (check_i2c_coherence), and
-    folded into check_i2c_peripheral's own findings as a FAIL -- the new
+    folded into check_peripheral_buses's own findings as a FAIL -- the new
     reach this fixed-function entry provides for this device class."""
     kb, routing = _load_real_kb()
     ir = _ir([
@@ -173,7 +173,7 @@ def test_cross_net_swap_fires_m6_role_fail():
     assert len(coh) == 2
     assert all(v.status == "FAIL" for v in coh)
 
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
     fails = [f for f in findings if f.severity == Severity.FAIL]
     assert len(fails) == 2
     assert all("SDA/SCL swap" in f.evidence for f in fails)
@@ -202,7 +202,7 @@ def test_kbd_doubles_stm32_i2c3_and_mpu6050_zero_findings():
         _pullup("R2", "/I2C3_SDA"),
     ])
     assert check_i2c_coherence(ir, kb, routing, canonicalize_mpn_for_kb) == []
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
     assert findings == [], f"expected a fully clean KB'd-doubles bus: {findings}"
 
 
@@ -229,7 +229,7 @@ def test_ad0_strap_on_bus_produces_no_false_fail():
         _pullup("R1", "/I2C3_SCL"),
         _pullup("R2", "/I2C3_SDA"),
     ])
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
 
     fails = [f for f in findings if f.severity == Severity.FAIL]
     assert fails == [], f"strap misread as a bus role: {fails}"
@@ -265,6 +265,6 @@ def test_dumpling_real_topology_has_no_findings():
         _pullup("R1", "/I2C3_SCL"),
         _pullup("R2", "/I2C3_SDA"),
     ])
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
     assert findings == [], (
         f"dumpling's real U1<->U7 I2C3 bus should be fully clean post-landing: {findings}")

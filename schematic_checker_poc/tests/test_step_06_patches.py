@@ -10,6 +10,7 @@ import pytest
 from steps.step_06_power import (
     is_definitely_signal,
     is_power_net_deterministic,
+    is_ground_net_deterministic,
 )
 
 
@@ -117,3 +118,91 @@ def test_decimal_voltage_regex_anchored(name):
     # The decimal branch is anchored ^(?:...)$ — partial/embedded matches and
     # non-rail names must not be classified as power.
     assert is_power_net_deterministic(name) is False
+
+
+# ── TODO-452: KiCad leading '/' on VDD/VBAT/VBUS/VIN/VOUT + VSYS token ────────
+# Five branches (VDD, VBAT, VBUS, VIN, VOUT) gain per-branch slash tolerance,
+# in place in POWER_NET_RE's source string only (no restructure into a split
+# regex — see logs/recon_tier1_batch.md PART A4). PWR and VREF stay unslashed
+# by ruling (F3): their real-corpus accept-set is control/sense/LED-cathode
+# signal names, never rails (recon PART A, A2/A3/A5). VSYS originally gained
+# only a bare (unslashed) token — the F4 card rider; slash tolerance for VSYS
+# was extended separately by the F6 follow-up ruling below (a real corpus
+# '/VSYS' net, as it appears on all 7 Mitayi gate boards, is now recognized).
+
+@pytest.mark.parametrize("name", [
+    "/VDDCR", "/VDDA", "/VBAT", "/VOUT", "/VBUS",
+    "/Vin", "/Vin_fused", "/Vin_protected", "/VIN",
+    "VSYS", "VSYS_EN",
+])
+def test_slash_and_vsys_newly_accepted(name):
+    assert is_power_net_deterministic(name) is True
+
+
+@pytest.mark.parametrize("name", [
+    "VDDCR", "VDDA", "VBAT", "VOUT", "VBUS", "VIN",
+])
+def test_unslashed_rail_twins_unaffected(name):
+    # Already classified before this change; the slash addition to the same
+    # branch must not regress the unslashed form.
+    assert is_power_net_deterministic(name) is True
+
+
+def test_vsys_5v_true_via_preexisting_unrelated_suffix_branch():
+    # VSYS_5V matches the PRE-EXISTING, VSYS-token-unrelated '.*_5V0?$'
+    # voltage-suffix branch (any name ending in _5V/_5V0) — True both BEFORE
+    # and AFTER this change, independent of the new VSYS alternative. Not
+    # evidence the VSYS gap was already closed: bare 'VSYS'/'VSYS_EN' (no
+    # _5V-shaped suffix) genuinely required the new token (see the battery
+    # above).
+    assert is_power_net_deterministic("VSYS_5V") is True
+
+
+@pytest.mark.parametrize("name", [
+    "/VIN_PWR_ON", "/VBUS_MON_UP",
+])
+def test_slashed_control_sense_names_ride_the_same_branch(name):
+    # A known, ruled side effect: these are control/monitor-tap signal names
+    # (not the rail itself), but the ruling adds slash tolerance at the
+    # branch level, not per-suffix, so they flip alongside the genuine rails
+    # on the same VIN/VBUS branches. Not separately scoped out — recorded
+    # here so a future finer-scoping change has a locked reference point.
+    assert is_power_net_deterministic(name) is True
+
+
+@pytest.mark.parametrize("name", [
+    "/PWR_LED_K", "/Vref", "/PWR_CTRL", "/PWR_SENS",
+])
+def test_pwr_and_vref_branches_stay_unslashed(name):
+    # Ruled F3: PWR and VREF do NOT gain slash tolerance.
+    assert is_power_net_deterministic(name) is False
+
+
+def test_ground_net_re_unaffected_by_power_net_re_edit():
+    # GROUND_NET_RE's source string is untouched by this change — a
+    # PWR/VREF-shaped name that stays a non-rail signal for POWER_NET_RE must
+    # also stay unrecognized as ground.
+    assert is_ground_net_deterministic("/PWR_LED_K") is False
+    assert is_ground_net_deterministic("/Vref") is False
+
+
+# ── TODO-452 follow-up (F6 ruled (i)): slash tolerance extended to VSYS ───────
+# The VSYS branch gains the same '/?' prefix as VDD/VBAT/VBUS/VIN/VOUT — the
+# real corpus spelling on all 7 Mitayi-Pico-D1 gate boards is '/VSYS', not the
+# bare token the original F4 ruling covered.
+
+@pytest.mark.parametrize("name", [
+    "/VSYS", "/VSYS_EN",
+])
+def test_vsys_slash_newly_accepted(name):
+    assert is_power_net_deterministic(name) is True
+
+
+@pytest.mark.parametrize("name", [
+    "VSYS", "VSYS_EN", "VSYS_5V",
+])
+def test_vsys_unslashed_forms_unaffected(name):
+    # Already classified before this follow-up (VSYS/VSYS_EN via the F4 bare
+    # token, VSYS_5V via the pre-existing unrelated '.*_5V0?$' suffix branch)
+    # — the slash addition to the same branch must not regress these.
+    assert is_power_net_deterministic(name) is True

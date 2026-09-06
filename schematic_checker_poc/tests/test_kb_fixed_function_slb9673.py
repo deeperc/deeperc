@@ -31,7 +31,7 @@ BARE/generic `pin_name` (not "SDA"/"SCL") so `role_from_pin_function` returns
 None and the coherence check falls through to `kb_role_lookup`.
 
 Uses the REAL loaded KB (`kb/vendor/infineon/SLB9673AU20FW2610XTMA1.json`)
-via load_peripheral_kb, and the real check_i2c_peripheral /
+via load_peripheral_kb, and the real check_peripheral_buses /
 check_i2c_coherence code paths end-to-end -- same invariant-testing style as
 test_kb_fixed_function_bq25672.py.
 """
@@ -49,8 +49,8 @@ sys.path.insert(0, os.path.join(_HERE, "..", ".."))  # repo root -> peripheral_d
 from steps.peripheral_kb import load_peripheral_kb                       # noqa: E402
 from steps.peripheral_coherence import check_i2c_coherence               # noqa: E402
 from steps.step_08d_peripheral_checker import (                          # noqa: E402
-    canonicalize_mpn_for_kb, check_i2c_peripheral, _is_fixed_function_i2c,
-    Severity,
+    canonicalize_mpn_for_kb, check_peripheral_buses, _is_fixed_function_i2c,
+    Severity, FindingReason,
 )
 
 
@@ -127,7 +127,7 @@ def test_slb9673_kb_entry_is_sda_scl_only_and_fixed_function():
 def test_correctly_wired_slb9673_zero_findings():
     """The 0-FP contract: a correctly-wired SLB9673 (SDA-on-SDA-net,
     SCL-on-SCL-net, literal jetson pin-name shape, real pull-ups) produces
-    zero findings from both check_i2c_coherence (M6) and check_i2c_peripheral."""
+    zero findings from both check_i2c_coherence (M6) and check_peripheral_buses."""
     kb, routing = _load_real_kb()
     ir = _ir([
         _Comp("U14", "SLB9673AU20FW2610XTMA1", [
@@ -138,7 +138,7 @@ def test_correctly_wired_slb9673_zero_findings():
         _pullup("R2", "/I2C_{SYS}.SDA"),
     ])
     assert check_i2c_coherence(ir, kb, routing, canonicalize_mpn_for_kb) == []
-    assert check_i2c_peripheral(ir, kb, routing) == []
+    assert check_peripheral_buses(ir, kb, routing) == []
 
 
 def test_kb_path_convicts_swap_via_bare_pin_names():
@@ -158,7 +158,7 @@ def test_kb_path_convicts_swap_via_bare_pin_names():
     assert all(v.source == "kb_possible_roles" for v in coh), (
         f"expected the KB path (not pin_function) to convict this swap: {coh}")
 
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
     fails = [f for f in findings if f.severity == Severity.FAIL]
     assert len(fails) == 2
     assert all("SDA/SCL swap" in f.evidence for f in fails)
@@ -186,7 +186,7 @@ def test_u14_real_topology_has_no_strap_on_bus():
         _pullup("R1", "/I2C_{SYS}.SCL"),
         _pullup("R2", "/I2C_{SYS}.SDA"),
     ])
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
     assert findings == [], (
         f"U14's real topology should produce zero findings: {findings}")
 
@@ -232,12 +232,27 @@ def test_i2c_sys_bus_residue_is_fully_accounted_for():
         if not os.path.exists(path):
             pytest.skip(f"{relpath} not present")
         nl = parse_netlist(path)
-        findings = check_i2c_peripheral(nl, kb, routing)
+        findings = check_peripheral_buses(nl, kb, routing)
         i2c_sys = [f for f in findings if f.net.endswith("I2C_{SYS}.SCL")
                    or f.net.endswith("I2C_{SYS}.SDA")]
         unresolvable = [f for f in i2c_sys if f.severity == Severity.UNRESOLVABLE]
-        assert len(unresolvable) == 2, f"{relpath}: {unresolvable}"
-        for f in unresolvable:
+        # TODO-417 H2 (D4, TODO-433 ruling): +2 additive, NEW UNRESOLVABLE
+        # findings (U54.5/U54.6, reason M14_CONSENSUS_MINORITY) — the M14 block
+        # now surfaces the consensus cross-device minority path instead of
+        # silently discarding it (D1 fact 6: `_cons.verdict` was never read at
+        # all before this cycle). The pre-existing 2 (KB_MISSING, the test
+        # point(s)) are unchanged; this is a pre-declared, expected diff, same
+        # shape as the Todo 240 INA219 A0-strap note above.
+        assert len(unresolvable) == 4, f"{relpath}: {unresolvable}"
+        # The residue check below is specific to the Step-7 "MPN(s) not in KB"
+        # shape (reason KB_MISSING/PIN_NOT_IN_KB/NO_MPN); the +2 new
+        # M14_CONSENSUS_MINORITY findings (TODO-417 H2/TODO-433) have a
+        # different evidence shape and are checked separately.
+        step7 = [f for f in unresolvable if f.reason != FindingReason.M14_CONSENSUS_MINORITY]
+        minority = [f for f in unresolvable if f.reason == FindingReason.M14_CONSENSUS_MINORITY]
+        assert len(minority) == 2 and {f.net for f in minority} == {
+            "/I2C_{SYS}.SCL", "/I2C_{SYS}.SDA"}
+        for f in step7:
             residue = set(ast.literal_eval(f.evidence.split("MPN(s) not in KB: ", 1)[1].rstrip(".")))
             assert residue == expected_residue, (
                 f"{relpath} {f.net}: residue {residue} != expected {expected_residue}")

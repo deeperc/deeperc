@@ -28,7 +28,7 @@ hand-crafted-fixture fallback (step_08d_peripheral_checker.py: "pin_id is a
 fallback only for hand-crafted fixtures whose pin_id IS the logical token").
 
 Uses the REAL loaded KB (`kb/vendor/microchip/AT24CS01-SSHM-B.json`) via
-load_peripheral_kb, and the real check_i2c_peripheral / check_i2c_coherence
+load_peripheral_kb, and the real check_peripheral_buses / check_i2c_coherence
 code paths end-to-end -- same invariant-testing style as
 test_kb_fixed_function_ina219.py.
 """
@@ -45,7 +45,7 @@ sys.path.insert(0, os.path.join(_HERE, "..", ".."))  # repo root -> peripheral_d
 from steps.peripheral_kb import load_peripheral_kb                       # noqa: E402
 from steps.peripheral_coherence import check_i2c_coherence               # noqa: E402
 from steps.step_08d_peripheral_checker import (                          # noqa: E402
-    canonicalize_mpn_for_kb, check_i2c_peripheral, _is_fixed_function_i2c,
+    canonicalize_mpn_for_kb, check_peripheral_buses, _is_fixed_function_i2c,
     Severity,
 )
 
@@ -122,7 +122,7 @@ def test_at24cs01_kb_entry_is_sda_scl_only_and_fixed_function():
 def test_correctly_wired_at24cs01_zero_findings():
     """The 0-FP contract: a correctly-wired AT24CS01 (SDA-on-SDA-net,
     SCL-on-SCL-net, literal jetson pin-name shape, real pull-ups) produces
-    zero findings from both check_i2c_coherence (M6) and check_i2c_peripheral."""
+    zero findings from both check_i2c_coherence (M6) and check_peripheral_buses."""
     kb, routing = _load_real_kb()
     ir = _ir([
         _Comp("U54", "AT24CS01-SSHM-B", [
@@ -133,7 +133,7 @@ def test_correctly_wired_at24cs01_zero_findings():
         _pullup("R2", "/I2C_{SYS}.SDA"),
     ])
     assert check_i2c_coherence(ir, kb, routing, canonicalize_mpn_for_kb) == []
-    assert check_i2c_peripheral(ir, kb, routing) == []
+    assert check_peripheral_buses(ir, kb, routing) == []
 
 
 def test_kb_path_convicts_swap_via_bare_pin_names():
@@ -154,7 +154,7 @@ def test_kb_path_convicts_swap_via_bare_pin_names():
     assert all(v.source == "kb_possible_roles" for v in coh), (
         f"expected the KB path (not pin_function) to convict this swap: {coh}")
 
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
     fails = [f for f in findings if f.severity == Severity.FAIL]
     assert len(fails) == 2
     assert all("SDA/SCL swap" in f.evidence for f in fails)
@@ -180,7 +180,7 @@ def test_u54_real_topology_does_not_touch_this_kb_entry():
             _Pin("8", "VCC", "+3V3_AON"),
         ]),
     ])
-    findings = check_i2c_peripheral(ir, kb, routing)
+    findings = check_peripheral_buses(ir, kb, routing)
     fails = [f for f in findings if f.severity == Severity.FAIL]
     assert len(fails) == 2
     unresolvable = [f for f in findings if f.severity == Severity.UNRESOLVABLE]

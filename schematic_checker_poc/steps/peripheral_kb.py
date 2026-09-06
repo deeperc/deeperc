@@ -238,7 +238,7 @@ def load_peripheral_kb(kb_root_dir: str) -> tuple[dict, dict]:
 
     Returns:
         (kb, peripheral_routing) — both indexed appropriately for
-        check_i2c_peripheral(). Pass both to the checker together.
+        check_peripheral_buses(). Pass both to the checker together.
     """
     return load_kb(kb_root_dir), load_kb_routing(kb_root_dir)
 

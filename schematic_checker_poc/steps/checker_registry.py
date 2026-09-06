@@ -106,7 +106,7 @@ REGISTRY: tuple[CheckerSpec, ...] = (
         source_file="steps/step_08d_peripheral_checker.py",
         report_bucket="peripheral_integrity_results",
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: step_08d_peripheral_checker.check_i2c_peripheral(
+        run=lambda ctx: step_08d_peripheral_checker.check_peripheral_buses(
             ctx.ir, ctx.peripheral_kb, ctx.peripheral_routing),
         extract_statuses=_severity_reader,
         summary_key="peripheral_checks",

@@ -15,10 +15,17 @@
   role. Chip-select (NSS/CS) is not checked.
 - Report explanation text is LLM-generated where a local model is available;
   when it isn't, findings carry a one-line note instead. Verdicts are never
-  affected either way.
-- Sheet-local (`/`-prefixed) POWER labels are not classified as rails by the
-  deterministic tier; affected supply checks report `UNRESOLVABLE`, never
-  `FAIL`. Ground labels are handled. (TODO-409 power-side residual.)
+  affected either way. LLM explanation is attempted only for signal- and
+  supply-check FAIL/WARN findings, and only when a local model is available;
+  verdicts never depend on it. Structural findings' evidence tiers appear in
+  the JSON report regardless; the console only shows a summary subset.
+- Sheet-local (`/`-prefixed) POWER labels are classified as rails on the
+  VDD/VBAT/VBUS/VIN/VOUT branches (plus a VSYS token), as of TODO-452/TODO-197.
+  Three honest residuals remain: the PWR and VREF branches stay unslashed by
+  ruling (not extended); a concatenated name such as `TPSVIN` (no separator
+  between the token and the rail name) is not recognized; and a `PWRBUTTON`-
+  class name still matches the bare `PWR` prefix. Affected supply checks
+  report `UNRESOLVABLE`, never a guessed `FAIL`/`PASS`.
 - Pull-up presence is decided by a walk that only traverses two-pin passives.
   Resistor networks and arrays (multi-pin `RN*`/`RP*` parts) are skipped
   entirely, because the netlist does not encode which internal element pairs

@@ -176,7 +176,7 @@ _ROUTING = {"STM32F103C(8-B)Tx": {Peripheral.I2C: PeripheralRouting.FIXED},
 def test_m6_stamp_swap_fails_with_evidence():
     ir = _ir([_Comp("U3", "RP2040_Stamp", [_Pin("2", "SDA", "/SCL"),
                                             _Pin("3", "SCL", "/SDA")])])
-    findings = s08d.check_i2c_peripheral(ir, _KB, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, _KB, _ROUTING)
     fails = [f for f in findings if f.severity is s08d.Severity.FAIL
              and "SDA/SCL swap" in f.evidence]
     assert len(fails) == 2
@@ -189,7 +189,7 @@ def test_m6_clean_i2c_board_no_coherence_finding():
     ir = _ir([_Comp("U3", "RP2040_Stamp", [_Pin("2", "SDA", "/SDA"),
                                             _Pin("3", "SCL", "/SCL")]),
               _Comp("R1", "10k", [_Pin("1", "1", "/SDA"), _Pin("2", "2", "VCC")])])
-    findings = s08d.check_i2c_peripheral(ir, _KB, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, _KB, _ROUTING)
     assert not [f for f in findings if "SDA/SCL swap" in f.evidence]
 
 
@@ -226,7 +226,7 @@ def test_step_08d_existing_role_mismatch_unchanged():
     # the per-net ROLE_MISMATCH should fire.
     ir = _ir([_Comp("U1", "STM32F103C8T6",
                     [_Pin("42", "PB7", "I2C_BUS"), _Pin("43", "PB6", "I2C_BUS")])])
-    findings = s08d.check_i2c_peripheral(ir, kb, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, kb, _ROUTING)
     assert any(f.violation is s08d.PeripheralViolation.ROLE_MISMATCH
                and f.severity is s08d.Severity.FAIL
                and "conflicting I2C signals" in f.evidence for f in findings)
@@ -284,7 +284,7 @@ def test_pin_function_path_unbroken_by_keying_change():
     # change must not break the path that already worked (the U54-class catch).
     ir = _ir([_Comp("U3", "RP2040_Stamp", [_Pin("2", "SDA", "/SCL"),
                                             _Pin("3", "SCL", "/SDA")])])
-    findings = s08d.check_i2c_peripheral(ir, _KB_NAME, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, _KB_NAME, _ROUTING)
     fails = [f for f in findings if f.severity is s08d.Severity.FAIL
              and "SDA/SCL swap" in f.evidence]
     assert len(fails) == 2
@@ -348,12 +348,12 @@ def test_spi_alias_each_form_contradicts_via_checker():
     # Each data form, when swapped onto the opposite net, produces a checker FAIL.
     for di in ("DI", "SDI", "DIN"):
         ir = _ir([_Comp("U7", "FLASH", [_Pin("1", di, "/MISO")])])
-        fails = [f for f in s08d.check_i2c_peripheral(ir, {}, _ROUTING)
+        fails = [f for f in s08d.check_peripheral_buses(ir, {}, _ROUTING)
                  if f.severity is s08d.Severity.FAIL and "MOSI/MISO swap" in f.evidence]
         assert len(fails) == 1, di
     for do in ("DO", "SDO", "DOUT"):
         ir = _ir([_Comp("U7", "FLASH", [_Pin("1", do, "/MOSI")])])
-        fails = [f for f in s08d.check_i2c_peripheral(ir, {}, _ROUTING)
+        fails = [f for f in s08d.check_peripheral_buses(ir, {}, _ROUTING)
                  if f.severity is s08d.Severity.FAIL and "MOSI/MISO swap" in f.evidence]
         assert len(fails) == 1, do
 
@@ -365,7 +365,7 @@ def test_m12_olimexino_sd_swap_fails_with_evidence():
     ir = _ir([_Comp("MICRO_SD1", "SD_Card", [
                   _Pin("3", "CMD/DI", "/D33_MISO2"),    # DI (MOSI-role) on MISO net
                   _Pin("7", "DAT0/DO", "/D34_MOSI2")])])  # DO (MISO-role) on MOSI net
-    findings = s08d.check_i2c_peripheral(ir, {}, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, {}, _ROUTING)
     fails = [f for f in findings if f.severity is s08d.Severity.FAIL
              and "MOSI/MISO swap" in f.evidence]
     assert len(fails) == 2
@@ -386,7 +386,7 @@ def test_spi_coverage_gate_no_role_pin_not_a_fail():
     # no role → no finding (and certainly no FAIL).
     ir = _ir([_Comp("U1", "ESP32-WROOM-32", [_Pin("23", "IO23", "/MOSI")])])
     assert pc.find_coherence_violations(ir, pc.SPI_PAIR) == []
-    assert not [f for f in s08d.check_i2c_peripheral(ir, {}, _ROUTING)
+    assert not [f for f in s08d.check_peripheral_buses(ir, {}, _ROUTING)
                 if "MOSI/MISO swap" in f.evidence]
 
 
@@ -419,7 +419,7 @@ def test_sck_correctly_wired_no_violation():
 def test_m99_sck_swap_fails_via_checker_with_new_evidence_tail():
     ir = _ir([_Comp("U1", "MCU", [_Pin("18", "SCK", "/MOSI"),
                                    _Pin("19", "MOSI", "/SCK")])])
-    findings = s08d.check_i2c_peripheral(ir, {}, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, {}, _ROUTING)
     fails = [f for f in findings if f.severity is s08d.Severity.FAIL
              and "SPI role swap" in f.evidence]
     assert len(fails) == 2
@@ -436,7 +436,7 @@ def test_m6_i2c_unchanged_by_m12_addition():
     # for a board with no SPI nets.
     ir = _ir([_Comp("U3", "RP2040_Stamp", [_Pin("2", "SDA", "/SCL"),
                                             _Pin("3", "SCL", "/SDA")])])
-    findings = s08d.check_i2c_peripheral(ir, _KB, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, _KB, _ROUTING)
     i2c_fails = [f for f in findings if f.severity is s08d.Severity.FAIL
                  and "SDA/SCL swap" in f.evidence]
     spi_fails = [f for f in findings if "MOSI/MISO swap" in f.evidence]
@@ -449,7 +449,7 @@ def test_m12_spi_unchanged_by_m99_addition():
     ir = _ir([_Comp("MICRO_SD1", "SD_Card", [
                   _Pin("3", "CMD/DI", "/D33_MISO2"),
                   _Pin("7", "DAT0/DO", "/D34_MOSI2")])])
-    findings = s08d.check_i2c_peripheral(ir, {}, _ROUTING)
+    findings = s08d.check_peripheral_buses(ir, {}, _ROUTING)
     fails = [f for f in findings if f.severity is s08d.Severity.FAIL
              and "MOSI/MISO swap" in f.evidence]
     assert len(fails) == 2
@@ -544,7 +544,7 @@ def test_rp2040_i2c_swap_caught_via_kb():
     # GPIO0 (I2C0 SDA) on the SCL net, GPIO1 (I2C0 SCL) on the SDA net → swap.
     ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("2", "GPIO0", "/I2C0_SCL"),
                                         _Pin("3", "GPIO1", "/I2C0_SDA")])])
-    fails = [f for f in s08d.check_i2c_peripheral(ir, kb, routing)
+    fails = [f for f in s08d.check_peripheral_buses(ir, kb, routing)
              if f.severity is s08d.Severity.FAIL and "SDA/SCL swap" in f.evidence]
     assert len(fails) == 2
     assert all("role source: kb_possible_roles" in f.evidence for f in fails)
@@ -555,7 +555,7 @@ def test_rp2040_correct_i2c_no_false_fail():
     # GPIO0 (SDA) on the SDA net, GPIO1 (SCL) on the SCL net → coherent, no FAIL.
     ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("2", "GPIO0", "/I2C0_SDA"),
                                         _Pin("3", "GPIO1", "/I2C0_SCL")])])
-    fails = [f for f in s08d.check_i2c_peripheral(ir, kb, routing)
+    fails = [f for f in s08d.check_peripheral_buses(ir, kb, routing)
              if f.severity is s08d.Severity.FAIL]
     assert fails == []
 
@@ -703,3 +703,80 @@ def test_d2_newly_classifiable_unconnected_net_produces_no_pairing_entry():
     ])
     paired, _unpaired = pair_buses(ir, "I2C", pc.I2C_PAIR)
     assert paired == []
+
+
+# ── TODO-417 H2 scope item 3: coherence-block guard identity ──────────────────
+# CoherenceViolation.guard now records WHICH UNRESOLVABLE guard fired ("matrix" |
+# "kb_instance_disagreement" | None for a FAIL). Threaded into the emitted
+# PeripheralFinding.reason via _COHERENCE_GUARD_REASON in step_08d.
+
+def test_matrix_guard_recorded_on_violation():
+    kb = {("esp32", "10"): PinFunctionEntry(
+        "esp32", "10", [PinRole(Peripheral.I2C, None, Signal.I2C_SDA, KBSource.VENDOR_HEADER)])}
+    ir = _ir([_Comp("U1", "ESP32-WROOM-32", [_Pin("10", "IO10", "/SCL")])])
+    vios = pc.find_coherence_violations(
+        ir, pc.I2C_PAIR,
+        kb_role_lookup=pc.kb_role_lookup_from(kb, s08d.canonicalize_mpn_for_kb, ir),
+        matrix_lookup=pc.matrix_lookup_from(_ROUTING, s08d.canonicalize_mpn_for_kb, ir, Peripheral.I2C))
+    assert len(vios) == 1
+    assert vios[0].status == "UNRESOLVABLE"
+    assert vios[0].guard == "matrix"
+
+
+def test_fail_carries_no_guard():
+    # A genuine pin-function-sourced swap FAIL (test_m6_stamp_swap_fails_with_evidence's
+    # shape) must carry guard=None — no guard fired, it's a hard FAIL.
+    ir = _ir([_Comp("U3", "RP2040_Stamp", [_Pin("2", "SDA", "/SCL"),
+                                            _Pin("3", "SCL", "/SDA")])])
+    vios = pc.check_i2c_coherence(ir, _KB, _ROUTING, s08d.canonicalize_mpn_for_kb)
+    assert len(vios) == 2
+    assert all(v.status == "FAIL" and v.guard is None for v in vios)
+
+
+def test_kb_instance_disagreement_guard_recorded():
+    # PB7 (KB: SDA, instance I2C1) sits on a net whose NAME asserts instance I2C2
+    # and role SCL -- pin_role(SDA) != net_role(SCL) triggers the coherence check;
+    # kb_instance ("I2C1") disagrees with net_instance ("I2C2") -> UNRESOLVABLE via
+    # the kb_instance_disagreement guard (not the matrix guard -- STM32 is FIXED).
+    kb = {("STM32F103C(8-B)Tx", "PB7"): PinFunctionEntry(
+        "STM32F103C(8-B)Tx", "PB7",
+        [PinRole(Peripheral.I2C, "I2C1", Signal.I2C_SDA, KBSource.VENDOR_XML)])}
+    ir = _ir([_Comp("U1", "STM32F103C8T6", [_Pin("43", "PB7", "/I2C2_SCL")])])
+    vios = pc.check_i2c_coherence(ir, kb, _ROUTING, s08d.canonicalize_mpn_for_kb)
+    assert len(vios) == 1
+    assert vios[0].status == "UNRESOLVABLE"
+    assert vios[0].guard == "kb_instance_disagreement"
+
+
+def test_coherence_guard_threaded_into_peripheral_finding_reason():
+    # Integration: check_peripheral_buses (M6 block) must thread v.guard into
+    # PeripheralFinding.reason via _COHERENCE_GUARD_REASON. Uses the
+    # kb_instance_disagreement shape (not matrix): a matrix-routed pin's net is
+    # already absorbed by check_peripheral_buses's own earlier Step 3
+    # PERIPHERAL_UNCONSTRAINED handling (M6 suppresses behind that pre-existing
+    # UNRESOLVABLE), so the matrix guard is only independently observable at the
+    # find_coherence_violations/check_i2c_coherence unit level (see
+    # test_matrix_guard_recorded_on_violation above); STM32 is FIXED-routed, so
+    # this net reaches the M6 block un-suppressed.
+    kb = {
+        ("STM32F103C(8-B)Tx", "PB7"): PinFunctionEntry(
+            "STM32F103C(8-B)Tx", "PB7",
+            [PinRole(Peripheral.I2C, "I2C1", Signal.I2C_SDA, KBSource.VENDOR_XML)]),
+        # An unrelated, KB-resolved SDA net elsewhere, purely so the cross-net
+        # MISSING_PERIPHERAL check (SDA net exists / SCL net exists) doesn't
+        # fire and suppress the M6 finding on /I2C2_SCL — _classify_i2c_net's
+        # net-name secondary rule requires >=1 I2C-CAPABLE pin, not just a
+        # name hint, so this pin needs a real KB entry.
+        ("SENSOR", "1"): PinFunctionEntry(
+            "SENSOR", "1", [PinRole(Peripheral.I2C, None, Signal.I2C_SDA, KBSource.VENDOR_XML)]),
+    }
+    ir = _ir([
+        _Comp("U1", "STM32F103C8T6", [_Pin("43", "PB7", "/I2C2_SCL")]),
+        _Comp("U2", "SENSOR", [_Pin("1", "SDA", "/SDA")]),
+    ])
+    findings = s08d.check_peripheral_buses(ir, kb, _ROUTING)
+    matches = [f for f in findings
+               if f.severity is s08d.Severity.UNRESOLVABLE
+               and "SDA/SCL swap" in f.evidence]
+    assert len(matches) == 1
+    assert matches[0].reason == s08d.FindingReason.COHERENCE_KB_INSTANCE_GUARD

@@ -2,7 +2,7 @@
 
 Recon basis: ``investigation/experiments/pin_capability_recon/REPORT.md`` (Q1/Q3).
 The per-NET multi-member consensus machinery already exists and ships today
-(``step_08d_peripheral_checker.check_i2c_peripheral``: PROTOCOL_MISMATCH /
+(``step_08d_peripheral_checker.check_peripheral_buses``: PROTOCOL_MISMATCH /
 INSTANCE_MISMATCH / ROLE_MISMATCH). What's missing is a layer that answers
 "which two nets are the SDA net and the SCL net of the SAME bus" — today
 ``INSTANCE_MISMATCH`` only compares members *within one net*

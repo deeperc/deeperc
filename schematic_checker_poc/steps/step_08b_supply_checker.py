@@ -11,8 +11,33 @@ voltage range extracted from the datasheet.
 import logging
 import re
 from dataclasses import dataclass
+from enum import Enum
 
 logger = logging.getLogger(__name__)
+
+
+# TODO-417 H2 (scope item 4): structured reason for an UNRESOLVABLE
+# SupplyCheckResult — a 1:1 mapping keyed by CAUSE SITE (D2's re-verified 7-row
+# table). `evidence_label` strings are UNCHANGED at every site (renderer compat)
+# — this is a parallel, additive field, never a replacement for the prose.
+class SupplyUnresolvableReason(Enum):
+    VALIDATOR_REJECTED         = "VALIDATOR_REJECTED"          # line ~433
+    SPEC_NOT_EXTRACTED         = "SPEC_NOT_EXTRACTED"          # line ~451
+    NEGATIVE_RAIL              = "NEGATIVE_RAIL"               # line ~475
+    CONVERTER_VIN_IMPLAUSIBLE  = "CONVERTER_VIN_IMPLAUSIBLE"   # line ~519
+    RAIL_NAME_MISMATCH         = "RAIL_NAME_MISMATCH"          # line ~533
+    SIBLING_RAIL_MISMATCH      = "SIBLING_RAIL_MISMATCH"       # line ~561 (core-vs-IO)
+    WEAK_BRIDGE_PROPAGATION    = "WEAK_BRIDGE_PROPAGATION"     # line ~590
+    # An 8th, DISTINCT site — evaluate_supply()'s own baseline "no voltage to
+    # evaluate at all" return. NOT one of D2's 7 (those are all *downgrade*
+    # sites in this function's per-pin loop, found by grepping the literal
+    # `status = "UNRESOLVABLE"` / `status="UNRESOLVABLE"` assignment pattern —
+    # this is a `return "UNRESOLVABLE", ...` inside a different function, so
+    # that grep structurally could not and did not find it; the P3 census,
+    # re-run by the SAME method, still returns exactly 7). Given its own member
+    # here for enum completeness (no UNRESOLVABLE SupplyCheckResult should be
+    # silently reason-less); excluded from the 7-row cause-site table.
+    NET_VOLTAGE_NOT_CONFIRMED  = "NET_VOLTAGE_NOT_CONFIRMED"
 
 from steps.step_05_validator import validate_supply_group
 from steps.step_06_power import (
@@ -45,6 +70,7 @@ class SupplyCheckResult:
     confidence: str
     evidence_label: str
     explanation: str | None
+    unresolvable_reason: SupplyUnresolvableReason | None = None
 
 
 # Trailing voltage written with a 'V' (optionally separator-led): _3V3, 1V8, 5V0.
@@ -434,6 +460,7 @@ def check_component_supplies(
                         confidence="low",
                         evidence_label=f"[validator:{supply_val.reason}] {supply_val.evidence}",
                         explanation=None,
+                        unresolvable_reason=SupplyUnresolvableReason.VALIDATOR_REJECTED,
                     ))
                     continue
 
@@ -452,6 +479,7 @@ def check_component_supplies(
                     confidence="low",
                     evidence_label="Supply spec not extracted from datasheet",
                     explanation=None,
+                    unresolvable_reason=SupplyUnresolvableReason.SPEC_NOT_EXTRACTED,
                 ))
                 continue
 
@@ -477,6 +505,7 @@ def check_component_supplies(
                     evidence_label="Negative supply rail (V-/VCC-/VEE) — no bipolar model; "
                                    "not evaluated as a positive-voltage ceiling",
                     explanation=None,
+                    unresolvable_reason=SupplyUnresolvableReason.NEGATIVE_RAIL,
                 ))
                 continue
 
@@ -500,6 +529,10 @@ def check_component_supplies(
                 rated_abs_max=rated_abs_max,
                 abs_max_source=abs_max_source,
             )
+            unresolvable_reason = (
+                SupplyUnresolvableReason.NET_VOLTAGE_NOT_CONFIRMED
+                if status == "UNRESOLVABLE" else None
+            )
 
             confidence = "high" if (rated_min is not None and rated_max is not None) else "medium"
             if actual_voltage is None:
@@ -519,6 +552,7 @@ def check_component_supplies(
                 status = "UNRESOLVABLE"
                 confidence = "low"
                 evidence = f"[converter-VIN rejected] {reason}"
+                unresolvable_reason = SupplyUnresolvableReason.CONVERTER_VIN_IMPLAUSIBLE
 
             # Rail-name / matched-group mismatch (multi-rail part, single group
             # extracted): a pin whose NAME implies a higher rail than the
@@ -538,6 +572,7 @@ def check_component_supplies(
                         f"maxes at {rated_max}V — multi-rail part, this pin's rail "
                         f"spec was not extracted; cannot assert over-voltage"
                     )
+                    unresolvable_reason = SupplyUnresolvableReason.RAIL_NAME_MISMATCH
 
             # Rail/group mismatch, UNDER-voltage direction (core-vs-IO). A WARN
             # "actual < supply_min" can mean either (1) a genuine undervoltage or
@@ -568,6 +603,7 @@ def check_component_supplies(
                         f"extracted (likely a module/wrong datasheet); cannot assert "
                         f"undervoltage"
                     )
+                    unresolvable_reason = SupplyUnresolvableReason.SIBLING_RAIL_MISMATCH
 
             # Passive-bridge propagation provenance (Step 7b): the voltage was
             # derived across a series passive, not read off a named rail. Grade
@@ -591,6 +627,7 @@ def check_component_supplies(
                         confidence = "low"
                         evidence = (f"[assumed propagation across {bridge_desc} — too weak "
                                     f"to assert damage] {evidence}")
+                        unresolvable_reason = SupplyUnresolvableReason.WEAK_BRIDGE_PROPAGATION
 
             results.append(SupplyCheckResult(
                 refdes=comp.refdes,
@@ -606,6 +643,7 @@ def check_component_supplies(
                 confidence=confidence,
                 evidence_label=evidence,
                 explanation=None,
+                unresolvable_reason=unresolvable_reason,
             ))
 
     return results

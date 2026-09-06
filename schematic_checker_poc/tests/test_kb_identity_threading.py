@@ -35,7 +35,7 @@ from steps.step_02_parser import ComponentIR, PinIR                      # noqa:
 from steps.peripheral_kb import load_peripheral_kb                       # noqa: E402
 from steps.peripheral_coherence import check_i2c_coherence               # noqa: E402
 from steps.step_08d_peripheral_checker import (                          # noqa: E402
-    canonicalize_mpn_for_kb, check_i2c_peripheral, Severity, _resolve_pin,
+    canonicalize_mpn_for_kb, check_peripheral_buses, Severity, _resolve_pin,
     _LookupStatus,
 )
 
@@ -101,11 +101,11 @@ def test_placeholder_threading_reaches_same_kb_entry_as_literal():
 
     assert (check_i2c_coherence(placeholder_ir, kb, routing, canonicalize_mpn_for_kb)
             == check_i2c_coherence(literal_ir, kb, routing, canonicalize_mpn_for_kb))
-    assert (check_i2c_peripheral(placeholder_ir, kb, routing)
-            == check_i2c_peripheral(literal_ir, kb, routing))
+    assert (check_peripheral_buses(placeholder_ir, kb, routing)
+            == check_peripheral_buses(literal_ir, kb, routing))
     # Both sides must actually be non-trivially checked -- this is a KB-HIT
     # parity, not an absence-of-findings parity by coincidence.
-    assert check_i2c_peripheral(literal_ir, kb, routing) == []
+    assert check_peripheral_buses(literal_ir, kb, routing) == []
     assert check_i2c_coherence(literal_ir, kb, routing, canonicalize_mpn_for_kb) == []
 
 
@@ -124,7 +124,7 @@ def test_resolved_placeholder_with_no_kb_entry_is_honest_unresolvable():
     """A resolved_mpn that expands to an MPN absent from the KB must miss
     honestly at the _resolve_pin boundary every swapped call site now goes
     through -- never a silent hit, never a crash. (Not exercised via the
-    full check_i2c_peripheral net-classification path: co-locating a
+    full check_peripheral_buses net-classification path: co-locating a
     KB-miss pin on the same net as a fixed-function anchor pin also taints
     that net's cross-net SDA/SCL completeness tracking (Step 9), which is
     an orthogonal, pre-existing behavior unrelated to this fix -- direct

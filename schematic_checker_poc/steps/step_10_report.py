@@ -18,6 +18,12 @@ from llm import ollama_client
 logger = logging.getLogger(__name__)
 console = Console()
 
+# TODO-417 H2 (scope item 7): named symbol, bumped 1.4 -> 1.5 (structured reason
+# enums on PeripheralFinding/SupplyCheckResult, guard identity on the coherence
+# block, the new M14 consensus-path emitter, M15 .cleared surfacing, and the
+# additive "signal_checks" summary sub-dict below — F4 re-scope rides this bump).
+REPORT_SCHEMA_VERSION = "poc-1.5"
+
 EXPLANATION_PROMPT = """
 In one sentence of 25 words or fewer, explain why this is a
 schematic violation. Be specific. No preamble.
@@ -397,7 +403,7 @@ def _explain(result: CheckResult) -> str:
 
 def _run_git_provenance() -> tuple[str | None, bool]:
     """(git_sha, git_dirty) via the SAME helper summary.json uses. Robust to import
-    path (step_10 may run from either main.py or run_corpus_test)."""
+    path (step_10 may run from either main.py or run_checks)."""
     try:
         import os, sys
         repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -544,6 +550,9 @@ def build_report(
                                          extraction_metadata),
             "evidence_tier": _tier,
             "explanation": explanation,
+            "unresolvable_reason": (
+                r.unresolvable_reason.value if r.unresolvable_reason is not None else None
+            ),
             **_staged_marker(r.part_number, extraction_metadata),
         })
 
@@ -585,6 +594,7 @@ def build_report(
             "evidence": r.evidence + _W_PERIPHERAL_KB,
             "kb_provenance": [s.value for s in r.kb_provenance],
             "evidence_tier": TIER_NOT_CACHE_DERIVED,
+            "reason": r.reason.value if r.reason is not None else None,
         }
         for r in peripheral_results
     ]
@@ -649,7 +659,7 @@ def build_report(
     # TODO-368 Phase 2 (D368-D): per-tier finding counts, over EVERY bucket that
     # now carries evidence_tier — named with _COUNT_SUFFIXES-compatible ("_count")
     # keys so they enter corpus_baseline's compare surface automatically once
-    # run_corpus_test.py flattens them (mirrors the existing registry-derived
+    # run_checks.py flattens them (mirrors the existing registry-derived
     # per-checker-count convention, TODO-248).
     evidence_tier_counts = {
         TIER_CONFIRMED_LOCAL: 0, TIER_CACHE_DRIFT: 0, TIER_CACHE_UNVERIFIED: 0,
@@ -665,7 +675,7 @@ def build_report(
                 evidence_tier_counts.get(_entry["evidence_tier"], 0) + 1)
 
     report = {
-        "schema_version": "poc-1.4",
+        "schema_version": REPORT_SCHEMA_VERSION,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "provenance": _build_report_provenance(extraction_metadata, source_netlist),
         "source_netlist": source_netlist,
@@ -675,6 +685,22 @@ def build_report(
             "warn": counts["warn"],
             "fail": counts["fail"],
             "unresolvable": counts["unresolvable"],
+            # F4 re-scope (rides the poc-1.5 bump): the signal (step 08) bucket's
+            # own counts, ADDITIVELY given a named home like every other checker
+            # family below — the bare keys above are UNCHANGED (run_checks.py,
+            # _sum_verdict_field, _aggregate_verdict_counts all still read them).
+            # Deliberately NOT wired into checker_registry.py's summary_key /
+            # derive_checker_counts: _sum_verdict_field already adds the bare
+            # keys above PLUS every OTHER VERDICT_MOVING checker's summary_key
+            # sub-dict, so giving "signal" a summary_key too would double-count
+            # it there. See the TODO-417 H2 end-of-task report for the analysis.
+            "signal_checks": {
+                "total": len(results),
+                "pass": counts["pass"],
+                "warn": counts["warn"],
+                "fail": counts["fail"],
+                "unresolvable": counts["unresolvable"],
+            },
             "supply_checks": {
                 "total": len(supply_results),
                 "pass": sum(1 for r in supply_results if r.status == "PASS"),
@@ -711,7 +737,7 @@ def build_report(
             },
             # TODO-368 Phase 2 (D368-D): "_count"-suffixed -> _COUNT_SUFFIXES-
             # compatible, automatically retained by corpus_baseline._extract_stats
-            # once flattened into a per-netlist stats key (run_corpus_test.py).
+            # once flattened into a per-netlist stats key (run_checks.py).
             "evidence_tier_checks": {
                 f"{tier}_count": n for tier, n in evidence_tier_counts.items()
             },
@@ -836,7 +862,7 @@ def _print_summary(report: dict, output_path: str) -> None:
     console.print(f"  WARN:            {totals['warn']}")
     console.print(f"  UNRESOLVABLE:    {totals['unresolvable']}")
 
-    # LT-21: output_path is already absolute for every live driver (run_corpus_test's
+    # LT-21: output_path is already absolute for every live driver (run_checks's
     # --board/corpus paths); prefixing "./" unconditionally doubled the path
     # (".//home/..."). Only relative callers (e.g. main.py's "report.json" default)
     # still get the "./" prefix.

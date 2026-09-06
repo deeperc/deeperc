@@ -32,7 +32,7 @@ import pytest
 from steps.peripheral_roles import classify_net_name, is_i3c_net_name, Role
 from steps.step_02_parser import ComponentIR, PinIR, NetIR, NetlistIR
 from steps.step_08d_peripheral_checker import (
-    check_i2c_peripheral, is_i2c_classified_net, _net_signal_hint,
+    check_peripheral_buses, is_i2c_classified_net, _net_signal_hint,
     PeripheralViolation, Severity,
 )
 from steps.step_08e_pullup_value_checker import check_pullup_values
@@ -238,7 +238,7 @@ def test_i3c_protocol_mismatch_lock():
             _Net("I3C0_SCL", [("U1", "P_SCL"), ("U2", "P_I3C_SCL")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb, {})
+    findings = check_peripheral_buses(nl, kb, {})
     assert _protocol_fails(findings) == []
     assert all(f.violation != PeripheralViolation.MISSING_PERIPHERAL
               or f.severity != Severity.FAIL for f in findings), findings
@@ -273,4 +273,4 @@ def test_i3c_capability_mismatch_lock():
             _Net("I3C0_SCL", [("U1", "P_SCL"), ("U2", "P_I3C_SCL")]),
         ],
     )
-    assert _cap_fails(check_i2c_peripheral(nl, kb, {})) == []
+    assert _cap_fails(check_peripheral_buses(nl, kb, {})) == []

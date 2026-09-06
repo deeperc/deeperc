@@ -1,6 +1,6 @@
 """Tests for Phase 1.1.b — KB-anchored I2C peripheral mismatch detection.
 
-All 17 tests exercise check_i2c_peripheral() against the Phase 1.1.b design spec.
+All 17 tests exercise check_peripheral_buses() against the Phase 1.1.b design spec.
 KB data model (Signal, KBSource, Peripheral, PinRole, PinFunctionEntry) is imported
 from steps.peripheral_kb. Finding types (PeripheralViolation, Severity,
 PeripheralFinding) are imported from steps.step_08d_peripheral_checker.
@@ -39,8 +39,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from steps.peripheral_kb import Signal, KBSource, Peripheral, PinRole, PinFunctionEntry, PeripheralRouting
 from steps.step_08d_peripheral_checker import (
-    PeripheralViolation, Severity, PeripheralFinding,
-    check_i2c_peripheral, _resolve_pin, _LookupStatus, is_i2c_classified_net,
+    PeripheralViolation, Severity, PeripheralFinding, FindingReason,
+    check_peripheral_buses, _resolve_pin, _LookupStatus, is_i2c_classified_net,
 )
 
 
@@ -166,7 +166,7 @@ def test_sda_scl_swap_detected_by_coherence():
             Net("+3V3",    [("R1", "2"), ("R2", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     swap_fails = [f for f in findings
                   if f.severity is Severity.FAIL and "SDA/SCL swap" in f.evidence]
     assert len(swap_fails) == 2, f"Expected 2 coherence FAILs; got {findings}"
@@ -207,7 +207,7 @@ def test_coherence_fail_surfaces_past_connector_unresolvable():
             Net("+3V3",    [("R1", "2"), ("R2", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     swap_fails = [f for f in findings
                   if f.severity is Severity.FAIL and "SDA/SCL swap" in f.evidence]
     # The connector should still leave its UNRESOLVABLE, but the swap FAIL surfaces.
@@ -238,7 +238,7 @@ def test_protocol_mismatch_non_i2c_pin():
         ],
         nets=[Net("I2C_SDA", [("U1", "PA0"), ("U2", "SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 1, f"Expected 1 finding; got {len(findings)}: {findings}"
     assert findings[0].severity  == Severity.FAIL
     assert findings[0].violation == PeripheralViolation.PROTOCOL_MISMATCH
@@ -273,7 +273,7 @@ def test_instance_mismatch_i2c1_vs_i2c2():
         ],
         nets=[Net("I2C_SDA", [("U1", "P_SDA"), ("U2", "P_SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 1, f"Expected 1 finding; got {len(findings)}: {findings}"
     assert findings[0].severity  == Severity.FAIL
     assert findings[0].violation == PeripheralViolation.INSTANCE_MISMATCH
@@ -301,7 +301,7 @@ def test_missing_scl_counterpart():
         nets=[Net("I2C_SDA", [("U1", "PB7"), ("U2", "SDA")])],
         # No SCL net present in the netlist.
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 1, f"Expected 1 finding; got {len(findings)}: {findings}"
     assert findings[0].severity  == Severity.FAIL
     assert findings[0].violation == PeripheralViolation.MISSING_PERIPHERAL
@@ -343,7 +343,7 @@ def test_no_pullup_warns():
             Net("I2C_SCL", [("U1", "PB6"), ("U2", "SCL")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     pullup_warns = [
         f for f in findings
         if f.violation == PeripheralViolation.NO_PULLUP_DETECTED
@@ -369,7 +369,7 @@ def test_pullup_present_no_warn():
 
     VACUOUSLY PASSES against the stub (returns []).
     TODO: the real implementation needs confirmed_voltages / passive traversal
-    data to detect R1.2 as a confirmed power rail. If check_i2c_peripheral grows
+    data to detect R1.2 as a confirmed power rail. If check_peripheral_buses grows
     additional parameters for traversal results, update this fixture accordingly.
     """
     kb = _make_kb(
@@ -397,7 +397,7 @@ def test_pullup_present_no_warn():
             Net("+3V3",    [("R1", "2"), ("R2", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert all(
         f.violation != PeripheralViolation.NO_PULLUP_DETECTED for f in findings
     ), "Expected no NO_PULLUP_DETECTED when 4.7kΩ pull-up to +3V3 is present"
@@ -440,7 +440,7 @@ def test_no_pullup_surfaces_past_connector_unresolvable():
             Net("I2C_SCL", [("U1", "PB6"), ("J1", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     pullup_warns = [f for f in findings
                     if f.violation == PeripheralViolation.NO_PULLUP_DETECTED]
     assert len(pullup_warns) >= 1, (
@@ -487,7 +487,7 @@ def test_no_pullup_not_emitted_when_pullup_present_despite_connector():
             Net("+3V3",    [("R1", "2"), ("R2", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert all(
         f.violation != PeripheralViolation.NO_PULLUP_DETECTED for f in findings
     ), "pull-up IS present (R1/R2 to +3V3) — NO_PULLUP must stay suppressed"
@@ -513,7 +513,7 @@ def test_no_pullup_stays_suppressed_behind_real_fail():
             Net("I2C_SDA", [("U1", "PB6"), ("U1", "PB7")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     role_fails = [f for f in findings
                   if f.severity == Severity.FAIL
                   and f.violation == PeripheralViolation.ROLE_MISMATCH]
@@ -553,7 +553,7 @@ def test_unknown_mcu_unresolvable():
             Net("+3V3",    [("R1", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 1, f"Expected 1 finding; got {len(findings)}: {findings}"
     assert findings[0].severity == Severity.UNRESOLVABLE
     assert KBSource.VENDOR_XML in findings[0].kb_provenance, (
@@ -562,6 +562,132 @@ def test_unknown_mcu_unresolvable():
     assert "UNKNOWN_MCU_XYZ" in findings[0].evidence, (
         f"Expected missing MCU MPN in evidence; got {findings[0].evidence!r}"
     )
+
+
+# ── TODO-417 H2 scope item 1: Step-7 pins + structured reason ────────────────
+
+def test_unknown_mcu_unresolvable_populates_pins_and_reason():
+    """Same shape as test_unknown_mcu_unresolvable, asserting the NEW pins/reason
+    fields: pins names the missing-MPN endpoint, reason is KB_MISSING (the MCU
+    is entirely absent from the KB, not just this one pin)."""
+    kb = _make_kb(_sensor_sda_entry("24LC256", "SDA"))
+    nl = Netlist(
+        components=[
+            Component("U1", "UNKNOWN_MCU_XYZ", [PinRef("pin1", "I2C_SDA")]),
+            Component("U2", "24LC256",         [PinRef("SDA",  "I2C_SDA")]),
+            Component("R1", "4.7k", [PinRef("1", "I2C_SDA"), PinRef("2", "+3V3")]),
+        ],
+        nets=[
+            Net("I2C_SDA", [("U1", "pin1"), ("U2", "SDA"), ("R1", "1")]),
+            Net("+3V3",    [("R1", "2")]),
+        ],
+    )
+    findings = check_peripheral_buses(nl, kb)
+    assert len(findings) == 1
+    assert findings[0].pins == ["U1.pin1"]
+    assert findings[0].reason == FindingReason.KB_MISSING
+
+
+def test_pin_not_in_kb_reason():
+    """The MCU IS in the KB (has an entry for a DIFFERENT pin), but THIS pin is
+    absent — PIN_NOT_IN_KB, distinct from KB_MISSING."""
+    kb = _make_kb(
+        _sensor_sda_entry("24LC256", "SDA"),
+        PinFunctionEntry("KNOWNMCU", "OTHER_PIN",
+                         [PinRole(Peripheral.GPIO, None, Signal.GPIO, KBSource.VENDOR_XML)]),
+    )
+    nl = Netlist(
+        components=[
+            Component("U1", "KNOWNMCU", [PinRef("pin1", "I2C_SDA")]),   # not in KB
+            Component("U2", "24LC256",  [PinRef("SDA",  "I2C_SDA")]),
+            Component("R1", "4.7k", [PinRef("1", "I2C_SDA"), PinRef("2", "+3V3")]),
+        ],
+        nets=[
+            Net("I2C_SDA", [("U1", "pin1"), ("U2", "SDA"), ("R1", "1")]),
+            Net("+3V3",    [("R1", "2")]),
+        ],
+    )
+    findings = check_peripheral_buses(nl, kb)
+    assert len(findings) == 1
+    assert findings[0].pins == ["U1.pin1"]
+    assert findings[0].reason == FindingReason.PIN_NOT_IN_KB
+
+
+def test_no_mpn_reason():
+    """A component with NO MPN at all (effective_mpn falsy) is NO_MPN, distinct
+    from KB_MISSING (there was never anything to look up)."""
+    kb = _make_kb(_sensor_sda_entry("24LC256", "SDA"))
+    nl = Netlist(
+        components=[
+            Component("U1", "", [PinRef("pin1", "I2C_SDA")]),   # no MPN
+            Component("U2", "24LC256", [PinRef("SDA", "I2C_SDA")]),
+            Component("R1", "4.7k", [PinRef("1", "I2C_SDA"), PinRef("2", "+3V3")]),
+        ],
+        nets=[
+            Net("I2C_SDA", [("U1", "pin1"), ("U2", "SDA"), ("R1", "1")]),
+            Net("+3V3",    [("R1", "2")]),
+        ],
+    )
+    findings = check_peripheral_buses(nl, kb)
+    assert len(findings) == 1
+    assert findings[0].pins == ["U1.pin1"]
+    assert findings[0].reason == FindingReason.NO_MPN
+
+
+def test_mixed_missing_reasons_on_one_net_split_into_two_findings():
+    """A net that genuinely mixes KB_MISSING and PIN_NOT_IN_KB pins emits ONE
+    finding PER reason (new, rare shape — most nets have a single reason and
+    still emit exactly one finding, as in the tests above)."""
+    kb = _make_kb(
+        _sensor_sda_entry("24LC256", "SDA"),
+        PinFunctionEntry("KNOWNMCU", "OTHER_PIN",
+                         [PinRole(Peripheral.GPIO, None, Signal.GPIO, KBSource.VENDOR_XML)]),
+    )
+    nl = Netlist(
+        components=[
+            Component("U1", "UNKNOWN_MCU_XYZ", [PinRef("pin1", "I2C_SDA")]),  # KB_MISSING
+            Component("U2", "KNOWNMCU",        [PinRef("pin2", "I2C_SDA")]),  # PIN_NOT_IN_KB
+            Component("U3", "24LC256",         [PinRef("SDA",  "I2C_SDA")]),
+            Component("R1", "4.7k", [PinRef("1", "I2C_SDA"), PinRef("2", "+3V3")]),
+        ],
+        nets=[
+            Net("I2C_SDA", [("U1", "pin1"), ("U2", "pin2"), ("U3", "SDA"), ("R1", "1")]),
+            Net("+3V3",    [("R1", "2")]),
+        ],
+    )
+    findings = check_peripheral_buses(nl, kb)
+    assert len(findings) == 2, f"expected 2 (one per reason); got {findings}"
+    by_reason = {f.reason: f for f in findings}
+    assert set(by_reason) == {FindingReason.KB_MISSING, FindingReason.PIN_NOT_IN_KB}
+    assert by_reason[FindingReason.KB_MISSING].pins == ["U1.pin1"]
+    assert by_reason[FindingReason.PIN_NOT_IN_KB].pins == ["U2.pin2"]
+
+
+# ── TODO-417 H2 scope item 2: PERIPHERAL_UNCONSTRAINED aggregation ───────────
+
+def test_peripheral_unconstrained_records_all_qualifying_pins():
+    """TWO matrix-routed pins on the SAME net — break-after-first removed, so
+    BOTH must appear in one aggregated finding's pins, with the reason enum set."""
+    kb = _make_kb(
+        PinFunctionEntry("esp32", "IO4",
+                         [PinRole(Peripheral.I2C, None, Signal.I2C_SDA, KBSource.VENDOR_HEADER)]),
+        PinFunctionEntry("esp32", "IO5",
+                         [PinRole(Peripheral.I2C, None, Signal.I2C_SDA, KBSource.VENDOR_HEADER)]),
+    )
+    routing = {"esp32": {Peripheral.I2C: PeripheralRouting.MATRIX}}
+    nl = Netlist(
+        components=[
+            Component("U1", "esp32", [PinRef("IO4", "I2C_SDA")]),
+            Component("U2", "esp32", [PinRef("IO5", "I2C_SDA")]),
+        ],
+        nets=[Net("I2C_SDA", [("U1", "IO4"), ("U2", "IO5")])],
+    )
+    findings = check_peripheral_buses(nl, kb, peripheral_routing=routing)
+    assert len(findings) == 1, f"expected 1 aggregated finding; got {findings}"
+    f = findings[0]
+    assert f.severity == Severity.UNRESOLVABLE
+    assert set(f.pins) == {"U1.IO4", "U2.IO5"}
+    assert f.reason == FindingReason.PERIPHERAL_UNCONSTRAINED
 
 
 # ── Test 8: Net name corroborates KB ─────────────────────────────────────────
@@ -587,7 +713,7 @@ def test_net_name_corroborates_kb():
         ],
         nets=[Net("I2C_SDA", [("U1", "PB7"), ("U2", "SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert all(
         f.violation != PeripheralViolation.PROTOCOL_MISMATCH for f in findings
     ), "Net name corroboration must not produce spurious PROTOCOL_MISMATCH"
@@ -617,7 +743,7 @@ def test_gpio_only_net_skipped():
         ],
         nets=[Net("Net-(U1-PA1)", [("U1", "PA1"), ("U2", "PA2")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 0, (
         f"Expected no findings for a GPIO-only net; got {findings}"
     )
@@ -644,7 +770,7 @@ def test_inter_mcu_role_mismatch():
         ],
         nets=[Net("MCU_I2C_SDA", [("U1", "PB6"), ("U2", "PB7")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 1, f"Expected 1 finding; got {len(findings)}: {findings}"
     assert findings[0].severity  == Severity.FAIL
     assert findings[0].violation == PeripheralViolation.ROLE_MISMATCH
@@ -675,7 +801,7 @@ def test_inter_mcu_ambiguous_no_name_silent():
         ],
         nets=[Net("Net-(U1-PB6)", [("U1", "PB6"), ("U2", "PB7")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 0, (
         f"Expected no findings for an ambiguous net with no peripheral hint; got {findings}"
     )
@@ -717,7 +843,7 @@ def test_three_pin_i2c_bus_passes():
             Net("+3V3",    [("R1", "2"), ("R2", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert all(f.severity != Severity.FAIL for f in findings), (
         f"Expected no FAIL for a valid 3-pin I2C bus; got {findings}"
     )
@@ -760,7 +886,7 @@ def test_ambiguous_i2c_signal_resolved_by_peer():
             Net("I2C_SCL", [("U1", "P_SCL"), ("U2", "SCL")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     fail_findings = [f for f in findings if f.severity == Severity.FAIL]
     assert len(fail_findings) == 0, (
         "Ambiguity resolved to SDA by sensor peer must not produce FAIL; "
@@ -794,7 +920,7 @@ def test_sensor_gpio_alt_not_fixed_function():
         ],
         nets=[Net("SENSOR_DATA", [("U1", "PB6"), ("U2", "DATA")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 0, (
         "Non-fixed-function sensor pin + no name hint → no findings expected; "
         f"got {findings}"
@@ -826,7 +952,7 @@ def test_esp32_i2c_matrix_routing_unresolvable():
         ],
         nets=[Net("I2C_SDA", [("U1", "GPIO21"), ("U2", "SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb, peripheral_routing=routing)
+    findings = check_peripheral_buses(nl, kb, peripheral_routing=routing)
     assert len(findings) == 1, f"Expected 1 finding; got {len(findings)}: {findings}"
     assert findings[0].severity == Severity.UNRESOLVABLE
     assert "matrix" in findings[0].evidence.lower(), (
@@ -857,7 +983,7 @@ def test_stm32_specific_mpn_canonicalizes_to_range_key():
         ],
         nets=[Net("I2C_SDA", [("U1", "PB7"), ("U2", "SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     unresolvable = [f for f in findings if f.severity == Severity.UNRESOLVABLE]
     assert len(unresolvable) == 0, (
         f"PB7 should resolve via MPN canonicalization; got {unresolvable}"
@@ -888,7 +1014,7 @@ def test_esp32_module_mpn_canonicalizes_to_soc():
         ],
         nets=[Net("I2C_SDA", [("U1", "GPIO21"), ("U2", "SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb, peripheral_routing=routing)
+    findings = check_peripheral_buses(nl, kb, peripheral_routing=routing)
     assert len(findings) == 1, f"Expected 1 finding; got {len(findings)}: {findings}"
     assert findings[0].severity == Severity.UNRESOLVABLE
     assert "matrix" in findings[0].evidence.lower(), (
@@ -916,7 +1042,7 @@ def test_i2c_named_net_no_capable_pins_not_classified():
         ],
         nets=[Net("I2C_PULLUP", [("U1", "PA0"), ("U2", "PA0")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     assert len(findings) == 0, (
         f"Name match alone must not classify as I2C; got {findings}"
     )
@@ -951,7 +1077,7 @@ def test_i2c_named_net_with_capable_pin_is_classified():
             Net("+3V3",    [("R1", "2"), ("R2", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     protocol_mismatches = [f for f in findings
                            if f.violation == PeripheralViolation.PROTOCOL_MISMATCH]
     assert len(protocol_mismatches) == 1, (
@@ -981,7 +1107,7 @@ def test_stm32_tr_mpn_canonicalizes_to_range_key():
         ],
         nets=[Net("I2C_SDA", [("U1", "PB7"), ("U2", "SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb)
+    findings = check_peripheral_buses(nl, kb)
     unresolvable = [f for f in findings if f.severity == Severity.UNRESOLVABLE]
     assert len(unresolvable) == 0, (
         f"PB7 should resolve via TR-suffix canonicalization; got {unresolvable}"
@@ -989,7 +1115,7 @@ def test_stm32_tr_mpn_canonicalizes_to_range_key():
 
 
 # ── Test 21-23: _resolve_pin matrix short-circuit generalization (2026-07-11) ─
-# Direct unit tests of _resolve_pin (not check_i2c_peripheral, which is I2C-only
+# Direct unit tests of _resolve_pin (not check_peripheral_buses, which is I2C-only
 # and cannot exercise a UART/SPI peripheral arg). Companion to the ESP32
 # routing-flag correction (build_kb.py, kb/vendor/esp32/esp32.json) — see
 # investigation/experiments/esp32_kb_recon/REPORT.md.
@@ -1014,7 +1140,7 @@ def test_resolve_pin_matrix_short_circuit_generalizes_to_uart():
 
 def test_resolve_pin_i2c_default_unchanged():
     """No peripheral= passed -> defaults to Peripheral.I2C, matching every
-    pre-existing call site (check_i2c_peripheral, M14) byte-for-byte."""
+    pre-existing call site (check_peripheral_buses, M14) byte-for-byte."""
     kb = {("esp32", "GPIO21"): PinFunctionEntry("esp32", "GPIO21", [
         PinRole(Peripheral.GPIO, None, Signal.GPIO, KBSource.VENDOR_HEADER),
     ])}
@@ -1055,7 +1181,7 @@ def test_multinet_early_return_does_not_skip_downstream_nets():
     """
     Regression for the netlist-wide early return on the FIRST
     PERIPHERAL_UNCONSTRAINED (matrix-routed) net: before the fix, hitting a
-    matrix-routed pin on net 1 made check_i2c_peripheral() `return findings`
+    matrix-routed pin on net 1 made check_peripheral_buses() `return findings`
     immediately — dropping every later net in netlist.nets AND every
     post-loop cross-net block (MISSING_PERIPHERAL / M6 / M12 / M14 / M15) for
     the WHOLE netlist, not just the matrix-routed net.
@@ -1107,7 +1233,7 @@ def test_multinet_early_return_does_not_skip_downstream_nets():
             Net("+3V3",      [("R1", "2"), ("R2", "2")]),
         ],
     )
-    findings = check_i2c_peripheral(nl, kb, peripheral_routing=routing)
+    findings = check_peripheral_buses(nl, kb, peripheral_routing=routing)
 
     # (i) exactly one PERIPHERAL_UNCONSTRAINED (UNRESOLVABLE) for net 1
     unconstrained = [f for f in findings
@@ -1169,7 +1295,7 @@ def test_matrix_only_i2c_named_net_emits_unresolvable():
         ],
         nets=[Net("I2C_SDA", [("U1", "GPIO21"), ("J1", "1")])],
     )
-    findings = check_i2c_peripheral(nl, kb, peripheral_routing=routing)
+    findings = check_peripheral_buses(nl, kb, peripheral_routing=routing)
     assert len(findings) == 1, (
         f"Expected exactly 1 UNRESOLVABLE for the matrix-only net; got {findings}"
     )
@@ -1194,7 +1320,7 @@ def test_matrix_only_non_i2c_named_net_stays_silent():
         ],
         nets=[Net("GPIO21_MISC", [("U1", "GPIO21"), ("J1", "1")])],
     )
-    findings = check_i2c_peripheral(nl, kb, peripheral_routing=routing)
+    findings = check_peripheral_buses(nl, kb, peripheral_routing=routing)
     assert findings == [], (
         f"Non-I2C-named matrix-only net must stay silent; got {findings}"
     )
@@ -1204,7 +1330,7 @@ def test_matrix_only_net_still_not_classified():
     """
     F3: `is_i2c_classified_net` (the shared step_08g suppression gate) must
     still return False for F1's net — the C1 fix touches only
-    `check_i2c_peripheral`'s own not-classified branch, never the shared
+    `check_peripheral_buses`'s own not-classified branch, never the shared
     classification gate, so step_08g's suppression semantics are unchanged
     (a matrix-only net is not ceded to step_08d/M3; it just was never
     reachable as I2C-classified by either checker).
@@ -1246,7 +1372,7 @@ def test_mixed_matrix_net_single_emission_unchanged():
         ],
         nets=[Net("I2C_SDA", [("U1", "GPIO21"), ("U2", "SDA")])],
     )
-    findings = check_i2c_peripheral(nl, kb, peripheral_routing=routing)
+    findings = check_peripheral_buses(nl, kb, peripheral_routing=routing)
     assert len(findings) == 1, (
         f"MIXED net must still emit exactly 1 UNRESOLVABLE (no double-emission "
         f"from the new matrix-only branch); got {findings}"
