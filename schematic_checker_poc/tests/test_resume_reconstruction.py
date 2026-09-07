@@ -9,6 +9,7 @@ as stale (re-run, not reused).
 """
 import json
 import os
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -78,12 +79,29 @@ def test_result_from_report_status_matches_classifier(tmp_path):
     assert rct.result_from_report(rp)["status"] == "has_unresolvable_only"
 
 
-# ── result_from_report round-trips a REAL corpus report (if present) ───────────
-def test_result_from_report_on_real_report_if_available():
-    reports = sorted((REPO_ROOT / "corpus_results" / "reports").glob("*.json"))
-    if not reports:
-        pytest.skip("no corpus reports on disk")
-    rp = reports[0]
+# ── result_from_report round-trips a REAL report ────────────────────────────
+def test_result_from_report_on_real_report(tmp_path):
+    """Round-trips a genuine on-disk report, not the hand-crafted _report()
+    shape above -- catches drift between what build_report actually writes
+    and what result_from_report expects to read.
+
+    Generates its own fixture (a shipped examples/ board, run fresh into
+    tmp_path) instead of globbing corpus_results/reports/ for whatever an
+    earlier, unrelated run happened to leave there: that made this test's
+    skip/run outcome -- and so the suite's total skip count -- depend on
+    arrival state, exactly the class of bug CONTRIBUTING.md's "a skip on a
+    test whose fixture ships in examples/ is a bug" rule exists to catch.
+    Never skips now."""
+    board = REPO_ROOT / "examples" / "my_stm32_board_i2c_swap" / "my_stm32_board_i2c_swap.net"
+    result = subprocess.run(
+        [sys.executable, str(REPO_ROOT / "run_checks.py"),
+         "--board", str(board), "--skip-confirm", "--output-dir", str(tmp_path)],
+        capture_output=True, text=True, timeout=60,
+    )
+    assert result.returncode == 0, f"stderr:\n{result.stderr}"
+    rp = tmp_path / "reports" / f"{board.stem}.json"
+    assert rp.exists(), f"expected report not written: {rp}"
+
     report = json.loads(rp.read_text())
     r = rct.result_from_report(rp)
     # Reconstructed counts equal the report's own summary block.
