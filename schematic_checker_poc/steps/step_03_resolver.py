@@ -454,7 +454,15 @@ def _prune_staged_images(pdf_path: str, output_root) -> int:
 
 
 def _find_pdf(part_number: str) -> str | None:
-    pdfs = [f for f in os.listdir(DATASHEETS_DIR) if f.lower().endswith(".pdf")]
+    # A missing DATASHEETS_DIR means the same thing as an empty one -- no
+    # local PDF to find -- and must not raise. DATASHEETS_DIR is a directory
+    # the user populates themselves (README's own install instructions have
+    # them `mkdir -p` it); a fresh clone or a corpus-free --board run never
+    # creates it, so this path is reached on every such run, not an edge case.
+    try:
+        pdfs = [f for f in os.listdir(DATASHEETS_DIR) if f.lower().endswith(".pdf")]
+    except FileNotFoundError:
+        return None
 
     base_mpn = BASE_SUFFIX_RE.sub("", part_number)
 
@@ -1910,12 +1918,6 @@ def _save_patch_state(pdf_path: str, *, residual_unpatchable: int,
 
 
 def resolve_and_parse(part_number: str) -> dict:
-    os.makedirs(DATASHEETS_DIR, exist_ok=True)
-    os.makedirs(PARSED_DIR, exist_ok=True)
-    # TODO-388: magic-pdf's -o and the pdfplumber writers both target this
-    # run's bucket-B write root, which is the staging tier when staging is
-    # active — created lazily here, same as PARSED_DIR above.
-    os.makedirs(bucket_b_write_root(), exist_ok=True)
     # LT-23: decide L2 network-resolve availability once, at the first
     # resolver call of the run — eager so the disable line (if any) always
     # appears near STEP 03's start, regardless of which part first misses L1.
@@ -1941,6 +1943,19 @@ def resolve_and_parse(part_number: str) -> dict:
             f"< {MIN_MPN_LENGTH}) — "
             f"likely a generic value. Add MPN field to schematic component."
         )
+
+    # Directories are created here, not at function entry -- a short/generic
+    # value (the common case: "10k", "100n", ...) exits above via the
+    # MIN_MPN_LENGTH raise and never touches the filesystem. Every path past
+    # this point does need these to exist: _find_pdf lists DATASHEETS_DIR
+    # unconditionally, and a genuine L1 miss eventually writes into PARSED_DIR
+    # / bucket_b_write_root().
+    os.makedirs(DATASHEETS_DIR, exist_ok=True)
+    os.makedirs(PARSED_DIR, exist_ok=True)
+    # TODO-388: magic-pdf's -o and the pdfplumber writers both target this
+    # run's bucket-B write root, which is the staging tier when staging is
+    # active.
+    os.makedirs(bucket_b_write_root(), exist_ok=True)
 
     # L1: local PDF cache (filename match).
     resolver_used = "l1_local"
