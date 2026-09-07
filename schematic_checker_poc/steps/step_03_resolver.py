@@ -1930,9 +1930,15 @@ def resolve_and_parse(part_number: str) -> dict:
 
     base_pn = BASE_SUFFIX_RE.sub("", part_number).strip()
     if len(base_pn) < MIN_MPN_LENGTH:
+        # The length compared against MIN_MPN_LENGTH is base_pn's, AFTER
+        # BASE_SUFFIX_RE strips a trailing grade/package suffix (e.g.
+        # 'flsh1' -> 'fl') -- not part_number's own length. Naming both
+        # values here avoids a message that looks self-contradictory (a
+        # visibly-5-character part_number reported as "length 2").
         raise FileNotFoundError(
             f"Part number '{part_number}' is too short to be a real MPN "
-            f"(length {len(base_pn)} < {MIN_MPN_LENGTH}) — "
+            f"(base MPN '{base_pn}' after suffix-strip: length {len(base_pn)} "
+            f"< {MIN_MPN_LENGTH}) — "
             f"likely a generic value. Add MPN field to schematic component."
         )
 
