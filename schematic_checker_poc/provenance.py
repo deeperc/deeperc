@@ -83,7 +83,8 @@ CORE_PIPELINE_FILES = (
     "steps/rail_map.py",
 )
 
-# CHECKER_SOURCE_FILES = CORE + the registry-derived checker files (08/08b/08c/08d/08e).
+# CHECKER_SOURCE_FILES = CORE + the registry-derived checker files (08/08b/08c/08d/08e/08g,
+# m2_output_conflict — 7 members; see steps/checker_registry.py's REGISTRY).
 # step_08e ENTERS the code axis here for the first time = the folded TODO-168 stopgap (a single
 # era break, DECISION D2). From this commit forward every cached report reads stale on the code
 # axis — BY DESIGN; the full recall re-run is Phase 5, not this task. (checker_code_hash sorts the
