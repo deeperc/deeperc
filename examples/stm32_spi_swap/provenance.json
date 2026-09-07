@@ -1,0 +1,44 @@
+{
+  "fixture_file": "examples/stm32_spi_swap/spi_swap_stm32.net",
+  "purpose": "Second SPI/M12-shape fixture in the README (MCU-side MOSI/MISO swap detected with no datasheet needed) and the sole shipped SPI-family fixture in examples/ -- TODO-410's promoted deliverable. Adding this file only closes the missing-sidecar/attribution gap flagged by the per-detector example pack effort; the fixture itself already ships and is already documented in the README's SPI walkthrough.",
+  "source": {
+    "origin": "hand-authored, original -- not derived from a third-party board",
+    "note": "Unlike this repo's other examples/ fixtures (which are deliberately mutated copies of real open-source designs), this netlist has no upstream to attribute: it's a minimal, purpose-built two-part design (an STM32F103C8Tx using KiCad's unedited stock symbol, wired to an ADS8319 SPI ADC) constructed specifically to demonstrate an MCU-side SPI MOSI/MISO swap on a board whose MCU symbol pins carry no SPI-specific names -- the finding has to come from the peripheral knowledge base alone, which is the scenario worth having a dedicated fixture for."
+  },
+  "license": {
+    "note": "Original work, no upstream license to carry forward. Licensed under this repo's own license (see LICENSE at repo root)."
+  },
+  "mutation": {
+    "description": "Not a mutation of a pre-existing correct board -- MOSI/MISO are crossed on the MCU side (PA6/PA7) by construction. There is no 'unswapped' precursor for this specific fixture (unlike the I2C swap/fixed pair).",
+    "component": "U1 (STM32F103C8Tx)",
+    "pins": {"PA6": "wired to /MOSI (SPI MISO pin function, per KB)", "PA7": "wired to /MISO (SPI MOSI pin function, per KB)"}
+  },
+  "expected_verdict": {
+    "board_status": "has_fail",
+    "peripheral_checks": {"total": 2, "pass": 0, "warn": 0, "fail": 2, "unresolvable": 0},
+    "signal_checks": {"total": 4, "pass": 0, "warn": 0, "fail": 0, "unresolvable": 4},
+    "supply_checks": {"total": 5, "pass": 1, "warn": 0, "fail": 0, "unresolvable": 4},
+    "structural_checks": {"total": 10, "pass": 10, "warn": 0, "fail": 0},
+    "fail_findings": [
+      {
+        "net": "/MOSI",
+        "violation": "ROLE_MISMATCH",
+        "severity": "FAIL",
+        "pins": ["U1.16"],
+        "evidence": "Pin U1.16 (function 'PA6') is an SPI MISO pin but sits on net '/MOSI', whose name implies SPI MOSI — MOSI/MISO swap (role source: kb_possible_roles). (MCU KB — no datasheet required)"
+      },
+      {
+        "net": "/MISO",
+        "violation": "ROLE_MISMATCH",
+        "severity": "FAIL",
+        "pins": ["U1.17"],
+        "evidence": "Pin U1.17 (function 'PA7') is an SPI MOSI pin but sits on net '/MISO', whose name implies SPI MISO — MOSI/MISO swap (role source: kb_possible_roles). (MCU KB — no datasheet required)"
+      }
+    ],
+    "confidence": "high (KB-sourced pin role, unambiguous, MCU KB evidence -- no datasheet involved)",
+    "unrelated_unresolvables": "4 signal + 4 supply UNRESOLVABLE (net voltage not confirmed, no rails.json sidecar) and 0 peripheral UNRESOLVABLE -- present with or without the swap; not injected by this fixture's construction",
+    "unchanged_axes": "pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN"
+  },
+  "verified_by": "python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-confirm",
+  "date": "2026-09-07"
+}
