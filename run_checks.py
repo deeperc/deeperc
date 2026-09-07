@@ -939,12 +939,21 @@ def main() -> None:
     parser.add_argument("--preprocess-export", action="store_true",
                         help="Run kicad-cli auto-export over --corpus-dir before the eligibility "
                              "scan (materializes .net files for .kicad_sch/.sch sources that lack one).")
+    parser.add_argument("--verbose", "-v", action="store_true",
+                        help="Raise logging from WARNING to INFO. main.py's single-netlist path "
+                             "defaults to INFO; this runner defaults to WARNING to keep corpus "
+                             "runs quiet, which also hides info-level diagnostics — e.g. the "
+                             "extraction-time advisory plausibility guard (see LIMITATIONS.md) — "
+                             "on this entrypoint. Pass --verbose to see them.")
     parser.add_argument("--staging", action="store_true",
                         help="Serve pin-group caches from the unpromoted staging tier "
                              "(schematic_checker_poc/datasheets_staged/) on a clean canonical "
                              "MISS. OFF by default — the precision gate and every baseline run "
                              "are staging-blind (R-B). TODO-386.")
     args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.INFO)
 
     # TODO-386 Phase 3 (S2): exported rather than threaded through
     # PipelineContext because run_one executes in a worker process — the env var
