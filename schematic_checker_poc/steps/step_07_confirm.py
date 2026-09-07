@@ -54,7 +54,14 @@ def confirm_voltages(power_rails: list[dict], skip: bool = False) -> dict[str, f
 
     print("\n  Enter corrections as: <number>=<voltage>")
     print("  Example: 1=3.3 2=5.0")
-    raw = input("  Press Enter to accept all: ").strip()
+    try:
+        raw = input("  Press Enter to accept all: ").strip()
+    except EOFError:
+        # No interactive input available (stdin closed or non-TTY — e.g. a
+        # backgrounded or piped run without --skip-confirm). Accept all
+        # inferred voltages instead of crashing with a raw traceback.
+        raw = ""
+        print("  (no input available — accepting all inferred voltages)")
     print("─" * 41 + "\n")
 
     # TODO-134 precedence: a user-map declaration (source="user_confirmed") is the
