@@ -76,14 +76,20 @@ Run the test suite:
 
     make test
 
-The shipped `Makefile` has exactly two targets — `help` and `test`.
-That is deliberate: the private development repo's other targets all
-reach corpus data and tooling that don't ship, so the public file
-carries only what a clone can actually run. `make test` expects the
-`venv/` layout from the README's Install section, installs its own
-test dependencies (`requirements-dev.txt`) on first run, and runs
+The shipped `Makefile` has three targets — `help`, `test`, and
+`examples-smoke`. That is deliberate: the private development repo's
+other targets all reach corpus data and tooling that don't ship, so
+the public file carries only what a clone can actually run. `make test`
+expects the `venv/` layout from the README's Install section, installs
+its own test dependencies (`requirements-dev.txt`) on first run, runs
 the shipped subset of the suite — integration tests and tests that
-need external services are excluded by marker.
+need external services are excluded by marker — and finishes by
+running `examples-smoke`: every fixture under `examples/` gets run
+fresh and its findings diffed against the `expected_verdict` block in
+its own `provenance.json`. A fixture whose actual output has drifted
+from what its sidecar documents fails the gate; this is the mechanism
+that keeps the "a skip on a fixture-backed test is a bug" rule below
+honest for verdicts, not just for whether the test runs at all.
 
 Skips are normal and environment-conditional: some tests skip when
 optional inputs aren't present, and the count varies between
@@ -98,6 +104,8 @@ repo root:
     venv/bin/pip install -r requirements.txt -r requirements-dev.txt
     cd schematic_checker_poc
     ../venv/bin/python3 -m pytest -q -m "not integration and not gemma_smoke"
+    cd ..
+    venv/bin/python3 examples_smoke.py
 
 ## License
 

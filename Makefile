@@ -15,7 +15,7 @@ PY    := venv/bin/python3
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test
+.PHONY: help test examples-smoke
 
 help:  ## Show this target list
 	@echo "DeepERC runbook targets  (python env: $(PY))"
@@ -39,3 +39,10 @@ test:  ## Test gate — pytest minus the external-dependency tests
 	    exit 1; }; }
 	cd schematic_checker_poc && set -o pipefail && \
 	  ../$(PY) -m pytest -q -m "not integration and not gemma_smoke"
+	@$(MAKE) examples-smoke
+
+examples-smoke:  ## Verify every examples/*/ fixture still matches its documented expected_verdict
+	@test -x $(PY) || { \
+	  echo "ERROR: $(PY) not found. Create the venv first (see README's Install section)."; \
+	  exit 1; }
+	$(PY) examples_smoke.py
