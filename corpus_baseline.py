@@ -36,10 +36,19 @@ def git_sha(cwd: Optional[Path] = None) -> Optional[str]:
 
 
 def git_dirty(cwd: Optional[Path] = None) -> bool:
-    """Return True if the working tree has uncommitted changes."""
+    """Return True if the working tree has uncommitted changes to TRACKED files.
+
+    ``--untracked-files=no`` is deliberate: a bare ``git status --porcelain``
+    counts untracked scratch files (e.g. ``corpus_results/`` from a demo run)
+    as dirty, so every stranger clone with any scratch output -- and every dev
+    tree with the ordinary local cruft that accumulates between commits --
+    reports dirty even when the tracked tree exactly matches its commit. That
+    makes a genuinely dirty tracked tree indistinguishable from a clean one
+    wherever this flag feeds provenance (baseline filenames, report
+    metadata)."""
     try:
         r = subprocess.run(
-            ["git", "status", "--porcelain"],
+            ["git", "status", "--porcelain", "--untracked-files=no"],
             capture_output=True, text=True, timeout=5, cwd=cwd,
         )
         return bool(r.stdout.strip())
