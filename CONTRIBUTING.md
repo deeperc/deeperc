@@ -107,6 +107,36 @@ repo root:
     cd ..
     venv/bin/python3 examples_smoke.py
 
+## How pull requests land
+
+The public tree in this repository is generated from a private
+development tree at each release, so pull requests are not merged
+directly into the source of truth. The flow is:
+
+1. Your commits are cherry-picked into the private tree with your
+   authorship preserved, and validated there against the full
+   suite and the maintainer-side verification corpus.
+2. If validation is clean, your PR is rebase-merged here, so the
+   public history stays linear and the commits land under your
+   name with Merged credit on the PR.
+3. Any new files you add are admitted to the release export
+   manifest, so they survive future releases.
+
+The merge happens before the next release's export sync, not
+after. By the time a release runs, the public tree already carries
+your commits and the sync has nothing left to copy. That is the
+intended outcome, not a sign a step was skipped.
+
+One caveat. Changes touching the hashed verdict-affecting source
+set (`CHECKER_SOURCE_FILES` in
+`schematic_checker_poc/provenance.py`) constitute an announced
+measurement-era break: they invalidate cached measurement
+provenance and require a full re-measurement cycle. Those are
+batched with planned era breaks rather than merged immediately,
+even when the change is behaviorally equivalent. If your PR
+touches one of those files, expect a hold with an explanation
+rather than a fast merge, and a note on the thread when it lands.
+
 ## License
 
 By contributing, you agree your contributions are licensed under the

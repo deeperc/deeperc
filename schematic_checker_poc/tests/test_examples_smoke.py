@@ -13,6 +13,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
@@ -76,6 +78,7 @@ def test_find_fixtures_every_shipped_example_has_a_provenance_json():
     assert no_expected == [], f"fixture(s) with no expected_verdict block: {no_expected}"
 
 
+@pytest.mark.integration
 def test_shipped_examples_pass_the_real_smoke_gate():
     """Integration-level: run the actual script against the real examples/
     tree. This is the regression pin -- if a checker change silently moves
