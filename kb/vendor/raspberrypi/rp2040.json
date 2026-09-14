@@ -16,7 +16,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI0",
           "config_hint": "SPI0 RX"
         },
@@ -70,7 +70,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI0",
           "config_hint": "SPI0 CSn"
         },
@@ -124,7 +124,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "sck",
           "instance": "SPI0",
           "config_hint": "SPI0 SCK"
         },
@@ -178,7 +178,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "mosi",
           "instance": "SPI0",
           "config_hint": "SPI0 TX"
         },
@@ -232,7 +232,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI0",
           "config_hint": "SPI0 RX"
         },
@@ -286,7 +286,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI0",
           "config_hint": "SPI0 CSn"
         },
@@ -340,7 +340,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "sck",
           "instance": "SPI0",
           "config_hint": "SPI0 SCK"
         },
@@ -394,7 +394,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "mosi",
           "instance": "SPI0",
           "config_hint": "SPI0 TX"
         },
@@ -448,7 +448,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI1",
           "config_hint": "SPI1 RX"
         },
@@ -502,7 +502,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI1",
           "config_hint": "SPI1 CSn"
         },
@@ -556,7 +556,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "sck",
           "instance": "SPI1",
           "config_hint": "SPI1 SCK"
         },
@@ -610,7 +610,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "mosi",
           "instance": "SPI1",
           "config_hint": "SPI1 TX"
         },
@@ -664,7 +664,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI1",
           "config_hint": "SPI1 RX"
         },
@@ -718,7 +718,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI1",
           "config_hint": "SPI1 CSn"
         },
@@ -772,7 +772,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "sck",
           "instance": "SPI1",
           "config_hint": "SPI1 SCK"
         },
@@ -826,7 +826,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "mosi",
           "instance": "SPI1",
           "config_hint": "SPI1 TX"
         },
@@ -880,7 +880,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI0",
           "config_hint": "SPI0 RX"
         },
@@ -934,7 +934,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI0",
           "config_hint": "SPI0 CSn"
         },
@@ -988,7 +988,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "sck",
           "instance": "SPI0",
           "config_hint": "SPI0 SCK"
         },
@@ -1042,7 +1042,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "mosi",
           "instance": "SPI0",
           "config_hint": "SPI0 TX"
         },
@@ -1096,7 +1096,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI0",
           "config_hint": "SPI0 RX"
         },
@@ -1156,7 +1156,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI0",
           "config_hint": "SPI0 CSn"
         },
@@ -1216,7 +1216,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "sck",
           "instance": "SPI0",
           "config_hint": "SPI0 SCK"
         },
@@ -1276,7 +1276,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "mosi",
           "instance": "SPI0",
           "config_hint": "SPI0 TX"
         },
@@ -1336,7 +1336,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI1",
           "config_hint": "SPI1 RX"
         },
@@ -1396,7 +1396,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI1",
           "config_hint": "SPI1 CSn"
         },
@@ -1456,7 +1456,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "sck",
           "instance": "SPI1",
           "config_hint": "SPI1 SCK"
         },
@@ -1510,7 +1510,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "mosi",
           "instance": "SPI1",
           "config_hint": "SPI1 TX"
         },
@@ -1564,7 +1564,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "miso",
           "instance": "SPI1",
           "config_hint": "SPI1 RX"
         },
@@ -1618,7 +1618,7 @@
       "possible_roles": [
         {
           "peripheral": "spi",
-          "signal": null,
+          "signal": "nss",
           "instance": "SPI1",
           "config_hint": "SPI1 CSn"
         },

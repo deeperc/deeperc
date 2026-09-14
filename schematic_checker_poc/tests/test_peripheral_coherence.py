@@ -560,6 +560,64 @@ def test_rp2040_correct_i2c_no_false_fail():
     assert fails == []
 
 
+# ── deeperc/deeperc#1: RP2040 KB — SPI signal roles now populated ──────────────
+# Same shape as the I2C RP2040 tests above: RP2040 pins are named GPIOn (no
+# MOSI/MISO/SCK token), so the pin-function path is blind; the catch has to
+# come from the KB possible_roles' now-populated `signal` field. Master-mode
+# assumption (see LIMITATIONS.md and the KB entry's own provenance note):
+# these roles are RX->miso, TX->mosi, SCK->sck, CSn->nss, correct only when
+# the RP2040 is the SPI master.
+
+def test_spi_kb_role_pin_on_wrong_net_violates_rp2040():
+    # Synthetic KB, mirrors test_spi_kb_role_pin_on_wrong_net_violates above but
+    # for an RP2040-shaped entry -- GPIO0 (KB: SPI0 MISO), generic pin-function
+    # (no MOSI/MISO/SCK token), sits on a MOSI-named net -> KB-sourced violation.
+    kb = {("RP2040", "GPIO0"): PinFunctionEntry(
+        "RP2040", "GPIO0",
+        [PinRole(Peripheral.SPI, "SPI0", Signal.SPI_MISO, KBSource.VENDOR_XML)])}
+    ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("2", "GPIO0", "/MOSI")])])
+    vios = pc.check_spi_coherence(ir, kb, s08d.canonicalize_mpn_for_kb)
+    assert len(vios) == 1
+    v = vios[0]
+    assert v.pin_role == "SPI_DATA_IN" and v.net_role == "SPI_DATA_OUT"
+    assert v.status == "FAIL" and v.source == "kb_possible_roles"
+
+
+def test_rp2040_spi_swap_caught_via_kb():
+    kb, routing = _load_real_kb()
+    assert ("RP2040", "GPIO0") in kb, "RP2040 KB must be loaded"
+    # GPIO0 (SPI0 MISO, from RX) on the MOSI net, GPIO3 (SPI0 MOSI, from TX) on
+    # the MISO net -> swap.
+    ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("2", "GPIO0", "/MOSI"),
+                                        _Pin("5", "GPIO3", "/MISO")])])
+    fails = [f for f in s08d.check_peripheral_buses(ir, kb, routing)
+             if f.severity is s08d.Severity.FAIL and "MOSI/MISO swap" in f.evidence]
+    assert len(fails) == 2
+    assert all("role source: kb_possible_roles" in f.evidence for f in fails)
+
+
+def test_rp2040_correct_spi_no_false_fail():
+    kb, routing = _load_real_kb()
+    # GPIO0 (MISO) on the MISO net, GPIO3 (MOSI) on the MOSI net -> coherent.
+    ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("2", "GPIO0", "/MISO"),
+                                        _Pin("5", "GPIO3", "/MOSI")])])
+    fails = [f for f in s08d.check_peripheral_buses(ir, kb, routing)
+             if f.severity is s08d.Severity.FAIL]
+    assert fails == []
+
+
+def test_rp2040_spi_nss_role_out_of_coherence_group():
+    # GPIO1 is KB'd as SPI0 NSS (CSn); NSS is not in SPI_COHERENCE_GROUP (D3
+    # ruling, same as the STM32 case above) -> no coherence violation, even
+    # sitting on a MOSI-named net. Confirms the CSn fill is inert to findings
+    # as expected, not a silent new false-positive source.
+    kb, routing = _load_real_kb()
+    ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("3", "GPIO1", "/MOSI")])])
+    fails = [f for f in s08d.check_peripheral_buses(ir, kb, routing)
+             if f.severity is s08d.Severity.FAIL]
+    assert fails == []
+
+
 # ── Test 7: STM32F303 KB — Todo 93 UART seed unblock (OLIMEXINO-STM32F3) ───────
 # F303 target added to kb/vendor/stm32/ so OLIMEXINO-STM32F3 (STM32F303RCT6) becomes
 # a KB'd-MCU-with-exposed-UART seed for the (separately-scoped) Todo 93 build. This
