@@ -7,12 +7,23 @@
   classes ERC cannot express (role/net-name coherence, per-part voltage limits,
   pull-up presence) and assumes you still run ERC for structural rule checking.
 - MCU-side SPI role checks (MOSI/MISO/SCK on generic pin names such
-  as PA6/PA7) come from the peripheral knowledge base, which currently
-  carries SPI roles for STM32 F1, F3 and F4 only. RP2040 has the same
-  fixed pin-function shape and can be added the same way; it is not
-  populated yet. On matrix-routed MCUs (ESP32) an MCU-side SPI swap
-  is not detected unless the peripheral IC's pin names carry the
-  role. Chip-select (NSS/CS) is not checked.
+  as PA6/PA7) come from the peripheral knowledge base, which carries
+  SPI roles for STM32 F1, F3, F4 and RP2040. Both are fixed
+  pin-function parts, and both KB entries carry a **master-mode
+  assumption**: RP2040's roles are derived from its RX/TX pin-function
+  names (RX→MISO, TX→MOSI), and STM32's alternate-function table names
+  the pins directly as MOSI/MISO — either way, that mapping is only
+  correct when the MCU operates as SPI master. In slave mode TX
+  carries MISO and RX carries MOSI (the inverse), and neither vendor's
+  netlist carries a signal for which role the MCU occupies — it's a
+  firmware choice with no netlist footprint. A correctly-wired
+  slave-mode STM32 or RP2040 board will therefore report a false
+  MOSI/MISO swap under this checker. On matrix-routed MCUs (ESP32) an
+  MCU-side SPI swap is not detected unless the peripheral IC's pin
+  names carry the role. Chip-select (NSS/CS) is not checked — present
+  in both KBs' `signal` field for data completeness, but SPI_NSS is
+  deliberately outside the coherence group a swap check compares
+  against, so it produces no findings either way.
 - Report explanation text is LLM-generated where a local model is available;
   when it isn't, findings carry a one-line note instead. Verdicts are never
   affected either way. LLM explanation is attempted only for signal- and
