@@ -119,9 +119,10 @@ PAGE_PARSE_RSS_DELTA_LIMIT_KB = 400 * 1024   # ~400MB per-page RSS-delta cap (se
 # document N left behind. See _cumulative_rss_over_ceiling below.
 PDFPLUMBER_RSS_CEILING_DELTA_KB = int(3.5 * 1024 * 1024)   # 3.5 GB per-document ceiling
 
-# Section headings the placeholder-patch re-extracts (module-level so the cache
-# provenance signature can fold them in — a TARGET_PHRASES change alters the .md,
-# hence the extraction, and must show up as a stale-cache signal).
+# Section headings the placeholder-patch re-extracts (module-level so the
+# parse_config hash (sha256, stamped into provenance) can fold them in — a
+# TARGET_PHRASES change alters the .md, hence the extraction, and must show
+# up as a stale-cache signal).
 TARGET_PHRASES = [
     "Absolute maximum ratings",
     "Voltage characteristics",
@@ -133,7 +134,7 @@ TARGET_PHRASES = [
     "VIL",
 ]
 
-# Best-effort MinerU/magic-pdf version for the parse-config signature; "unknown"
+# Best-effort MinerU/magic-pdf version for the parse_config hash; "unknown"
 # if not resolvable (still recomputable/comparable across runs on this machine).
 try:  # pragma: no cover - environment dependent
     import importlib.metadata as _ilmd

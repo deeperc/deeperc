@@ -47,12 +47,14 @@ from steps.step_06_power import (
     infer_voltage_from_name,
 )
 
-SUPPLY_PIN_NAMES = {
-    'VCC', 'VDD', 'VCCA', 'VCCB', 'VCCO', 'VCCIO', 'VCCINT',
-    'AVDD', 'DVDD', 'PVDD', 'IOVDD', 'COREVDD',
-    'VBAT', 'VIN', 'V+', 'AVCC', 'DVCC', 'VCC1', 'VCC2',
-    'VDDA', 'VDDD', 'VDDIO',
-}
+# TODO-21: the canonical supply-pin base is now ONE shared constant, defined in
+# steps/passive_traversal.py and consumed identically here, in step_08c
+# (POWER_PIN_NAMES) and by the traversal walk itself (POWER_PIN_FUNCTIONS = this
+# base | {"VBUS"}). Re-exported under the module-local name so existing importers
+# (tests/test_supply_checker.py, investigation/ scan scripts) keep working. This
+# checker's own matching semantics are UNCHANGED — exact membership plus the
+# reduce-to-canonical widen below; only the membership list is now shared.
+from steps.passive_traversal import SUPPLY_PIN_NAMES
 
 
 @dataclass

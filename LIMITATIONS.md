@@ -8,22 +8,20 @@
   pull-up presence) and assumes you still run ERC for structural rule checking.
 - MCU-side SPI role checks (MOSI/MISO/SCK on generic pin names such
   as PA6/PA7) come from the peripheral knowledge base, which carries
-  SPI roles for STM32 F1, F3, F4 and RP2040. Both are fixed
-  pin-function parts, and both KB entries carry a **master-mode
-  assumption**: RP2040's roles are derived from its RX/TX pin-function
-  names (RX→MISO, TX→MOSI), and STM32's alternate-function table names
-  the pins directly as MOSI/MISO — either way, that mapping is only
-  correct when the MCU operates as SPI master. In slave mode TX
-  carries MISO and RX carries MOSI (the inverse), and neither vendor's
-  netlist carries a signal for which role the MCU occupies — it's a
-  firmware choice with no netlist footprint. A correctly-wired
-  slave-mode STM32 or RP2040 board will therefore report a false
-  MOSI/MISO swap under this checker. On matrix-routed MCUs (ESP32) an
-  MCU-side SPI swap is not detected unless the peripheral IC's pin
-  names carry the role. Chip-select (NSS/CS) is not checked — present
-  in both KBs' `signal` field for data completeness, but SPI_NSS is
-  deliberately outside the coherence group a swap check compares
-  against, so it produces no findings either way.
+  SPI roles for STM32 F1, F3, F4 and RP2040 — both fixed
+  pin-function parts. On matrix-routed MCUs (ESP32) an MCU-side SPI
+  swap is not detected unless the peripheral IC's pin names carry the
+  role. Chip-select (NSS/CS) is not checked — present in both KBs'
+  `signal` field for data completeness, but SPI_NSS is deliberately
+  outside the coherence group a swap check compares against, so it
+  produces no findings either way.
+- KB SPI signal roles assume the MCU is the bus master: RP2040's roles
+  are derived from its RX/TX pin-function names (RX→MISO, TX→MOSI),
+  and STM32's alternate-function table names the pins directly as
+  MOSI/MISO — both are correct only when the MCU operates as SPI
+  master. A KB-role-vs-net-name mismatch not corroborated by another
+  device's own pin function (as on a correctly wired slave-mode STM32
+  or RP2040 board, where TX/RX invert) is reported WARN, not FAIL.
 - Report explanation text is LLM-generated where a local model is available;
   when it isn't, findings carry a one-line note instead. Verdicts are never
   affected either way. LLM explanation is attempted only for signal- and
@@ -38,16 +36,13 @@
   class name still matches the bare `PWR` prefix. Affected supply checks
   report `UNRESOLVABLE`, never a guessed `FAIL`/`PASS`.
 - Pull-up presence is decided by a walk that only traverses two-pin passives.
-  Resistor networks and arrays (multi-pin `RN*`/`RP*` parts) are skipped
-  entirely, because the netlist does not encode which internal element pairs
-  with which package pin — so a real pull-up routed through a network reads as
-  absent. Today the one known false case (an I²C bus pulled up through a
-  network) is suppressed as a side effect of the name-path corroboration gate,
-  not by understanding the network; the open-drain pin-type path has no such
-  gate. An open-drain net whose only pull-up runs through a resistor network
-  can therefore still produce a false "pull-up missing" finding. If your board
-  uses networks for bus pull-ups, treat that finding as a prompt to look, not a
-  verdict.
+  Resistor networks and arrays (multi-pin `RN*`/`RP*` parts) are not traversed,
+  because the netlist does not encode which internal element pairs with which
+  package pin — and the checker does not attempt to pair them. On any of the
+  five pull-up presence checks, when a multi-pin resistor package is on the net
+  and no discrete pull-up is found, the checker reports the pull path as
+  indeterminate (`UNRESOLVABLE`, `PULL_PATH_INDETERMINATE`) rather than a
+  missing pull-up.
 - KiCad names a no-connect pin's net `unconnected-(REFDES-PINNAME-PadN)`, which
   embeds the pin's role text. The net-name classifier reads those names
   truthfully on purpose; each peripheral checker then excludes them with its

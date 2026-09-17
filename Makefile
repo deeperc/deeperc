@@ -1,6 +1,6 @@
 # DeepERC — public runbook targets
 #
-# The private repo's Makefile has 12 targets, every one of which reaches a
+# The private repo's Makefile has 18 targets, every one of which reaches a
 # private-tier path or tool (the bad-corpus generator, the recall harness, the
 # board corpus, saved baselines, logs/). None of them have a public equivalent,
 # so this is a fresh file rather than a filtered copy of that one.

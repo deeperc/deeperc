@@ -443,8 +443,13 @@ def _build_report_provenance(extraction_metadata: dict, source_netlist: str) -> 
             part: (meta or {}).get("source_hash")
             for part, meta in (extraction_metadata or {}).items()
         },
-        # TODO-368 Phase 2 (D368-E): the signed cache manifest's version, when one
-        # exists. No manifest exists anywhere in this repo today — always None.
+        # TODO-368 Phase 2 (D368-E): the cache manifest's version, when one exists.
+        # TODO-482 corrects two wrong claims this comment used to make. The manifest
+        # (CACHE_MANIFEST.json) is sha256-PINNED, not "signed" — there is no
+        # signature, no key and no verification step anywhere; the pin is a content
+        # hash. And it is NOT always None: a manifest is written at runtime, so
+        # cache_version is populated on any run that has one (verified TODO-481
+        # Phase 0). Treat None as "no manifest on this run", never as "impossible".
         "cache_version": _cache_manifest_version(),
     }
 
@@ -651,6 +656,9 @@ def build_report(
             # "i2c_net_name" | None for Families 2/3, which have no alternate
             # entry). Field addition only — no verdict logic here.
             "activation": r.activation,
+            # TODO-318: structured reason on an UNRESOLVABLE finding
+            # ("PULL_PATH_INDETERMINATE"); None on every WARN.
+            "reason": r.reason,
             "evidence_tier": TIER_NOT_CACHE_DERIVED,
         }
         for r in pullup_presence_results
@@ -734,6 +742,12 @@ def build_report(
             "pullup_presence_checks": {
                 "total": len(pullup_presence_results),
                 "warn": sum(1 for r in pullup_presence_results if r.severity == "WARN"),
+                # TODO-318: 08g is no longer WARN-only — a pull path running through
+                # a multi-pin resistor package is INDETERMINATE, not absent. Without
+                # this key the new status would be invisible to derive_checker_counts
+                # and so to every baseline compare, surfacing only as a residual_delta.
+                "unresolvable": sum(1 for r in pullup_presence_results
+                                    if r.severity == "UNRESOLVABLE"),
             },
             # TODO-368 Phase 2 (D368-D): "_count"-suffixed -> _COUNT_SUFFIXES-
             # compatible, automatically retained by corpus_baseline._extract_stats

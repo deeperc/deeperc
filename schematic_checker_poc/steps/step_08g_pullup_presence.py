@@ -138,6 +138,16 @@ VIOLATION_I2C_NAME_NO_PULLUP = "I2C_NET_NAME_NO_PULLUP"
 ACTIVATION_OD_PINTYPE = "od_pintype"
 ACTIVATION_I2C_NET_NAME = "i2c_net_name"
 
+# TODO-318: the pull-path walk only traverses TWO-PIN passives, because the
+# netlist does not encode which internal element of a resistor network pairs with
+# which package pin. A net whose only candidate pull path runs through a multi-pin
+# RN/RP package therefore walks to "no path found" — which is NOT the same claim
+# as "no pull-up exists". Emitting the WARN there asserts a missing pull-up the
+# checker cannot actually see. Route UNRESOLVABLE instead (CLAUDE.md: failure
+# handling routes to UNRESOLVABLE, never a silent downgrade). Applies at all five
+# presence sites; the element pairing is disclosed, never inferred.
+REASON_PULL_PATH_INDETERMINATE = "PULL_PATH_INDETERMINATE"
+
 # I2C role set classify_net_name may resolve (peripheral_roles.Role); used only
 # to gate the name-based alternate entry, never to broaden it to other buses.
 _I2C_ROLES = (Role.I2C_DATA, Role.I2C_CLOCK)
@@ -172,9 +182,21 @@ _MCU_INTERNAL_PULLUP_CAVEAT = (
 
 @dataclass
 class PullupPresenceFinding:
-    """A single presence WARN. WARN-only by construction (v1). `severity` is the
-    plain string "WARN" so the registry's `_severity_reader` moves the board
-    verdict (all_pass→has_warn)."""
+    """A single presence finding. `severity` is a plain string so the registry's
+    `_severity_reader` moves the board verdict (all_pass→has_warn).
+
+    Two severities, both emitted by the same five sites:
+
+      * "WARN" (the default, and every v1 finding) — the pull-path walk found no
+        path and the net carries no multi-pin resistor package, so "no pull-up"
+        is a claim the netlist actually supports.
+      * "UNRESOLVABLE" with ``reason = PULL_PATH_INDETERMINATE`` (TODO-318) — the
+        walk found no path BUT a multi-pin RN/RP package sits on the net, whose
+        internal element pairing the netlist does not encode. The checker cannot
+        distinguish "pulled up through the network" from "not pulled up at all",
+        so it reports the pull path as indeterminate rather than asserting a
+        missing pull-up. The pairing is never inferred.
+    """
     net: str
     family: str
     violation: str
@@ -188,6 +210,9 @@ class PullupPresenceFinding:
     # applicable") rather than mislabeled as "od_pintype" (their activation was
     # never pintype-based to begin with; it's MPN/pin-function-primary).
     activation: str | None = None
+    # TODO-318: structured reason for an UNRESOLVABLE finding
+    # (REASON_PULL_PATH_INDETERMINATE). None on every WARN.
+    reason: str | None = None
 
 
 # ── Census-fixed identification matchers (vocabulary from CENSUS.md) ───────────
@@ -492,6 +517,13 @@ def _family_generic_od(ir, pin_specs, kb, peripheral_routing,
             # (4) has_pull_path walk, unchanged — I2C is open-drain-in-intent, so
             # only the UP (pull-up) direction applies here.
             if not has_pull_path(net, ir, Direction.UP, comps_by_refdes, comps_on_net):
+                _rns = _rn_on_net(net, comps_by_refdes)
+                if _rns:
+                    findings.append(_indeterminate_finding(
+                        net.name, FAMILY_GENERIC_OD, VIOLATION_I2C_NAME_NO_PULLUP,
+                        [f"{rd}.{pid}" for rd, pid in net.pins], name_path_tokens,
+                        _rns, activation=ACTIVATION_I2C_NET_NAME))
+                    continue
                 evidence = (
                     f"Net {net.name!r} is classified as an I2C data/clock line by "
                     f"net name (no symbol-declared open-collector/open-drain pin on "
@@ -523,40 +555,54 @@ def _family_generic_od(ir, pin_specs, kb, peripheral_routing,
 
         if oc_pins:
             if not has_pull_path(net, ir, Direction.UP, comps_by_refdes, comps_on_net):
-                drv = ", ".join(f"{rd}.{_pin_name_of(comps_by_refdes.get(rd), pid)}"
-                                for rd, pid in oc_pins)
-                findings.append(PullupPresenceFinding(
-                    net=net.name, family=FAMILY_GENERIC_OD,
-                    violation=VIOLATION_OD_NO_PULLUP,
-                    pins=[f"{rd}.{pid}" for rd, pid in oc_pins],
-                    corroboration=corr,
-                    evidence=(
-                        f"Open-collector/open-drain output(s) [{drv}] drive net "
-                        f"{net.name!r} with no pull-up path to a positive rail "
-                        f"(direct R, or a correctly-oriented diode+R). An OD output "
-                        f"only sinks — without a pull-up the net has no defined high "
-                        f"level."
-                        + (f" (datasheet corroborates open-drain: {corr})" if corr else "")
-                    ),
-                    activation=ACTIVATION_OD_PINTYPE,
-                ))
+                _rns = _rn_on_net(net, comps_by_refdes)
+                if _rns:
+                    findings.append(_indeterminate_finding(
+                        net.name, FAMILY_GENERIC_OD, VIOLATION_OD_NO_PULLUP,
+                        [f"{rd}.{pid}" for rd, pid in oc_pins], corr,
+                        _rns, activation=ACTIVATION_OD_PINTYPE))
+                else:
+                    drv = ", ".join(f"{rd}.{_pin_name_of(comps_by_refdes.get(rd), pid)}"
+                                    for rd, pid in oc_pins)
+                    findings.append(PullupPresenceFinding(
+                        net=net.name, family=FAMILY_GENERIC_OD,
+                        violation=VIOLATION_OD_NO_PULLUP,
+                        pins=[f"{rd}.{pid}" for rd, pid in oc_pins],
+                        corroboration=corr,
+                        evidence=(
+                            f"Open-collector/open-drain output(s) [{drv}] drive net "
+                            f"{net.name!r} with no pull-up path to a positive rail "
+                            f"(direct R, or a correctly-oriented diode+R). An OD output "
+                            f"only sinks — without a pull-up the net has no defined high "
+                            f"level."
+                            + (f" (datasheet corroborates open-drain: {corr})" if corr else "")
+                        ),
+                        activation=ACTIVATION_OD_PINTYPE,
+                    ))
         if oe_pins:
             if not has_pull_path(net, ir, Direction.DOWN, comps_by_refdes, comps_on_net):
-                drv = ", ".join(f"{rd}.{_pin_name_of(comps_by_refdes.get(rd), pid)}"
-                                for rd, pid in oe_pins)
-                findings.append(PullupPresenceFinding(
-                    net=net.name, family=FAMILY_GENERIC_OD,
-                    violation=VIOLATION_OD_NO_PULLDOWN,
-                    pins=[f"{rd}.{pid}" for rd, pid in oe_pins],
-                    corroboration=corr,
-                    evidence=(
-                        f"Open-emitter output(s) [{drv}] drive net {net.name!r} with "
-                        f"no pull-down path to ground. An open-emitter output only "
-                        f"sources — without a pull-down the net has no defined low "
-                        f"level."
-                    ),
-                    activation=ACTIVATION_OD_PINTYPE,
-                ))
+                _rns = _rn_on_net(net, comps_by_refdes)
+                if _rns:
+                    findings.append(_indeterminate_finding(
+                        net.name, FAMILY_GENERIC_OD, VIOLATION_OD_NO_PULLDOWN,
+                        [f"{rd}.{pid}" for rd, pid in oe_pins], corr,
+                        _rns, activation=ACTIVATION_OD_PINTYPE))
+                else:
+                    drv = ", ".join(f"{rd}.{_pin_name_of(comps_by_refdes.get(rd), pid)}"
+                                    for rd, pid in oe_pins)
+                    findings.append(PullupPresenceFinding(
+                        net=net.name, family=FAMILY_GENERIC_OD,
+                        violation=VIOLATION_OD_NO_PULLDOWN,
+                        pins=[f"{rd}.{pid}" for rd, pid in oe_pins],
+                        corroboration=corr,
+                        evidence=(
+                            f"Open-emitter output(s) [{drv}] drive net {net.name!r} with "
+                            f"no pull-down path to ground. An open-emitter output only "
+                            f"sources — without a pull-down the net has no defined low "
+                            f"level."
+                        ),
+                        activation=ACTIVATION_OD_PINTYPE,
+                    ))
     return findings
 
 
@@ -577,6 +623,12 @@ def _family_flash_cs(ir, comps_by_refdes, comps_on_net) -> list[PullupPresenceFi
             seen_nets.add(p.net)
             corr = [f"net-name {p.net!r}"] if _CS_NET_RE.search(p.net) else []
             if not has_pull_path(net, ir, Direction.UP, comps_by_refdes, comps_on_net):
+                _rns = _rn_on_net(net, comps_by_refdes)
+                if _rns:
+                    findings.append(_indeterminate_finding(
+                        p.net, FAMILY_FLASH_CS, VIOLATION_FLASH_CS_NO_PULLUP,
+                        [f"{comp.refdes}.{p.pin_id}"], corr, _rns))
+                    continue
                 findings.append(PullupPresenceFinding(
                     net=p.net, family=FAMILY_FLASH_CS,
                     violation=VIOLATION_FLASH_CS_NO_PULLUP,
@@ -619,6 +671,13 @@ def _family_sd(ir, comps_by_refdes, comps_on_net) -> list[PullupPresenceFinding]
             seen_nets.add(p.net)
             role = "CMD" if is_cmd else "DAT"
             if not has_pull_path(net, ir, Direction.UP, comps_by_refdes, comps_on_net):
+                _rns = _rn_on_net(net, comps_by_refdes)
+                if _rns:
+                    findings.append(_indeterminate_finding(
+                        p.net, FAMILY_SD, VIOLATION_SD_NO_PULLUP,
+                        [f"{comp.refdes}.{p.pin_id}"],
+                        [f"pin-function {p.pin_name!r}"], _rns))
+                    continue
                 findings.append(PullupPresenceFinding(
                     net=p.net, family=FAMILY_SD,
                     violation=VIOLATION_SD_NO_PULLUP,
@@ -641,6 +700,43 @@ def _net_by_name(ir, name):
         if net.name == name:
             return net
     return None
+
+
+def _rn_on_net(net, comps_by_refdes) -> list[str]:
+    """Refdes of every multi-pin resistor package attached to ``net`` (TODO-318).
+
+    "Resistor package" reuses the checker's OWN `_is_resistor` refdes convention
+    (R*/FB*, the same prefix logic `_has_pullup` uses) plus a >2-pin cardinality
+    test — a discrete resistor has exactly 2 pins, so >2 is the network/array
+    shape. No value parsing and no new regex: this only has to answer "is there a
+    package on this net whose internal element pairing the netlist cannot tell us
+    about", not "what is it".
+    """
+    out: list[str] = []
+    for refdes in {rd for rd, _ in net.pins}:
+        comp = comps_by_refdes.get(refdes)
+        if comp is None or not _is_resistor(refdes):
+            continue
+        if len(comp.pins) > 2:
+            out.append(refdes)
+    return sorted(out)
+
+
+def _indeterminate_finding(net_name, family, violation, pins, corroboration,
+                           rns, activation=None) -> "PullupPresenceFinding":
+    """The TODO-318 UNRESOLVABLE twin of a presence WARN. Same net, same family,
+    same violation code — only the severity, reason and evidence differ."""
+    return PullupPresenceFinding(
+        net=net_name, family=family, violation=violation,
+        pins=pins, corroboration=corroboration,
+        evidence=(
+            f"pull path indeterminate: resistor network {', '.join(rns)} on net; "
+            f"element pairing not in netlist"
+        ),
+        severity="UNRESOLVABLE",
+        activation=activation,
+        reason=REASON_PULL_PATH_INDETERMINATE,
+    )
 
 
 def _pin_name_of(comp, pin_id: str) -> str:

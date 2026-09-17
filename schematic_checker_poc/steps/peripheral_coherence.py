@@ -86,7 +86,7 @@ class CoherenceViolation:
     net:          str
     pin_role:     str   # peripheral_roles.Role.value — the pin's true role
     net_role:     str   # the net-name-implied role (the contradiction)
-    status:       str   # "FAIL" | "UNRESOLVABLE"
+    status:       str   # "FAIL" | "WARN" | "UNRESOLVABLE"
     source:       str   # "pin_function" | "kb_possible_roles"
     # TODO-417 H2 (scope item 3): WHICH guard produced an UNRESOLVABLE status —
     # "matrix" | "kb_instance_disagreement" | None (FAIL, no guard fired).
@@ -100,6 +100,7 @@ def find_coherence_violations(
     kb_role_lookup=None,
     matrix_lookup=None,
     kb_instance_lookup=None,
+    net_members_lookup=None,
 ) -> list[CoherenceViolation]:
     """Pin-role vs net-name contradictions within ``signal_pair``.
 
@@ -126,8 +127,14 @@ def find_coherence_violations(
                         possible_roles may CONDEMN (ambiguity-free) or CORROBORATE
                         (instance agreement) but must never unilaterally ASSERT —
                         see the CLAUDE.md KB-evidence rule.
+        net_members_lookup: optional ``(net) -> [(refdes, pin_id, role|None)]``
+                        over every component pin on that net, where ``role`` is
+                        ``role_from_pin_function(pin_function)``. TODO-479: the
+                        SPI corroboration gate's evidence source. Passed ONLY by
+                        ``check_spi_coherence``; the I2C callers leave it None and
+                        are byte-identical.
 
-    Returns a flat list of CoherenceViolation (FAIL or UNRESOLVABLE).
+    Returns a flat list of CoherenceViolation (FAIL, WARN or UNRESOLVABLE).
     """
     out: list[CoherenceViolation] = []
     for comp in netlist.components:
@@ -158,6 +165,34 @@ def find_coherence_violations(
                 continue
             status = "FAIL"
             guard = None   # TODO-417 H2 (scope item 3): which UNRESOLVABLE guard fired
+            # ── TODO-479: KB-scoped SPI direction corroboration ────────────────
+            # KB SPI signal roles encode MASTER-mode assignments only. A correctly
+            # wired SLAVE-mode MCU therefore reads as a swap against its own KB and
+            # FAILs — the KB asserting bus direction on its own, which the CLAUDE.md
+            # KB-evidence rule forbids. A KB-sourced SPI violation keeps FAIL only
+            # when an independent device on the same net CORROBORATES the net name
+            # through its OWN pin function; otherwise it is a WARN.
+            #
+            # Scoped on `source`, deliberately NOT on status or violation type: a
+            # pin_function-sourced violation is the peripheral's own unambiguous
+            # pin name (an SD card's DI, a flash's DO) and needs no corroboration —
+            # it never enters this branch. 17 of the 19 SPI-role mutant violation
+            # rows in the bad corpus are pin_function-sourced; widening this gate
+            # by severity or violation type instead of by source would demote them
+            # to WARN and gut M12/M99 recall. tests/test_peripheral_coherence.py's
+            # scope-tripwire test exists to fail if anyone does that.
+            if (source == "kb_possible_roles"
+                    and net_members_lookup is not None
+                    and signal_pair == SPI_COHERENCE_GROUP):
+                corroborated = any(
+                    m_refdes != comp.refdes
+                    and m_role == net_role
+                    and m_role != pin_role
+                    for m_refdes, _m_pin_id, m_role in (net_members_lookup(pin.net) or [])
+                )
+                if not corroborated:
+                    status = "WARN"
+                    guard = "spi_direction_uncorroborated"
             if from_kb and matrix_lookup is not None and matrix_lookup(comp.refdes):
                 status = "UNRESOLVABLE"
                 guard = "matrix"
@@ -294,8 +329,34 @@ def check_spi_coherence(netlist, kb, canonicalize) -> list[CoherenceViolation]:
     No ``kb_instance_lookup``: its net-side half, ``instance_from_net_name``, is
     I2C-only (matches only ``I2C\\d`` tokens) and would never fire on an SPI net
     name — passing it would be structurally inert, not a safety gate (D2 ruling).
+
+    TODO-479 (KB-scoped corroboration gate): ``net_members_lookup`` is now passed
+    so a KB-sourced SPI violation must be corroborated by another device's OWN pin
+    function before it may FAIL. KB SPI roles are master-mode assignments; without
+    this, a correctly wired SLAVE-mode MCU FAILs against its own KB. Uncorroborated
+    KB-sourced violations become WARN with guard ``spi_direction_uncorroborated``.
+    pin_function-sourced violations are untouched — see the gate's own comment.
     """
     return find_coherence_violations(
         netlist, SPI_COHERENCE_GROUP,
         kb_role_lookup=kb_role_lookup_from(kb, canonicalize, netlist),
+        net_members_lookup=net_members_lookup_from(netlist),
     )
+
+
+def net_members_lookup_from(netlist):
+    """Build a ``(net) -> [(refdes, pin_id, role|None)]`` over every component pin.
+
+    ``role`` is ``role_from_pin_function(pin.pin_name)`` — the same generic,
+    component-agnostic recognizer Source 1 of ``find_coherence_violations`` uses,
+    so a peripheral's own SDI/SDO/DIN/DOUT/MOSI/MISO/SCK pin name resolves here
+    exactly as it would if that pin were the one under test. No KB is consulted:
+    the whole point of the corroboration is that it comes from a source
+    INDEPENDENT of the KB conviction it is being asked to corroborate.
+    """
+    by_net: dict[str, list] = {}
+    for comp in netlist.components:
+        for pin in comp.pins:
+            by_net.setdefault(pin.net, []).append(
+                (comp.refdes, pin.pin_id, _pdet.role_from_pin_function(pin.pin_name)))
+    return lambda net: by_net.get(net, [])

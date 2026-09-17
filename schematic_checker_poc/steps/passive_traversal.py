@@ -19,14 +19,31 @@ from steps.net_name_utils import normalize_net_name
 
 # ── Power-pin function names ───────────────────────────────────────────────────
 # Extend this set as new vendor naming conventions are encountered.
-
-POWER_PIN_FUNCTIONS = {
+#
+# TODO-21: ONE shared supply-pin base, consumed by all three recognizers that key
+# on a pin NAME — step_08b (`SUPPLY_PIN_NAMES`), step_08c (`POWER_PIN_NAMES`), and
+# this module's own traversal walk. Before this, the three carried independently
+# maintained literals that had drifted (08b 22 names, 08c 24, traversal 27), so a
+# PVCC/IOVCC/VDDH/VDDL supply pin was silently skipped by step_08b's `_is_supply_pin`
+# gate and produced NO finding at all — not even UNRESOLVABLE. The base lives here
+# because this module imports only `net_name_utils` (which imports nothing) and is
+# itself imported by no other module under `steps/`, so both step_08b and step_08c
+# can read it with no import cycle possible in either direction; it is also already
+# a `provenance.CORE_PIPELINE_FILES` member, so the shared constant enters
+# `checker_code_hash` with no hand edit to the derived-by-design provenance tuple.
+SUPPLY_PIN_NAMES = frozenset({
     "VCC", "VDD", "VCCA", "VCCB", "VCCO", "VCCIO", "VCCINT",
     "AVCC", "AVDD", "DVCC", "DVDD", "PVCC", "PVDD",
     "IOVCC", "IOVDD", "COREVDD",
     "VBAT", "VIN", "V+", "VCC1", "VCC2",
-    "VDDA", "VDDD", "VDDIO", "VDDH", "VDDL", "VBUS",
-}
+    "VDDA", "VDDD", "VDDIO", "VDDH", "VDDL",
+})
+
+# VBUS is traversal-only — rail reachability walks VBUS nets, but the supply
+# checker cannot distinguish a VBUS sense input (STM32/ATmega32U4/CP2105 USB
+# detect) from a VBUS supply input from the netlist, so it does not voltage-check
+# it.
+POWER_PIN_FUNCTIONS = frozenset(SUPPLY_PIN_NAMES) | {"VBUS"}
 
 _TRAILING_DIGITS_RE = re.compile(r"\d+$")
 

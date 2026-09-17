@@ -1386,3 +1386,81 @@ def test_mixed_matrix_net_single_emission_unchanged():
 #       net that wasn't resolved by power analysis) → UNRESOLVABLE or WARN?
 # TODO: I2C net with multiple MCUs having conflicting instances across a shared bus
 # TODO: UART TX/RX on an I2C-named net (wrong-peripheral protocol mismatch)
+
+
+# ═══ TODO-479: the SPI corroboration gate's WARN, seen through step_08d ════════
+#
+# check_spi_coherence may now return status "WARN" (KB-sourced SPI violation with
+# no independent pin-function corroboration on the net). step_08d's emit block
+# must carry that through as Severity.WARN with a real reason — collapsing it into
+# UNRESOLVABLE would change the board verdict (has_warn vs has_unresolvable_only).
+
+from steps.peripheral_coherence import CoherenceViolation      # noqa: E402
+
+
+def _spi_kb_mosi_on_pa7() -> dict:
+    return {("STM32F103C(8-B)Tx", "PA7"): PinFunctionEntry(
+        "STM32F103C(8-B)Tx", "PA7",
+        [PinRole(Peripheral.SPI, "SPI1", Signal.SPI_MOSI, KBSource.VENDOR_XML)])}
+
+
+def _slave_shape_netlist() -> Netlist:
+    """MCU whose KB role is MOSI on a /MISO net; the other device's pin carries no
+    SPI role, so nothing corroborates the net name. '/MISO' has no I2C/SDA/SCL
+    token, so the I2C block never touches it."""
+    comps = [
+        Component("U1", "STM32F103C8T6", [PinRef("17", "/MISO", "PA7")]),
+        Component("U2", "SOME_ADC", [PinRef("1", "/MISO", "CS")]),
+    ]
+    nets = [Net("/MISO", [("U1", "17"), ("U2", "1")])]
+    return Netlist(components=comps, nets=nets)
+
+
+def test_todo479_step08d_emits_warn_with_reason_not_unresolvable():
+    """(v) The slave-shape violation reaches the report as WARN + a real reason."""
+    findings = check_peripheral_buses(_slave_shape_netlist(), _spi_kb_mosi_on_pa7())
+    spi = [f for f in findings
+           if f.violation == PeripheralViolation.ROLE_MISMATCH and f.net == "/MISO"]
+    assert len(spi) == 1
+    f = spi[0]
+    assert f.severity == Severity.WARN
+    assert f.severity != Severity.UNRESOLVABLE
+    assert f.reason is not None
+    assert f.reason == FindingReason.SPI_DIRECTION_UNCORROBORATED
+
+
+def _patch_coherence(monkeypatch, i2c_status):
+    """Force one I2C violation and one KB-sourced SPI WARN onto the SAME net, so
+    only the suppression rule decides whether the WARN survives."""
+    import steps.step_08d_peripheral_checker as mod
+    net = "/MISO"
+    monkeypatch.setattr(mod, "check_i2c_coherence", lambda *a, **k: [CoherenceViolation(
+        refdes="U9", pin_id="1", pin_function="SDA", net=net,
+        pin_role="I2C_DATA", net_role="I2C_CLOCK", status=i2c_status,
+        source="pin_function", guard=None)])
+    monkeypatch.setattr(mod, "check_spi_coherence", lambda *a, **k: [CoherenceViolation(
+        refdes="U1", pin_id="17", pin_function="PA7", net=net,
+        pin_role="SPI_DATA_OUT", net_role="SPI_DATA_IN", status="WARN",
+        source="kb_possible_roles", guard="spi_direction_uncorroborated")])
+
+
+def test_todo479_step08d_warn_suppressed_behind_a_fail(monkeypatch):
+    """(vi-a) A WARN asserts about the net the same way a FAIL does, only weaker —
+    so an existing FAIL on that net suppresses it, exactly as it suppresses a FAIL."""
+    _patch_coherence(monkeypatch, "FAIL")
+    findings = check_peripheral_buses(_slave_shape_netlist(), {})
+    warns = [f for f in findings
+             if f.net == "/MISO" and f.severity == Severity.WARN
+             and f.reason == FindingReason.SPI_DIRECTION_UNCORROBORATED]
+    assert warns == []
+
+
+def test_todo479_step08d_warn_not_suppressed_behind_an_unresolvable(monkeypatch):
+    """(vi-b) An UNRESOLVABLE asserts nothing about the net, so it must NOT swallow
+    the WARN this gate exists to surface."""
+    _patch_coherence(monkeypatch, "UNRESOLVABLE")
+    findings = check_peripheral_buses(_slave_shape_netlist(), {})
+    warns = [f for f in findings
+             if f.net == "/MISO" and f.severity == Severity.WARN
+             and f.reason == FindingReason.SPI_DIRECTION_UNCORROBORATED]
+    assert len(warns) == 1

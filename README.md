@@ -166,7 +166,7 @@ Status: has_fail
   peripheral       0 PASS  0 WARN  2 FAIL  2 UNRESOLVABLE
   pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
   output_conflict  0 FAIL
-  pullup_presence  0 WARN
+  pullup_presence  0 WARN  0 UNRESOLVABLE
   (0.0s)
 
 FINDINGS
@@ -309,7 +309,7 @@ Status: has_fail
   peripheral       0 PASS  0 WARN  2 FAIL  0 UNRESOLVABLE
   pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
   output_conflict  0 FAIL
-  pullup_presence  0 WARN
+  pullup_presence  0 WARN  0 UNRESOLVABLE
   (0.0s)
 
 FINDINGS
@@ -445,7 +445,7 @@ Status: has_fail
   peripheral       0 PASS  0 WARN  2 FAIL  0 UNRESOLVABLE
   pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
   output_conflict  0 FAIL
-  pullup_presence  0 WARN
+  pullup_presence  0 WARN  0 UNRESOLVABLE
   (0.0s)
 
 FINDINGS
@@ -553,7 +553,7 @@ Status: has_fail
   peripheral       0 PASS  0 WARN  2 FAIL  0 UNRESOLVABLE
   pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
   output_conflict  0 FAIL
-  pullup_presence  0 WARN
+  pullup_presence  0 WARN  0 UNRESOLVABLE
   (4.1s)
 
 FINDINGS
@@ -618,6 +618,11 @@ UNRESOLVABLE
 ```
 
 That is the point.
+
+Remove `examples/stm32_spi_swap/spi_swap_stm32.net.rails.json` before
+running the test suite again — `examples_smoke.py` reads whatever
+sidecar is present, so a leftover one (still declaring the bad 3.7V
+`VBAT`) reports a false `stm32_spi_swap` failure.
 
 ## Verifying the cache locally
 

@@ -584,3 +584,64 @@ def test_rail_name_mismatch_reason():
     by_pin = {r.supply_pin_name: r for r in results}
     assert by_pin["VCC33"].unresolvable_reason is None   # PASS -> no reason
     assert by_pin["VDD5"].unresolvable_reason == SupplyUnresolvableReason.RAIL_NAME_MISMATCH
+
+
+# ── TODO-21: one shared supply-pin base across the three name-keyed recognizers ─
+#
+# step_08b (SUPPLY_PIN_NAMES), step_08c (POWER_PIN_NAMES) and passive_traversal
+# (POWER_PIN_FUNCTIONS) used to carry three independently maintained literals that
+# had drifted apart (22 / 24 / 27 names). The drift was not cosmetic: a PVCC,
+# IOVCC, VDDH or VDDL supply pin failed step_08b's `_is_supply_pin` gate and so
+# produced NO finding at all — not even UNRESOLVABLE — even when the part's
+# datasheet supply group was cached and available. They now read ONE base.
+
+def test_todo21_three_consumers_share_one_base():
+    """The three name-keyed recognizers see the same set; VBUS is the only delta."""
+    from steps.step_08b_supply_checker import SUPPLY_PIN_NAMES as base_08b
+    from steps.step_08c_structural_checker import POWER_PIN_NAMES as base_08c
+    from steps.passive_traversal import POWER_PIN_FUNCTIONS as base_traversal
+
+    assert set(base_08b) == set(base_08c)
+    assert set(base_08b) == set(base_traversal) - {"VBUS"}
+    assert len(base_08b) == 26
+
+
+def test_todo21_vbus_is_traversal_only():
+    """VBUS reaches the rail walk but never the supply voltage check.
+
+    The checker cannot tell a VBUS *sense* input (STM32 / ATmega32U4 / CP2105 USB
+    detect) from a VBUS *supply* input from the netlist alone, so voltage-checking
+    it would mint false findings on every USB-detect pin.
+    """
+    from steps.step_08b_supply_checker import SUPPLY_PIN_NAMES as base_08b
+    from steps.passive_traversal import POWER_PIN_FUNCTIONS as base_traversal
+
+    assert "VBUS" in base_traversal
+    assert "VBUS" not in base_08b
+    assert _is_supply_pin("VBUS") is False
+
+
+def test_todo21_widened_names_reach_the_unresolvable_path():
+    """PVCC / VDDH on an uncached part now emit SPEC_NOT_EXTRACTED, not silence.
+
+    This is the whole point of the convergence: before TODO-21 both pins were
+    dropped by the `_is_supply_pin` gate and the board carried no record that the
+    checker had ever looked at them.
+    """
+    comps = [
+        ComponentIR("U1", "UNCACHED_A", "", [PinIR("1", "PVCC", "+3V3")]),
+        ComponentIR("U2", "UNCACHED_B", "", [PinIR("1", "VDDH", "+3V3")]),
+    ]
+    results = check_component_supplies(comps, {}, {"+3V3": 3.3})
+    assert len(results) == 2
+    assert {r.supply_pin_name for r in results} == {"PVCC", "VDDH"}
+    for r in results:
+        assert r.status == "UNRESOLVABLE"
+        assert r.unresolvable_reason == SupplyUnresolvableReason.SPEC_NOT_EXTRACTED
+
+
+def test_todo21_vbus_pin_still_emits_nothing_from_step_08b():
+    """Control for the test above: the traversal-only name stays out of step_08b."""
+    comp = ComponentIR("U1", "UNCACHED_MCU", "", [PinIR("8", "VBUS", "+5V")])
+    results = check_component_supplies([comp], {}, {"+5V": 5.0})
+    assert results == []

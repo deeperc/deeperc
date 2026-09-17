@@ -78,6 +78,10 @@ class FindingReason(Enum):
     M14_TIE_UNRESOLVABLE         = "M14_TIE_UNRESOLVABLE"           # consensus 1-1 instance tie
     M14_CONSENSUS_MINORITY       = "M14_CONSENSUS_MINORITY"         # consensus cross-device minority
     UART_CLEARED_UNRESOLVABLE    = "UART_CLEARED_UNRESOLVABLE"      # M15 .cleared surfacing
+    # TODO-479: KB SPI roles are master-mode assignments, so a KB-sourced SPI
+    # role/net-name mismatch with no independent pin-function corroboration on
+    # the net is a WARN, not a FAIL. The only WARN-producing coherence guard.
+    SPI_DIRECTION_UNCORROBORATED = "SPI_DIRECTION_UNCORROBORATED"   # M12/M99 WARN branch
 
 
 @dataclass
@@ -186,6 +190,10 @@ def _is_passive_refdes(refdes: str) -> bool:
 _COHERENCE_GUARD_REASON = {
     "matrix": FindingReason.COHERENCE_MATRIX_GUARD,
     "kb_instance_disagreement": FindingReason.COHERENCE_KB_INSTANCE_GUARD,
+    # TODO-479: the only guard here that produces a WARN rather than an
+    # UNRESOLVABLE (KB-sourced SPI violation with no independent pin-function
+    # corroboration on the net).
+    "spi_direction_uncorroborated": FindingReason.SPI_DIRECTION_UNCORROBORATED,
 }
 
 
@@ -843,8 +851,14 @@ def check_peripheral_buses(
     _flagged_fail = {f.net for f in findings if f.severity == Severity.FAIL}
     _flagged_any = {f.net for f in findings
                     if f.severity in (Severity.FAIL, Severity.UNRESOLVABLE)}
+    # TODO-479: a WARN (KB-sourced, uncorroborated) is an ASSERTION about this net
+    # the same way a FAIL is — only weaker — so it is suppressed behind an existing
+    # FAIL exactly as a FAIL is, and NOT behind a mere UNRESOLVABLE (which asserts
+    # nothing, and would otherwise swallow the finding this gate exists to surface).
+    # Emitting a WARN adds its net to neither suppression set: it must not go on to
+    # mask a later FAIL or UNRESOLVABLE on the same net.
     for v in check_spi_coherence(netlist, kb, canonicalize_mpn_for_kb):
-        if v.net in (_flagged_fail if v.status == "FAIL" else _flagged_any):
+        if v.net in (_flagged_any if v.status == "UNRESOLVABLE" else _flagged_fail):
             continue
         _pin_sig = _SPI_SIG_LABEL.get(v.pin_role, v.pin_role)
         _net_sig = _SPI_SIG_LABEL.get(v.net_role, v.net_role)
@@ -853,7 +867,12 @@ def check_peripheral_buses(
                       else f"{_pin_sig}/{_net_sig} SPI role swap")
         findings.append(PeripheralFinding(
             violation=PeripheralViolation.ROLE_MISMATCH,
-            severity=Severity.FAIL if v.status == "FAIL" else Severity.UNRESOLVABLE,
+            # TODO-479: three-arm. "WARN" is the KB-sourced-uncorroborated branch;
+            # it must not collapse into UNRESOLVABLE (has_warn and
+            # has_unresolvable_only are different board verdicts).
+            severity=(Severity.FAIL if v.status == "FAIL"
+                      else Severity.WARN if v.status == "WARN"
+                      else Severity.UNRESOLVABLE),
             net=v.net,
             pins=[f"{v.refdes}.{v.pin_id}"],
             evidence=(

@@ -470,6 +470,12 @@ def test_spi_kb_role_pin_on_wrong_net_violates():
     # PA6 (KB: SPI1 MISO), generic pin-function (no MOSI/MISO/SCK token), sits
     # on a MOSI-named net -> KB-sourced violation. Mirrors the real
     # spi_swap_stm32 fixture (STM32F103C8Tx PA6_16 on /MOSI, TODO-410 Phase 1 recon).
+    #
+    # TODO-479: the violation still fires, but the MCU is ALONE on this net here —
+    # nothing independently corroborates the net name — so its status is now WARN,
+    # not FAIL. The real spi_swap_stm32 fixture is NOT alone on its nets (the
+    # ADS8319 carries SDI on /MOSI and SDO on /MISO), so both of its FAILs survive
+    # the gate; see test_todo479_corroborated_kb_spi_violation_stays_fail below.
     kb = {("STM32F103C(8-B)Tx", "PA6"): PinFunctionEntry(
         "STM32F103C(8-B)Tx", "PA6",
         [PinRole(Peripheral.SPI, "SPI1", Signal.SPI_MISO, KBSource.VENDOR_XML)])}
@@ -478,7 +484,8 @@ def test_spi_kb_role_pin_on_wrong_net_violates():
     assert len(vios) == 1
     v = vios[0]
     assert v.pin_role == "SPI_DATA_IN" and v.net_role == "SPI_DATA_OUT"
-    assert v.status == "FAIL" and v.source == "kb_possible_roles"
+    assert v.status == "WARN" and v.source == "kb_possible_roles"
+    assert v.guard == "spi_direction_uncorroborated"
 
 
 def test_spi_kb_role_ambiguous_pin_no_violation():
@@ -568,6 +575,8 @@ def test_rp2040_correct_i2c_no_false_fail():
 # these roles are RX->miso, TX->mosi, SCK->sck, CSn->nss, correct only when
 # the RP2040 is the SPI master.
 
+# Uncorroborated single-device net: WARN under the TODO-479 corroboration gate;
+# the corroborated case is test_rp2040_spi_swap_corroborated_fails_via_kb.
 def test_spi_kb_role_pin_on_wrong_net_violates_rp2040():
     # Synthetic KB, mirrors test_spi_kb_role_pin_on_wrong_net_violates above but
     # for an RP2040-shaped entry -- GPIO0 (KB: SPI0 MISO), generic pin-function
@@ -580,16 +589,39 @@ def test_spi_kb_role_pin_on_wrong_net_violates_rp2040():
     assert len(vios) == 1
     v = vios[0]
     assert v.pin_role == "SPI_DATA_IN" and v.net_role == "SPI_DATA_OUT"
-    assert v.status == "FAIL" and v.source == "kb_possible_roles"
+    assert v.status == "WARN" and v.source == "kb_possible_roles"
 
 
+# Uncorroborated single-device net: WARN under the TODO-479 corroboration gate;
+# the corroborated case is test_rp2040_spi_swap_corroborated_fails_via_kb.
 def test_rp2040_spi_swap_caught_via_kb():
     kb, routing = _load_real_kb()
     assert ("RP2040", "GPIO0") in kb, "RP2040 KB must be loaded"
     # GPIO0 (SPI0 MISO, from RX) on the MOSI net, GPIO3 (SPI0 MOSI, from TX) on
-    # the MISO net -> swap.
+    # the MISO net -> swap. U1 alone on both nets -> nothing corroborates -> WARN.
     ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("2", "GPIO0", "/MOSI"),
                                         _Pin("5", "GPIO3", "/MISO")])])
+    findings = s08d.check_peripheral_buses(ir, kb, routing)
+    warns = [f for f in findings
+             if f.severity is s08d.Severity.WARN and "MOSI/MISO swap" in f.evidence]
+    fails = [f for f in findings
+             if f.severity is s08d.Severity.FAIL and "MOSI/MISO swap" in f.evidence]
+    assert len(warns) == 2
+    assert all("role source: kb_possible_roles" in f.evidence for f in warns)
+    assert fails == []
+
+
+def test_rp2040_spi_swap_corroborated_fails_via_kb():
+    """(TODO-479) Same swap as test_rp2040_spi_swap_caught_via_kb, but a second
+    device on each net independently corroborates via its own pin function
+    (SDI->SPI_DATA_OUT on /MOSI, SDO->SPI_DATA_IN on /MISO -- the shipped
+    examples/stm32_spi_swap ADS8319 shape, see test_todo479_corroborated_kb_spi_
+    violation_stays_fail above) -> both swaps stay FAIL."""
+    kb, routing = _load_real_kb()
+    ir = _ir([_Comp("U1", "RP2040-B2", [_Pin("2", "GPIO0", "/MOSI"),
+                                        _Pin("5", "GPIO3", "/MISO")]),
+              _Comp("U2", "SOME_ADC", [_Pin("1", "SDI", "/MOSI"),
+                                        _Pin("2", "SDO", "/MISO")])])
     fails = [f for f in s08d.check_peripheral_buses(ir, kb, routing)
              if f.severity is s08d.Severity.FAIL and "MOSI/MISO swap" in f.evidence]
     assert len(fails) == 2
@@ -838,3 +870,99 @@ def test_coherence_guard_threaded_into_peripheral_finding_reason():
                and "SDA/SCL swap" in f.evidence]
     assert len(matches) == 1
     assert matches[0].reason == s08d.FindingReason.COHERENCE_KB_INSTANCE_GUARD
+
+
+# ── TODO-479: KB-scoped SPI direction corroboration gate ──────────────────────
+#
+# KB SPI signal roles encode MASTER-mode assignments only, so a correctly wired
+# SLAVE-mode MCU reads as a swap against its own KB and FAILs. A KB-sourced SPI
+# violation now keeps FAIL only when an independent device on the same net
+# corroborates the net name through its OWN pin function; otherwise WARN with
+# guard "spi_direction_uncorroborated".
+#
+# Direction note (verified against peripheral_detectability.role_from_pin_function,
+# which is NET-FRAME): SDI -> SPI_DATA_OUT (belongs on a MOSI net), SDO ->
+# SPI_DATA_IN (belongs on a MISO net). So on a /MISO net it is SDO that agrees
+# with the net name and therefore corroborates, and SDI that does not. This is
+# also what makes the shipped examples/stm32_spi_swap fixture keep both its FAILs
+# (its ADC carries SDI on /MOSI and SDO on /MISO).
+
+_KB_PA7_MOSI = {("STM32F103C(8-B)Tx", "PA7"): PinFunctionEntry(
+    "STM32F103C(8-B)Tx", "PA7",
+    [PinRole(Peripheral.SPI, "SPI1", Signal.SPI_MOSI, KBSource.VENDOR_XML)])}
+
+
+def _spi_ir(other_pin_name):
+    """MCU whose KB role is MOSI sitting on a /MISO net, plus one other device pin
+    on that same net. `other_pin_name` decides whether it corroborates."""
+    return _ir([
+        _Comp("U1", "STM32F103C8T6", [_Pin("17", "PA7", "/MISO")]),
+        _Comp("U2", "SOME_ADC", [_Pin("1", other_pin_name, "/MISO")]),
+    ])
+
+
+def test_todo479_uncorroborated_kb_spi_violation_is_warn():
+    """(i) Slave-shape: nothing on the net independently agrees with the net name."""
+    ir = _spi_ir("CS")          # in-group role: none -> cannot corroborate, cannot violate
+    vios = pc.check_spi_coherence(ir, _KB_PA7_MOSI, s08d.canonicalize_mpn_for_kb)
+    assert len(vios) == 1
+    v = vios[0]
+    assert v.refdes == "U1" and v.source == "kb_possible_roles"
+    assert v.status == "WARN"
+    assert v.guard == "spi_direction_uncorroborated"
+    assert [x for x in vios if x.status == "FAIL"] == []
+
+
+def test_todo479_corroborated_kb_spi_violation_stays_fail():
+    """(ii) The peripheral's own SDO pin agrees with the /MISO net name and
+    contradicts the MCU's KB role -> genuine swap, FAIL survives, no guard.
+
+    This is the shipped examples/stm32_spi_swap shape."""
+    ir = _spi_ir("SDO")
+    vios = pc.check_spi_coherence(ir, _KB_PA7_MOSI, s08d.canonicalize_mpn_for_kb)
+    assert len(vios) == 1
+    v = vios[0]
+    assert v.refdes == "U1" and v.source == "kb_possible_roles"
+    assert v.status == "FAIL"
+    assert v.guard is None
+
+
+def test_todo479_connector_only_net_is_warn():
+    """(iii) A connector carries no pin-function role, so it can never corroborate."""
+    ir = _ir([
+        _Comp("U1", "STM32F103C8T6", [_Pin("17", "PA7", "/MISO")]),
+        _Comp("J1", "CONN_2x5", [_Pin("3", "3", "/MISO")]),
+    ])
+    vios = pc.check_spi_coherence(ir, _KB_PA7_MOSI, s08d.canonicalize_mpn_for_kb)
+    assert len(vios) == 1
+    assert vios[0].status == "WARN"
+    assert vios[0].guard == "spi_direction_uncorroborated"
+
+
+def test_todo479_pin_function_sourced_violation_still_fails_uncorroborated():
+    """(iv) SCOPE TRIPWIRE. A pin_function-sourced SPI violation is the device's
+    OWN unambiguous pin name — it needs no corroboration and must never enter the
+    gate. 17 of the 19 SPI-role mutant violation rows in the bad corpus are
+    pin_function-sourced; if this test starts failing, someone widened the gate
+    from `source` to status/severity/violation-type and M12/M99 recall is gone.
+    """
+    ir = _ir([_Comp("U2", "SOME_ADC", [_Pin("1", "SDI", "/MISO")])])
+    vios = pc.check_spi_coherence(ir, {}, s08d.canonicalize_mpn_for_kb)
+    assert len(vios) == 1
+    v = vios[0]
+    assert v.source == "pin_function"
+    assert v.status == "FAIL"
+    assert v.guard is None
+
+
+def test_todo479_gate_is_spi_only_i2c_untouched():
+    """The I2C callers pass no net_members_lookup, so an uncorroborated KB-sourced
+    I2C violation is byte-identically a FAIL, exactly as before."""
+    kb = {("STM32F103C(8-B)Tx", "PB7"): PinFunctionEntry(
+        "STM32F103C(8-B)Tx", "PB7",
+        [PinRole(Peripheral.I2C, "I2C1", Signal.I2C_SCL, KBSource.VENDOR_XML)])}
+    ir = _ir([_Comp("U1", "STM32F103C8T6", [_Pin("93", "PB7", "/SDA")])])
+    vios = pc.check_i2c_coherence(ir, kb, _ROUTING, s08d.canonicalize_mpn_for_kb) \
+        if hasattr(pc, "check_i2c_coherence") else []
+    assert [v.status for v in vios] == ["FAIL"]
+    assert [v.guard for v in vios] == [None]

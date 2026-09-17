@@ -1,8 +1,9 @@
 # DeepERC — pipeline architecture
 
-> Verified by hand against the code at checker era `4c0b3b89`, cache version
-> `2026-08-15+852cfb49d06a`. If this document and the code disagree, the code
-> is right.
+> This document describes the pipeline's structure, not a pinned checker
+> version — for the current era, see `provenance.checker_code_hash()` and
+> the provenance block printed in every report. If this document and the
+> code disagree, the code is right.
 
 The [README](../README.md) carries a two-lane summary. This is the same
 architecture with the detail left in: what ships as data and what makes it,

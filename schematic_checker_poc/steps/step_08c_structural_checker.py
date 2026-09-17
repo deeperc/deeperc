@@ -75,13 +75,16 @@ def _record_unclaimed_power_pin(refdes: str, pin_name: str, net_name: str,
 
 # Pin name patterns — standardized across all IC vendors
 
-POWER_PIN_NAMES = {
-    "VCC", "VDD", "VCCA", "VCCB", "VCCO", "VCCIO", "VCCINT",
-    "AVCC", "AVDD", "DVCC", "DVDD", "PVCC", "PVDD",
-    "IOVCC", "IOVDD", "COREVDD",
-    "VBAT", "VIN", "V+", "VCC1", "VCC2",
-    "VDDA", "VDDD", "VDDIO",
-}
+# TODO-21: the canonical supply-pin base is now ONE shared constant, defined in
+# steps/passive_traversal.py and consumed identically here, in step_08b
+# (SUPPLY_PIN_NAMES) and by the traversal walk itself (POWER_PIN_FUNCTIONS = this
+# base | {"VBUS"}). POWER_PIN_NAMES is kept as this module's local alias — it is
+# referenced by _power_pin_recognition below and by investigation/ scan scripts.
+# The 'exact'/'prefix' two-tier recognition semantics are UNCHANGED; only the
+# exact-tier membership list is now shared (it gains VDDH/VDDL from the base).
+from steps.passive_traversal import SUPPLY_PIN_NAMES
+
+POWER_PIN_NAMES = SUPPLY_PIN_NAMES
 
 GROUND_PIN_NAMES = {
     "GND", "VSS", "AGND", "DGND", "PGND", "SGND", "CGND", "FGND",

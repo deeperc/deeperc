@@ -679,3 +679,103 @@ def test_check_entry_clean_board_no_findings():
         C("U2", [("1", "IN", "SIG")], mpn="LOGIC"),
     ], pintypes={("U1", "1"): "output"})
     assert check_pullup_presence(ir, {}, {}, None) == []
+
+
+# ═══ TODO-318: pull path indeterminate (multi-pin resistor package on the net) ══
+#
+# The walk only traverses TWO-pin passives, because the netlist does not encode
+# which internal element of a resistor network pairs with which package pin. A net
+# whose only candidate pull path runs through an RN/RP package therefore walks to
+# "no path found" — which is a DIFFERENT claim from "no pull-up exists". All five
+# presence sites now route UNRESOLVABLE/PULL_PATH_INDETERMINATE there instead of
+# asserting a missing pull-up. Element pairing is disclosed, never inferred.
+
+from steps.step_08g_pullup_presence import (      # noqa: E402
+    _rn_on_net, REASON_PULL_PATH_INDETERMINATE,
+)
+
+
+def _rn4(net_on_pin2, rail_on_pin1="+3V3"):
+    """A 4-element resistor network: pin 1 on a rail, pin 2 on the net under test,
+    pins 3/4 elsewhere. Element pairing (which internal R joins 1 to which) is
+    exactly what the netlist does not say."""
+    return C("RN1", [
+        ("1", "1", rail_on_pin1),
+        ("2", "2", net_on_pin2),
+        ("3", "3", "OTHER_A"),
+        ("4", "4", "OTHER_B"),
+    ], value="4K7")
+
+
+def test_todo318_rn_on_net_identifies_multipin_packages_only():
+    ir = build([
+        C("U1", [("13", "O4", "SIG")]),
+        _rn4("SIG"),
+        C("R1", [("1", "1", "SIG"), ("2", "2", "+3V3")], value="4K7"),
+        C("C1", [("1", "1", "SIG"), ("2", "2", "GND")]),
+    ])
+    # RN1 only: R1 is a 2-pin discrete, C1 is not a resistor refdes.
+    assert _rn_on_net(net_of(ir, "SIG"), {c.refdes: c for c in ir.components}) == ["RN1"]
+
+
+def test_todo318_od_site_rn_routes_indeterminate_not_warn():
+    """(i) OD pin + RN on the net, no discrete pull-up → one UNRESOLVABLE, no WARN."""
+    ir = build([
+        C("U1", [("13", "O4", "SIG")]),
+        C("U2", [("6", "IN", "SIG")]),
+        _rn4("SIG"),
+    ], pintypes={("U1", "13"): "open_collector"})
+    f = _run_fam1(ir)
+    assert len(f) == 1
+    assert f[0].net == "SIG"
+    assert f[0].severity == "UNRESOLVABLE"
+    assert f[0].reason == REASON_PULL_PATH_INDETERMINATE
+    assert f[0].violation == VIOLATION_OD_NO_PULLUP      # same family/violation as the site
+    assert f[0].family == FAMILY_GENERIC_OD
+    assert "RN1" in f[0].evidence
+    assert "pull path indeterminate" in f[0].evidence
+    assert [x for x in f if x.severity == "WARN"] == []
+
+
+def test_todo318_od_site_discrete_r_control_stays_silent():
+    """(ii) Control: a plain 2-pin R to the rail → the walk succeeds, no finding."""
+    ir = build([
+        C("U1", [("13", "O4", "SIG")]),
+        C("U2", [("6", "IN", "SIG")]),
+        C("R1", [("1", "1", "SIG"), ("2", "2", "+3V3")], value="4K7"),
+    ], pintypes={("U1", "13"): "open_collector"})
+    assert _run_fam1(ir) == []
+
+
+def test_todo318_od_site_rn_plus_discrete_r_stays_silent():
+    """(iv) An RN on the net does NOT mask a real discrete pull-up: the walk finds
+    the R, has_pull_path is True, and no finding of either severity is emitted."""
+    ir = build([
+        C("U1", [("13", "O4", "SIG")]),
+        C("U2", [("6", "IN", "SIG")]),
+        _rn4("SIG"),
+        C("R1", [("1", "1", "SIG"), ("2", "2", "+3V3")], value="4K7"),
+    ], pintypes={("U1", "13"): "open_collector"})
+    assert _run_fam1(ir) == []
+
+
+def test_todo318_i2c_name_path_site_rn_routes_indeterminate():
+    """(iii) The name-based Family-1 entry reaches the same indeterminate finding."""
+    ir = build([
+        C("U1", [("1", "SCL", "/X/I2C1_SCL_B")], mpn="SENSOR_A"),
+        C("U2", [("2", "SEL_DFC/SCL_DFC1", "/X/I2C1_SCL_B")], mpn="SENSOR_B"),
+        _rn4("/X/I2C1_SCL_B"),
+    ], pintypes={("U1", "1"): "bidirectional", ("U2", "2"): "input"})
+    f = _run_fam1(ir, kb={})
+    assert len(f) == 1
+    assert f[0].severity == "UNRESOLVABLE"
+    assert f[0].reason == REASON_PULL_PATH_INDETERMINATE
+    assert f[0].violation == VIOLATION_I2C_NAME_NO_PULLUP
+    assert f[0].activation == ACTIVATION_I2C_NET_NAME
+    assert "RN1" in f[0].evidence
+
+
+def test_todo318_warn_findings_carry_no_reason():
+    """A plain presence WARN is untouched: severity WARN, reason None."""
+    f = _run_fam1(_od_net(pull=False))
+    assert len(f) == 1 and f[0].severity == "WARN" and f[0].reason is None

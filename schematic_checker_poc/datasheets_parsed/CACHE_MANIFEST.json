@@ -122,6 +122,5 @@
   "generated_by": "export/package_cache.py",
   "schema_version": 1,
   "stems_file": "export/shipped_cache_stems.txt",
-  "stems_file_sha256": "a4dccbb1dfba384d062a282e9dc7c703b4819f1983f2bb487caace91911badb5",
-  "tip_sha": "5b0a7eaff84d18abab87606fd82561a061c92116"
+  "stems_file_sha256": "a4dccbb1dfba384d062a282e9dc7c703b4819f1983f2bb487caace91911badb5"
 }

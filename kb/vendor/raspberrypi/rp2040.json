@@ -2,8 +2,9 @@
   "mcu_part": "RP2040",
   "kb_source": "manual",
   "kb_version": "pico-sdk hardware/gpio.h function-select table (gpio.h)",
-  "extraction_timestamp": "2026-06-26T05:01:31.989766+00:00",
+  "extraction_timestamp": "2026-09-16T13:38:56.989897+00:00",
   "i2c_note": "RP2040 I2C is a FIXED per-pin mux: each GPIO maps to one I2C signal+instance (GPIO%4: 0\u2192I2C0 SDA, 1\u2192I2C0 SCL, 2\u2192I2C1 SDA, 3\u2192I2C1 SCL). Parsed from the pico-sdk gpio.h function-select table (F3=I2C), three-way agreement gated (parsed F3 vs %4 rule). NOT matrix-routed.",
+  "spi_note": "RP2040 SPI0/SPI1 signal roles per the RP2040 datasheet (GPIO function table). Assumes RP2040 operates as SPI master \u2014 in slave mode TX/RX map to MISO/MOSI respectively, the inverse of what's encoded here; the netlist carries no signal for which role the MCU occupies, so this is a stated assumption, not a detected fact. CSn is recorded but excluded from coherence checks.",
   "peripheral_routing": {
     "i2c": "fixed",
     "uart": "fixed",
