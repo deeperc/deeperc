@@ -1,6 +1,6 @@
 {
-  "cache_version": "2026-08-15+852cfb49d06a",
-  "file_count": 116,
+  "cache_version": "2026-09-19+69a58a6a8b91",
+  "file_count": 114,
   "files": {
     "1n4004/auto/1n4004_pin_groups.json": "7fcec3443b945183500474991376d21a7aa17f137686705b7a66c315b4344655",
     "1n4007/auto/1n4007_pin_groups.json": "e7cbf80431ae862aa4186c30c5b03ffecf409fb0f9170ede2e3f27eea9a35bdd",
@@ -8,14 +8,13 @@
     "1n5401/auto/1n5401_pin_groups.json": "53bf9c112c62dda1d9437300ba80756c814251c6a0dfba19475692b6d704dee2",
     "2n7000/auto/2n7000_pin_groups.json": "f89a14d27b0fc918ce83f601accfd9b0edcd42b7b688950543af062efe4f3ca8",
     "2n7002/auto/2n7002_pin_groups.json": "2510f71b2ae686bbceeb1c332b04e6a836c4921945a0d9ab373c309ebbdefff2",
-    "5272_ams1117-3.3/auto/5272_ams1117-3.3_pin_groups.json": "95a31d532cdd5aeb547ba2a313ff3ee325d02b766f6e3d21d6472fef35ca445b",
+    "5272_ams1117-3.3/auto/5272_ams1117-3.3_pin_groups.json": "01fb5f0503efd42c7a00e700390455581b7a5c83a8f3003d8e2ae8d8ab607510",
     "5272_ams1117-3.3/pdfplumber/patch_state.json": "2e14b112df610f29e9253cbb17c34421d4cdd5bb51a91e33a650c2a1d6ef19ca",
     "74ahc1g00/auto/74ahc1g00_pin_groups.json": "67a2896cdb0ae13f7400dd14b1c0a81b4ca0f7f14d8a2504d700436a1f972998",
     "74ahc1g14/auto/74ahc1g14_pin_groups.json": "954cb27a026ac791963e8a48433f60280298683dde428b4f853f2474b122f80e",
     "74hc125/auto/74hc125_pin_groups.json": "638a1e897032d81dbf120ded52c44f2afb4636363ecf826b7ea475c009995d56",
     "74hc240pwr/auto/74hc240pwr_pin_groups.json": "2bea3b8e06cebdab4c210a7c9444422b432213dea22a2fbf9c096279cdb9c5ef",
     "74ls04/auto/74ls04_pin_groups.json": "af609cbfbf730a9d2471c2eee9f2008025eef78d9f2b5c97a6aa9909f179fd52",
-    "74ls138/auto/74ls138_pin_groups.json": "ddb3094abc95e2c1c3bb21f59e215ad2c4839a2a075b8a4947b47f0227feae10",
     "74ls245/auto/74ls245_pin_groups.json": "61e9b6d116c570a51756ebae60ffb641b2b2c2d7c725f9d59add674cbb49a8db",
     "74ls541/auto/74ls541_pin_groups.json": "df6087915f096ac1b29e4954d61f39e8f9cb7c6a6e31d2771f371bc0c6f84103",
     "74ls688/auto/74ls688_pin_groups.json": "254b5b19546af33c41d3d37780c11f566d5db78d1b7f3c1d8e03bb8b1099941f",
@@ -60,7 +59,7 @@
     "icl7660/auto/icl7660_pin_groups.json": "dca3b1711d15f1c8ebdcd92dc99460237ce8bdcb79905d5499d1802b95b08faf",
     "ina180a1/auto/ina180a1_pin_groups.json": "230130b6cf3e509b01ecfbcdb852ad314588815fca7776fc55d8497006f1f08a",
     "irf540n-datasheet-en/auto/irf540n-datasheet-en_pin_groups.json": "5ca48f81174434ad7f35a7a78cd633de9b8e24e355a47921f7e8ee88fab2176e",
-    "lm358n/auto/lm358n_pin_groups.json": "7d6222c2d24ec7dd60a522fe7bc00b59889ef2296529ee0dc2e2d28687e6003c",
+    "lm358n/auto/lm358n_pin_groups.json": "09a05a6833e8831054d61a4ff9df6c0eb61f6ee5567b1604bc08086660e55eed",
     "lm3670mf/auto/lm3670mf_pin_groups.json": "000fc510db06c8a4e9871ccd43e27a7cc27166075d4a15d7517b0955cccb3391",
     "lm66200/auto/lm66200_pin_groups.json": "640cd9d5ece4b5fe90190ac9b2827f7c26e0cfff7e7784981464c7554f88c4ef",
     "lm7805/auto/lm7805_pin_groups.json": "b7fecf69cc649b235c47de81ea0d05888df34b1d54a3271d109f819564e40a98",
@@ -76,7 +75,6 @@
     "mh2029-300y/auto/mh2029-300y_pin_groups.json": "51900ad779748186a5d15dba0330ef269181cace5f7efc65ba3369812215f7b2",
     "mic5219-3.3ym5/auto/mic5219-3.3ym5_pin_groups.json": "eab24a42ab2e4b9b29034ffe7fe2be7ed91494cf5fdf82aab47d8e75444a2ad8",
     "mic5219-500ma-peak-output-ldo-regulator-ds20006021a/auto/mic5219-500ma-peak-output-ldo-regulator-ds20006021a_pin_groups.json": "0cf4d43b6ec892958a79aaa3960f47d2168a7aba883bfeb66ea0e3f88b0810ae",
-    "mmbt2222a/auto/mmbt2222a_pin_groups.json": "fcfe70ac707ead63801d2d686b79f065a969d8c6c9f1f7b577f288cc2cc4f125",
     "mpsa42/auto/mpsa42_pin_groups.json": "d98e079b4abbdd1c257a71f3842e8f7feea6a71e4a7745c2ece4bdaee5088c18",
     "mpsa92/auto/mpsa92_pin_groups.json": "e0a973675d442b5d5ee30e406926340a3441422a8b4dc922bc3a4cba7ae84000",
     "mpu-6000 mpu-6050/auto/mpu-6000 mpu-6050_pin_groups.json": "f4fd95edcf750809d1777130f8d2898e79c573cb309521e404ef1d4a33ecadea",
@@ -97,7 +95,7 @@
     "sn74lvc2g126dct/auto/sn74lvc2g126dct_pin_groups.json": "31b189de8ff7381621b8d2bb3862b467a51c8d74d542246352072154dd31f39d",
     "sn74lvch16t245dgg/auto/sn74lvch16t245dgg_pin_groups.json": "6f538f601a759c4e79f07d635c4e804dc3595ca2dc6db610665f791f63e00039",
     "sn74vmeh22501dggr/auto/sn74vmeh22501dggr_pin_groups.json": "b8b6e31dbc736a3cceb58ed44357fd0ccbff58ebebebd70eb5d6b7eb9c74e73a",
-    "stm32f103c8/auto/stm32f103c8_pin_groups.json": "edd59ff33177f969738842d552bc76a2674a54b1107074920ea6c9a70cc05b78",
+    "stm32f103c8/auto/stm32f103c8_pin_groups.json": "0fc290e58f01c44452c70821f7d18a2b01f3cab05a39aab6584c29ed2685098e",
     "stm32f103c8/pdfplumber/patch_state.json": "802b161166133de446a97953c0e8731d74959a695579e76fe1b71b146f661767",
     "stm32f405 stm32f407/auto/stm32f405 stm32f407_pin_groups.json": "481eaaaad2843844fa4325a59f2a5e1feff06953320ebbd260934208bbc8651f",
     "stm32f411/auto/stm32f411_pin_groups.json": "a7a06c09fc857c8924ae18003c35259584a95bcb288311bf31abb1baf8cb579e",
@@ -122,5 +120,5 @@
   "generated_by": "export/package_cache.py",
   "schema_version": 1,
   "stems_file": "export/shipped_cache_stems.txt",
-  "stems_file_sha256": "a4dccbb1dfba384d062a282e9dc7c703b4819f1983f2bb487caace91911badb5"
+  "stems_file_sha256": "f28145a0d810a842c4443d392534863a42845abbd39eec24a6715b02b767d7ac"
 }

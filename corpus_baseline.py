@@ -35,6 +35,14 @@ def git_sha(cwd: Optional[Path] = None) -> Optional[str]:
     return None
 
 
+# The tracked pointer files a baseline save rewrites (save_baseline and
+# recall_baseline.save_recall_baseline each overwrite their own latest.json).
+BASELINE_POINTER_PATHS = frozenset({
+    "corpus_results/baselines/latest.json",
+    "corpus_results/recall/baselines/latest.json",
+})
+
+
 def git_dirty(cwd: Optional[Path] = None) -> bool:
     """Return True if the working tree has uncommitted changes to TRACKED files.
 
@@ -45,13 +53,24 @@ def git_dirty(cwd: Optional[Path] = None) -> bool:
     reports dirty even when the tracked tree exactly matches its commit. That
     makes a genuinely dirty tracked tree indistinguishable from a clean one
     wherever this flag feeds provenance (baseline filenames, report
-    metadata)."""
+    metadata).
+
+    Changes to ``BASELINE_POINTER_PATHS`` alone do not count as dirty (TODO-489):
+    a baseline save rewrites its tracked pointer, so a second save in the same
+    cycle would otherwise name its file ``-dirty`` on a tree that is otherwise
+    clean."""
     try:
         r = subprocess.run(
             ["git", "status", "--porcelain", "--untracked-files=no"],
             capture_output=True, text=True, timeout=5, cwd=cwd,
         )
-        return bool(r.stdout.strip())
+        for line in r.stdout.splitlines():
+            if not line.strip():
+                continue
+            path = line[3:].split(" -> ")[-1]
+            if path not in BASELINE_POINTER_PATHS:
+                return True
+        return False
     except Exception:
         return False
 

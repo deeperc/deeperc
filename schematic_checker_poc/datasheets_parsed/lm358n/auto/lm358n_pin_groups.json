@@ -11,10 +11,10 @@
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 40.0,
+      "absolute_max_voltage": 32.0,
       "supply_min": 3.0,
-      "supply_max": 36.0,
-      "supply_abs_max": 40.0,
+      "supply_max": 30.0,
+      "supply_abs_max": 32.0,
       "supply_rail_name": "V+",
       "VIH_source": null,
       "abs_max_source": "Absolute Maximum Ratings"

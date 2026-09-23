@@ -1,9 +1,9 @@
-# export/shipped_cache_stems.txt — the LT-38 ship-list: the 114 publish-eligible
+# export/shipped_cache_stems.txt — the LT-38 ship-list: the 112 publish-eligible
 # datasheet-cache stems, VERBATIM from the Phase 3a recon report Step 1
 # (investigation/recon_reports/lt38_phase3a_packaging_recon.md). FROZEN: this
 # enumeration is never re-derived at build time — the esd5451n precedent (an
 # unrelated cache landing between census and recon drifted the census checksum
-# without touching the 114). One stem per line; blank lines and # comments are
+# without touching the 112). One stem per line; blank lines and # comments are
 # ignored. TWO stems contain a literal embedded space and are single lines:
 #   'mpu-6000 mpu-6050' and 'stm32f405 stm32f407'. Never split on whitespace.
 # Selection criteria (census §3/§8a): SDK-path extractor, hash-valid, no path
@@ -21,7 +21,6 @@
 74hc125
 74hc240pwr
 74ls04
-74ls138
 74ls245
 74ls541
 74ls688
@@ -82,7 +81,6 @@ mf-msmf050-2
 mh2029-300y
 mic5219-3.3ym5
 mic5219-500ma-peak-output-ldo-regulator-ds20006021a
-mmbt2222a
 mpsa42
 mpsa92
 mpu-6000 mpu-6050

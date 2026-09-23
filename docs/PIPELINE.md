@@ -13,8 +13,10 @@ a finding is measuring.
 
 Three claims this document exists to make checkable:
 
-1. A run on your machine makes **no LLM calls, needs no API key, and makes no
-   outbound network calls.**
+1. A run on your machine makes **no cloud calls, needs no API key, and makes
+   no outbound network calls; the one optional model call is to a local
+   Ollama on your own machine, for explanation text only, never a
+   verdict.**
 2. An LLM sits **upstream of the cache and downstream of the verdict** — never
    between your netlist and a verdict.
 3. The **evidence label is a measurement**, not a formatting choice.
@@ -101,7 +103,7 @@ graph TD
     IN["your_board.net"]:::data
     SHIPPED["shipped data<br/>pin-group cache + kb/"]:::data
 
-    subgraph RUN["RUN TIME — no key, no PDFs, no network, no LLM"]
+    subgraph RUN["RUN TIME — no key, no PDFs, no outbound network, no LLM in any verdict"]
         S02["STEP 02 · parse netlist"]:::det
         S03["STEP 03 · resolve parts<br/>cache first, always"]:::det
         S06["STEP 06 · infer power rails"]:::det

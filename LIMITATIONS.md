@@ -27,7 +27,10 @@
   affected either way. LLM explanation is attempted only for signal- and
   supply-check FAIL/WARN findings, and only when a local model is available;
   verdicts never depend on it. Structural findings' evidence tiers appear in
-  the JSON report regardless; the console only shows a summary subset.
+  the JSON report regardless; the console only shows a summary subset. If a
+  local model server is listening on port 11434 but does not answer, each
+  FAIL/WARN finding waits up to 300 s for explanation text before falling
+  back to the canned note; verdicts are unaffected.
 - Sheet-local (`/`-prefixed) POWER labels are classified as rails on the
   VDD/VBAT/VBUS/VIN/VOUT branches (plus a VSYS token), as of TODO-452/TODO-197.
   Three honest residuals remain: the PWR and VREF branches stay unslashed by

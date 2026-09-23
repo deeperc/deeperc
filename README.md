@@ -35,7 +35,7 @@ BUILD TIME — once, by us, offline. Ships in this repo as data.
 
 ════════════════════════════════════════════════════════════════
 
-RUN TIME — your machine. No key, no PDFs, no network, no LLM.
+RUN TIME — your machine. No key, no PDFs, no network. No LLM in any verdict; explanation text uses a local model only if you run one.
 
   your_board.net
         │
@@ -70,7 +70,8 @@ in [docs/PIPELINE.md](docs/PIPELINE.md).
 ## What runs where: three tiers
 
 1. **The shipped example parts — full checks, no keys, no PDFs, no GPU, no
-   LLM.** The repo ships pin-group caches for 114 parts, listed with hashes
+   LLM in any verdict (explanation text uses a local model only if one is
+   running).** The repo ships pin-group caches for 112 parts, listed with hashes
    in `schematic_checker_poc/datasheets_parsed/CACHE_MANIFEST.json`, including the demo board's two resolved parts
    (AMS1117-3.3, STM32F103C8T6). Every check runs on a fresh clone.
    The console's `Supply evidence` block labels each datasheet-backed
@@ -78,7 +79,7 @@ in [docs/PIPELINE.md](docs/PIPELINE.md).
    PDFs yourself and the same findings are re-labelled `Confirmed — …` (see
    [Verifying the cache locally](#verifying-the-cache-locally)).
 
-2. **Any board, PDF-free — limited support, no keys, no LLM.** The peripheral,
+2. **Any board, PDF-free — limited support, no keys, no LLM in any verdict.** The peripheral,
    structural, pull-up-presence, and output-conflict checks run on any KiCad
    netlist from the tracked knowledge base (`kb/`) alone. Datasheet-backed
    checks on parts without a cached extraction report `UNRESOLVABLE` — an
@@ -89,7 +90,9 @@ in [docs/PIPELINE.md](docs/PIPELINE.md).
    extractor against your parts' datasheets with an extraction backend (an
    Anthropic API key, or an experimental fully-local backend — see
    [Extracting your own parts](#extracting-your-own-parts)). Extraction is
-   one-time per part and cached; checking itself never calls an LLM.
+   one-time per part and cached; no verdict ever comes from an LLM; the only
+   model call at run time is the optional explanation step, which uses a
+   local model if one is listening and canned text if not.
 
 ## Install
 
@@ -464,38 +467,38 @@ UNRESOLVABLE
 
   signal /CSb — Driver voltage unknown — U2 power domain ambiguous (2
   rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA4
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   signal /MISO — Driver voltage unknown — U2 power domain ambiguous
   (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA7
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   signal /MOSI — Driver voltage unknown — U2 power domain ambiguous
   (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA6
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   signal /SCLK — Driver voltage unknown — U2 power domain ambiguous
   (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA5
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   (15 PASS finding(s) not shown — full detail in the JSON report)
@@ -580,38 +583,38 @@ UNRESOLVABLE
 
   signal /CSb — Driver voltage unknown — U2 power domain ambiguous (2
   rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA4
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   signal /MISO — Driver voltage unknown — U2 power domain ambiguous
   (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA7
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   signal /MOSI — Driver voltage unknown — U2 power domain ambiguous
   (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA6
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   signal /SCLK — Driver voltage unknown — U2 power domain ambiguous
   (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
-  Table 36: I/O static characteristics (formula: 0.42*(VDD-2V)+1V)
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
   (not locally verified)]
     driver=U2  receiver=U1 pin=PA5
     evidence: Cache-sourced — Table 36: I/O static characteristics
-    (formula: 0.42*(VDD-2V)+1V) (not locally verified)
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   (14 PASS finding(s) not shown — full detail in the JSON report)
@@ -744,7 +747,7 @@ before the other six checkers existed. For a grand total across every
 checker (`supply`, `structural`, `peripheral`, `pullup_value`,
 `output_conflict`, `pullup_presence` included), read
 `summary.total_pass`/`total_warn`/`total_fail`/`total_unresolvable`
-instead (schema `poc-1.4`, purely additive — the four un-prefixed keys
+instead (schema `poc-1.5`, purely additive — the four un-prefixed keys
 keep their original signal-only meaning).
 
 ## Extracting your own parts
@@ -834,7 +837,10 @@ KB authoring is only about the peripheral role/topology tables.
   affected either way. LLM explanation is attempted only for signal- and
   supply-check FAIL/WARN findings, and only when a local model is available;
   verdicts never depend on it. Structural findings' evidence tiers appear in
-  the JSON report regardless; the console only shows a summary subset.
+  the JSON report regardless; the console only shows a summary subset. If a
+  local model server is listening on port 11434 but does not answer, each
+  FAIL/WARN finding waits up to 300 s for explanation text before falling
+  back to the canned note; verdicts are unaffected.
 - For how the precision/recall numbers this project reports are measured, see
   [CORPUS.md](docs/CORPUS.md).
 - The full, current list — including release-specific limitations — lives in
