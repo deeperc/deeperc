@@ -218,3 +218,33 @@ def test_unresolvable_detail_line_dropped_when_it_repeats_the_header():
     text = rct._render_findings(report)
     assert text.count(evidence) == 1                # rendered exactly once (header only)
     assert "KB sources: VENDOR_XML" in text
+
+
+# ── TODO-533 follow-up: _supply_detail for NO_RATED_CEILING rows ───────────────
+
+def _supply_row(status, reason, actual, rmin, rmax, rabs):
+    return {"refdes": "U1", "part_number": "NOCEIL", "supply_pin": "VCC",
+            "connected_net": "+3V3", "status": status, "unresolvable_reason": reason,
+            "actual_voltage_v": actual, "rated_min_v": rmin, "rated_max_v": rmax,
+            "rated_abs_max_v": rabs, "evidence_label": "label", "confidence": "low"}
+
+
+def test_supply_detail_no_rated_ceiling_has_no_none_bounds():
+    lines = rct._supply_detail(_supply_row("UNRESOLVABLE", "NO_RATED_CEILING", 3.3, None, None, None))
+    assert lines[1] == "3.3V; no rated maximum in the part data"
+    assert not any("None" in ln for ln in lines)
+
+
+def test_supply_detail_no_rated_ceiling_with_min_appends_it():
+    lines = rct._supply_detail(_supply_row("UNRESOLVABLE", "NO_RATED_CEILING", 3.3, 1.71, None, None))
+    assert lines[1] == "3.3V; no rated maximum in the part data (rated min 1.71V)"
+
+
+def test_supply_detail_other_unresolvable_reason_unchanged():
+    lines = rct._supply_detail(_supply_row("UNRESOLVABLE", "NET_VOLTAGE_NOT_CONFIRMED", None, 2.0, 3.6, 4.0))
+    assert lines[1] == "NoneV vs rated 2.0V-3.6V (abs max 4.0V)"
+
+
+def test_supply_detail_fail_row_unchanged():
+    lines = rct._supply_detail(_supply_row("FAIL", None, 3.7, 1.8, 3.6, 3.6))
+    assert lines[1] == "3.7V vs rated 1.8V-3.6V (abs max 3.6V)"

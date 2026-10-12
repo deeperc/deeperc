@@ -16,15 +16,13 @@ One polarity-aware pull-path walk serving three WARN-tier presence families:
     `is_i2c_classified_net` KB-ownership suppression as the OD path (KB-classified
     → M3 owns; name-classified-only → Family 1's job). Findings carry an
     `activation` field ("od_pintype" | "i2c_net_name") so downstream triage can
-    partition the two entry paths (recon:
-    investigation/recon_reports/todo272_step08g_od_gate_recon.md).
+    partition the two entry paths.
     TODO-272 Phase 2b (Nelson adjudication on the Phase 2a Step-6 measurement):
     the name-based entry additionally requires pinfunction corroboration — at
     least one NON-PASSIVE pin on the net whose pinfunction matches the
     `_I2C_TOKEN_RE` token matcher (promoted verbatim from the Phase 2a projection
-    script's measurement, `investigation/experiments/todo272_widen_family1/
-    projection.py`, which found 75/139 = 54% of raw name-path findings would
-    disappear under this requirement). Without a token-bearing pin, the name-path
+    script's measurement, which found 75/139 = 54% of raw name-path findings
+    would disappear under this requirement). Without a token-bearing pin, the name-path
     trigger never activates (no finding is emitted at all — this is an ENTRY
     gate, not a suppression on an already-built finding). The corroboration
     tokens found are still recorded in `corroboration`/`evidence` exactly as
@@ -38,8 +36,7 @@ One polarity-aware pull-path walk serving three WARN-tier presence families:
     triple-use pin is ambiguous → SKIP silently (precision over recall in v1).
 
 Design decisions are LOCKED by the Phase-1 recon
-(investigation/experiments/open_drain_pullup_recon/REPORT.md §6-§7) and the census
-(investigation/experiments/pullup_presence_build/CENSUS.md). Key invariants:
+(§6-§7) and the census. Key invariants:
 
   * ONE walk primitive (`has_pull_path`), direction-parameterized (up→power rail /
     down→ground rail — v1 uses "up" everywhere except the open-emitter case), with

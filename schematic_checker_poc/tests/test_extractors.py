@@ -212,7 +212,11 @@ def test_run_extractor_dry_run_writes_scratch(tmp_path):
     good = {"pin_groups": [{"group_name": "VCC", "pin_type": "power",
                             "supply_min": 2.0, "supply_max": 3.6}]}
     out = ex.run_extractor(_FakeImpl(result=good), _ctx(), dry_run_to=str(dest))
-    assert out == good
+    # TODO-509 fork (d): the reply passes through extraction_validator, which adds
+    # citations / *_source / example_pins keys; the extracted values are untouched.
+    g = out["pin_groups"][0]
+    assert {k: g[k] for k in good["pin_groups"][0]} == good["pin_groups"][0]
+    assert g["citations"]["supply_min"]["match"] == "no-quote"
     assert json.loads(dest.read_text())["pin_groups"][0]["supply_min"] == 2.0
 
 

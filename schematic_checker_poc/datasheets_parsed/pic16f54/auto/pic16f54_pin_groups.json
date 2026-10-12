@@ -1,12 +1,12 @@
 {
   "pin_groups": [
     {
-      "group_name": "VDD Supply Voltage",
+      "group_name": "VDD Power Supply",
       "pin_type": "power",
       "example_pins": [
-        "VDD"
+        "?|VDD"
       ],
-      "applies_to": "VDD power supply pins",
+      "applies_to": "PIC16F54/57/59 positive supply pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,16 +16,42 @@
       "supply_max": 5.5,
       "supply_abs_max": 6.5,
       "supply_rail_name": "VDD",
+      "citations": {
+        "supply_min": {
+          "quote": "D001 VDD Supply Voltage 2.0 \u2014 5.5 V",
+          "page": 62,
+          "section": "11.0 ELECTRICAL SPECIFICATIONS FOR PIC16F59 (continued)",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "D001 VDD Supply Voltage 2.0 \u2014 5.5 V",
+          "page": 62,
+          "section": "11.0 ELECTRICAL SPECIFICATIONS FOR PIC16F59 (continued)",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "Voltage on VDD with respect to VSS............................................................................................................0V to +6.5V",
+          "page": 59,
+          "section": "11.0 ELECTRICAL SPECIFICATIONS FOR PIC16F54/57",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "Voltage on VDD with respect to VSS............................................................................................................0V to +6.5V",
+          "page": 59,
+          "section": "11.0 ELECTRICAL SPECIFICATIONS FOR PIC16F54/57",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "11.0 ELECTRICAL SPECIFICATIONS FOR PIC16F54/57"
     },
     {
       "group_name": "VSS Ground",
       "pin_type": "power",
       "example_pins": [
-        "VSS"
+        "?|VSS"
       ],
-      "applies_to": "VSS ground pins",
+      "applies_to": "PIC16F54/57/59 ground pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -34,68 +60,145 @@
       "supply_min": 0.0,
       "supply_max": 0.0,
       "supply_abs_max": null,
-      "supply_rail_name": "VSS",
+      "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 0.0,
+          "shipped_group": "VSS Ground",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        },
+        "supply_min": {
+          "value": 0.0,
+          "shipped_group": "VSS Ground",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        },
+        "supply_max": {
+          "value": 0.0,
+          "shipped_group": "VSS Ground",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "I/O Ports (RA, RB, RC, RD, RE)",
       "pin_type": "bidirectional",
       "example_pins": [
-        "RA0",
-        "RA1",
-        "RA2",
-        "RA3",
-        "RB0",
-        "RB1",
-        "RB2",
-        "RB3",
-        "RB4",
-        "RB5",
-        "RB6",
-        "RB7",
-        "RC0",
-        "RC1",
-        "RC2",
-        "RC3",
-        "RC4",
-        "RC5",
-        "RC6",
-        "RC7",
-        "RD0",
-        "RD1",
-        "RD2",
-        "RD3",
-        "RD4",
-        "RD5",
-        "RD6",
-        "RD7",
-        "RE4",
-        "RE5",
-        "RE6",
-        "RE7"
+        "?|RA2",
+        "?|RA3",
+        "?|RB0",
+        "?|RB1",
+        "?|RB2",
+        "?|RB3",
+        "?|RB4",
+        "?|RB5",
+        "?|RB6/ICSPCLK",
+        "?|RB7/ICSPDAT",
+        "?|RA0",
+        "?|RA1"
       ],
-      "applies_to": "All I/O port pins (PORTA, PORTB, PORTC, PORTD, PORTE)",
-      "VIH_min": 2.0,
-      "VIL_max": 0.8,
-      "VOH_min": 4.3,
+      "applies_to": "General purpose I/O pins on all devices",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
       "VOL_max": 0.6,
       "absolute_max_voltage": 5.6,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Characteristics (D040) - I/O ports at 4.5V < VDD \u2264 5.5V",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "VIH_min_alts[0]": {
+          "quote": "D040 I/O ports 2.0 \u2014 VDD V 4.5V < VDD \u2264 5.5V",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "D040 I/O ports 0.25VDD + 0.8 \u2014 VDD V VDD \u2264 4.5V",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "layout"
+        },
+        "VIL_max_alts[0]": {
+          "quote": "D030 I/O Ports VSS \u2014 0.8V V 4.5V <VDD \u2264 5.5V",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[1]": {
+          "quote": "D030 I/O Ports VSS \u2014 0.15VDD V VDD \u2264 4.5V",
+          "page": 81,
+          "section": null,
+          "match": "foreign"
+        },
+        "VOH_min_expr": {
+          "quote": "D090 I/O ports(2) VDD \u2013 0.7 \u2014 \u2014 V IOH = -3.0mA, VDD = 4.5V",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "verbatim",
+          "from_alts": true
+        },
+        "VOL_max": {
+          "quote": "D080 I/O ports \u2014 \u2014 0.6 V IOL = 8.5mA, VDD = 4.5V",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null,
+      "VIH_min_alts": [
+        {
+          "condition": "4.5V < VDD \u2264 5.5V",
+          "value": 2.0,
+          "expr": null
+        },
+        {
+          "condition": "VDD \u2264 4.5V",
+          "value": null,
+          "expr": "0.25*VDD+0.8"
+        }
+      ],
+      "VIL_max_alts": [
+        {
+          "condition": "4.5V < VDD \u2264 5.5V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "VDD \u2264 4.5V",
+          "value": null,
+          "expr": "0.15*VDD"
+        }
+      ],
+      "VOH_min_expr": "VDD-0.7",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.6,
+          "shipped_group": "I/O Ports (RA, RB, RC, RD, RE)",
+          "pins_counted": 12,
+          "pins_total": 12,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "MCLR/VPP Reset Pin",
+      "group_name": "MCLR/VPP Reset Input",
       "pin_type": "digital_input",
       "example_pins": [
-        "MCLR/VPP"
+        "?|MCLR/VPP"
       ],
       "applies_to": "Master Clear / Programming Voltage pin",
-      "VIH_min": 0.85,
+      "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
@@ -104,17 +207,39 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Characteristics (D040) - MCLR Schmitt Trigger",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Voltage on MCLR with respect to VSS (1)...................................................................................................0V to +13.5V",
+          "page": 59,
+          "section": "11.0 ELECTRICAL SPECIFICATIONS FOR PIC16F54/57",
+          "match": "verbatim"
+        },
+        "VIH_min_expr": {
+          "quote": "D040 MCLR (Schmitt Trigger) 0.85VDD \u2014 VDD V",
+          "page": null,
+          "section": null,
+          "match": "foreign"
+        },
+        "VIL_max_expr": {
+          "quote": "D030 MCLR (Schmitt Trigger) VSS \u2014 0.15VDD V",
+          "page": 81,
+          "section": null,
+          "match": "foreign"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "11.0 ELECTRICAL SPECIFICATIONS FOR PIC16F54/57",
+      "VIH_min_expr": "0.85*VDD",
+      "VIL_max_expr": "0.15*VDD"
     },
     {
       "group_name": "T0CKI Timer0 Clock Input",
       "pin_type": "digital_input",
       "example_pins": [
-        "T0CKI"
+        "?|T0CKI"
       ],
-      "applies_to": "Timer0 external clock input pin",
-      "VIH_min": 0.85,
+      "applies_to": "Timer0 external clock input",
+      "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
@@ -123,17 +248,42 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Characteristics (D040) - T0CKI Schmitt Trigger",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "VIH_min_expr": {
+          "quote": "D040 T0CKI (Schmitt Trigger) 0.85VDD \u2014 VDD V",
+          "page": null,
+          "section": null,
+          "match": "foreign"
+        },
+        "VIL_max_expr": {
+          "quote": "D030 T0CKI (Schmitt Trigger) VSS \u2014 0.15VDD V",
+          "page": 81,
+          "section": null,
+          "match": "foreign"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null,
+      "VIH_min_expr": "0.85*VDD",
+      "VIL_max_expr": "0.15*VDD",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.6,
+          "shipped_group": "T0CKI Timer0 Clock Input",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "OSC1/CLKIN Oscillator Input",
       "pin_type": "digital_input",
       "example_pins": [
-        "OSC1/CLKIN"
+        "?|OSC1/CLKIN"
       ],
       "applies_to": "Oscillator crystal input or external clock input",
-      "VIH_min": 0.85,
+      "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
@@ -142,35 +292,168 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Characteristics (D040) - OSC1 Schmitt Trigger (RC mode)",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "VIH_min_alts[0]": {
+          "quote": "D040 OSC1 (Schmitt Trigger) 0.85VDD \u2014 VDD V RC mode(3)",
+          "page": null,
+          "section": null,
+          "match": "foreign"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "D040 OSC1 0.7VDD \u2014 VDD V HS mode",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "foreign"
+        },
+        "VIH_min_alts[2]": {
+          "quote": "D040 1.6 \u2014 VDD V XT mode",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "partial"
+        },
+        "VIH_min_alts[3]": {
+          "quote": "D040 1.6 \u2014 VDD V LP mode",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "partial"
+        },
+        "VIL_max_alts[0]": {
+          "quote": "D030 OSC1 (Schmitt Trigger) VSS \u2014 0.15VDD V RC mode(3)",
+          "page": 81,
+          "section": null,
+          "match": "foreign"
+        },
+        "VIL_max_alts[1]": {
+          "quote": "D030 VSS \u2014 0.3VDD V HS mode",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "partial"
+        },
+        "VIL_max_alts[2]": {
+          "quote": "D030 VSS \u2014 0.3 V XT mode",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "partial"
+        },
+        "VIL_max_alts[3]": {
+          "quote": "D030 VSS \u2014 0.3 V LP mode",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "partial"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null,
+      "VIH_min_alts": [
+        {
+          "condition": "RC mode",
+          "value": null,
+          "expr": "0.85*VDD"
+        },
+        {
+          "condition": "HS mode",
+          "value": null,
+          "expr": "0.7*VDD"
+        },
+        {
+          "condition": "XT mode",
+          "value": 1.6,
+          "expr": null
+        },
+        {
+          "condition": "LP mode",
+          "value": 1.6,
+          "expr": null
+        }
+      ],
+      "VIL_max_alts": [
+        {
+          "condition": "RC mode",
+          "value": null,
+          "expr": "0.15*VDD"
+        },
+        {
+          "condition": "HS mode",
+          "value": 0.3,
+          "expr": null
+        },
+        {
+          "condition": "XT mode",
+          "value": 0.3,
+          "expr": null
+        },
+        {
+          "condition": "LP mode",
+          "value": 0.3,
+          "expr": null
+        }
+      ],
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.6,
+          "shipped_group": "OSC1/CLKIN Oscillator Input",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "OSC2/CLKOUT Oscillator Output",
       "pin_type": "digital_output",
       "example_pins": [
-        "OSC2/CLKOUT"
+        "?|OSC2/CLKOUT"
       ],
-      "applies_to": "Oscillator crystal output or clock output pin",
+      "applies_to": "Oscillator crystal output or clock output",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 4.3,
+      "VOH_min": null,
       "VOL_max": 0.6,
       "absolute_max_voltage": 5.6,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "D092 OSC2/CLKOUT VDD \u2013 0.7 \u2014 \u2014 V IOH = -1.3mA, VDD = 4.5V (RC mode)",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "verbatim"
+        },
+        "VOL_max": {
+          "quote": "D083 OSC2/CLKOUT \u2014 \u2014 0.6 V IOL = 1.6mA, VDD = 4.5V (RC mode)",
+          "page": 64,
+          "section": "11.3 DC Characteristics PIC16F5X",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "VOH_min_expr": "VDD-0.7",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.6,
+          "shipped_group": "OSC2/CLKOUT Oscillator Output",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     }
   ],
   "default_group": "I/O Ports (RA, RB, RC, RD, RE)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-08-01T17:35:27+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 20,
+      "entries_dropped_as_duplicates": 2,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "ae86f1c6f504b01fbe27ac2c771c3c71ba0058c8fe15329db93422d9397241b3",
@@ -192,7 +475,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-08-01T17:35:27+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -200,6 +483,401 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "7dd490f24b719dac9ce4238d28177f1162bf38862477f092d3426676d9953a89",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "pic16f54",
+      "counts": {
+        "groups": 7,
+        "malformed_groups": 0,
+        "citations": 25,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 11,
+        "layout": 1,
+        "partial": 5,
+        "foreign": 8,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "VDD Power Supply",
+          "index": 0,
+          "field": "absolute_max_voltage",
+          "value": 6.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "VDD Power Supply",
+          "index": 0,
+          "field": "supply_min",
+          "value": 2.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDD Power Supply",
+          "index": 0,
+          "field": "supply_max",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDD Power Supply",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 6.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "I/O Ports (RA, RB, RC, RD, RE)",
+          "index": 2,
+          "field": "VOL_max",
+          "value": 0.6,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "MCLR/VPP Reset Input",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 13.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "OSC2/CLKOUT Oscillator Output",
+          "index": 6,
+          "field": "VOL_max",
+          "value": 0.6,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "I/O Ports (RA, RB, RC, RD, RE)",
+            "2": "I/O Ports (RA, RB, RC, RD, RE)",
+            "3": "I/O Ports (RA, RB, RC, RD, RE)"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 20,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 20,
+            "2": 20,
+            "3": 20
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 1
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 1
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "7dd490f24b719dac9ce4238d28177f1162bf38862477f092d3426676d9953a89",
+          "2": "7dd490f24b719dac9ce4238d28177f1162bf38862477f092d3426676d9953a89",
+          "3": "7dd490f24b719dac9ce4238d28177f1162bf38862477f092d3426676d9953a89"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 25,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 25,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 25,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

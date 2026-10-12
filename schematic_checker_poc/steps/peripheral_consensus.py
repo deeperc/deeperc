@@ -13,7 +13,7 @@ member is the defect signal.
 This module computes and CLASSIFIES that signal only — it emits no
 ``CoherenceViolation`` / ``PeripheralFinding`` itself.
 
-CORRECTION (M14-F1, ``investigation/experiments/m14_f1_recon/REPORT.md``, post
+CORRECTION (M14-F1, post
 ``e725e26``): this module IS imported by ``step_08d_peripheral_checker.py``
 and IS live in a verdict path — the ``fail_mode == "capability"`` output of
 ``evaluate_bus_consensus`` drives step_08d's M14 CAPABILITY_MISMATCH FAIL

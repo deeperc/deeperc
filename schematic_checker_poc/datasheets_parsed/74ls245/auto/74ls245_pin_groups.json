@@ -4,7 +4,7 @@
       "group_name": "Power Supply VCC",
       "pin_type": "power",
       "example_pins": [
-        "20"
+        "?|VCC"
       ],
       "applies_to": "VCC power supply pin",
       "VIH_min": null,
@@ -16,16 +16,36 @@
       "supply_max": 5.25,
       "supply_abs_max": 7.0,
       "supply_rail_name": "VCC",
+      "citations": {
+        "supply_min": {
+          "quote": "SN74LS245 4.75 5 5.25 VCC Supplyvoltage V",
+          "page": 4,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "layout"
+        },
+        "supply_max": {
+          "quote": "SN74LS245 4.75 5 5.25 VCC Supplyvoltage V",
+          "page": 4,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "layout"
+        },
+        "supply_abs_max": {
+          "quote": "VCC Supplyvoltage 7 V",
+          "page": 4,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null
     },
     {
       "group_name": "Ground",
       "pin_type": "power",
       "example_pins": [
-        "10"
+        "?|GND"
       ],
-      "applies_to": "GND ground pin",
+      "applies_to": "Ground pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -35,17 +55,17 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Control Inputs (DIR, OE)",
+      "group_name": "Direction Control Input (DIR)",
       "pin_type": "digital_input",
       "example_pins": [
-        "1",
-        "19"
+        "?|DIR"
       ],
-      "applies_to": "DIR (pin 1) and OE (pin 19) control inputs",
+      "applies_to": "Direction control input pin",
       "VIH_min": 2.0,
       "VIL_max": 0.8,
       "VOH_min": null,
@@ -55,68 +75,305 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Electrical Characteristics (7.5)",
-      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VI Inputvoltage(1) 7 V",
+          "page": 4,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VIH_min": {
+          "quote": "VIH High-levelinputvoltage 2 V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "SN74LS245 0.8 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": "7.5 Electrical Characteristics",
+      "abs_max_source": "7.1 Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "Output Enable Input (OE)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|OE"
+      ],
+      "applies_to": "Output enable control input pin",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VI Inputvoltage(1) 7 V",
+          "page": 4,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VIH_min": {
+          "quote": "VIH High-levelinputvoltage 2 V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "SN74LS245 0.8 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": "7.5 Electrical Characteristics",
+      "abs_max_source": "7.1 Absolute Maximum Ratings"
     },
     {
       "group_name": "A-Side Bidirectional Channels",
       "pin_type": "bidirectional",
       "example_pins": [
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
+        "?|A1",
+        "?|A2",
+        "?|A3",
+        "?|A4",
+        "?|A5",
+        "?|A6",
+        "?|A7",
+        "?|A8"
       ],
-      "applies_to": "A1-A8 pins (pins 2-9) on A side of transceiver",
-      "VIH_min": 2.0,
+      "applies_to": "A-side transceiver channels (A1-A8)",
+      "VIH_min": null,
       "VIL_max": 0.8,
-      "VOH_min": 2.4,
-      "VOL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": 7.0,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Electrical Characteristics (7.5)",
-      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VI Inputvoltage(1) 7 V",
+          "page": 4,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[0]": {
+          "quote": "SN54LS245 0.7 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "SN74LS245 0.8 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VIL_max": {
+          "quote": "SN74LS245 0.8 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "VCC =MIN, IOH =\u20133mA 2.4 3.4 V High-leveloutputvoltage V =V V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "VIH =2V, IOH =MAX 2 V High-leveloutputvoltage",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "VCC =MIN, IOL =12mA 0.4 VOL Low-leveloutputvoltage VIH =2V, V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL =24mA SN74LS245 0.5 VOL Low-leveloutputvoltage VIH =2V, V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "7.1 Absolute Maximum Ratings",
+      "VIH_min_alts": [
+        {
+          "condition": "SN54LS245",
+          "value": null,
+          "expr": "0.7*VCC"
+        },
+        {
+          "condition": "SN74LS245",
+          "value": 0.8,
+          "expr": null
+        }
+      ],
+      "VOH_min_alts": [
+        {
+          "condition": "VCC=MIN, IOH=-3mA, VIL=VIL(max)",
+          "value": 2.4,
+          "expr": null
+        },
+        {
+          "condition": "VIH=2V, IOH=MAX",
+          "value": 2.0,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "VCC=MIN, IOL=12mA, VIH=2V, VIL=VIL(max)",
+          "value": 0.4,
+          "expr": null
+        },
+        {
+          "condition": "SN74LS245, IOL=24mA, VIH=2V, VIL=VIL(max)",
+          "value": 0.5,
+          "expr": null
+        }
+      ]
     },
     {
       "group_name": "B-Side Bidirectional Channels",
       "pin_type": "bidirectional",
       "example_pins": [
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18"
+        "?|B1",
+        "?|B2",
+        "?|B3",
+        "?|B4",
+        "?|B5",
+        "?|B6",
+        "?|B7",
+        "?|B8"
       ],
-      "applies_to": "B8-B1 pins (pins 11-18) on B side of transceiver",
-      "VIH_min": 2.0,
+      "applies_to": "B-side transceiver channels (B1-B8)",
+      "VIH_min": null,
       "VIL_max": 0.8,
-      "VOH_min": 2.4,
-      "VOL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": 7.0,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Electrical Characteristics (7.5)",
-      "abs_max_source": "Absolute Maximum Ratings (7.1)"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VI Inputvoltage(1) 7 V",
+          "page": 4,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[0]": {
+          "quote": "SN54LS245 0.7 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "SN74LS245 0.8 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VIL_max": {
+          "quote": "SN74LS245 0.8 VIL Low-levelinputvoltage V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "VCC =MIN, IOH =\u20133mA 2.4 3.4 V High-leveloutputvoltage V =V V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "VIH =2V, IOH =MAX 2 V High-leveloutputvoltage",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "VCC =MIN, IOL =12mA 0.4 VOL Low-leveloutputvoltage VIH =2V, V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL =24mA SN74LS245 0.5 VOL Low-leveloutputvoltage VIH =2V, V",
+          "page": 5,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "7.1 Absolute Maximum Ratings",
+      "VIH_min_alts": [
+        {
+          "condition": "SN54LS245",
+          "value": null,
+          "expr": "0.7*VCC"
+        },
+        {
+          "condition": "SN74LS245",
+          "value": 0.8,
+          "expr": null
+        }
+      ],
+      "VOH_min_alts": [
+        {
+          "condition": "VCC=MIN, IOH=-3mA, VIL=VIL(max)",
+          "value": 2.4,
+          "expr": null
+        },
+        {
+          "condition": "VIH=2V, IOH=MAX",
+          "value": 2.0,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "VCC=MIN, IOL=12mA, VIH=2V, VIL=VIL(max)",
+          "value": 0.4,
+          "expr": null
+        },
+        {
+          "condition": "SN74LS245, IOL=24mA, VIH=2V, VIL=VIL(max)",
+          "value": 0.5,
+          "expr": null
+        }
+      ]
     }
   ],
   "default_group": "A-Side Bidirectional Channels",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 20,
+      "entries_dropped_as_duplicates": 0,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "75b2e137c4999356081e96775c38065d3c010bcb9bb9aff0e4a53c8b42767a77",
@@ -138,7 +395,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -146,6 +403,497 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "5744805667f049bb2589c9694ae1c4cfbdea758ce74796af288d77f745e0f646",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "74ls245",
+      "counts": {
+        "groups": 6,
+        "malformed_groups": 0,
+        "citations": 31,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 17,
+        "layout": 14,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_min",
+          "value": 4.75,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_max",
+          "value": 5.25,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Direction Control Input (DIR)",
+          "index": 2,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Direction Control Input (DIR)",
+          "index": 2,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Direction Control Input (DIR)",
+          "index": 2,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Enable Input (OE)",
+          "index": 3,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Enable Input (OE)",
+          "index": 3,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Enable Input (OE)",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "A-Side Bidirectional Channels",
+          "index": 4,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "A-Side Bidirectional Channels",
+          "index": 4,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "A-Side Bidirectional Channels",
+          "index": 4,
+          "field": "VOH_min",
+          "value": 2.4,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "A-Side Bidirectional Channels",
+          "index": 4,
+          "field": "VOL_max",
+          "value": 0.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "A-Side Bidirectional Channels",
+          "index": 4,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "B-Side Bidirectional Channels",
+          "index": 5,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "B-Side Bidirectional Channels",
+          "index": 5,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "B-Side Bidirectional Channels",
+          "index": 5,
+          "field": "VOH_min",
+          "value": 2.4,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "B-Side Bidirectional Channels",
+          "index": 5,
+          "field": "VOL_max",
+          "value": 0.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "B-Side Bidirectional Channels",
+          "index": 5,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "A-Side Bidirectional Channels",
+            "2": "A-Side Bidirectional Channels",
+            "3": "A-Side Bidirectional Channels"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 8,
+            "3": 5
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 20,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 20,
+            "2": 20,
+            "3": 20
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "5744805667f049bb2589c9694ae1c4cfbdea758ce74796af288d77f745e0f646",
+          "2": "5744805667f049bb2589c9694ae1c4cfbdea758ce74796af288d77f745e0f646",
+          "3": "5744805667f049bb2589c9694ae1c4cfbdea758ce74796af288d77f745e0f646"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 6,
+            "malformed_groups": 0,
+            "citations": 31,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 6,
+            "malformed_groups": 0,
+            "citations": 31,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 6,
+            "malformed_groups": 0,
+            "citations": 19,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

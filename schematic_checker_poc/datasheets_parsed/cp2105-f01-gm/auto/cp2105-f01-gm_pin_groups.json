@@ -4,9 +4,9 @@
       "group_name": "VDD Power Supply",
       "pin_type": "power",
       "example_pins": [
-        "6"
+        "?|VDD"
       ],
-      "applies_to": "VDD - Digital Supply Voltage",
+      "applies_to": "VDD pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,16 +16,45 @@
       "supply_max": 3.6,
       "supply_abs_max": 4.2,
       "supply_rail_name": "VDD",
+      "citations": {
+        "supply_min": {
+          "quote": "Digital Supply Voltage (VDD ) 3.0 \u2014 3.6 V",
+          "page": 4,
+          "section": "Table 2. Global DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "Digital Supply Voltage (VDD ) 3.0 \u2014 3.6 V",
+          "page": 4,
+          "section": "Table 2. Global DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "Voltage on VDD or VIO with respect to GND \u20130.3 \u2014 4.2 V",
+          "page": 4,
+          "section": "Table 1. Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 4.2,
+          "shipped_group": "VDD Power Supply",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "VIO I/O Supply",
       "pin_type": "power",
       "example_pins": [
-        "5"
+        "?|VIO"
       ],
-      "applies_to": "VIO - I/O Supply Voltage Input",
+      "applies_to": "VIO pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -35,94 +64,216 @@
       "supply_max": null,
       "supply_abs_max": 4.2,
       "supply_rail_name": "VIO",
+      "citations": {
+        "supply_min": {
+          "quote": "Digital Port I/O Supply Voltage (VIO ) 1.8 \u2014 VDD V",
+          "page": 4,
+          "section": "Table 2. Global DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "Voltage on VDD or VIO with respect to GND \u20130.3 \u2014 4.2 V",
+          "page": 4,
+          "section": "Table 1. Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 4.2,
+          "shipped_group": "VIO I/O Supply",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "UART and GPIO Digital I/O",
-      "pin_type": "bidirectional",
+      "group_name": "GND Ground",
+      "pin_type": "power",
       "example_pins": [
-        "TXD_ECI",
-        "RXD_ECI",
-        "TXD_SCI",
-        "RXD_SCI",
-        "RTS_ECI",
-        "CTS_ECI",
-        "RTS_SCI",
-        "CTS_SCI",
-        "GPIO.0_ECI",
-        "GPIO.1_ECI",
-        "GPIO.0_SCI",
-        "GPIO.1_SCI",
-        "GPIO.2_SCI"
+        "?|GND"
       ],
-      "applies_to": "UART transmit/receive, flow control, and GPIO pins",
-      "VIH_min": 0.7,
-      "VIL_max": 0.6,
-      "VOH_min": null,
-      "VOL_max": 0.4,
-      "absolute_max_voltage": 5.8,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 3: UART and Suspend I/O DC Electrical Characteristics (VIH = 0.7 x VIO)",
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "Modem Control Digital I/O",
-      "pin_type": "bidirectional",
-      "example_pins": [
-        "DTR_ECI",
-        "DSR_ECI",
-        "DCD_ECI",
-        "RI_ECI",
-        "DTR_SCI",
-        "DSR_SCI",
-        "DCD_SCI",
-        "RI_SCI"
-      ],
-      "applies_to": "Modem control signals (DTR, DSR, DCD, RI) when in modem mode",
-      "VIH_min": 0.7,
-      "VIL_max": 0.6,
-      "VOH_min": null,
-      "VOL_max": 0.4,
-      "absolute_max_voltage": 5.8,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 3: UART and Suspend I/O DC Electrical Characteristics (VIH = 0.7 x VIO)",
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "SUSPEND Output",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "1",
-        "17"
-      ],
-      "applies_to": "SUSPEND/RI_ECI and SUSPEND/RI_SCI pins in GPIO mode",
+      "applies_to": "GND pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
-      "VOL_max": 0.4,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "UART and Suspend I/O Pins",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|RXD_SCI",
+        "?|RXD_ECI",
+        "?|CTS_SCI",
+        "?|CTS_ECI",
+        "?|GPIO.0_SCI",
+        "?|GPIO.1_SCI",
+        "?|GPIO.2_SCI",
+        "?|GPIO.0_ECI",
+        "?|GPIO.1_ECI"
+      ],
+      "applies_to": "UART receive, CTS, and GPIO input pins",
+      "VIH_min": null,
+      "VIL_max": 0.6,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": 5.8,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Maximum Input Voltage Open drain, logic high (1) \u2014 \u2014 5.8 V",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIH_min_expr": {
+          "quote": "Input High Voltage (VIH ) 0.7 x VIO \u2014 \u2014 V",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "Input Low Voltage (VIL ) \u2014 \u2014 0.6 V",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+      "abs_max_source": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+      "VIH_min_expr": "0.7*VIO"
+    },
+    {
+      "group_name": "UART Transmit and Output Pins",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|TXD_SCI",
+        "?|TXD_ECI",
+        "?|RTS_SCI",
+        "?|RTS_ECI",
+        "?|SUSPEND"
+      ],
+      "applies_to": "UART transmit, RTS, and SUSPEND output pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_alts[0]": {
+          "quote": "Output Low Voltage (VOL ) IOL =10\u00b5A \u2014 \u2014 0.1",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim",
+          "status": "nulled:disagree",
+          "rejected_value": {
+            "condition": "IOL = 10\u00b5A",
+            "value": 0.1,
+            "expr": null
+          }
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL =8.5mA \u2014 \u2014 0.4 V",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim",
+          "status": "nulled:disagree",
+          "rejected_value": {
+            "condition": "IOL = 8.5mA",
+            "value": 0.4,
+            "expr": null
+          }
+        },
+        "VOH_min_alts[0]": {
+          "quote": "Output High Voltage (VOH ) IOH =\u201310\u00b5A VIO \u20130.1 \u2014 \u2014",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "IOH =\u20133mA VIO \u20130.2 \u2014 \u2014 V",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[2]": {
+          "quote": "IOH =\u201310mA \u2014 VIO \u20130.4 \u2014",
+          "page": 5,
+          "section": "Table 3. UART and Suspend I/O DC Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[2]": {
+          "quote": null,
+          "page": null,
+          "section": null,
+          "match": "no-quote",
+          "status": "nulled:disagree",
+          "rejected_value": {
+            "condition": "IOL = 25mA",
+            "value": null,
+            "expr": null
+          }
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "VOH_min_alts": [
+        {
+          "condition": "IOH = -10\u00b5A",
+          "value": null,
+          "expr": "VIO-0.1"
+        },
+        {
+          "condition": "IOH = -3mA",
+          "value": null,
+          "expr": "VIO-0.2"
+        },
+        {
+          "condition": "IOH = -10mA",
+          "value": null,
+          "expr": "VIO-0.4"
+        }
+      ],
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.8,
+          "shipped_group": [
+            "SUSPEND Output",
+            "UART and GPIO Digital I/O"
+          ],
+          "pins_counted": 6,
+          "pins_total": 6,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "RST Reset Pin",
-      "pin_type": "bidirectional",
+      "pin_type": "digital_input",
       "example_pins": [
-        "9"
+        "?|RST"
       ],
-      "applies_to": "RST - Device Reset (open-drain output or external input)",
-      "VIH_min": 0.75,
+      "applies_to": "RST pin",
+      "VIH_min": null,
       "VIL_max": 0.6,
       "VOH_min": null,
       "VOL_max": null,
@@ -131,17 +282,39 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 4: Reset Electrical Characteristics (VIH = 0.75 x VIO)",
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Voltage on RST, GPIO or UART Pins with respect to VIO > 2.2V \u20130.3 \u2014 5.8 V",
+          "page": 4,
+          "section": "Table 1. Absolute Maximum Ratings",
+          "match": "verbatim",
+          "from_replicate": 1
+        },
+        "VIH_min_expr": {
+          "quote": "RST Input High Voltage 0.75 x VIO \u2014 \u2014 V",
+          "page": 5,
+          "section": "Table 4. Reset Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "RST Input Low Voltage \u2014 \u2014 0.6 V",
+          "page": 5,
+          "section": "Table 4. Reset Electrical Characteristics",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "Table 4. Reset Electrical Characteristics",
+      "abs_max_source": "Table 1. Absolute Maximum Ratings",
+      "VIH_min_expr": "0.75*VIO"
     },
     {
-      "group_name": "USB Data Lines",
+      "group_name": "USB D+/D- Pins",
       "pin_type": "bidirectional",
       "example_pins": [
-        "3",
-        "4"
+        "?|D+",
+        "?|D-"
       ],
-      "applies_to": "D+ and D- USB differential data lines",
+      "applies_to": "USB differential signal pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -151,35 +324,62 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.8,
+          "shipped_group": "USB Data Lines",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "VBUS Input",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "8"
-      ],
-      "applies_to": "VBUS - USB VBUS Sense Input",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 5.8,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Table 1: Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "REGIN Regulator Input",
+      "group_name": "VBUS Input Pin",
       "pin_type": "power",
       "example_pins": [
-        "7"
+        "?|VBUS"
       ],
-      "applies_to": "REGIN - 5V Regulator Input",
+      "applies_to": "VBUS sense input pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.8,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "supply_abs_max": {
+          "quote": null,
+          "page": null,
+          "section": null,
+          "match": "no-quote",
+          "status": "nulled:majority",
+          "rejected_value": 5.8
+        },
+        "absolute_max_voltage": {
+          "quote": "Voltage on VBUS with respect to GND VDD > 3.0V \u20130.3 \u2014 5.8 V",
+          "page": 4,
+          "section": "Table 1. Absolute Maximum Ratings",
+          "match": "verbatim",
+          "from_replicate": 1
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "Table 1. Absolute Maximum Ratings"
+    },
+    {
+      "group_name": "REGIN Regulator Input Pin",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|REGIN"
+      ],
+      "applies_to": "REGIN regulator input pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -188,36 +388,33 @@
       "supply_min": 3.0,
       "supply_max": 5.25,
       "supply_abs_max": null,
-      "supply_rail_name": "REGIN",
+      "supply_rail_name": null,
+      "citations": {
+        "supply_min": {
+          "quote": "Input Voltage Range 3.0 \u2014 5.25 V",
+          "page": 5,
+          "section": "Table 5. Voltage Regulator Electrical Specifications",
+          "match": "verbatim",
+          "from_replicate": 1
+        },
+        "supply_max": {
+          "quote": "Input Voltage Range 3.0 \u2014 5.25 V",
+          "page": 5,
+          "section": "Table 5. Voltage Regulator Electrical Specifications",
+          "match": "verbatim",
+          "from_replicate": 1
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 5: Voltage Regulator Electrical Specifications"
+      "abs_max_source": null
     },
     {
       "group_name": "VPP Programming Pin",
-      "pin_type": "power",
+      "pin_type": "digital_input",
       "example_pins": [
-        "16"
+        "?|NC"
       ],
-      "applies_to": "VPP - One-Time Programmable ROM Programming Voltage",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": null,
-      "supply_min": 5.75,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": "VPP",
-      "VIH_source": null,
-      "abs_max_source": "Table 2: Global DC Electrical Characteristics"
-    },
-    {
-      "group_name": "GND Ground",
-      "pin_type": "power",
-      "example_pins": [
-        "2"
-      ],
-      "applies_to": "GND - Ground reference",
+      "applies_to": "VPP/NC/DCD_ECI pin for ROM programming",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -227,16 +424,23 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     }
   ],
-  "default_group": "UART and GPIO Digital I/O",
+  "default_group": "UART and Suspend I/O Pins",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 24,
+      "entries_dropped_as_duplicates": 1,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "ba1eff971b5e92694ea73fc9e697ac108c1b693a0869a15ecdc1984bbcadb22c",
@@ -258,7 +462,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -266,6 +470,482 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "6be0aa55640e0fa84e11d546fb6b06fb0869aaafd24586a1679b566b0d436f04",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "cp2105-f01-gm",
+      "counts": {
+        "groups": 10,
+        "malformed_groups": 0,
+        "citations": 18,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 1,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 17,
+        "layout": 0,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 1
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [
+          "VBUS Input Pin"
+        ],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [
+        {
+          "group": "VBUS Input Pin",
+          "old_pin_type": "digital_input",
+          "example_pins": [
+            "8|VBUS"
+          ]
+        }
+      ],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "VDD Power Supply",
+          "index": 0,
+          "field": "supply_min",
+          "value": 3.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDD Power Supply",
+          "index": 0,
+          "field": "supply_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDD Power Supply",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 4.2,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VIO I/O Supply",
+          "index": 1,
+          "field": "supply_min",
+          "value": 1.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "VIO I/O Supply",
+          "index": 1,
+          "field": "supply_abs_max",
+          "value": 4.2,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "UART and Suspend I/O Pins",
+          "index": 3,
+          "field": "VIL_max",
+          "value": 0.6,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "UART and Suspend I/O Pins",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 5.8,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "RST Reset Pin",
+          "index": 5,
+          "field": "VIL_max",
+          "value": 0.6,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "VBUS Input Pin",
+          "index": 7,
+          "field": "supply_abs_max",
+          "value": 5.8,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 3,
+        "base_without_probe": 3,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "UART and GPIO Pins (VIO > 2.2V)",
+            "2": "UART and Suspend I/O Pins",
+            "3": "UART and Suspend I/O Pins"
+          },
+          "agreement": {
+            "1": 6,
+            "2": 7,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 24,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 39,
+            "2": 24,
+            "3": 24
+          }
+        },
+        "counts": {
+          "DISAGREE": 6,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 1,
+          "nulled_majority": 1,
+          "vote_raw_string": 6,
+          "citation_from_other_replicate": 4,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 1,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 1,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 1,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 2,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 6,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 1,
+            "nulled_majority": 0,
+            "vote_raw_string": 6,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [
+          {
+            "pin": "1|SUSPEND",
+            "field": "VOL_max",
+            "values": {
+              "1": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", 0.6, null]]",
+              "2": null,
+              "3": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", null, null]]"
+            }
+          },
+          {
+            "pin": "11|RTS_ECI",
+            "field": "VOL_max",
+            "values": {
+              "1": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", 0.6, null]]",
+              "2": null,
+              "3": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", null, null]]"
+            }
+          },
+          {
+            "pin": "13|TXD_ECI",
+            "field": "VOL_max",
+            "values": {
+              "1": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", 0.6, null]]",
+              "2": null,
+              "3": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", null, null]]"
+            }
+          },
+          {
+            "pin": "17|SUSPEND",
+            "field": "VOL_max",
+            "values": {
+              "1": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", 0.6, null]]",
+              "2": null,
+              "3": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", null, null]]"
+            }
+          },
+          {
+            "pin": "19|RTS_SCI",
+            "field": "VOL_max",
+            "values": {
+              "1": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", 0.6, null]]",
+              "2": null,
+              "3": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", null, null]]"
+            }
+          },
+          {
+            "pin": "21|TXD_SCI",
+            "field": "VOL_max",
+            "values": {
+              "1": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", 0.6, null]]",
+              "2": null,
+              "3": "ALTS:[[\"IOL = 10\\u00b5A\", 0.1, null], [\"IOL = 8.5mA\", 0.4, null], [\"IOL = 25mA\", null, null]]"
+            }
+          }
+        ],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "6be0aa55640e0fa84e11d546fb6b06fb0869aaafd24586a1679b566b0d436f04",
+          "2": "6be0aa55640e0fa84e11d546fb6b06fb0869aaafd24586a1679b566b0d436f04",
+          "3": "6be0aa55640e0fa84e11d546fb6b06fb0869aaafd24586a1679b566b0d436f04"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 10,
+            "malformed_groups": 0,
+            "citations": 22,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 11,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 10,
+            "malformed_groups": 0,
+            "citations": 18,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 1,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

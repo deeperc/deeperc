@@ -4,9 +4,9 @@
       "group_name": "VDD - Analog Supply",
       "pin_type": "power",
       "example_pins": [
-        "8"
+        "?|VDD"
       ],
-      "applies_to": "VDD pin - main analog and digital power supply",
+      "applies_to": "Main analog power supply pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,6 +16,32 @@
       "supply_max": 3.6,
       "supply_abs_max": 4.25,
       "supply_rail_name": "VDD",
+      "citations": {
+        "supply_min": {
+          "quote": "Sensor supply voltage VDD ripple max. 50mVpp 1.71 1.8 3.6 V",
+          "page": 7,
+          "section": "Table 2: Parameter specification",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "Sensor supply voltage VDD ripple max. 50mVpp 1.71 1.8 3.6 V",
+          "page": 7,
+          "section": "Table 2: Parameter specification",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "Voltage at any supply pin VDD and VDDIO Pin -0.3 4.25 V",
+          "page": 9,
+          "section": "Table 3: Absolute maximum ratings",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "Voltage at any supply pin VDD and VDDIO Pin -0.3 4.25 V",
+          "page": 9,
+          "section": "Table 3: Absolute maximum ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
       "abs_max_source": "Table 3: Absolute maximum ratings"
     },
@@ -23,9 +49,9 @@
       "group_name": "VDDIO - Digital Interface Supply",
       "pin_type": "power",
       "example_pins": [
-        "6"
+        "?|VDDIO"
       ],
-      "applies_to": "VDDIO pin - digital interface power supply",
+      "applies_to": "Digital interface power supply pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -35,6 +61,32 @@
       "supply_max": 3.6,
       "supply_abs_max": 4.25,
       "supply_rail_name": "VDDIO",
+      "citations": {
+        "supply_min": {
+          "quote": "Interface supply voltage VDDIO 1.2 1.8 3.6 V",
+          "page": 7,
+          "section": "Table 2: Parameter specification",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "Interface supply voltage VDDIO 1.2 1.8 3.6 V",
+          "page": 7,
+          "section": "Table 2: Parameter specification",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "Voltage at any supply pin VDD and VDDIO Pin -0.3 4.25 V",
+          "page": 9,
+          "section": "Table 3: Absolute maximum ratings",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "Voltage at any supply pin VDD and VDDIO Pin -0.3 4.25 V",
+          "page": 9,
+          "section": "Table 3: Absolute maximum ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
       "abs_max_source": "Table 3: Absolute maximum ratings"
     },
@@ -42,11 +94,9 @@
       "group_name": "GND - Ground",
       "pin_type": "power",
       "example_pins": [
-        "1",
-        "2",
-        "7"
+        "?|GND"
       ],
-      "applies_to": "GND pins - ground reference",
+      "applies_to": "Ground pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -56,38 +106,138 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Digital Interface Pins (SDI, SDO, SCK, CSB)",
+      "group_name": "Digital Interface Pins - Input/Output",
       "pin_type": "bidirectional",
       "example_pins": [
-        "3",
-        "4",
-        "5",
-        "2"
+        "?|CSB",
+        "?|SDI",
+        "?|SCK",
+        "?|SDO"
       ],
-      "applies_to": "SDI (pin 3), SDO (pin 5), SCK (pin 4), CSB (pin 2) - I2C/SPI interface pins",
-      "VIH_min": 0.8,
-      "VIL_max": 0.2,
-      "VOH_min": 0.6,
-      "VOL_max": 0.23,
+      "applies_to": "CSB, SDI, SCK, SDO pins used for I2C and SPI interfaces",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 26: interface parameters (Vih_si = 0.8 * VDDIO, minimum at VDDIO=1.2V)",
-      "abs_max_source": "Table 3: Absolute maximum ratings (Voltage at any interface pin: -0.3 to VDDIO + 0.3 V)"
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": "Voltage at any interface pin -0.3 VDDIO + 0.3 V",
+          "page": 9,
+          "section": "Table 3: Absolute maximum ratings",
+          "match": "verbatim"
+        },
+        "VIH_min_expr": {
+          "quote": "Input \u2013 high level Vih_si VDDIO=1.2V to 3.6V 0.8 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "verbatim"
+        },
+        "VIL_max_expr": {
+          "quote": "Input \u2013 low level Vil_si VDDIO=1.2V to 3.6V 0.2 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "Output \u2013 high level Voh (SDO, SDI) VDDIO=1.62V, ioh=1 mA 0.8 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "layout"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "Output \u2013 high level Voh_1.2 (SDO, SDI) VDDIO=1.2V, ioh=1 mA 0.6 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "layout"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "Output \u2013 low level for I2C Vol_SDI VDDIO=1.62V, iol=3 mA 0.2 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "Output \u2013 low level for I2C Vol_SDI_1.2 VDDIO=1.20V, iol=3 mA 0.23 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "partial"
+        },
+        "VOL_max_alts[2]": {
+          "quote": "Output \u2013 low level Vol_SDO VDDIO=1.62V, iol=1 mA 0.2 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "partial"
+        },
+        "VOL_max_alts[3]": {
+          "quote": "Output \u2013 low level Vol_SDO_1.2 VDDIO=1.20V, iol=1 mA 0.23 * V VDDIO",
+          "page": 31,
+          "section": "Table 26: interface parameters",
+          "match": "partial"
+        }
+      },
+      "VIH_source": "Table 26: interface parameters",
+      "abs_max_source": "Table 3: Absolute maximum ratings",
+      "absolute_max_voltage_expr": "VDDIO+0.3",
+      "VIH_min_expr": "0.8*VDDIO",
+      "VIL_max_expr": "0.2*VDDIO",
+      "VOH_min_alts": [
+        {
+          "condition": "VDDIO=1.62V, ioh=1 mA",
+          "value": null,
+          "expr": "0.8*VDDIO"
+        },
+        {
+          "condition": "VDDIO=1.2V, ioh=1 mA",
+          "value": null,
+          "expr": "0.6*VDDIO"
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "I2C, VDDIO=1.62V, iol=3 mA",
+          "value": null,
+          "expr": "0.2*VDDIO"
+        },
+        {
+          "condition": "I2C, VDDIO=1.20V, iol=3 mA",
+          "value": null,
+          "expr": "0.23*VDDIO"
+        },
+        {
+          "condition": "SPI, VDDIO=1.62V, iol=1 mA",
+          "value": null,
+          "expr": "0.2*VDDIO"
+        },
+        {
+          "condition": "SPI, VDDIO=1.20V, iol=1 mA",
+          "value": null,
+          "expr": "0.23*VDDIO"
+        }
+      ]
     }
   ],
-  "default_group": "Digital Interface Pins (SDI, SDO, SCK, CSB)",
+  "default_group": "Digital Interface Pins - Input/Output",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:24:43+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 8,
+      "entries_dropped_as_duplicates": 1,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "2d8f8a5b771e3d7a766b7b369893e5ca94d9fbe4e3c06d51e57f6b9089ff262d",
@@ -109,7 +259,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:24:43+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -117,6 +267,409 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "4bdbeca6d3c3d5da321dffd5578ee84139484e3e505635e03e1de35a0864d50a",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "bmp280",
+      "counts": {
+        "groups": 4,
+        "malformed_groups": 0,
+        "citations": 17,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 12,
+        "layout": 2,
+        "partial": 3,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "VDD - Analog Supply",
+          "index": 0,
+          "field": "absolute_max_voltage",
+          "value": 4.25,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDD - Analog Supply",
+          "index": 0,
+          "field": "supply_min",
+          "value": 1.71,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDD - Analog Supply",
+          "index": 0,
+          "field": "supply_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDD - Analog Supply",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 4.25,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDDIO - Digital Interface Supply",
+          "index": 1,
+          "field": "absolute_max_voltage",
+          "value": 4.25,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDDIO - Digital Interface Supply",
+          "index": 1,
+          "field": "supply_min",
+          "value": 1.2,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDDIO - Digital Interface Supply",
+          "index": 1,
+          "field": "supply_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VDDIO - Digital Interface Supply",
+          "index": 1,
+          "field": "supply_abs_max",
+          "value": 4.25,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Digital Interface Pins - Input/Output",
+            "2": "Digital Interface Pins - Input/Output",
+            "3": "Digital Interface Pins - Input/Output"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 8,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "4bdbeca6d3c3d5da321dffd5578ee84139484e3e505635e03e1de35a0864d50a",
+          "2": "4bdbeca6d3c3d5da321dffd5578ee84139484e3e505635e03e1de35a0864d50a",
+          "3": "4bdbeca6d3c3d5da321dffd5578ee84139484e3e505635e03e1de35a0864d50a"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 4,
+            "malformed_groups": 0,
+            "citations": 17,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 5,
+            "malformed_groups": 0,
+            "citations": 20,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 4,
+            "malformed_groups": 0,
+            "citations": 17,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

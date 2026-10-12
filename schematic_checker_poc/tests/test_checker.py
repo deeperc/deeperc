@@ -56,6 +56,7 @@ def _spec(VIH_max, confidence="high", snippet="VIH 3.6V typical") -> ValidatedPi
         signal_score=75,
         confidence=confidence,
         is_verified=(confidence != "low"),
+        pin_type_exact=True,  # a receiver that positively matched its pin group (TODO-504 guard)
     )
 
 
@@ -362,6 +363,7 @@ def _recv_absmax_spec(abs_max=3.6):
         VIH_max=None, VIH_min=None, absolute_max_voltage=abs_max, pin_type="input",
         source_snippet="abs max 3.6V", signal_score=75, confidence="high",
         is_verified=True,
+        pin_type_exact=True,  # a receiver that positively matched its pin group (TODO-504 guard)
     )
 
 
@@ -606,3 +608,48 @@ def test_hadesnt_shaped_multi_row_board_flip_at_unit_scale():
     rows = [r for r in results if r.net_name in ("SIG_A", "SIG_B")]
     assert len(rows) == 2
     assert all(r.status == "PASS" for r in rows)
+
+
+# ── TODO-196 tripwire: regex-only power/ground skip is logged once ──────────────
+
+def _tripwire_records(caplog):
+    return [r for r in caplog.records
+            if r.levelname == "WARNING" and "TODO-196 tripwire" in r.getMessage()]
+
+
+def _tripwire_ir():
+    ir, confirmed = _make_ir("VCC_5V", 5.0)
+    # "+12V" matches POWER_NET_RE but is in neither confirmed_voltages,
+    # ground_nets nor power_nets, so only the regex arm skips it.
+    ir.nets.append(NetIR(name="+12V", pins=[("U_RCV", "2")]))
+    return ir, confirmed
+
+
+def test_todo196_k1_regex_only_skip_logs_tripwire_once(monkeypatch, caplog):
+    import steps.step_08_checker as s08
+    monkeypatch.setattr(s08, "_REGEX_ONLY_SKIP_LOGGED", False)
+    ir, confirmed = _tripwire_ir()
+    with caplog.at_level("WARNING", logger="steps.step_08_checker"):
+        results = run(ir, {}, confirmed)
+    assert not any(r.net_name == "+12V" for r in results)
+    recs = _tripwire_records(caplog)
+    assert len(recs) == 1 and "'+12V'" in recs[0].getMessage()
+
+
+def test_todo196_k2_tripwire_logs_once_per_process(monkeypatch, caplog):
+    import steps.step_08_checker as s08
+    monkeypatch.setattr(s08, "_REGEX_ONLY_SKIP_LOGGED", False)
+    ir, confirmed = _tripwire_ir()
+    with caplog.at_level("WARNING", logger="steps.step_08_checker"):
+        run(ir, {}, confirmed)
+        run(ir, {}, confirmed)
+    assert len(_tripwire_records(caplog)) == 1
+
+
+def test_todo196_k3_confirmed_rail_does_not_trip(monkeypatch, caplog):
+    import steps.step_08_checker as s08
+    monkeypatch.setattr(s08, "_REGEX_ONLY_SKIP_LOGGED", False)
+    ir, confirmed = _make_ir("VCC_5V", 5.0)
+    with caplog.at_level("WARNING", logger="steps.step_08_checker"):
+        run(ir, {}, confirmed)
+    assert _tripwire_records(caplog) == []

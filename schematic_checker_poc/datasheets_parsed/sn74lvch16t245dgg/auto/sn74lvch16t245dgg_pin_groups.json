@@ -1,12 +1,12 @@
 {
   "pin_groups": [
     {
-      "group_name": "VCCA Supply Rail",
+      "group_name": "VCCA Supply",
       "pin_type": "power",
       "example_pins": [
-        "VCCA"
+        "?|VCCA"
       ],
-      "applies_to": "A-port supply voltage (pins 42, 31 in DGG/DGV packages)",
+      "applies_to": "A-port supply pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,16 +16,45 @@
       "supply_max": 5.5,
       "supply_abs_max": 6.5,
       "supply_rail_name": "VCCA",
+      "citations": {
+        "supply_min": {
+          "quote": "VCCA 1.65 5.5 Supplyvoltage V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "VCCA 1.65 5.5 Supplyvoltage V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VCCA Supplyvoltage \u20130.5 6.5 V",
+          "page": 6,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings, Table 7.1"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 6.5,
+          "shipped_group": "VCCA Supply Rail",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "VCCB Supply Rail",
+      "group_name": "VCCB Supply",
       "pin_type": "power",
       "example_pins": [
-        "VCCB"
+        "?|VCCB"
       ],
-      "applies_to": "B-port supply voltage (pins 7, 18 in DGG/DGV packages)",
+      "applies_to": "B-port supply pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -35,16 +64,45 @@
       "supply_max": 5.5,
       "supply_abs_max": 6.5,
       "supply_rail_name": "VCCB",
+      "citations": {
+        "supply_min": {
+          "quote": "VCCB 1.65 5.5 Supplyvoltage V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "layout"
+        },
+        "supply_max": {
+          "quote": "VCCB 1.65 5.5 Supplyvoltage V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "layout"
+        },
+        "supply_abs_max": {
+          "quote": "VCCB Supplyvoltage \u20130.5 6.5 V",
+          "page": 6,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings, Table 7.1"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 6.5,
+          "shipped_group": "VCCB Supply Rail",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "GND",
+      "group_name": "Ground",
       "pin_type": "power",
       "example_pins": [
-        "GND"
+        "?|GND"
       ],
-      "applies_to": "Ground pins (pins 4, 10, 15, 21, 28, 34, 39, 45 in DGG/DGV packages)",
+      "applies_to": "Ground pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -54,89 +112,34 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "A-Port Data I/O (1A1-1A8, 2A1-2A8)",
+      "group_name": "A-Port Bidirectional I/O (Referenced to VCCA)",
       "pin_type": "bidirectional",
       "example_pins": [
-        "1A1",
-        "1A2",
-        "1A3",
-        "1A4",
-        "1A5",
-        "1A6",
-        "1A7",
-        "1A8",
-        "2A1",
-        "2A2",
-        "2A3",
-        "2A4",
-        "2A5",
-        "2A6",
-        "2A7",
-        "2A8"
+        "?|1A1",
+        "?|1A2",
+        "?|1A3",
+        "?|1A4",
+        "?|1A5",
+        "?|1A6",
+        "?|1A7",
+        "?|1A8",
+        "?|2A1",
+        "?|2A2",
+        "?|2A3",
+        "?|2A4",
+        "?|2A5",
+        "?|2A6",
+        "?|2A7",
+        "?|2A8"
       ],
-      "applies_to": "A-port data input/output pins referenced to VCCA",
-      "VIH_min": 0.65,
-      "VIL_max": 0.35,
-      "VOH_min": 1.2,
-      "VOL_max": 0.45,
-      "absolute_max_voltage": 6.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions, Table 7.3 (1.65V-1.95V range: VIH_min = VCCA \u00d7 0.65)",
-      "abs_max_source": "Absolute Maximum Ratings, Table 7.1 (I/O ports A port: -0.5 to 6.5V)"
-    },
-    {
-      "group_name": "B-Port Data I/O (1B1-1B8, 2B1-2B8)",
-      "pin_type": "bidirectional",
-      "example_pins": [
-        "1B1",
-        "1B2",
-        "1B3",
-        "1B4",
-        "1B5",
-        "1B6",
-        "1B7",
-        "1B8",
-        "2B1",
-        "2B2",
-        "2B3",
-        "2B4",
-        "2B5",
-        "2B6",
-        "2B7",
-        "2B8"
-      ],
-      "applies_to": "B-port data input/output pins referenced to VCCB",
-      "VIH_min": 0.65,
-      "VIL_max": 0.35,
-      "VOH_min": 1.2,
-      "VOL_max": 0.45,
-      "absolute_max_voltage": 6.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions, Table 7.3 (1.65V-1.95V range: VIH_min = VCCB \u00d7 0.65)",
-      "abs_max_source": "Absolute Maximum Ratings, Table 7.1 (I/O ports B port: -0.5 to 6.5V)"
-    },
-    {
-      "group_name": "Control Inputs (1DIR, 2DIR, 1OE, 2OE)",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "1DIR",
-        "2DIR",
-        "1OE",
-        "2OE"
-      ],
-      "applies_to": "Direction control and output enable inputs referenced to VCCA",
-      "VIH_min": 0.65,
-      "VIL_max": 0.35,
+      "applies_to": "A-port I/O pins referenced to VCCA",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 6.5,
@@ -144,16 +147,680 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions, Table 7.3 (1.65V-1.95V range: VIH_min = VCCA \u00d7 0.65)",
-      "abs_max_source": "Absolute Maximum Ratings, Table 7.1 (Control inputs: -0.5 to 6.5V)"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Aport \u20130.5 VCCA +0.5 V",
+          "page": 6,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "partial"
+        },
+        "VIH_min_alts[0]": {
+          "quote": "1.65Vto1.95V VCCI \u00d70.65",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "2.3Vto2.7V 1.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[2]": {
+          "quote": "3Vto3.6V 2 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[3]": {
+          "quote": "4.5Vto5.5V VCCI \u00d70.7",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[0]": {
+          "quote": "1.65Vto1.95V VCCI \u00d70.35",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[1]": {
+          "quote": "2.3Vto2.7V 0.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[2]": {
+          "quote": "3Vto3.6V 0.8 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[3]": {
+          "quote": "4.5Vto5.5V VCCI \u00d70.3",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "IOH =\u20134mA, VI =VIH 1.65V 1.65V 1.2 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "IOH =\u20138mA, VI =VIH 2.3V 2.3V 1.9 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[2]": {
+          "quote": "IOH =\u201324mA, VI =VIH 3V 3V 2.4 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[3]": {
+          "quote": "IOH =\u201332mA, VI =VIH 4.5V 4.5V 3.8 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "IOL =4mA, VI =VIL 1.65V 1.65V 0.45 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL =8mA, VI =VIL 2.3V 2.3V 0.3 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[2]": {
+          "quote": "IOL =24mA, VI =VIL 3V 3V 0.55 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[3]": {
+          "quote": "IOL =32mA, VI =VIL 4.5V 4.5V 0.55 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "7.1 Absolute Maximum Ratings",
+      "VIH_min_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.65*VCCI"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 1.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 2.0,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.7*VCCI"
+        }
+      ],
+      "VIL_max_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.35*VCCI"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 0.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.3*VCCI"
+        }
+      ],
+      "VOH_min_alts": [
+        {
+          "condition": "VCCA=1.65V, IOH=-4mA",
+          "value": 1.2,
+          "expr": null
+        },
+        {
+          "condition": "VCCA=2.3V, IOH=-8mA",
+          "value": 1.9,
+          "expr": null
+        },
+        {
+          "condition": "VCCA=3V, IOH=-24mA",
+          "value": 2.4,
+          "expr": null
+        },
+        {
+          "condition": "VCCA=4.5V, IOH=-32mA",
+          "value": 3.8,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "VCCA=1.65V, IOL=4mA",
+          "value": 0.45,
+          "expr": null
+        },
+        {
+          "condition": "VCCA=2.3V, IOL=8mA",
+          "value": 0.3,
+          "expr": null
+        },
+        {
+          "condition": "VCCA=3V, IOL=24mA",
+          "value": 0.55,
+          "expr": null
+        },
+        {
+          "condition": "VCCA=4.5V, IOL=32mA",
+          "value": 0.55,
+          "expr": null
+        }
+      ]
+    },
+    {
+      "group_name": "B-Port Bidirectional I/O (Referenced to VCCB)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "?|1B1",
+        "?|1B2",
+        "?|1B3",
+        "?|1B4",
+        "?|1B5",
+        "?|1B6",
+        "?|1B7",
+        "?|1B8",
+        "?|2B1",
+        "?|2B2",
+        "?|2B3",
+        "?|2B4",
+        "?|2B5",
+        "?|2B6",
+        "?|2B7",
+        "?|2B8"
+      ],
+      "applies_to": "B-port I/O pins referenced to VCCB",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Bport \u20130.5 VCCB +0.5 V",
+          "page": 6,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "layout"
+        },
+        "VIH_min_alts[0]": {
+          "quote": "1.65Vto1.95V VCCI \u00d70.65",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "2.3Vto2.7V 1.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[2]": {
+          "quote": "3Vto3.6V 2 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[3]": {
+          "quote": "4.5Vto5.5V VCCI \u00d70.7",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[0]": {
+          "quote": "1.65Vto1.95V VCCI \u00d70.35",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[1]": {
+          "quote": "2.3Vto2.7V 0.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[2]": {
+          "quote": "3Vto3.6V 0.8 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[3]": {
+          "quote": "4.5Vto5.5V VCCI \u00d70.3",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "IOH =\u20134mA, VI =VIH 1.65V 1.65V 1.2 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "IOH =\u20138mA, VI =VIH 2.3V 2.3V 1.9 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[2]": {
+          "quote": "IOH =\u201324mA, VI =VIH 3V 3V 2.4 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[3]": {
+          "quote": "IOH =\u201332mA, VI =VIH 4.5V 4.5V 3.8 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "IOL =4mA, VI =VIL 1.65V 1.65V 0.45 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL =8mA, VI =VIL 2.3V 2.3V 0.3 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[2]": {
+          "quote": "IOL =24mA, VI =VIL 3V 3V 0.55 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[3]": {
+          "quote": "IOL =32mA, VI =VIL 4.5V 4.5V 0.55 V",
+          "page": 8,
+          "section": "7.5 Electrical Characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "7.1 Absolute Maximum Ratings",
+      "VIH_min_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.65*VCCI"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 1.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 2.0,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.7*VCCI"
+        }
+      ],
+      "VIL_max_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.35*VCCI"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 0.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.3*VCCI"
+        }
+      ],
+      "VOH_min_alts": [
+        {
+          "condition": "VCCB=1.65V, IOH=-4mA",
+          "value": 1.2,
+          "expr": null
+        },
+        {
+          "condition": "VCCB=2.3V, IOH=-8mA",
+          "value": 1.9,
+          "expr": null
+        },
+        {
+          "condition": "VCCB=3V, IOH=-24mA",
+          "value": 2.4,
+          "expr": null
+        },
+        {
+          "condition": "VCCB=4.5V, IOH=-32mA",
+          "value": 3.8,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "VCCB=1.65V, IOL=4mA",
+          "value": 0.45,
+          "expr": null
+        },
+        {
+          "condition": "VCCB=2.3V, IOL=8mA",
+          "value": 0.3,
+          "expr": null
+        },
+        {
+          "condition": "VCCB=3V, IOL=24mA",
+          "value": 0.55,
+          "expr": null
+        },
+        {
+          "condition": "VCCB=4.5V, IOL=32mA",
+          "value": 0.55,
+          "expr": null
+        }
+      ]
+    },
+    {
+      "group_name": "Direction Control Input (1DIR, 2DIR)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|1DIR",
+        "?|2DIR"
+      ],
+      "applies_to": "Direction control pins referenced to VCCA",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Controlinputs \u20130.5 6.5 V",
+          "page": 6,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[0]": {
+          "quote": "1.65Vto1.95V VCCA \u00d70.65",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "2.3Vto2.7V 1.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[2]": {
+          "quote": "3Vto3.6V 2 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[3]": {
+          "quote": "4.5Vto5.5V VCCA \u00d70.7",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[0]": {
+          "quote": "1.65Vto1.95V VCCA \u00d70.35",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[1]": {
+          "quote": "2.3Vto2.7V 0.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[2]": {
+          "quote": "3Vto3.6V 0.8 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[3]": {
+          "quote": "4.5Vto5.5V VCCA \u00d70.3",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "7.1 Absolute Maximum Ratings",
+      "VIH_min_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.65*VCCA"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 1.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 2.0,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.7*VCCA"
+        }
+      ],
+      "VIL_max_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.35*VCCA"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 0.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.3*VCCA"
+        }
+      ]
+    },
+    {
+      "group_name": "Output Enable Input (1OE, 2OE)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|1OE",
+        "?|2OE"
+      ],
+      "applies_to": "Output enable control pins referenced to VCCA",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Controlinputs \u20130.5 6.5 V",
+          "page": 6,
+          "section": "7.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[0]": {
+          "quote": "1.65Vto1.95V VCCA \u00d70.65",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "2.3Vto2.7V 1.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[2]": {
+          "quote": "3Vto3.6V 2 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[3]": {
+          "quote": "4.5Vto5.5V VCCA \u00d70.7",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[0]": {
+          "quote": "1.65Vto1.95V VCCA \u00d70.35",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[1]": {
+          "quote": "2.3Vto2.7V 0.7 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[2]": {
+          "quote": "3Vto3.6V 0.8 V",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[3]": {
+          "quote": "4.5Vto5.5V VCCA \u00d70.3",
+          "page": 7,
+          "section": "7.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "7.1 Absolute Maximum Ratings",
+      "VIH_min_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.65*VCCA"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 1.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 2.0,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.7*VCCA"
+        }
+      ],
+      "VIL_max_alts": [
+        {
+          "condition": "1.65V to 1.95V",
+          "value": null,
+          "expr": "0.35*VCCA"
+        },
+        {
+          "condition": "2.3V to 2.7V",
+          "value": 0.7,
+          "expr": null
+        },
+        {
+          "condition": "3V to 3.6V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "4.5V to 5.5V",
+          "value": null,
+          "expr": "0.3*VCCA"
+        }
+      ]
     }
   ],
-  "default_group": "A-Port Data I/O (1A1-1A8, 2A1-2A8)",
+  "default_group": "A-Port Bidirectional I/O (Referenced to VCCA)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:16+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 48,
+      "entries_dropped_as_duplicates": 9,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "bd9e26a9d227d4711d59936f4ee3072d05ecd5d6d81093c2c484c0c0dd7e0c32",
@@ -175,7 +842,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:16+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -183,6 +850,425 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "5823b8b1c5a62297caaf5e4fc2de13eb08276804a5dc15e808ab151d8dd6ccfe",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "sn74lvch16t245dgg",
+      "counts": {
+        "groups": 7,
+        "malformed_groups": 0,
+        "citations": 58,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 42,
+        "layout": 15,
+        "partial": 1,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "VCCA Supply",
+          "index": 0,
+          "field": "supply_min",
+          "value": 1.65,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VCCA Supply",
+          "index": 0,
+          "field": "supply_max",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VCCA Supply",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 6.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VCCB Supply",
+          "index": 1,
+          "field": "supply_min",
+          "value": 1.65,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VCCB Supply",
+          "index": 1,
+          "field": "supply_max",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VCCB Supply",
+          "index": 1,
+          "field": "supply_abs_max",
+          "value": 6.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "A-Port Bidirectional I/O (Referenced to VCCA)",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 6.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "B-Port Bidirectional I/O (Referenced to VCCB)",
+          "index": 4,
+          "field": "absolute_max_voltage",
+          "value": 6.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Direction Control Input (1DIR, 2DIR)",
+          "index": 5,
+          "field": "absolute_max_voltage",
+          "value": 6.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Enable Input (1OE, 2OE)",
+          "index": 6,
+          "field": "absolute_max_voltage",
+          "value": 6.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 2,
+        "base_without_probe": 2,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "A-Port Bidirectional I/O (Referenced to VCCA)",
+            "2": "A-Port Bidirectional I/O (Referenced to VCCA)",
+            "3": "A-Port Bidirectional I/O (1.65V to 5.5V)"
+          },
+          "agreement": {
+            "1": 7,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 48,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 48,
+            "2": 48,
+            "3": 48
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "5823b8b1c5a62297caaf5e4fc2de13eb08276804a5dc15e808ab151d8dd6ccfe",
+          "2": "5823b8b1c5a62297caaf5e4fc2de13eb08276804a5dc15e808ab151d8dd6ccfe",
+          "3": "5823b8b1c5a62297caaf5e4fc2de13eb08276804a5dc15e808ab151d8dd6ccfe"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 60,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 58,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 58,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

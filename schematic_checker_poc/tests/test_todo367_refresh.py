@@ -141,7 +141,9 @@ def test_named_stem_reextracts_and_sidecars_old_cache(board_fixture, monkeypatch
     assert fake.calls == 1  # re-extracted, not served from cache
     assert b["sidecar_path"].exists()
     assert b["sidecar_path"].read_bytes() == old_bytes
-    assert json.loads(b["cache_path"].read_text())["pin_groups"] == [{"group_name": "NEW"}]
+    # TODO-509 fork (d): extraction_validator adds citations / *_source / example_pins keys.
+    groups = json.loads(b["cache_path"].read_text())["pin_groups"]
+    assert [g["group_name"] for g in groups] == ["NEW"]
 
 
 def test_unnamed_stem_serves_cache_untouched(board_fixture, monkeypatch):

@@ -79,7 +79,7 @@ def _record_unclaimed_power_pin(refdes: str, pin_name: str, net_name: str,
 # steps/passive_traversal.py and consumed identically here, in step_08b
 # (SUPPLY_PIN_NAMES) and by the traversal walk itself (POWER_PIN_FUNCTIONS = this
 # base | {"VBUS"}). POWER_PIN_NAMES is kept as this module's local alias — it is
-# referenced by _power_pin_recognition below and by investigation/ scan scripts.
+# referenced by _power_pin_recognition below and by out-of-tree scan scripts.
 # The 'exact'/'prefix' two-tier recognition semantics are UNCHANGED; only the
 # exact-tier membership list is now shared (it gains VDDH/VDDL from the base).
 from steps.passive_traversal import SUPPLY_PIN_NAMES
@@ -350,8 +350,7 @@ def check_structural_integrity(
 
             # 4. Empty net or KiCad explicit unconnected marker.
             #
-            #    NC gate (TODO-304/FP-08C-NOCONN, recon
-            #    investigation/recon_reports/step08c_noconnect_recon.md): a pin
+            #    NC gate (TODO-304/FP-08C-NOCONN): a pin
             #    can land here not because it's an accidental wiring defect but
             #    because KiCad's own no_connect flag says the designer meant it
             #    (e.g. a multi-pad power ball a datasheet says to leave floating

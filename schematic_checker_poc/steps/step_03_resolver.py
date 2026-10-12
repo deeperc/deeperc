@@ -1238,6 +1238,11 @@ def _load_pin_groups_from_root(root, resolved_stem: str,
         # None downstream, and _tier_for_status(None) fails OPEN to
         # confirmed_local. Every serve path leaves this key present.
         cached["cache_currency"] = status
+        # TODO-401: sha256 of the served file's bytes (after any self-heal stamp
+        # above), a TOP-LEVEL key like cache_currency — never inside provenance.
+        # Lifted by pipeline.run_board into the report's cache_body_sha256s, so a
+        # same-PDF re-extraction (unchanged source_hash) still stales the report.
+        cached["cache_body_sha256"] = _file_sha256(cache_path)
         return cached, "ok"
     return None, "absent"
 
@@ -1347,7 +1352,13 @@ def _current_parse_quality(pdf_path: str) -> str:
 def build_provenance(pdf_path: str, *, parse_quality: str | None = None,
                      extractor_impl: str | None = None,
                      input_path: str | None = None,
-                     doc_identity: dict | None = None) -> dict:
+                     doc_identity: dict | None = None,
+                     extractor_fingerprint: dict | None = None,
+                     pdfplumber_version: str | None = None,
+                     service_tier: str | None = None,
+                     request_sha256: str | None = None,
+                     input_regime: str | None = None,
+                     validation: dict | None = None) -> dict:
     cfg = parse_config()
     pdf_sha = _pdf_sha256(pdf_path)
     try:
@@ -1379,6 +1390,22 @@ def build_provenance(pdf_path: str, *, parse_quality: str | None = None,
     # quarantines or invalidates on it.
     if doc_identity is not None:
         prov["doc_identity"] = doc_identity
+    # TODO-401 (TODO-351 folded): the hashed extractor fingerprint plus four
+    # OBSERVED fields, same slot as the keys above: siblings of extractor_impl,
+    # OUTSIDE source_hash / parse_config (the TODO-397 _source_hash formula is
+    # frozen). Each is absent when not supplied, so a legacy cache reads "legacy"
+    # on the fingerprint axis and nothing is ever backfilled. Only the fingerprint
+    # can stale a cache (check_cache_provenance); the four observed fields never do.
+    for key, value in (("extractor_fingerprint", extractor_fingerprint),
+                       ("pdfplumber_version", pdfplumber_version),
+                       ("service_tier", service_tier),
+                       ("request_sha256", request_sha256),
+                       ("input_regime", input_regime),
+                       # TODO-509 fork (d): the extraction_validator report, observed
+                       # (its version + sha are fingerprint fields; the report is not).
+                       ("validation", validation)):
+        if value is not None:
+            prov[key] = value
     return prov
 
 
@@ -1402,6 +1429,37 @@ def _log_stale_copy_note_once(pdf_path: str) -> None:
         "if the PDF changed).",
         os.path.basename(pdf_path),
     )
+
+
+def extractor_fingerprint_status(cached: dict) -> str:
+    """READ-ONLY extractor-fingerprint reading (TODO-401): 'match' | 'legacy' |
+    'mismatch'. Deliberately NOT a check_cache_provenance status: that
+    function's return set feeds the self-heal WRITE ('legacy_unverified') and
+    manifest-mismatch serving ('current'), and neither may change.
+
+    'legacy'   — no fingerprint stamped (every pre-401 cache, incl. all shipped).
+    'match'    — the stamped sha equals one recomputed from CURRENT constants
+                 under the cache's own draws/aggregate.
+    'mismatch' — anything else, including a malformed stamp or a fingerprint
+                 on an impl with no fingerprint regime (can't confirm = mismatch).
+    """
+    prov = (cached or {}).get("provenance") or {}
+    fp = prov.get("extractor_fingerprint")
+    if not fp:
+        return "legacy"
+    if not prov.get("extractor_impl"):
+        # get_extractor(None) would resolve the env/default impl — never let the
+        # local environment decide which regime a cache is checked against.
+        return "mismatch"
+    try:
+        from steps import extractors
+        fields = fp["fields"]
+        current = extractors.extractor_fingerprint(
+            extractors.get_extractor(prov.get("extractor_impl")),
+            draws=fields["draws"], aggregate=fields["aggregate"])
+    except Exception:
+        return "mismatch"
+    return "match" if current["sha256"] == fp.get("sha256") else "mismatch"
 
 
 def check_cache_provenance(pdf_path: str | None, cached: dict) -> str:
@@ -1435,6 +1493,20 @@ def check_cache_provenance(pdf_path: str | None, cached: dict) -> str:
         cur_size = None
 
     if ext == "haiku_pdfplumber":
+        # TODO-401: a cache that carries an extractor fingerprint is checked
+        # against one recomputed from CURRENT constants under the cache's OWN
+        # stamped draws/aggregate (a regime difference is identity, not drift).
+        # Mismatch → stale; match → fall through to the PDF compare below,
+        # unchanged. No fingerprint (every pre-401 cache) → this block is inert
+        # and the function behaves byte-for-byte as before.
+        if extractor_fingerprint_status(cached) == "mismatch":
+            logger.debug(
+                "[STEP 03] STALE cache for %s — extractor fingerprint mismatch "
+                "(the extraction regime's shipped constants changed since this "
+                "cache was written). Detector only; not auto-invalidated.",
+                os.path.basename(pdf_path),
+            )
+            return "stale"
         # TODO-397: haiku_pdfplumber reads the PDF directly (extract_pdfplumber_
         # full) and never touches parse_config()'s keys (CURRENCY_KEYS_BY_
         # EXTRACTOR above) — comparing parse_config would false-flag "stale" on
@@ -1629,6 +1701,12 @@ def save_pin_groups_cache(
     input_path: str | None = None,
     doc_identity: dict | None = None,
     dest_path: str | None = None,
+    extractor_fingerprint: dict | None = None,
+    pdfplumber_version: str | None = None,
+    service_tier: str | None = None,
+    request_sha256: str | None = None,
+    input_regime: str | None = None,
+    validation: dict | None = None,
 ) -> None:
     # dest_path overrides the real cache location (scratch / dry-run preview): it
     # writes a faithful cache-shaped file elsewhere and skips the quarantine guard,
@@ -1687,7 +1765,11 @@ def save_pin_groups_cache(
     data["provenance"] = build_provenance(
         pdf_path, parse_quality=parse_quality,
         extractor_impl=extractor_impl, input_path=input_path,
-        doc_identity=doc_identity)
+        doc_identity=doc_identity,
+        extractor_fingerprint=extractor_fingerprint,
+        pdfplumber_version=pdfplumber_version, service_tier=service_tier,
+        request_sha256=request_sha256, input_regime=input_regime,
+        validation=validation)
     cache_path.write_text(json.dumps(data, indent=2))
 
 

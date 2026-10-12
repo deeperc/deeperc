@@ -1,12 +1,13 @@
 {
   "pin_groups": [
     {
-      "group_name": "VCC Supply Pins",
+      "group_name": "VCC and BIASVCC Supply Pins",
       "pin_type": "power",
       "example_pins": [
-        "VCC"
+        "?|VCC",
+        "?|BIASVCC"
       ],
-      "applies_to": "All VCC supply pins (multiple pins distributed throughout package)",
+      "applies_to": "VCC and BIASVCC supply pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,35 +17,45 @@
       "supply_max": 3.45,
       "supply_abs_max": 4.6,
       "supply_rail_name": "VCC",
+      "citations": {
+        "supply_min": {
+          "quote": "VCC, BIASVCC Supplyvoltagerange 3.15 3.3 3.45 V",
+          "page": 7,
+          "section": null,
+          "match": "foreign"
+        },
+        "supply_max": {
+          "quote": "VCC, BIASVCC Supplyvoltagerange 3.15 3.3 3.45 V",
+          "page": 7,
+          "section": null,
+          "match": "foreign"
+        },
+        "supply_abs_max": {
+          "quote": "VCC, BIASVCC Supplyvoltagerange \u20130.5 4.6 V",
+          "page": 7,
+          "section": null,
+          "match": "partial"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "BIASV_CC Supply Pins",
-      "pin_type": "power",
-      "example_pins": [
-        "BIASV_CC"
-      ],
-      "applies_to": "BIASV_CC supply pin for B-port precharge feature",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 4.6,
-      "supply_min": 3.15,
-      "supply_max": 3.45,
-      "supply_abs_max": 4.6,
-      "supply_rail_name": "BIASV_CC",
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 4.6,
+          "shipped_group": "VCC Supply Pins",
+          "pins_counted": 6,
+          "pins_total": 7,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "GND Pins",
       "pin_type": "power",
       "example_pins": [
-        "GND"
+        "?|GND"
       ],
-      "applies_to": "All GND pins (multiple pins distributed throughout package)",
+      "applies_to": "Ground pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -54,207 +65,329 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA, OEAB, OEBY)",
+      "group_name": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA)",
       "pin_type": "digital_input",
       "example_pins": [
-        "OE",
-        "DIR",
-        "LE",
-        "CLKAB",
-        "CLKBA",
-        "OEAB",
-        "OEBY"
+        "?|OE",
+        "?|DIR",
+        "?|LE",
+        "?|CLKAB",
+        "?|CLKBA"
       ],
-      "applies_to": "All control input pins",
+      "applies_to": "Control input pins",
       "VIH_min": 2.0,
       "VIL_max": 0.8,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 5.5,
+      "absolute_max_voltage": 7.0,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions",
-      "abs_max_source": "Recommended Operating Conditions"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VI Inputvoltagerange(2) \u20130.5 7 V",
+          "page": 7,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIH_min": {
+          "quote": "ControlinputsorAport VIH High-levelinputvoltage 2 V",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        },
+        "VIL_max": {
+          "quote": "ControlinputsorAport VIL Low-levelinputvoltage 0.8 V",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        }
+      },
+      "VIH_source": "p. 7",
+      "abs_max_source": "p. 7"
     },
     {
-      "group_name": "1A and 2A Inputs",
+      "group_name": "A-Port Inputs (1A, 2A, 3A1-3A8)",
       "pin_type": "digital_input",
       "example_pins": [
-        "1A",
-        "2A"
+        "?|1A",
+        "?|2A",
+        "?|3A1",
+        "?|3A2",
+        "?|3A3",
+        "?|3A4",
+        "?|3A5",
+        "?|3A6",
+        "?|3A7",
+        "?|3A8"
       ],
-      "applies_to": "1-bit bus transceiver A-port inputs",
+      "applies_to": "A-port input pins",
       "VIH_min": 2.0,
       "VIL_max": 0.8,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 5.5,
+      "absolute_max_voltage": 7.0,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions",
-      "abs_max_source": "Recommended Operating Conditions"
-    },
-    {
-      "group_name": "3A Port Inputs (3A1-3A8)",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "3A1",
-        "3A2",
-        "3A3",
-        "3A4",
-        "3A5",
-        "3A6",
-        "3A7",
-        "3A8"
-      ],
-      "applies_to": "8-bit UBT transceiver A-port inputs with bus-hold circuitry",
-      "VIH_min": 2.0,
-      "VIL_max": 0.8,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions",
-      "abs_max_source": "Recommended Operating Conditions"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VI Inputvoltagerange(2) \u20130.5 7 V",
+          "page": 7,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIH_min": {
+          "quote": "ControlinputsorAport VIH High-levelinputvoltage 2 V",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        },
+        "VIL_max": {
+          "quote": "ControlinputsorAport VIL Low-levelinputvoltage 0.8 V",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        }
+      },
+      "VIH_source": "p. 7",
+      "abs_max_source": "p. 7"
     },
     {
       "group_name": "B-Port Inputs (1B, 2B, 3B1-3B8)",
       "pin_type": "digital_input",
       "example_pins": [
-        "1B",
-        "2B",
-        "3B1",
-        "3B2",
-        "3B3",
-        "3B4",
-        "3B5",
-        "3B6",
-        "3B7",
-        "3B8"
+        "?|1B",
+        "?|2B",
+        "?|3B1",
+        "?|3B2",
+        "?|3B3",
+        "?|3B4",
+        "?|3B5",
+        "?|3B6",
+        "?|3B7",
+        "?|3B8"
       ],
-      "applies_to": "All B-port input pins with pseudo-ETL thresholds",
-      "VIH_min": 0.55,
-      "VIL_max": 0.45,
+      "applies_to": "B-port input pins",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions",
-      "abs_max_source": "Recommended Operating Conditions"
-    },
-    {
-      "group_name": "1Y and 2Y Outputs",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "1Y",
-        "2Y"
-      ],
-      "applies_to": "1-bit bus transceiver Y-port outputs with feedback path",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 2.0,
-      "VOL_max": 0.8,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Recommended Operating Conditions"
-    },
-    {
-      "group_name": "3A Port Outputs (3A1-3A8)",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "3A1",
-        "3A2",
-        "3A3",
-        "3A4",
-        "3A5",
-        "3A6",
-        "3A7",
-        "3A8"
-      ],
-      "applies_to": "8-bit UBT transceiver A-port outputs with 26-\u03a9 series resistor",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 2.0,
-      "VOL_max": 0.8,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Recommended Operating Conditions"
-    },
-    {
-      "group_name": "1B and 2B Outputs",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "1B",
-        "2B"
-      ],
-      "applies_to": "1-bit bus transceiver B-port outputs with high drive capability",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 2.0,
-      "VOL_max": 0.6,
       "absolute_max_voltage": 4.6,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Bport \u20130.5 4.6 V",
+          "page": 7,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIH_min_expr": {
+          "quote": "Bport VIH High-levelinputvoltage 0.5VCC +50mV",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        },
+        "VIL_max_expr": {
+          "quote": "Bport VIL Low-levelinputvoltage 0.5VCC \u201350mV",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        }
+      },
+      "VIH_source": "p. 7",
+      "abs_max_source": "p. 7",
+      "VIH_min_expr": "0.5*VCC+50mV",
+      "VIL_max_expr": "0.5*VCC-50mV"
     },
     {
-      "group_name": "3B Port Outputs (3B1-3B8)",
-      "pin_type": "digital_output",
+      "group_name": "Output Enable Inputs (OEAB, OEBY)",
+      "pin_type": "digital_input",
       "example_pins": [
-        "3B1",
-        "3B2",
-        "3B3",
-        "3B4",
-        "3B5",
-        "3B6",
-        "3B7",
-        "3B8"
+        "?|1OEAB",
+        "?|1OEBY",
+        "?|2OEAB",
+        "?|2OEBY"
       ],
-      "applies_to": "8-bit UBT transceiver B-port outputs with high drive capability",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 2.0,
-      "VOL_max": 0.6,
-      "absolute_max_voltage": 4.6,
+      "applies_to": "Output enable control pins",
+      "VIH_min": 2.0,
+      "VIL_max": 0.8,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 7.0,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VI Inputvoltagerange(2) \u20130.5 7 V",
+          "page": 7,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIH_min": {
+          "quote": "ControlinputsorAport VIH High-levelinputvoltage 2 V",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        },
+        "VIL_max": {
+          "quote": "ControlinputsorAport VIL Low-levelinputvoltage 0.8 V",
+          "page": 7,
+          "section": null,
+          "match": "layout"
+        }
+      },
+      "VIH_source": "p. 7",
+      "abs_max_source": "p. 7"
+    },
+    {
+      "group_name": "3A-Port and Y-Port Outputs (1Y, 2Y, 3A1-3A8)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|1Y",
+        "?|2Y",
+        "?|3A1",
+        "?|3A2",
+        "?|3A3",
+        "?|3A4",
+        "?|3A5",
+        "?|3A6",
+        "?|3A7",
+        "?|3A8"
+      ],
+      "applies_to": "3A-port and Y-port output pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": 2.0,
+      "VOL_max": 0.8,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": "Voltagerangeappliedtoanyoutputinthehighorlow 3AportorYoutput \u20130.5 VCC +0.5 V",
+          "page": 7,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VOH_min": {
+          "quote": "3AportandYoutputs VCC =3.15V IOH =\u201312mA 2 V",
+          "page": 8,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VOL_max": {
+          "quote": "3AportandYoutputs VCC =3.15V IOL =12mA 0.8 V",
+          "page": 8,
+          "section": null,
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "p. 7",
+      "absolute_max_voltage_expr": "VCC+0.5"
+    },
+    {
+      "group_name": "B-Port Outputs (1B, 2B, 3B1-3B8)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|1B",
+        "?|2B",
+        "?|3B1",
+        "?|3B2",
+        "?|3B3",
+        "?|3B4",
+        "?|3B5",
+        "?|3B6",
+        "?|3B7",
+        "?|3B8"
+      ],
+      "applies_to": "B-port output pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min": {
+          "quote": "AnyBport VCC =3.15V IOH =\u201348mA 2 V",
+          "page": 8,
+          "section": null,
+          "match": "layout",
+          "status": "nulled:group_novote",
+          "rejected_value": 2.0
+        },
+        "VOL_max": {
+          "quote": "IOL =64mA 0.6 V",
+          "page": 8,
+          "section": null,
+          "match": "layout",
+          "status": "nulled:group_novote",
+          "rejected_value": 0.6
+        },
+        "absolute_max_voltage": {
+          "quote": "Bport \u20130.5 4.6 V",
+          "page": 7,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": 4.6
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "p. 7"
+    },
+    {
+      "group_name": "NC (No Connection) Pins",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|NC"
+      ],
+      "applies_to": "No internal connection pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null
     }
   ],
-  "default_group": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA, OEAB, OEBY)",
+  "default_group": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:16+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 74,
+      "entries_dropped_as_duplicates": 21,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "5c2043bca753bfce58e3dd756729646876d3a3809e20a804d581c1fcbeb0ebc6",
@@ -276,7 +409,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:16+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -284,6 +417,489 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "c98a99ec623ba6c570a50cf182f9eac0582f2e8418e055df4dad4c7a671e54e7",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "sn74vmeh22501dggr",
+      "counts": {
+        "groups": 9,
+        "malformed_groups": 0,
+        "citations": 21,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 7,
+        "layout": 11,
+        "partial": 1,
+        "foreign": 2,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "VCC and BIASVCC Supply Pins",
+          "index": 0,
+          "field": "supply_min",
+          "value": 3.15,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VCC and BIASVCC Supply Pins",
+          "index": 0,
+          "field": "supply_max",
+          "value": 3.45,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "VCC and BIASVCC Supply Pins",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 4.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA)",
+          "index": 2,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA)",
+          "index": 2,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA)",
+          "index": 2,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "A-Port Inputs (1A, 2A, 3A1-3A8)",
+          "index": 3,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "A-Port Inputs (1A, 2A, 3A1-3A8)",
+          "index": 3,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "A-Port Inputs (1A, 2A, 3A1-3A8)",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "B-Port Inputs (1B, 2B, 3B1-3B8)",
+          "index": 4,
+          "field": "absolute_max_voltage",
+          "value": 4.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Enable Inputs (OEAB, OEBY)",
+          "index": 5,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Enable Inputs (OEAB, OEBY)",
+          "index": 5,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Enable Inputs (OEAB, OEBY)",
+          "index": 5,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "3A-Port and Y-Port Outputs (1Y, 2Y, 3A1-3A8)",
+          "index": 6,
+          "field": "VOH_min",
+          "value": 2.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "3A-Port and Y-Port Outputs (1Y, 2Y, 3A1-3A8)",
+          "index": 6,
+          "field": "VOL_max",
+          "value": 0.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "B-Port Outputs (1B, 2B, 3B1-3B8)",
+          "index": 7,
+          "field": "VOH_min",
+          "value": 2.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "B-Port Outputs (1B, 2B, 3B1-3B8)",
+          "index": 7,
+          "field": "VOL_max",
+          "value": 0.6,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "B-Port Outputs (1B, 2B, 3B1-3B8)",
+          "index": 7,
+          "field": "absolute_max_voltage",
+          "value": 4.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 2,
+        "base_without_probe": 2,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA, OEAB, OEBY)",
+            "2": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA)",
+            "3": "Control Inputs (OE, DIR, LE, CLKAB, CLKBA, OEAB, OEBY)"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 133,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 79,
+            "2": 74,
+            "3": 77
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 8,
+          "GROUP-NOVOTE_valued": 3,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 54,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 27,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 27,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "c98a99ec623ba6c570a50cf182f9eac0582f2e8418e055df4dad4c7a671e54e7",
+          "2": "c98a99ec623ba6c570a50cf182f9eac0582f2e8418e055df4dad4c7a671e54e7",
+          "3": "c98a99ec623ba6c570a50cf182f9eac0582f2e8418e055df4dad4c7a671e54e7"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 21,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 9,
+            "malformed_groups": 0,
+            "citations": 21,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 11,
+            "malformed_groups": 0,
+            "citations": 29,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 2,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ A property all three findings share: **each one is invisible to KiCad's ERC.** A
 | 2 | Antmicro Artix DC-SCM | 1.8 V flash ×4 wired to 3.3 V rail | Supply overvoltage | 2026-07-17 | Open ([issue #6](https://github.com/antmicro/artix-dc-scm/issues/6)) |
 | 3 | Tronex TRNXSDR carrier | I²C bus crossed at root sheet (PMIC + clock gen) | I²C role coherence (zero-KB) | 2026-07-19 | Open ([issue #1](https://github.com/acruxcz/TRNXSDR-carrier/issues/1)) |
 
-Status column reflects upstream state as of 2026-09-03.
+Status column reflects upstream state as of 2026-10-11.
 
 ---
 
@@ -24,7 +24,7 @@ Status column reflects upstream state as of 2026-09-03.
 
 **Why ERC missed it.** Crossed net labels are electrically valid connections. The defect has been present since the sheet was introduced and survived a later commit dedicated to ERC/DRC cleanup — structural rule checking has no concept of which pin *should* be on which net.
 
-**Upstream response:** open, no maintainer activity (re-verified live 2026-08-22; issue and repo HEAD unchanged since filing).
+**Upstream response:** open, no maintainer activity (re-verified live 2026-10-11; issue and repo HEAD unchanged since filing).
 
 ## 2. Artix DC-SCM — four 1.8 V flash parts on the 3.3 V rail
 
@@ -36,7 +36,7 @@ Status column reflects upstream state as of 2026-09-03.
 
 **Why ERC missed it.** A rail connection is electrically valid to ERC regardless of what the connected part is rated for. Catching this requires knowing, per part, what voltage its supply pin tolerates — which is exactly the datasheet-derived knowledge this tool runs on.
 
-**Upstream response:** open, no maintainer activity (re-verified live 2026-08-22; issue and repo HEAD unchanged since filing).
+**Upstream response:** open, no maintainer activity (re-verified live 2026-10-11; issue and repo HEAD unchanged since filing).
 
 ## 3. TRNXSDR carrier — SMU I²C bus B crossed at the root sheet
 
@@ -50,7 +50,7 @@ Per the LP87524 datasheet (SNVSAW2 §5), pin 5 (SCL) is input-only while pin 6 (
 
 **Why ERC missed it.** A hierarchical sheet-pin name/function mismatch is not a structural error. The defect has been present since the repository's first commit and survived a production review that fixed a label typo two wires away.
 
-**Upstream response:** open, no maintainer activity (re-verified live 2026-08-22; issue and repo HEAD unchanged since filing).
+**Upstream response:** open, no maintainer activity (re-verified live 2026-10-11; issue and repo HEAD unchanged since filing).
 
 ---
 

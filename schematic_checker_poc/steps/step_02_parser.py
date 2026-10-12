@@ -4,12 +4,19 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from . import pin_match
+
 
 @dataclass
 class PinIR:
     pin_id: str
     pin_name: str
     net: str
+    # Libparts (symbol) pin name for this pin_id, raw ("" when the netlist has no
+    # libparts entry for the component's libsource, or the symbol pin is
+    # unnamed). Read by the spec-lookup matcher's names(pin) (TODO-488); never
+    # replaces pin_name.
+    symbol_name: str = ""
 
 
 @dataclass
@@ -24,6 +31,7 @@ class ComponentIR:
     # string. Default "" keeps existing constructors/consumers unaffected.
     footprint: str = ""
     libsource_part: str = ""
+    libsource_lib: str = ""
     # L2 vendor-lookup placeholder-expansion result (private-tier resolver's
     # placeholder_expansion["concrete"]), threaded back from the resolver.
     # None for every literal MPN and for any placeholder step_03 didn't
@@ -60,6 +68,9 @@ class NetlistIR:
     # unchanged for every existing consumer). Empty dict for netlists parsed
     # before this field existed or hand-crafted fixtures without the field.
     pintypes: dict[tuple[str, str], str] = field(default_factory=dict)
+    # Components whose (libsource_lib, libsource_part) has no (libparts ...)
+    # entry, so their pins carry symbol_name "" (TODO-488).
+    libparts_unmatched: int = 0
 
 
 # ── S-expression tokenizer ────────────────────────────────────────────────────
@@ -181,6 +192,7 @@ def _extract_components(tree: list) -> list[ComponentIR]:
         footprint = _atom(comp, 'footprint') or ''
         libsource_node = _find(comp, 'libsource')
         libsource_part = _atom(libsource_node, 'part') or '' if libsource_node else ''
+        libsource_lib = _atom(libsource_node, 'lib') or '' if libsource_node else ''
 
         components.append(ComponentIR(
             refdes=refdes,
@@ -189,6 +201,7 @@ def _extract_components(tree: list) -> list[ComponentIR]:
             pins=pins,
             footprint=footprint,
             libsource_part=libsource_part,
+            libsource_lib=libsource_lib,
         ))
 
     return components
@@ -322,6 +335,22 @@ def _backfill_pin_nets(
             ]
 
 
+def _fill_symbol_names(tree: list, components: list[ComponentIR]) -> int:
+    """Sets each pin's symbol_name from the netlist's (libparts ...) section via
+    the component's (libsource_lib, libsource_part) and the pin_id. Returns the
+    number of components with no libparts entry (their pins keep "")."""
+    libparts = pin_match.read_libpart_pins(tree)
+    unmatched = 0
+    for comp in components:
+        names = libparts.get((comp.libsource_lib, comp.libsource_part))
+        if names is None:
+            unmatched += 1
+            continue
+        for pin in comp.pins:
+            pin.symbol_name = names.get(pin.pin_id, "")
+    return unmatched
+
+
 # ── Main entry point ──────────────────────────────────────────────────────────
 
 def parse_netlist(netlist_path: str | Path) -> NetlistIR:
@@ -371,6 +400,7 @@ def parse_netlist(netlist_path: str | Path) -> NetlistIR:
 
     pinfunctions = _extract_pinfunctions(tree)
     _backfill_pin_nets(components, nets, pinfunctions)
+    libparts_unmatched = _fill_symbol_names(tree, components)
     pintypes = _extract_pintypes(tree)
 
     return NetlistIR(
@@ -380,6 +410,7 @@ def parse_netlist(netlist_path: str | Path) -> NetlistIR:
         power_nets=[],
         ground_nets=[],
         pintypes=pintypes,
+        libparts_unmatched=libparts_unmatched,
     )
 
 

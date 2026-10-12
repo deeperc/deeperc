@@ -151,6 +151,9 @@ RED, 1K5, 10K) — resolved as generic passives, skipped.
 ─────────────────────────────────────
 
 [STEP 08b] Supply evidence:
+  PASS          U1 AMS1117-3.3 VI (pin 3) <- VBUS  —  Cache-sourced —
+  supply 5.0V within rated range 2.0V - 12.0V (not locally verified);
+  source-text MPN match: none
   PASS          U2 STM32F103C8T6 VBAT (pin 1) <- +3.3V  —  Cache-sourced —
   supply 3.3V within rated range 1.8V - 3.6V (not locally verified)
   PASS          U2 STM32F103C8T6 VDD (pin 24) <- +3.3V  —  Cache-sourced —
@@ -164,7 +167,7 @@ RED, 1K5, 10K) — resolved as generic passives, skipped.
 
 Status: has_fail
   signal           0 PASS  0 WARN  0 FAIL  0 UNRESOLVABLE
-  supply           5 PASS  0 WARN  0 FAIL  0 UNRESOLVABLE
+  supply           6 PASS  0 WARN  0 FAIL  0 UNRESOLVABLE
   structural       11 PASS  0 WARN  0 FAIL
   peripheral       0 PASS  0 WARN  2 FAIL  2 UNRESOLVABLE
   pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
@@ -194,7 +197,7 @@ UNRESOLVABLE
   ['Conn_01x04_Pin']. (MCU KB — no datasheet required)
     KB sources: VENDOR_XML
 
-  (16 PASS finding(s) not shown — full detail in the JSON report)
+  (17 PASS finding(s) not shown — full detail in the JSON report)
 ```
 
 The 2 FAILs are the injected defect:
@@ -205,7 +208,7 @@ The 2 FAILs are the injected defect:
   name implies I2C SCL — SDA/SCL swap.
 
 Both are `ROLE_MISMATCH` findings sourced from the peripheral knowledge base
-(`kb_possible_roles`), at high confidence. The five supply pins pass against
+(`kb_possible_roles`), at high confidence. The six supply pins pass against
 their rated ranges from the shipped cache — each line in the `Supply
 evidence` block carries `(not locally verified)` because no datasheet is on
 disk. The `RESULT` box's `UNRESOLVABLE: 2` is the two I2C nets' connector,
@@ -241,12 +244,14 @@ UNRESOLVABLE
   ['Conn_01x04_Pin']. (MCU KB — no datasheet required)
     KB sources: VENDOR_XML
 
-  (16 PASS finding(s) not shown — full detail in the JSON report)
+  (17 PASS finding(s) not shown — full detail in the JSON report)
 ```
 
 (From `schematic_checker_poc/`: `main.py --netlist
 ../examples/my_stm32_board_i2c_fixed/my_stm32_board_i2c_fixed.net
---skip-confirm` prints `[VERDICT] all_pass` and exits `0`.)
+--skip-confirm` prints `[VERDICT] all_pass` and exits `0`. The line under
+the verdict, `[UNRESOLVABLE] 2 finding(s) not evaluated; see LIMITATIONS.md (board verdicts)`,
+counts the two findings that could not be evaluated.)
 
 The board passes — the injected I2C defect is gone. The two `UNRESOLVABLE`
 lines remain because the 4-pin connector has no entry in the peripheral
@@ -645,6 +650,13 @@ label on each `Supply evidence` line says which it did:
   fetched copy will most likely trip the report's drift warning — expected,
   not an error.
 
+A label can also end with `; source-text MPN match: none`. That is an
+annotation, not a verdict: the name the cached extraction is filed under does
+not appear in the text of the datasheet it was extracted from. The demo
+board's AMS1117-3.3 line carries it because its cache is filed as
+`5272_ams1117-3.3`. The check result is unchanged; read it as a prompt to
+confirm the cited datasheet is the right document for your part.
+
 To see the labels change, fetch two files:
 
 1. **Create the datasheet directories:**
@@ -679,10 +691,10 @@ To see the labels change, fetch two files:
    rename the download to `netlist_corpus/datasheets/st/stm32f103c8.pdf`.
 
 Re-run the demo. Verdicts are unchanged — `FAIL 2 / WARN 0 / UNRESOLVABLE 2`
-— and the five `Supply evidence` lines now read `Confirmed — …`:
+— and the six `Supply evidence` lines now read `Confirmed — …`:
 
 ```
-[STEP 08b] Supply checks: 5 PASS  0 WARN  0 FAIL  0 UNRESOLVABLE
+[STEP 08b] Supply checks: 6 PASS  0 WARN  0 FAIL  0 UNRESOLVABLE
 ...
 
 ─────────────────────────────────────
@@ -696,6 +708,8 @@ Re-run the demo. Verdicts are unchanged — `FAIL 2 / WARN 0 / UNRESOLVABLE 2`
 ─────────────────────────────────────
 
 [STEP 08b] Supply evidence:
+  PASS          U1 AMS1117-3.3 VI (pin 3) <- VBUS  —  Confirmed —
+  supply 5.0V within rated range 2.0V - 12.0V; source-text MPN match: none
   PASS          U2 STM32F103C8T6 VBAT (pin 1) <- +3.3V  —  Confirmed —
   supply 3.3V within rated range 1.8V - 3.6V
   PASS          U2 STM32F103C8T6 VDD (pin 24) <- +3.3V  —  Confirmed —
@@ -736,6 +750,7 @@ python3 main.py --netlist ../examples/my_stm32_board_i2c_swap/my_stm32_board_i2c
 ─────────────────────────────────────
 ...
 [VERDICT] has_fail
+[UNRESOLVABLE] 2 finding(s) not evaluated; see LIMITATIONS.md (board verdicts)
 ```
 
 Exits `1` — this is the swap board (the same defect as the 30-second demo
@@ -747,7 +762,7 @@ before the other six checkers existed. For a grand total across every
 checker (`supply`, `structural`, `peripheral`, `pullup_value`,
 `output_conflict`, `pullup_presence` included), read
 `summary.total_pass`/`total_warn`/`total_fail`/`total_unresolvable`
-instead (schema `poc-1.5`, purely additive — the four un-prefixed keys
+instead (schema `poc-1.6`, purely additive — the four un-prefixed keys
 keep their original signal-only meaning).
 
 ## Extracting your own parts
@@ -829,18 +844,30 @@ KB authoring is only about the peripheral role/topology tables.
 - Coverage is bounded by what's in `kb/` plus your cached extractions. Anything
   outside both is reported `UNRESOLVABLE`, by design — absence of evidence is
   never converted into a verdict.
+- Board verdicts rank `FAIL > WARN > PASS > UNRESOLVABLE`. A board with at
+  least one PASS and no FAIL or WARN reports `all_pass` even when other checks
+  were `UNRESOLVABLE`, so `all_pass` means nothing failed or warned among the
+  checks that could run, not that every check ran. `main.py` prints the count
+  on an `[UNRESOLVABLE]` line under its `[VERDICT]` line, and the JSON report
+  lists each unevaluated finding.
 - This tool complements KiCad's ERC; it does not replace it. It targets defect
   classes ERC cannot express (role/net-name coherence, per-part voltage limits,
   pull-up presence) and assumes you still run ERC for structural rule checking.
 - Report explanation text is LLM-generated where a local model is available;
   when it isn't, findings carry a one-line note instead. Verdicts are never
-  affected either way. LLM explanation is attempted only for signal- and
-  supply-check FAIL/WARN findings, and only when a local model is available;
-  verdicts never depend on it. Structural findings' evidence tiers appear in
+  affected either way. Model text is used only for signal- and supply-check
+  FAIL findings whose stated comparison holds, and only when a local model is
+  available; WARN and unresolvable findings always carry the fixed text.
+  Verdicts never depend on it. Structural findings' evidence tiers appear in
   the JSON report regardless; the console only shows a summary subset. If a
-  local model server is listening on port 11434 but does not answer, each
-  FAIL/WARN finding waits up to 300 s for explanation text before falling
-  back to the canned note; verdicts are unaffected.
+  local model server is listening on port 11434 but does not answer, the first
+  FAIL finding waits up to 60 s for explanation text (set
+  `DEEPERC_LLM_TIMEOUT_S` to change the figure); after that first failure the
+  run skips the local model for its remaining findings and uses the canned
+  note at once. Set `DEEPERC_NO_LOCAL_LLM=1` to skip the local model entirely.
+  Verdicts are unaffected either way. In the JSON
+  report, `explanation_source` on each signal and supply finding says which it
+  carries: `local_model` or `canned`.
 - For how the precision/recall numbers this project reports are measured, see
   [CORPUS.md](docs/CORPUS.md).
 - The full, current list — including release-specific limitations — lives in

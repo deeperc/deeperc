@@ -4,9 +4,9 @@
       "group_name": "Core Supply Voltage VDD",
       "pin_type": "power",
       "example_pins": [
-        "VDD"
+        "?|VDD"
       ],
-      "applies_to": "VDD pins (core 1.8V supply)",
+      "applies_to": "Si5341 core supply pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,16 +16,42 @@
       "supply_max": 1.89,
       "supply_abs_max": 3.8,
       "supply_rail_name": "VDD",
+      "citations": {
+        "supply_min": {
+          "quote": "Core Supply Voltage VDD 1.71 1.80 1.89 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "Core Supply Voltage VDD 1.71 1.80 1.89 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "DC Supply Voltage VDD -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "DC Supply Voltage VDD -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5"
     },
     {
-      "group_name": "Analog Supply Voltage VDDA",
+      "group_name": "Core Supply Voltage VDDA",
       "pin_type": "power",
       "example_pins": [
-        "VDDA"
+        "?|VDDA"
       ],
-      "applies_to": "VDDA pins (core 3.3V supply)",
+      "applies_to": "Si5341 analog core supply pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -35,135 +61,1062 @@
       "supply_max": 3.47,
       "supply_abs_max": 3.8,
       "supply_rail_name": "VDDA",
+      "citations": {
+        "supply_min": {
+          "quote": "VDDA 3.14 3.30 3.47 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "VDDA 3.14 3.30 3.47 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "DC Supply Voltage VDDA -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout"
+        },
+        "absolute_max_voltage": {
+          "quote": "DC Supply Voltage VDDA -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5"
     },
     {
-      "group_name": "Output Driver Supply Voltage VDDO",
+      "group_name": "Output Driver Supply Voltage VDDO 3.3V",
       "pin_type": "power",
       "example_pins": [
-        "VDDO0",
-        "VDDO1",
-        "VDDO2",
-        "VDDO3",
-        "VDDO4",
-        "VDDO5",
-        "VDDO6",
-        "VDDO7",
-        "VDDO8",
-        "VDDO9"
+        "?|VDDO0",
+        "?|VDDO1",
+        "?|VDDO2",
+        "?|VDDO3",
+        "?|VDDO4",
+        "?|VDDO5",
+        "?|VDDO6",
+        "?|VDDO7",
+        "?|VDDO8",
+        "?|VDDO9"
       ],
-      "applies_to": "VDDO0-VDDO9 pins (output supply 3.3V, 2.5V, or 1.8V)",
+      "applies_to": "Si5341 output driver supply pins for 3.3V operation",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 3.8,
-      "supply_min": 1.71,
+      "supply_min": 3.14,
       "supply_max": 3.47,
       "supply_abs_max": 3.8,
       "supply_rail_name": "VDDO",
+      "citations": {
+        "supply_min": {
+          "quote": "Output Driver Supply Voltage VDDO 3.14 3.30 3.47 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "Output Driver Supply Voltage VDDO 3.14 3.30 3.47 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "DC Supply Voltage VDDO -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout"
+        },
+        "absolute_max_voltage": {
+          "quote": "DC Supply Voltage VDDO -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5"
     },
     {
-      "group_name": "Status Output Supply Voltage VDDS",
+      "group_name": "Output Driver Supply Voltage VDDO 2.5V",
       "pin_type": "power",
       "example_pins": [
-        "VDDS"
+        "?|VDDO0",
+        "?|VDDO1",
+        "?|VDDO2",
+        "?|VDDO3",
+        "?|VDDO4",
+        "?|VDDO5",
+        "?|VDDO6",
+        "?|VDDO7",
+        "?|VDDO8",
+        "?|VDDO9"
       ],
-      "applies_to": "VDDS pin (status output supply)",
+      "applies_to": "Si5341 output driver supply pins for 2.5V operation",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.8,
+      "supply_min": 2.37,
+      "supply_max": 2.62,
+      "supply_abs_max": 3.8,
+      "supply_rail_name": "VDDO",
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "DC Supply Voltage VDDO -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout",
+          "status": "nulled:group_novote",
+          "rejected_value": 3.8
+        },
+        "supply_min": {
+          "quote": "Output Driver Supply Voltage VDDO 2.37 2.50 2.62 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "layout"
+        },
+        "supply_max": {
+          "quote": "Output Driver Supply Voltage VDDO 2.37 2.50 2.62 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "layout"
+        },
+        "supply_abs_max": {
+          "quote": "DC Supply Voltage VDDO -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 3.8,
+          "shipped_group": "Output Driver Supply Voltage VDDO",
+          "pins_counted": 10,
+          "pins_total": 10,
+          "new_status": "nulled:group_novote"
+        }
+      }
+    },
+    {
+      "group_name": "Output Driver Supply Voltage VDDO 1.8V",
+      "pin_type": "power",
+      "example_pins": [
+        "?|VDDO0",
+        "?|VDDO1",
+        "?|VDDO2",
+        "?|VDDO3",
+        "?|VDDO4",
+        "?|VDDO5",
+        "?|VDDO6",
+        "?|VDDO7",
+        "?|VDDO8",
+        "?|VDDO9"
+      ],
+      "applies_to": "Si5341 output driver supply pins for 1.8V operation",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 3.8,
       "supply_min": 1.71,
-      "supply_max": 3.47,
+      "supply_max": 1.89,
       "supply_abs_max": 3.8,
-      "supply_rail_name": "VDDS",
+      "supply_rail_name": "VDDO",
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "DC Supply Voltage VDDO -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout",
+          "status": "nulled:group_novote",
+          "rejected_value": 3.8
+        },
+        "supply_min": {
+          "quote": "Output Driver Supply Voltage VDDO 1.71 1.80 1.89 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "layout"
+        },
+        "supply_max": {
+          "quote": "Output Driver Supply Voltage VDDO 1.71 1.80 1.89 V",
+          "page": 17,
+          "section": "Table 5.1. Recommended Operating Conditions1",
+          "match": "layout"
+        },
+        "supply_abs_max": {
+          "quote": "DC Supply Voltage VDDO -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 3.8,
+          "shipped_group": "Output Driver Supply Voltage VDDO",
+          "pins_counted": 10,
+          "pins_total": 10,
+          "new_status": "nulled:group_novote"
+        }
+      }
     },
     {
-      "group_name": "Differential Clock Outputs",
-      "pin_type": "digital_output",
+      "group_name": "Ground",
+      "pin_type": "power",
       "example_pins": [
-        "OUT0",
-        "OUT0b",
-        "OUT1",
-        "OUT1b",
-        "OUT2",
-        "OUT2b",
-        "OUT3",
-        "OUT3b",
-        "OUT4",
-        "OUT4b",
-        "OUT5",
-        "OUT5b",
-        "OUT6",
-        "OUT6b",
-        "OUT7",
-        "OUT7b",
-        "OUT8",
-        "OUT8b",
-        "OUT9",
-        "OUT9b"
+        "?|GND",
+        "?|PAD"
       ],
-      "applies_to": "Differential output pairs (LVDS/LVPECL capable)",
+      "applies_to": "Ground pins",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 0.35,
+      "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Table 5.5 Differential Clock Output Specifications"
+      "abs_max_source": null
     },
     {
-      "group_name": "LVCMOS Clock Outputs",
+      "group_name": "Differential Clock Outputs (LVDS/LVPECL)",
       "pin_type": "digital_output",
       "example_pins": [
-        "OUT0",
-        "OUT0b",
-        "OUT1",
-        "OUT1b",
-        "OUT2",
-        "OUT2b",
-        "OUT3",
-        "OUT3b"
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
       ],
-      "applies_to": "LVCMOS output pins (3.3V, 2.5V, or 1.8V configurable)",
+      "applies_to": "Si5341 differential output clock pins",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 0.85,
-      "VOL_max": 0.15,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Table 5.6 LVCMOS Clock Output Specifications"
+      "abs_max_source": null
     },
     {
-      "group_name": "Standard AC-Coupled Differential Input Buffers",
+      "group_name": "LVCMOS Output High Voltage 3.3V CMOS_DRV=1",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 3.3V with drive setting 1",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 3.3 V OUTx_CMOS_DRV=1 I_OH = -10 mA V_DDO x 0.85 \u2014 \u2014 V",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 3.3V CMOS_DRV=1",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 3.3V with drive setting 1",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 3.3 V OUTx_CMOS_DRV=1 IOL = 10 mA \u2014 \u2014 VDDO x 0.15 V",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output High Voltage 3.3V CMOS_DRV=2",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 3.3V with drive setting 2",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 3.3 V OUTx_CMOS_DRV=2 I_OH = -12 mA \u2014 \u2014",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 3.3V CMOS_DRV=2",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 3.3V with drive setting 2",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 3.3 V OUTx_CMOS_DRV=2 IOL = 12 mA \u2014 \u2014",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output High Voltage 3.3V CMOS_DRV=3",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 3.3V with drive setting 3",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 3.3 V OUTx_CMOS_DRV=3 I_OH = -17 mA \u2014 \u2014",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "foreign",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 3.3V CMOS_DRV=3",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 3.3V with drive setting 3",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 3.3 V OUTx_CMOS_DRV=3 IOL = 17 mA \u2014 \u2014",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output High Voltage 2.5V CMOS_DRV=1",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 2.5V with drive setting 1",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 2.5 V OUTx_CMOS_DRV=1 I_OH = -6 mA V_DDO x 0.85 \u2014 \u2014 V",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "foreign",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 2.5V CMOS_DRV=1",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 2.5V with drive setting 1",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 2.5 V OUTx_CMOS_DRV=1 IOL = 6 mA \u2014 \u2014 VDDO x 0.15 V",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output High Voltage 2.5V CMOS_DRV=2",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 2.5V with drive setting 2",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 2.5 V OUTx_CMOS_DRV=2 I_OH = -8 mA \u2014 \u2014",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "foreign",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 2.5V CMOS_DRV=2",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 2.5V with drive setting 2",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 2.5 V OUTx_CMOS_DRV=2 IOL = 8 mA \u2014 \u2014",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output High Voltage 2.5V CMOS_DRV=3",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 2.5V with drive setting 3",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 2.5 V OUTx_CMOS_DRV=3 I_OH = -11 mA \u2014 \u2014",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "foreign",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 2.5V CMOS_DRV=3",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 2.5V with drive setting 3",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 2.5 V OUTx_CMOS_DRV=3 IOL = 11 mA \u2014 \u2014",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output High Voltage 1.8V CMOS_DRV=2",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 1.8V with drive setting 2",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 1.8 V OUTx_CMOS_DRV=2 I_OH = -4 mA V_DDO x 0.85 \u2014 \u2014 V",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "foreign",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 1.8V CMOS_DRV=2",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 1.8V with drive setting 2",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 1.8 V OUTx_CMOS_DRV=2 IOL = 4 mA \u2014 \u2014 VDDO x 0.15 V",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output High Voltage 1.8V CMOS_DRV=3",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 1.8V with drive setting 3",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage High VDDO = 1.8 V OUTx_CMOS_DRV=3 I_OH = -5 mA \u2014 \u2014",
+          "page": 22,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "foreign",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.85*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "LVCMOS Output Low Voltage 1.8V CMOS_DRV=3",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|OUT0",
+        "?|OUT0b",
+        "?|OUT1",
+        "?|OUT1b",
+        "?|OUT2",
+        "?|OUT2b",
+        "?|OUT3",
+        "?|OUT3b",
+        "?|OUT4",
+        "?|OUT4b",
+        "?|OUT5",
+        "?|OUT5b",
+        "?|OUT6",
+        "?|OUT6b",
+        "?|OUT7",
+        "?|OUT7b",
+        "?|OUT8",
+        "?|OUT8b",
+        "?|OUT9",
+        "?|OUT9b"
+      ],
+      "applies_to": "Si5341 LVCMOS output pins at 1.8V with drive setting 3",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOL_max_expr": {
+          "quote": "Output Voltage Low VDDO = 1.8 V OUTx_CMOS_DRV=3 IOL = 5 mA \u2014 \u2014",
+          "page": 23,
+          "section": "Table 5.6. LVCMOS Clock Output Specifications",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.15*VDDO"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Differential Clock Inputs (IN0/IN0b, IN1/IN1b, IN2/IN2b, FB_IN/FB_INb)",
       "pin_type": "digital_input",
       "example_pins": [
-        "IN0",
-        "IN0b",
-        "IN1",
-        "IN1b",
-        "IN2",
-        "IN2b",
-        "FB_IN",
-        "FB_INb"
+        "?|IN0",
+        "?|IN0b",
+        "?|IN1",
+        "?|IN1b",
+        "?|IN2",
+        "?|IN2b",
+        "?|FB_IN",
+        "?|FB_INb"
       ],
-      "applies_to": "Standard input buffers for differential or single-ended AC-coupled clock inputs",
-      "VIH_min": 0.1,
+      "applies_to": "Si5341 differential clock input pins",
+      "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
@@ -172,39 +1125,26 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 5.3 Input Clock Specifications",
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Input Voltage Range VI1 IN0-IN2, FB_IN -1.0 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5"
     },
     {
-      "group_name": "Pulsed CMOS Input Buffer",
+      "group_name": "Crystal/Reference Clock Inputs (XA/XB)",
       "pin_type": "digital_input",
       "example_pins": [
-        "IN0",
-        "IN1",
-        "IN2"
+        "?|XA",
+        "?|XB"
       ],
-      "applies_to": "DC-coupled CMOS input buffer (low frequency pulsed inputs)",
-      "VIH_min": 0.8,
-      "VIL_max": 0.4,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 3.8,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 5.3 Input Clock Specifications",
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "REFCLK XA/XB Input",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "XA",
-        "XB"
-      ],
-      "applies_to": "Crystal and external clock input pins",
-      "VIH_min": 0.365,
+      "applies_to": "Si5341 crystal and reference clock input pins",
+      "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
@@ -213,29 +1153,37 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 5.3 Input Clock Specifications",
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Input Voltage Range VI3 XA/XB -0.5 to 2.7 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "foreign"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5"
     },
     {
-      "group_name": "Control Input Pins (Si5341)",
+      "group_name": "Control Input Pins (I2C_SEL, IN_SEL[1:0], RSTb, OEb, SYNCb, A1, SCLK, A0/CSb, FINC, FDEC, SDA/SDIO)",
       "pin_type": "digital_input",
       "example_pins": [
-        "I2C_SEL",
-        "IN_SEL0",
-        "IN_SEL1",
-        "RSTb",
-        "OEb",
-        "SYNCb",
-        "A1",
-        "SCLK",
-        "A0/CSb",
-        "FINC",
-        "FDEC",
-        "SDA/SDIO"
+        "?|I2C_SEL",
+        "?|IN_SEL0",
+        "?|IN_SEL1",
+        "?|RSTb",
+        "?|OEb",
+        "?|SYNCb",
+        "?|A1/SDO",
+        "?|SCLK",
+        "?|A0/CSb",
+        "?|FDEC",
+        "?|FINC",
+        "?|SDA/SDIO"
       ],
       "applies_to": "Si5341 control input pins",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 3.8,
@@ -243,103 +1191,75 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 5.4 Control Input Pin Specifications",
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Input Voltage Range VI2 IN_SEL[1:0], RSTb, OEb, SYNCb, I2C_SEL, SDI, SCLK, A0/CSb, A1, SDA/SDIO, FINC/FDEC -0.5 to 3.8 V",
+          "page": 31,
+          "section": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+          "match": "partial"
+        },
+        "VIH_min_expr": {
+          "quote": "Input Voltage VIH 0.7xV_DDIO1 \u2014 \u2014 V",
+          "page": 20,
+          "section": "Table 5.4. Control Input Pin Specifications",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "Input Voltage VIL \u2014 \u2014 0.3xV_DDIO1 V",
+          "page": 20,
+          "section": "Table 5.4. Control Input Pin Specifications",
+          "match": "partial"
+        }
+      },
+      "VIH_source": "Table 5.4. Control Input Pin Specifications",
+      "abs_max_source": "Table 5.14. Absolute Maximum Ratings1, 2, 3, 4, 5",
+      "VIH_min_expr": "0.7*VDDIO",
+      "VIL_max_expr": "0.3*VDDIO"
     },
     {
-      "group_name": "Control Input Pins (Si5340)",
-      "pin_type": "digital_input",
+      "group_name": "Status Output Pins (INTRb, LOLb)",
+      "pin_type": "digital_output",
       "example_pins": [
-        "I2C_SEL",
-        "IN_SEL0",
-        "IN_SEL1",
-        "RSTb",
-        "OEb",
-        "A1",
-        "SCLK",
-        "A0/CSb",
-        "SDA/SDIO"
+        "?|INTRb",
+        "?|LOLb"
       ],
-      "applies_to": "Si5340 control input pins",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
+      "applies_to": "Si5341 status output pins",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 3.8,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 5.4 Control Input Pin Specifications",
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "Status Output Pins (INTRb, SDA/SDIO)",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "INTRb",
-        "SDA/SDIO"
-      ],
-      "applies_to": "Interrupt and serial data output pins",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 0.85,
-      "VOL_max": 0.15,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "Output Voltage VOH IOH = -2 mA VDDIO2 x 0.85 \u2014 \u2014 V",
+          "page": 24,
+          "section": "Table 5.7. Output Status Pin Specifications",
+          "match": "layout"
+        },
+        "VOL_max_expr": {
+          "quote": "Output Voltage VOL IOL = 2 mA \u2014 \u2014 VDDIO 2x 0.15 V",
+          "page": 24,
+          "section": "Table 5.7. Output Status Pin Specifications",
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 5.7 Output Status Pin Specifications"
+      "abs_max_source": null,
+      "VOH_min_expr": "0.85*VDDIO",
+      "VOL_max_expr": "0.15*VDDIO"
     },
     {
-      "group_name": "Status Output Pins LOLb (Si5341)",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "LOLb"
-      ],
-      "applies_to": "Loss of Lock output pin (Si5341)",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 0.85,
-      "VOL_max": 0.15,
-      "absolute_max_voltage": null,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Table 5.7 Output Status Pin Specifications"
-    },
-    {
-      "group_name": "Status Output Pins (Si5340)",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "LOLb",
-        "LOS_XAXBb"
-      ],
-      "applies_to": "Loss of Lock and Loss of Signal output pins (Si5340)",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 0.85,
-      "VOL_max": 0.15,
-      "absolute_max_voltage": null,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Table 5.7 Output Status Pin Specifications"
-    },
-    {
-      "group_name": "Crystal Shield Pins",
+      "group_name": "Crystal Shield Pins (X1, X2)",
       "pin_type": "digital_input",
       "example_pins": [
-        "X1",
-        "X2"
+        "?|X1",
+        "?|X2"
       ],
-      "applies_to": "Crystal shield pins (connect to crystal ground)",
+      "applies_to": "Si5341 crystal shield pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -349,16 +1269,32 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Table 5.14 Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 2.7,
+          "shipped_group": "Crystal Shield Pins",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     }
   ],
-  "default_group": "Control Input Pins (Si5341)",
+  "default_group": "Differential Clock Outputs (LVDS/LVPECL)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:24:44+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 400,
+      "entries_dropped_as_duplicates": 2,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "9bdd6896774175bf47dbc2395cae57c53aee173f8875885361d84e3a39864a3d",
@@ -380,7 +1316,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:24:44+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -388,6 +1324,572 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "dbc764c1cd40e28d5596cfa69df314da972babc80c21a29e92b0ead289df1b14",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "si5340b-d-gm",
+      "counts": {
+        "groups": 28,
+        "malformed_groups": 0,
+        "citations": 43,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 9,
+        "layout": 14,
+        "partial": 13,
+        "foreign": 7,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Core Supply Voltage VDD",
+          "index": 0,
+          "field": "absolute_max_voltage",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Core Supply Voltage VDD",
+          "index": 0,
+          "field": "supply_min",
+          "value": 1.71,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Core Supply Voltage VDD",
+          "index": 0,
+          "field": "supply_max",
+          "value": 1.89,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Core Supply Voltage VDD",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Core Supply Voltage VDDA",
+          "index": 1,
+          "field": "absolute_max_voltage",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Core Supply Voltage VDDA",
+          "index": 1,
+          "field": "supply_min",
+          "value": 3.14,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Core Supply Voltage VDDA",
+          "index": 1,
+          "field": "supply_max",
+          "value": 3.47,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Core Supply Voltage VDDA",
+          "index": 1,
+          "field": "supply_abs_max",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 3.3V",
+          "index": 2,
+          "field": "absolute_max_voltage",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 3.3V",
+          "index": 2,
+          "field": "supply_min",
+          "value": 3.14,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 3.3V",
+          "index": 2,
+          "field": "supply_max",
+          "value": 3.47,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 3.3V",
+          "index": 2,
+          "field": "supply_abs_max",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 2.5V",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 2.5V",
+          "index": 3,
+          "field": "supply_min",
+          "value": 2.37,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 2.5V",
+          "index": 3,
+          "field": "supply_max",
+          "value": 2.62,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 2.5V",
+          "index": 3,
+          "field": "supply_abs_max",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 1.8V",
+          "index": 4,
+          "field": "absolute_max_voltage",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 1.8V",
+          "index": 4,
+          "field": "supply_min",
+          "value": 1.71,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 1.8V",
+          "index": 4,
+          "field": "supply_max",
+          "value": 1.89,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Driver Supply Voltage VDDO 1.8V",
+          "index": 4,
+          "field": "supply_abs_max",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Differential Clock Inputs (IN0/IN0b, IN1/IN1b, IN2/IN2b, FB_IN/FB_INb)",
+          "index": 23,
+          "field": "absolute_max_voltage",
+          "value": 3.8,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Crystal/Reference Clock Inputs (XA/XB)",
+          "index": 24,
+          "field": "absolute_max_voltage",
+          "value": 2.7,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Control Input Pins (I2C_SEL, IN_SEL[1:0], RSTb, OEb, SYNCb, A1, SCLK, A0/CSb, FINC, FDEC, SDA/SDIO)",
+          "index": 25,
+          "field": "absolute_max_voltage",
+          "value": 3.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 2,
+        "base_without_probe": 2,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Control Input Pins (I2C_SEL, IN_SEL[1:0], RSTb, OEb, SYNCb, A1, SCLK, A0/CSb, FINC, FDEC, SDA/SDIO)",
+            "2": "Differential Clock Outputs (LVDS/LVPECL)",
+            "3": "Control Input Pins"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 5,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [
+            {
+              "group": "Output Driver Supply Voltage VDDO 2.5V",
+              "index": 3,
+              "tuple": [
+                2.37,
+                2.62,
+                3.8
+              ],
+              "pins": {
+                "22|VDDO0": 2,
+                "26|VDDO1": 2,
+                "29|VDDO2": 2,
+                "33|VDDO3": 2,
+                "36|VDDO4": 2,
+                "40|VDDO5": 2,
+                "43|VDDO6": 2,
+                "49|VDDO7": 2,
+                "52|VDDO8": 2,
+                "57|VDDO9": 2
+              }
+            },
+            {
+              "group": "Output Driver Supply Voltage VDDO 1.8V",
+              "index": 4,
+              "tuple": [
+                1.71,
+                1.89,
+                3.8
+              ],
+              "pins": {
+                "22|VDDO0": 2,
+                "26|VDDO1": 2,
+                "29|VDDO2": 2,
+                "33|VDDO3": 2,
+                "36|VDDO4": 2,
+                "40|VDDO5": 2,
+                "43|VDDO6": 2,
+                "49|VDDO7": 2,
+                "52|VDDO8": 2,
+                "57|VDDO9": 2
+              }
+            }
+          ],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 69,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 77,
+            "2": 402,
+            "3": 161
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 138,
+          "GROUP-NOVOTE_valued": 18,
+          "SUPPLY-SET-KEPT": 6,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 16,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 2,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 16,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 2,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 16,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 2,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 18,
+            "GROUP-NOVOTE_valued": 2,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 18,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 18,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 18,
+            "GROUP-NOVOTE_valued": 8,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 18,
+            "GROUP-NOVOTE_valued": 8,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "dbc764c1cd40e28d5596cfa69df314da972babc80c21a29e92b0ead289df1b14",
+          "2": "dbc764c1cd40e28d5596cfa69df314da972babc80c21a29e92b0ead289df1b14",
+          "3": "dbc764c1cd40e28d5596cfa69df314da972babc80c21a29e92b0ead289df1b14"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 14,
+            "malformed_groups": 0,
+            "citations": 21,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 28,
+            "malformed_groups": 0,
+            "citations": 43,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 16,
+            "malformed_groups": 0,
+            "citations": 37,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

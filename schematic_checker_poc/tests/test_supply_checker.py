@@ -645,3 +645,101 @@ def test_todo21_vbus_pin_still_emits_nothing_from_step_08b():
     comp = ComponentIR("U1", "UNCACHED_MCU", "", [PinIR("8", "VBUS", "+5V")])
     results = check_component_supplies([comp], {}, {"+5V": 5.0})
     assert results == []
+
+
+# ── TODO-533: a ceiling-less supply group never PASSes ────────────────────────
+
+_NO_CEILING_LABEL = "No rated supply maximum in the part data; supply not evaluated against a ceiling"
+
+
+def test_todo533_t1_no_bounds_unresolvable():
+    assert evaluate_supply(3.3, None, None, None) == ("UNRESOLVABLE", _NO_CEILING_LABEL)
+
+
+def test_todo533_t2_min_only_at_or_above_min_unresolvable():
+    assert evaluate_supply(3.3, 1.71, None, None) == ("UNRESOLVABLE", _NO_CEILING_LABEL)
+
+
+def test_todo533_t3_min_only_below_min_still_warns():
+    assert evaluate_supply(1.0, 1.71, None, None) == (
+        "WARN",
+        "Confirmed — actual 1.0V is below rated supply min 1.71V — device may not operate correctly",
+    )
+
+
+def test_todo533_t4_no_voltage_unchanged():
+    assert evaluate_supply(None, 3.0, 3.6, 6.5) == ("UNRESOLVABLE", "Net voltage not confirmed")
+
+
+def test_todo533_t5_pass_labels_unchanged():
+    assert evaluate_supply(3.3, None, 3.6, None) == (
+        "PASS", "Confirmed — supply 3.3V within rated max 3.6V (datasheet states no rated minimum)")
+    assert evaluate_supply(3.3, None, None, 6.5) == (
+        "PASS", "Confirmed — supply 3.3V below supply absolute max 6.5V (datasheet states no rated operating range)")
+    assert evaluate_supply(3.3, 3.0, 3.6, 6.5) == (
+        "PASS", "Confirmed — supply 3.3V within rated range 3.0V - 3.6V")
+    assert evaluate_supply(3.3, 3.0, 3.6, None) == (
+        "PASS", "Confirmed — supply 3.3V within rated range 3.0V - 3.6V")
+
+
+def _no_ceiling_run(group_fields, volts, example_pins=None):
+    comp = ComponentIR("U1", "NOCEIL", "", [PinIR("1", "VCC", "+3V3")])
+    g = {"pin_type": "power", "supply_rail_name": "VCC", **group_fields}
+    if example_pins is not None:
+        g["example_pins"] = example_pins
+    return check_component_supplies([comp], {"NOCEIL": {"pin_groups": [g]}}, volts)
+
+
+def test_todo533_t6_name_gate_group_no_fields_unresolvable():
+    res = _no_ceiling_run({"supply_min": None, "supply_max": None, "supply_abs_max": None}, {"+3V3": 3.3})
+    assert len(res) == 1
+    r = res[0]
+    assert r.status == "UNRESOLVABLE"
+    assert r.unresolvable_reason is SupplyUnresolvableReason.NO_RATED_CEILING
+    assert r.rated_min is None and r.rated_max is None and r.rated_abs_max is None
+    assert "None" not in r.evidence_label
+    assert r.confidence == "low"
+
+
+def test_todo533_t7_literal_string_fields_never_pass():
+    res = _no_ceiling_run(
+        {"supply_min": "supply_min", "supply_max": "supply_max", "supply_abs_max": "supply_abs_max"},
+        {"+3V3": 3.3}, example_pins=["VCC"])
+    assert len(res) == 1
+    assert res[0].status == "UNRESOLVABLE"
+    assert res[0].unresolvable_reason is SupplyUnresolvableReason.NO_RATED_CEILING
+    assert res[0].rated_max is None and res[0].rated_abs_max is None
+    assert "None" not in res[0].evidence_label
+
+
+def test_todo533_t8_no_ceiling_and_no_voltage_keeps_voltage_reason():
+    res = _no_ceiling_run({"supply_min": None, "supply_max": None, "supply_abs_max": None}, {})
+    assert len(res) == 1 and res[0].status == "UNRESOLVABLE"
+    assert res[0].unresolvable_reason is SupplyUnresolvableReason.NET_VOLTAGE_NOT_CONFIRMED
+    assert "None" not in res[0].evidence_label
+
+
+_MIN_ONLY = {"supply_min": 1.71, "supply_max": None, "supply_abs_max": None}
+
+
+def test_todo533_c1_min_only_above_min_is_low_confidence():
+    res = _no_ceiling_run(_MIN_ONLY, {"+3V3": 3.3})
+    assert len(res) == 1
+    assert res[0].status == "UNRESOLVABLE"
+    assert res[0].unresolvable_reason is SupplyUnresolvableReason.NO_RATED_CEILING
+    assert res[0].confidence == "low"
+
+
+def test_todo533_c2_min_only_below_min_warn_confidence_unchanged():
+    res = _no_ceiling_run(_MIN_ONLY, {"+3V3": 1.0})
+    assert len(res) == 1
+    assert res[0].status == "WARN"
+    assert res[0].unresolvable_reason is None
+    assert res[0].confidence == "medium"  # value the unmodified code gives (measured before the edit)
+
+
+def test_todo533_c3_max_only_pass_keeps_medium_confidence():
+    res = _no_ceiling_run({"supply_min": None, "supply_max": 3.6, "supply_abs_max": None}, {"+3V3": 3.3})
+    assert len(res) == 1
+    assert res[0].status == "PASS"
+    assert res[0].confidence == "medium"

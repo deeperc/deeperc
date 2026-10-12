@@ -81,6 +81,8 @@ CORE_PIPELINE_FILES = (
     # SOURCE_FILES. Adding it moves checker_code_hash → an announced code-era break.
     "steps/uart_capability.py",
     "steps/rail_map.py",
+    "steps/part_class.py",  # TODO-484: supply-pin admission exclusions (pseudo-part + ground/pad)
+    "steps/pin_match.py",  # TODO-504: spec-lookup matcher (verdict-affecting; was outside the era hash in step_04b)
 )
 
 # CHECKER_SOURCE_FILES = CORE + the registry-derived checker files (08/08b/08c/08d/08e/08g,
@@ -148,6 +150,14 @@ def check_report_provenance(report: dict, parsed_dir: str,
       a current recompute (catches a checker-code change — else the recall harness reuses a report
       built by OLD code and a new detector never runs on its own baselined mutants → false 0 HITs).
 
+    Plus one OPTIONAL axis (TODO-401):
+
+    - **cache-body axis** (`provenance.cache_body_sha256s`): each stamped part-sha vs the sha256
+      of the current cache file's bytes (same `_cache_path_for_pdf` path as the cache axis).
+      Catches a same-PDF re-extraction, which leaves source_hash unchanged. A mismatch stales the
+      report; ABSENCE is not counted — it never demotes a report that matches on the three axes
+      below to legacy_unverified. None entries are vacuous matches, as for source_hash.
+
     Combine rule: **'stale' if ANY present axis mismatches; 'current' only if ALL THREE axes are
     present AND match; otherwise 'legacy_unverified'.** The code axis is load-bearing: a pre-1.4
     report (no `checker_code_hash`) can NOT read 'current' even with matching cache+input — it
@@ -183,6 +193,32 @@ def check_report_provenance(report: dict, parsed_dir: str,
             elif cur != stamped_hash:
                 issues.append({"axis": "cache", "part": part, "reason": "hash_mismatch",
                                "stamped": stamped_hash, "current": cur})
+                mismatch = True
+
+    # ── cache-body axis (TODO-401, optional: absence is not counted) ─────────
+    stamped_body = prov.get("cache_body_sha256s")
+    if stamped_body is not None:
+        em = report.get("extraction_metadata") or {}
+        for part, stamped_sha in stamped_body.items():
+            if stamped_sha is None:
+                continue  # unresolved / fresh / legacy — vacuous match
+            pdf_path = (em.get(part) or {}).get("pdf_path")
+            if not pdf_path:
+                issues.append({"axis": "cache_body", "part": part,
+                               "reason": "no_pdf_path_in_report",
+                               "stamped": stamped_sha, "current": None})
+                mismatch = True
+                continue
+            cur = sha256_file(_cache_path_for_pdf(pdf_path, parsed_dir))
+            if cur is None:
+                issues.append({"axis": "cache_body", "part": part,
+                               "reason": "cache_missing_or_unreadable",
+                               "stamped": stamped_sha, "current": None})
+                mismatch = True
+            elif cur != stamped_sha:
+                issues.append({"axis": "cache_body", "part": part,
+                               "reason": "body_sha_mismatch",
+                               "stamped": stamped_sha, "current": cur})
                 mismatch = True
 
     # ── input axis (netlist identity) ───────────────────────────────────────

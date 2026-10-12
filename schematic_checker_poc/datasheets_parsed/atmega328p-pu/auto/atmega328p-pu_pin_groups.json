@@ -1,12 +1,12 @@
 {
   "pin_groups": [
     {
-      "group_name": "VCC Supply Pins",
+      "group_name": "VCC - Digital Supply Voltage",
       "pin_type": "power",
       "example_pins": [
-        "VCC"
+        "?|VCC"
       ],
-      "applies_to": "Digital supply voltage pins (VCC on pins 4, 6, 20, 22)",
+      "applies_to": "Digital supply pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,16 +16,65 @@
       "supply_max": 5.5,
       "supply_abs_max": 6.0,
       "supply_rail_name": "VCC",
+      "citations": {
+        "supply_min": {
+          "quote": "Operating voltage: 2.7V to 5.5V for ATmega328P",
+          "page": 2,
+          "section": null,
+          "match": "layout"
+        },
+        "supply_max": {
+          "quote": "Operating voltage: 2.7V to 5.5V for ATmega328P",
+          "page": 2,
+          "section": null,
+          "match": "layout"
+        },
+        "supply_abs_max": {
+          "quote": "Maximum operating voltage 6.0 V",
+          "page": 5,
+          "section": "Table 1-1. Temperature Grade Identification for Automotive Products",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 6.0,
+          "shipped_group": "VCC Supply Pins",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "AVCC Supply Pin",
+      "group_name": "GND - Ground",
       "pin_type": "power",
       "example_pins": [
-        "AVCC"
+        "?|GND"
       ],
-      "applies_to": "Analog supply voltage for ADC and analog comparator (pin 20)",
+      "applies_to": "Ground pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "AVCC - Analog Supply Voltage",
+      "pin_type": "power",
+      "example_pins": [
+        "?|AVCC"
+      ],
+      "applies_to": "Analog supply pin for ADC",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -34,17 +83,68 @@
       "supply_min": 2.7,
       "supply_max": 5.5,
       "supply_abs_max": null,
-      "supply_rail_name": "AVCC",
+      "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "DC Characteristics (ADC section)"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "supply_min": {
+          "value": 2.7,
+          "shipped_group": "AVCC Supply Pin",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        },
+        "supply_max": {
+          "value": 5.5,
+          "shipped_group": "AVCC Supply Pin",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "GND Pins",
-      "pin_type": "power",
+      "group_name": "AREF - Analog Reference",
+      "pin_type": "analog",
       "example_pins": [
-        "GND"
+        "?|AREF"
       ],
-      "applies_to": "Ground pins (pins 3, 5, 11, 21)",
+      "applies_to": "Analog reference pin for ADC",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.5,
+          "shipped_group": "AREF Pin",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
+    },
+    {
+      "group_name": "Port B Digital I/O (PB0-PB5)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "?|PB0",
+        "?|PB1",
+        "?|PB2",
+        "?|PB3",
+        "?|PB4",
+        "?|PB5"
+      ],
+      "applies_to": "Port B pins 0-5",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -54,75 +154,277 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": null
+      "citations": {
+        "VOH_min_alts[0]": {
+          "quote": "I = \u201320mA, V = 5V 4.1 Output high voltage(4) OH CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim",
+          "status": "nulled:group_split",
+          "rejected_value": {
+            "condition": "IOH = -20mA, VCC = 5V",
+            "value": 4.1,
+            "expr": null
+          }
+        },
+        "VOH_min_alts[1]": {
+          "quote": "IOH = \u201310mA, VCC = 3V OH 2.3",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim",
+          "status": "nulled:group_split",
+          "rejected_value": {
+            "condition": "IOH = -10mA, VCC = 3V",
+            "value": 2.3,
+            "expr": null
+          }
+        },
+        "VOL_max_alts[0]": {
+          "quote": "I = 20mA, V = 5V 0.8 Output low voltage(3) OL CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim",
+          "status": "nulled:group_split",
+          "rejected_value": {
+            "condition": "IOL = 20mA, VCC = 5V",
+            "value": 0.8,
+            "expr": null
+          }
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL = 5mA, VCC = 3V OL 0.5",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim",
+          "status": "nulled:group_split",
+          "rejected_value": {
+            "condition": "IOL = 5mA, VCC = 3V",
+            "value": 0.5,
+            "expr": null
+          }
+        },
+        "absolute_max_voltage_expr": {
+          "quote": "Voltage on any pin except RESET with respect to ground \u20130.5 V + 0.5 V CC",
+          "page": 5,
+          "section": "Table 1-1. Temperature Grade Identification for Automotive Products",
+          "match": "layout"
+        },
+        "VIH_min_expr": {
+          "quote": "Input high voltage, except XTAL1 and RESET pins VCC = 2.7V to 5.5V V 0.6V (2) V + 0.5 V IH CC CC",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "Input low voltage, except XTAL1 and RESET pin VCC = 2.7V to 5.5V V \u20130.5 0.3V (1) V IL CC CC",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial"
+        }
+      },
+      "VIH_source": "28.2 DC Characteristics",
+      "abs_max_source": "Table 1-1. Temperature Grade Identification for Automotive Products",
+      "absolute_max_voltage_expr": "VCC+0.5",
+      "VIH_min_expr": "0.6*VCC",
+      "VIL_max_expr": "0.3*VCC"
     },
     {
-      "group_name": "Port B, C, D Digital I/O (except XTAL1, RESET)",
+      "group_name": "Port B Crystal Oscillator Pins (PB6, PB7)",
       "pin_type": "bidirectional",
       "example_pins": [
-        "PB0",
-        "PB1",
-        "PB2",
-        "PB3",
-        "PB4",
-        "PB5",
-        "PC0",
-        "PC1",
-        "PC2",
-        "PC3",
-        "PC4",
-        "PC5",
-        "PD0",
-        "PD1",
-        "PD2",
-        "PD3",
-        "PD4",
-        "PD5",
-        "PD6",
-        "PD7"
+        "?|PB6",
+        "?|PB7"
       ],
-      "applies_to": "General purpose digital I/O pins on ports B, C, D",
-      "VIH_min": 0.6,
-      "VIL_max": 0.3,
-      "VOH_min": 2.3,
-      "VOL_max": 0.5,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "DC Characteristics - Input high voltage (except XTAL1 and RESET pin)",
-      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
-    },
-    {
-      "group_name": "XTAL1 Pin",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "PB6"
-      ],
-      "applies_to": "Crystal oscillator input / external clock input (pin 9)",
-      "VIH_min": 0.7,
-      "VIL_max": 0.1,
+      "applies_to": "XTAL1/TOSC1 (PB6) and XTAL2/TOSC2 (PB7)",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 5.5,
+      "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Characteristics - Input high voltage, XTAL1 pin",
-      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": null,
+          "page": null,
+          "section": null,
+          "match": "no-quote"
+        },
+        "VIH_min_expr": {
+          "quote": "Input high voltage, except XTAL1 and RESET pins VCC = 2.7V to 5.5V VIH 0.6V(2) VCC + 0.5 V",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial",
+          "from_replicate": 2
+        },
+        "VIL_max_expr": {
+          "quote": "Input low voltage, except XTAL1 and RESET pin VCC = 2.7V to 5.5V VIL \u20130.5 0.3V(1) VCC",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial",
+          "from_replicate": 2
+        },
+        "VOH_min_alts[0]": {
+          "quote": "I = \u201320mA, V = 5V 4.1 Output high voltage(4) OH CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "IOH = \u201310mA, VCC = 3V OH 2.3",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "I = 20mA, V = 5V 0.8 Output low voltage(3) OL CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL = 5mA, VCC = 3V OL 0.5",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "28.2 DC Characteristics",
+      "abs_max_source": null,
+      "absolute_max_voltage_expr": "VCC+0.5",
+      "VIH_min_expr": "0.6*VCC",
+      "VIL_max_expr": "0.3*VCC",
+      "VOH_min_alts": [
+        {
+          "condition": "IOH = -20mA, VCC = 5V",
+          "value": 4.1,
+          "expr": null
+        },
+        {
+          "condition": "IOH = -10mA, VCC = 3V",
+          "value": 2.3,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "IOL = 20mA, VCC = 5V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "IOL = 5mA, VCC = 3V",
+          "value": 0.5,
+          "expr": null
+        }
+      ]
     },
     {
-      "group_name": "RESET Pin",
+      "group_name": "Port C Digital I/O (PC0-PC5)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "?|PC1",
+        "?|PC0",
+        "?|PC5",
+        "?|PC4",
+        "?|PC3",
+        "?|PC2"
+      ],
+      "applies_to": "Port C pins 0-5",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": null,
+          "page": null,
+          "section": null,
+          "match": "no-quote"
+        },
+        "VIH_min_expr": {
+          "quote": "Input high voltage, except XTAL1 and RESET pins VCC = 2.7V to 5.5V V 0.6V (2) V + 0.5 V IH CC CC",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "Input low voltage, except XTAL1 and RESET pin VCC = 2.7V to 5.5V V \u20130.5 0.3V (1) V IL CC CC",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "I = \u201320mA, V = 5V 4.1 Output high voltage(4) OH CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "IOH = \u201310mA, VCC = 3V OH 2.3",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "I = 20mA, V = 5V 0.8 Output low voltage(3) OL CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL = 5mA, VCC = 3V OL 0.5",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "28.2 DC Characteristics",
+      "abs_max_source": null,
+      "absolute_max_voltage_expr": "VCC+0.5",
+      "VIH_min_expr": "0.6*VCC",
+      "VIL_max_expr": "0.3*VCC",
+      "VOH_min_alts": [
+        {
+          "condition": "IOH = -20mA, VCC = 5V",
+          "value": 4.1,
+          "expr": null
+        },
+        {
+          "condition": "IOH = -10mA, VCC = 3V",
+          "value": 2.3,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "IOL = 20mA, VCC = 5V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "IOL = 5mA, VCC = 3V",
+          "value": 0.5,
+          "expr": null
+        }
+      ]
+    },
+    {
+      "group_name": "PC6 - RESET Pin",
       "pin_type": "digital_input",
       "example_pins": [
-        "PC6"
+        "?|PC6"
       ],
-      "applies_to": "Reset input pin (pin 1)",
-      "VIH_min": 0.9,
-      "VIL_max": 0.1,
+      "applies_to": "Reset input pin (PC6/RESET)",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 13.0,
@@ -130,16 +432,136 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Characteristics - Input high voltage, RESET pin",
-      "abs_max_source": "Absolute Maximum Ratings - Voltage on RESET with respect to ground"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Voltage on RESET with respect to ground \u20130.5 +13.0 V",
+          "page": 5,
+          "section": "Table 1-1. Temperature Grade Identification for Automotive Products",
+          "match": "verbatim"
+        },
+        "VIH_min_expr": {
+          "quote": "Input high voltage, RESET pin VCC = 2.7V to 5.5V V 0.9V (2) V + 0.5 V IH2 CC CC",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "Input low voltage, RESET pin VCC = 2.7V to 5.5V V \u20130.5 0.1V (1) V IL2 CC",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "partial"
+        }
+      },
+      "VIH_source": "28.2 DC Characteristics (Continued)",
+      "abs_max_source": "Table 1-1. Temperature Grade Identification for Automotive Products",
+      "VIH_min_expr": "0.9*VCC",
+      "VIL_max_expr": "0.1*VCC"
     },
     {
-      "group_name": "AREF Pin",
+      "group_name": "Port D Digital I/O (PD0-PD7)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "?|PD0",
+        "?|PD1",
+        "?|PD2",
+        "?|PD3",
+        "?|PD4",
+        "?|PD5",
+        "?|PD6",
+        "?|PD7"
+      ],
+      "applies_to": "Port D pins 0-7",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": null,
+          "page": null,
+          "section": null,
+          "match": "no-quote"
+        },
+        "VIH_min_expr": {
+          "quote": "Input high voltage, except XTAL1 and RESET pins VCC = 2.7V to 5.5V V 0.6V (2) V + 0.5 V IH CC CC",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "Input low voltage, except XTAL1 and RESET pin VCC = 2.7V to 5.5V V \u20130.5 0.3V (1) V IL CC CC",
+          "page": 5,
+          "section": "28.2 DC Characteristics",
+          "match": "partial"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "I = \u201320mA, V = 5V 4.1 Output high voltage(4) OH CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "IOH = \u201310mA, VCC = 3V OH 2.3",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "I = 20mA, V = 5V 0.8 Output low voltage(3) OL CC V V",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL = 5mA, VCC = 3V OL 0.5",
+          "page": 259,
+          "section": "28.2 DC Characteristics (Continued)",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "28.2 DC Characteristics",
+      "abs_max_source": null,
+      "absolute_max_voltage_expr": "VCC+0.5",
+      "VIH_min_expr": "0.6*VCC",
+      "VIL_max_expr": "0.3*VCC",
+      "VOH_min_alts": [
+        {
+          "condition": "IOH = -20mA, VCC = 5V",
+          "value": 4.1,
+          "expr": null
+        },
+        {
+          "condition": "IOH = -10mA, VCC = 3V",
+          "value": 2.3,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "IOL = 20mA, VCC = 5V",
+          "value": 0.8,
+          "expr": null
+        },
+        {
+          "condition": "IOL = 5mA, VCC = 3V",
+          "value": 0.5,
+          "expr": null
+        }
+      ]
+    },
+    {
+      "group_name": "ADC6 and ADC7 - Analog Input Channels",
       "pin_type": "analog",
       "example_pins": [
-        "AREF"
+        "?|ADC6",
+        "?|ADC7"
       ],
-      "applies_to": "Analog reference voltage pin (pin 21)",
+      "applies_to": "Analog input pins ADC6 and ADC7 (TQFP and QFN/MLF package only)",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -149,36 +571,32 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
-    },
-    {
-      "group_name": "ADC6, ADC7 Analog Input Pins",
-      "pin_type": "analog",
-      "example_pins": [
-        "ADC6",
-        "ADC7"
-      ],
-      "applies_to": "Analog input pins for ADC (pins 19, 22)",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings - Voltage on any pin except RESET"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.5,
+          "shipped_group": "ADC6, ADC7 Analog Input Pins",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     }
   ],
-  "default_group": "Port B, C, D Digital I/O (except XTAL1, RESET)",
+  "default_group": "Port B Digital I/O (PB0-PB5)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T23:54:49+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:24:43+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 31,
+      "entries_dropped_as_duplicates": 2,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "059fa9664ac793ad5c2c9c256136dc27409e43e1cca379bab576c57a83a594aa",
@@ -200,14 +618,404 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T23:54:49+00:00",
+    "stamped_at": "2026-10-04T17:24:43+00:00",
     "extractor_impl": "haiku_pdfplumber",
-    "input_path": "pdfplumber_full_sliced",
+    "input_path": "pdfplumber_full",
     "doc_identity": {
       "class": "STRONG",
       "tier": 3,
       "depth": 1,
       "ratio": 0.769
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "ebd5a6b1d743816a4958ea3b2b5762b142fe28f6904e9b61136d9f334e41e727",
+    "input_regime": "section_slice",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "atmega328p-pu",
+      "counts": {
+        "groups": 10,
+        "malformed_groups": 0,
+        "citations": 34,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 18,
+        "layout": 3,
+        "partial": 10,
+        "foreign": 0,
+        "no-quote": 3
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "VCC - Digital Supply Voltage",
+          "index": 0,
+          "field": "supply_min",
+          "value": 2.7,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "VCC - Digital Supply Voltage",
+          "index": 0,
+          "field": "supply_max",
+          "value": 5.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "VCC - Digital Supply Voltage",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 6.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "PC6 - RESET Pin",
+          "index": 7,
+          "field": "absolute_max_voltage",
+          "value": 13.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Port B Digital I/O (PB0-PB5)",
+            "2": "Port B (PB7:0) - Digital I/O",
+            "3": "Port B Digital I/O (PB7:0)"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 6,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 51,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 31,
+            "2": 33,
+            "3": 32
+          }
+        },
+        "counts": {
+          "DISAGREE": 2,
+          "GROUP-SPLIT": 2,
+          "GROUP-SPLIT_valued": 2,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 2,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 1,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 1,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 1,
+            "GROUP-SPLIT": 1,
+            "GROUP-SPLIT_valued": 1,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 1,
+            "GROUP-SPLIT": 1,
+            "GROUP-SPLIT_valued": 1,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [
+          {
+            "pin": "?|RESET",
+            "field": "VOH_min",
+            "values": {
+              "1": "ALTS:[[\"IOH = -20mA, VCC = 5V\", 4.1, null], [\"IOH = -10mA, VCC = 3V\", 2.3, null]]",
+              "2": 2.3,
+              "3": null
+            }
+          },
+          {
+            "pin": "?|RESET",
+            "field": "VOL_max",
+            "values": {
+              "1": "ALTS:[[\"IOL = 20mA, VCC = 5V\", 0.8, null], [\"IOL = 5mA, VCC = 3V\", 0.5, null]]",
+              "2": 0.5,
+              "3": null
+            }
+          }
+        ],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "ebd5a6b1d743816a4958ea3b2b5762b142fe28f6904e9b61136d9f334e41e727",
+          "2": "ebd5a6b1d743816a4958ea3b2b5762b142fe28f6904e9b61136d9f334e41e727",
+          "3": "ebd5a6b1d743816a4958ea3b2b5762b142fe28f6904e9b61136d9f334e41e727"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 10,
+            "malformed_groups": 0,
+            "citations": 34,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 11,
+            "malformed_groups": 0,
+            "citations": 27,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 10,
+            "malformed_groups": 0,
+            "citations": 34,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

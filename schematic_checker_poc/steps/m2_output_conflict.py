@@ -4,12 +4,9 @@ Classifies each net for a potential "≥2 push-pull drivers" output-to-output
 conflict. Since Phase 2 (M2 v1, 2026-07-10) `check_output_conflicts` is wired
 LIVE as the `08f` registry checker (VERDICT_MOVING, FAIL-only). The classifier
 core (`classify_netlist`/`classify_net`) is unchanged from Phases 1/1.5 — the
-Phase-2 wiring is a thin FAIL-only emit wrapper over it. See
-investigation/experiments/m2_output_conflict_recon/REPORT.md for the recon
-that measured the design's FP surface (0/8157 good-corpus nets), and
-phase1_diagnostic/REPORT_v2.md for the report-only diagnostic (negative
-control 0 WOULD_FAIL over 125 good boards; positive control 5/5 cross-component
-push-pull HITs) that preceded this wiring.
+Phase-2 wiring is a thin FAIL-only emit wrapper over it. The recon measured the design's FP surface (0/8157
+good-corpus nets), and the report-only diagnostic (negative control 0 WOULD_FAIL over 125 good boards;
+positive control 5/5 cross-component push-pull HITs) preceded this wiring.
 
 **v1 scope (locked):** CROSS-component only (≥2 DISTINCT refdes — same-component
 is v2) and FAIL-only emission (CLEAN / UNRESOLVABLE / any SKIPPED_* → NO

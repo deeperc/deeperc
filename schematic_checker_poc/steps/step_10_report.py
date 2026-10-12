@@ -22,7 +22,25 @@ console = Console()
 # enums on PeripheralFinding/SupplyCheckResult, guard identity on the coherence
 # block, the new M14 consensus-path emitter, M15 .cleared surfacing, and the
 # additive "signal_checks" summary sub-dict below — F4 re-scope rides this bump).
-REPORT_SCHEMA_VERSION = "poc-1.5"
+# 1.5 -> 1.6 adds `explanation_source` on results[] and power_supply_results[] (TODO-520).
+REPORT_SCHEMA_VERSION = "poc-1.6"
+
+# TODO-520: where a row's `explanation` text came from.
+EXPLANATION_SOURCE_LOCAL_MODEL = "local_model"
+EXPLANATION_SOURCE_CANNED = "canned"
+
+_LLM_UNAVAILABLE_WARNED = False
+
+
+def _note_llm_unavailable(detail_line: str, e: Exception) -> None:
+    """WARNING on the first call in a process, DEBUG afterwards (TODO-520)."""
+    global _LLM_UNAVAILABLE_WARNED
+    if not _LLM_UNAVAILABLE_WARNED:
+        _LLM_UNAVAILABLE_WARNED = True
+        logger.warning("[STEP 10] explanation text unavailable (local LLM not running) — verdicts unaffected")
+    else:
+        logger.debug("[STEP 10] explanation text unavailable (local LLM not running) — verdicts unaffected")
+    logger.debug(f"{detail_line}: {e}")
 
 EXPLANATION_PROMPT = """
 In one sentence of 25 words or fewer, explain why this is a
@@ -58,11 +76,16 @@ Violation: {evidence_label}
 """
 
 
-def _supply_explain(r: SupplyCheckResult) -> str | None:
+def _supply_explain(r: SupplyCheckResult, emitted_label: str | None) -> tuple[str | None, str | None]:
+    """(text, source). The canned text is the EMITTED label (TODO-520 E4); the
+    prompt still interpolates the RAW `r.evidence_label`.
+
+    The model is asked only when the row's numbers make the prompt's claim true:
+    the prompt says "Violation:", so only a FAIL row reaches it."""
     if r.status == "PASS":
-        return None
-    if r.status == "UNRESOLVABLE":
-        return r.evidence_label
+        return None, None
+    if r.status in ("UNRESOLVABLE", "WARN"):
+        return emitted_label, EXPLANATION_SOURCE_CANNED
 
     prompt = SUPPLY_EXPLANATION_PROMPT.format(
         part_number=r.part_number,
@@ -76,11 +99,11 @@ def _supply_explain(r: SupplyCheckResult) -> str | None:
         evidence_label=r.evidence_label,
     )
     try:
-        return ollama_client.generate(prompt, temperature=0.0, step_hint="10_report")
+        return (ollama_client.generate(prompt, temperature=0.0, step_hint="10_report"),
+                EXPLANATION_SOURCE_LOCAL_MODEL)
     except RuntimeError as e:
-        logger.warning("[STEP 10] explanation text unavailable (local LLM not running) — verdicts unaffected")
-        logger.debug(f"[STEP 10] supply explanation failure detail: {e}")
-        return r.evidence_label
+        _note_llm_unavailable("[STEP 10] supply explanation failure detail", e)
+        return emitted_label, EXPLANATION_SOURCE_CANNED
 
 
 def _get_part_number(refdes: str | None, components) -> str | None:
@@ -350,27 +373,39 @@ def _qualified(label: str | None, part_number: str | None,
         label, _doc_identity_of(part_number, extraction_metadata))
 
 
-def _explain(result: CheckResult) -> str:
+def _explain(result: CheckResult, emitted_label: str) -> tuple[str, str]:
+    """(text, source) — source is EXPLANATION_SOURCE_LOCAL_MODEL only for model prose.
+
+    The model is asked only when the row's numbers make the prompt's claim true:
+    a FAIL row whose driver voltage exceeds the receiver threshold.
+    The canned text is the EMITTED label, as in _supply_explain."""
     if result.status == "UNRESOLVABLE":
-        return result.unresolvable_reason or "Insufficient data to evaluate this net."
+        return (result.unresolvable_reason or "Insufficient data to evaluate this net.",
+                EXPLANATION_SOURCE_CANNED)
 
     receiver_threshold = result.receiver_VIH_max or result.receiver_abs_max
     driver_voltage = result.driver_voltage
 
     if driver_voltage is None and receiver_threshold is None:
-        return "Insufficient data — neither driver voltage nor receiver threshold available."
+        return ("Insufficient data — neither driver voltage nor receiver threshold available.",
+                EXPLANATION_SOURCE_CANNED)
 
     if driver_voltage is None:
         return (
             f"Driver voltage for {result.driver_refdes} could not be determined "
-            f"from available datasheets or power domain inference."
+            f"from available datasheets or power domain inference.",
+            EXPLANATION_SOURCE_CANNED,
         )
 
     if receiver_threshold is None:
         return (
             f"Receiver threshold for {result.receiver_refdes} pin "
-            f"{result.receiver_pin_name} could not be extracted from its datasheet."
+            f"{result.receiver_pin_name} could not be extracted from its datasheet.",
+            EXPLANATION_SOURCE_CANNED,
         )
+
+    if not (result.status == "FAIL" and driver_voltage > receiver_threshold):
+        return emitted_label, EXPLANATION_SOURCE_CANNED
 
     threshold_label = (
         f"VIH_max {result.receiver_VIH_max}V"
@@ -391,14 +426,11 @@ def _explain(result: CheckResult) -> str:
         combined_confidence=result.combined_confidence,
     )
     try:
-        return ollama_client.generate(prompt, temperature=0.0, step_hint="10_report")
+        return (ollama_client.generate(prompt, temperature=0.0, step_hint="10_report"),
+                EXPLANATION_SOURCE_LOCAL_MODEL)
     except RuntimeError as e:
-        logger.warning("[STEP 10] explanation text unavailable (local LLM not running) — verdicts unaffected")
-        logger.debug(f"[STEP 10] explanation failure detail: {e}")
-        return (
-            f"{result.driver_refdes} drives {driver_voltage}V into "
-            f"{result.receiver_pin_name} which is rated {receiver_threshold}V max."
-        )
+        _note_llm_unavailable("[STEP 10] explanation failure detail", e)
+        return emitted_label, EXPLANATION_SOURCE_CANNED
 
 
 def _run_git_provenance() -> tuple[str | None, bool]:
@@ -421,6 +453,8 @@ def _build_report_provenance(extraction_metadata: dict, source_netlist: str) -> 
       - git_sha/git_dirty — free coarse signal.
       - cache_source_hashes {part→source_hash} — catches a report built against a since-changed
         datasheet cache (null for unresolved / legacy caches).
+      - cache_body_sha256s {part→served cache file sha256} + cache_extractor_fingerprints
+        {part→fingerprint sha} (TODO-401) — the body axis catches a same-PDF re-extraction.
       - input_netlist_sha256 — catches a report built against a since-changed / stale-export
         input netlist (the recall export-cache footgun, TODO-109); null if unreadable."""
     sha, dirty = _run_git_provenance()
@@ -441,6 +475,19 @@ def _build_report_provenance(extraction_metadata: dict, source_netlist: str) -> 
         "checker_code_hash": code_hash,   # code axis (3933272c-88f3-8181): a checker change → stale
         "cache_source_hashes": {
             part: (meta or {}).get("source_hash")
+            for part, meta in (extraction_metadata or {}).items()
+        },
+        # TODO-401: {part→sha256 of the served cache file's bytes} — catches a
+        # same-PDF re-extraction that leaves source_hash unchanged (verified by
+        # check_report_provenance's optional cache-body axis) — and
+        # {part→extractor fingerprint sha} (record only). Null for unresolved /
+        # fresh-this-run / legacy, like cache_source_hashes.
+        "cache_body_sha256s": {
+            part: (meta or {}).get("cache_body_sha256")
+            for part, meta in (extraction_metadata or {}).items()
+        },
+        "cache_extractor_fingerprints": {
+            part: (meta or {}).get("extractor_fingerprint_sha256")
             for part, meta in (extraction_metadata or {}).items()
         },
         # TODO-368 Phase 2 (D368-E): the cache manifest's version, when one exists.
@@ -493,6 +540,7 @@ def build_report(
         _receiver_part = _get_part_number(r.receiver_refdes, components)
         _tiered_label, _tier = _apply_tier_or_never_cached(
             r.evidence_label, _receiver_part, extraction_metadata, _W_NO_CACHE_RESULTS)
+        emitted = _qualified(_tiered_label, _receiver_part, extraction_metadata)
         entry: dict = {
             "net": r.net_name,
             "status": r.status,
@@ -511,17 +559,17 @@ def build_report(
                 "absolute_max_v": r.receiver_abs_max,
             },
             "confidence": r.combined_confidence,
-            "evidence_label": _qualified(
-                _tiered_label, _receiver_part, extraction_metadata),
+            "evidence_label": emitted,
             "evidence_tier": _tier,
             "unresolvable_reason": r.unresolvable_reason,
             "explanation": None,
+            "explanation_source": None,
             # S3-α: same part whose cache backs evidence_tier above (the RECEIVER).
             **_staged_marker(_receiver_part, extraction_metadata),
         }
 
         if r.status in ("FAIL", "WARN", "UNRESOLVABLE"):
-            entry["explanation"] = _explain(r)
+            entry["explanation"], entry["explanation_source"] = _explain(r, emitted)
 
         report_results.append(entry)
 
@@ -531,15 +579,16 @@ def build_report(
 
     supply_report_results = []
     for r in supply_results:
-        # NOTE (TODO-337 2b-iii, extended TODO-368 Phase 2): the explanation is
-        # generated FIRST, from the raw label on `r` itself — SUPPLY_EXPLANATION_
-        # PROMPT interpolates {evidence_label}, and neither the doc_identity
-        # qualifier NOR the evidence-tier rewrite may ever enter a prompt. Both
-        # transforms happen below, on the emitted field only — `r.evidence_label`
-        # itself is never mutated.
-        explanation = _supply_explain(r)
+        # NOTE (TODO-337 2b-iii, TODO-368 Phase 2, TODO-520 E4): the prompt is
+        # built from the raw label on `r` itself — SUPPLY_EXPLANATION_PROMPT
+        # interpolates {evidence_label}, and neither the doc_identity qualifier
+        # NOR the evidence-tier rewrite may ever enter a prompt. The
+        # checker-written (canned) explanation IS the emitted label, so the two
+        # fields cannot disagree. `r.evidence_label` itself is never mutated.
         _tiered_label, _tier = _apply_tier_or_never_cached(
             r.evidence_label, r.part_number, extraction_metadata, _W_NETLIST_EVIDENCE_ONLY)
+        emitted = _qualified(_tiered_label, r.part_number, extraction_metadata)
+        explanation, explanation_source = _supply_explain(r, emitted)
         supply_report_results.append({
             "refdes": r.refdes,
             "part_number": r.part_number,
@@ -551,10 +600,10 @@ def build_report(
             "rated_abs_max_v": r.rated_abs_max,
             "status": r.status,
             "confidence": r.confidence,
-            "evidence_label": _qualified(_tiered_label, r.part_number,
-                                         extraction_metadata),
+            "evidence_label": emitted,
             "evidence_tier": _tier,
             "explanation": explanation,
+            "explanation_source": explanation_source,
             "unresolvable_reason": (
                 r.unresolvable_reason.value if r.unresolvable_reason is not None else None
             ),

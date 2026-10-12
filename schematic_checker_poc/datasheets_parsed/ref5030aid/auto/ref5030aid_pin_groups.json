@@ -1,48 +1,92 @@
 {
   "pin_groups": [
     {
-      "group_name": "Supply Voltage (REF50xxI, REF50xxAI)",
+      "group_name": "Supply voltage (REF50xxI, REF50xxAI)",
       "pin_type": "power",
       "example_pins": [
-        "VIN"
+        "?|VIN"
       ],
-      "applies_to": "Input supply voltage for REF50xxI and REF50xxAI variants",
+      "applies_to": "Input supply voltage pin for REF50xxI and REF50xxAI variants",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 18.0,
-      "supply_min": 2.048,
+      "supply_min": null,
       "supply_max": 18.0,
       "supply_abs_max": 18.0,
       "supply_rail_name": "VIN",
+      "citations": {
+        "supply_max": {
+          "quote": "Input voltage (2) VOUT + 0.2(1) 18 V",
+          "page": 5,
+          "section": "6.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VIN (2) -0.3 18 Input voltage V",
+          "page": 5,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "VIN (2) -0.3 18 Input voltage V",
+          "page": 5,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "verbatim",
+          "sibling": "supply_abs_max"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings, Section 6.1"
+      "abs_max_source": "6.1 Absolute Maximum Ratings"
     },
     {
-      "group_name": "Supply Voltage (REF50xxEI)",
+      "group_name": "Supply voltage (REF50xxEI)",
       "pin_type": "power",
       "example_pins": [
-        "VIN"
+        "?|VIN"
       ],
-      "applies_to": "Input supply voltage for REF50xxEI enhanced-grade variant",
+      "applies_to": "Input supply voltage pin for REF50xxEI enhanced-grade variant",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 48.0,
-      "supply_min": 2.248,
+      "absolute_max_voltage": null,
+      "supply_min": null,
       "supply_max": 42.0,
       "supply_abs_max": 48.0,
       "supply_rail_name": "VIN",
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VIN (3) -0.3 48 Input voltage V",
+          "page": 5,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "layout",
+          "sibling": "supply_abs_max",
+          "status": "nulled:group_novote",
+          "rejected_value": 48.0
+        },
+        "supply_max": {
+          "quote": "Input voltage (3) VOUT + 0.2 42 V",
+          "page": 5,
+          "section": "6.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VIN (3) -0.3 48 Input voltage V",
+          "page": 5,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "layout"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings, Section 6.1"
+      "abs_max_source": "6.1 Absolute Maximum Ratings"
     },
     {
       "group_name": "Ground",
       "pin_type": "power",
       "example_pins": [
-        "GND"
+        "?|GND"
       ],
       "applies_to": "Ground reference pin",
       "VIH_min": null,
@@ -54,14 +98,15 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Reference Output",
+      "group_name": "Reference output voltage",
       "pin_type": "analog",
       "example_pins": [
-        "VOUT"
+        "?|VOUT"
       ],
       "applies_to": "Reference voltage output pin",
       "VIH_min": null,
@@ -73,35 +118,24 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Output Voltage VOUT -0.3 5.5 V",
+          "page": 5,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings, Section 6.1"
+      "abs_max_source": "6.1 Absolute Maximum Ratings"
     },
     {
-      "group_name": "Temperature Monitoring Output",
+      "group_name": "Temperature monitoring pin",
       "pin_type": "analog",
       "example_pins": [
-        "TEMP"
+        "?|TEMP"
       ],
-      "applies_to": "Temperature-dependent voltage output pin (pin 3)",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 0.509,
-      "VOL_max": null,
-      "absolute_max_voltage": null,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": null
-    },
-    {
-      "group_name": "Trim/Noise Reduction (REF50xxI, REF50xxAI)",
-      "pin_type": "analog",
-      "example_pins": [
-        "TRIM/NR"
-      ],
-      "applies_to": "Output adjustment or noise reduction pin (pin 5) for REF50xxI and REF50xxAI",
+      "applies_to": "Temperature-dependent output voltage pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -111,17 +145,38 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Noise Reduction (REF50xxEI)",
+      "group_name": "Trim/Noise reduction pin (REF50xxI, REF50xxAI)",
       "pin_type": "analog",
       "example_pins": [
-        "NR"
+        "?|TRIM/NR"
       ],
-      "applies_to": "Noise reduction pin (pin 5) for REF50xxEI",
-      "VIH_min": 0.0,
+      "applies_to": "Output adjustment or noise reduction pin for REF50xxI and REF50xxAI",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null
+    },
+    {
+      "group_name": "Noise reduction pin (REF50xxEI)",
+      "pin_type": "analog",
+      "example_pins": [
+        "?|NR"
+      ],
+      "applies_to": "Noise reduction pin for REF50xxEI enhanced-grade variant",
+      "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
@@ -129,17 +184,40 @@
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions, Section 6.3",
-      "abs_max_source": "Recommended Operating Conditions, Section 6.3"
+      "supply_rail_name": "NR",
+      "citations": {
+        "supply_min": {
+          "quote": "NR Noise reduction (3) 0 6 V",
+          "page": 5,
+          "section": "6.3 Recommended Operating Conditions",
+          "match": "verbatim",
+          "status": "nulled:na"
+        },
+        "supply_max": {
+          "quote": "NR Noise reduction (3) 0 6 V",
+          "page": 5,
+          "section": "6.3 Recommended Operating Conditions",
+          "match": "verbatim",
+          "status": "nulled:na"
+        },
+        "absolute_max_voltage": {
+          "quote": "NR Noise reduction (3) 0 6 V",
+          "page": 5,
+          "section": "6.3 Recommended Operating Conditions",
+          "match": "verbatim",
+          "sibling": "supply_max"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "6.3 Recommended Operating Conditions"
     },
     {
-      "group_name": "Enable Control (REF50xxEI)",
+      "group_name": "Enable pin (REF50xxEI)",
       "pin_type": "digital_input",
       "example_pins": [
-        "EN"
+        "?|EN"
       ],
-      "applies_to": "Device enable control pin (pin 1) for REF50xxEI",
+      "applies_to": "Device enable control pin for REF50xxEI",
       "VIH_min": 1.6,
       "VIL_max": 0.5,
       "VOH_min": null,
@@ -149,16 +227,31 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Electrical Characteristics REF50xxEI, Section 6.6",
+      "citations": {
+        "VIH_min": {
+          "quote": "Enable Active mode (EN = 1) 1.6 V",
+          "page": 9,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "Shutdown Mode (EN = 0) 0.5 V",
+          "page": 9,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "p. 9",
       "abs_max_source": null
     },
     {
-      "group_name": "Do Not Connect",
+      "group_name": "No connect pins",
       "pin_type": "digital_input",
       "example_pins": [
-        "DNC"
+        "?|DNC",
+        "?|NC"
       ],
-      "applies_to": "Do not connect pins (pins 1 and 8 for REF50xxI/REF50xxAI; pin 8 for REF50xxEI)",
+      "applies_to": "Do not connect or no internal connection pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -168,35 +261,23 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": null
-    },
-    {
-      "group_name": "No Connection",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "NC"
-      ],
-      "applies_to": "No internal connection pin (pin 7)",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": null,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     }
   ],
-  "default_group": "Reference Output",
+  "default_group": "No connect pins",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 11,
+      "entries_dropped_as_duplicates": 1,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "64df281f6bad805fa0e2dbe6b941cb1d59466069bc72c507496b4b28300e38dd",
@@ -218,7 +299,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -226,6 +307,456 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "501b87c6a55519c320f856446cc843a7ef4a503a2281d5bd712ef40cf6f41193",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "ref5030aid",
+      "counts": {
+        "groups": 9,
+        "malformed_groups": 0,
+        "citations": 12,
+        "sibling_fallback": 3,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 2,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 10,
+        "layout": 2,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [
+          "Noise reduction pin (REF50xxEI)"
+        ],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Supply voltage (REF50xxI, REF50xxAI)",
+          "index": 0,
+          "field": "absolute_max_voltage",
+          "value": 18.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Supply voltage (REF50xxI, REF50xxAI)",
+          "index": 0,
+          "field": "supply_max",
+          "value": 18.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Supply voltage (REF50xxI, REF50xxAI)",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 18.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Supply voltage (REF50xxEI)",
+          "index": 1,
+          "field": "absolute_max_voltage",
+          "value": 48.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Supply voltage (REF50xxEI)",
+          "index": 1,
+          "field": "supply_max",
+          "value": 42.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Supply voltage (REF50xxEI)",
+          "index": 1,
+          "field": "supply_abs_max",
+          "value": 48.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Reference output voltage",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Noise reduction pin (REF50xxEI)",
+          "index": 6,
+          "field": "absolute_max_voltage",
+          "value": 6.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Noise reduction pin (REF50xxEI)",
+          "index": 6,
+          "field": "supply_min",
+          "value": 0.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Noise reduction pin (REF50xxEI)",
+          "index": 6,
+          "field": "supply_max",
+          "value": 6.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Enable pin (REF50xxEI)",
+          "index": 7,
+          "field": "VIH_min",
+          "value": 1.6,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Enable pin (REF50xxEI)",
+          "index": 7,
+          "field": "VIL_max",
+          "value": 0.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "No connect pins",
+            "2": "Reference output (VOUT)",
+            "3": "No connect pins"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 7,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [
+            {
+              "group": "Supply voltage (REF50xxEI)",
+              "index": 1,
+              "tuple": [
+                null,
+                42.0,
+                48.0
+              ],
+              "pins": {
+                "2|VIN": 3
+              }
+            }
+          ],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 10,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 11,
+            "2": 11,
+            "3": 11
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 5,
+          "GROUP-NOVOTE_valued": 1,
+          "SUPPLY-SET-KEPT": 3,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 1,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 1,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 1,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "501b87c6a55519c320f856446cc843a7ef4a503a2281d5bd712ef40cf6f41193",
+          "2": "501b87c6a55519c320f856446cc843a7ef4a503a2281d5bd712ef40cf6f41193",
+          "3": "501b87c6a55519c320f856446cc843a7ef4a503a2281d5bd712ef40cf6f41193"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 9,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 3,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 2,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 10,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 3,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 2,
+            "rating_nulled": 0,
+            "default_group_nulled": 1,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 9,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 3,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 2,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

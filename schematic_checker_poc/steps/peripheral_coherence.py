@@ -15,7 +15,7 @@ problem (≥2 TX drivers on a net), NOT coherence — deliberately not handled h
 Todo 99 (M99, SCK swap): the checker's SPI group widens to a 3-member
 `SPI_COHERENCE_GROUP` ({MOSI, MISO, SCK}) — `find_coherence_violations` makes no
 2-member assumption (frozenset membership only), so this needed zero primitive
-changes (recon: investigation/experiments/swap_family_recon/REPORT.md Step 1a).
+changes (swap-family recon, Step 1a).
 `SPI_PAIR` itself stays the 2-member MOSI/MISO pair (still consumed as-is by
 existing tests and the M12 mutation-operator label) — purely additive.
 """
@@ -122,8 +122,7 @@ def find_coherence_violations(
                         signature — it is indistinguishable from a coincidental-
                         token debug net → UNRESOLVABLE, not FAIL. Bare-token nets
                         (no instance assertion) and matching instances stay
-                        admissible exactly as before (see
-                        investigation/experiments/m6_f2_recon/REPORT.md). KB
+                        admissible exactly as before (M6-F2 recon). KB
                         possible_roles may CONDEMN (ambiguity-free) or CORROBORATE
                         (instance agreement) but must never unilaterally ASSERT —
                         see the CLAUDE.md KB-evidence rule.
@@ -310,10 +309,13 @@ def check_spi_coherence(netlist, kb, canonicalize) -> list[CoherenceViolation]:
     ``possible_roles``, consulted ONLY when the pin function asserts no role of
     the group, and only when unambiguous — see the KB-evidence rule in
     CLAUDE.md). The DI/DO alias is *net-frame directional*: a peripheral's DI
-    pin belongs on the MOSI net, its DO pin on the MISO net — so CORRECTLY-wired
-    SPI is coherent (pin role == net role) and never flags; only a swap (a
-    DI/MOSI-role pin landing on a MISO net, or a SCK-role pin landing on a
-    MOSI/MISO-named net, or vice versa) contradicts.
+    pin belongs on the MOSI net, its DO pin on the MISO net — so on the
+    pin-function source correctly-wired SPI is coherent (pin role == net role)
+    and is not flagged; only a swap (a DI/MOSI-role pin landing on a MISO net,
+    or a SCK-role pin landing on a MOSI/MISO-named net, or vice versa)
+    contradicts. A KB-sourced role is a master-mode assignment, so a correctly
+    wired slave-mode MCU can still be flagged WARN (guard
+    ``spi_direction_uncorroborated``); see the TODO-479 paragraph below.
 
     TODO-410 (STM32 SPI KB roles): ``peripheral_kb.Signal`` now carries
     SPI_MOSI/SPI_MISO/SPI_SCK/SPI_NSS and ``_KB_SIGNAL_TO_ROLE`` maps them, so a

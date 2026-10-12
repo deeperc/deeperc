@@ -1,6 +1,6 @@
 """Cross-net bus pairing (Phase 1 pairing layer).
 
-Recon basis: ``investigation/experiments/pin_capability_recon/REPORT.md`` (Q1/Q3).
+Recon basis: the pin-capability recon (Q1/Q3).
 The per-NET multi-member consensus machinery already exists and ships today
 (``step_08d_peripheral_checker.check_peripheral_buses``: PROTOCOL_MISMATCH /
 INSTANCE_MISMATCH / ROLE_MISMATCH). What's missing is a layer that answers
@@ -11,7 +11,7 @@ module builds exactly that cross-net pairing, and nothing else: it emits no
 findings itself and does not change any existing checker's own classification
 logic.
 
-NOTE (M14-F1, ``investigation/experiments/m14_f1_recon/REPORT.md``, post
+NOTE (M14-F1, post
 ``e725e26``): despite the above, this module's output IS consumed by a
 verdict-moving checker — ``step_08d_peripheral_checker``'s M14
 CAPABILITY_MISMATCH emission calls ``pair_buses()`` directly for bus identity.
@@ -93,7 +93,7 @@ def has_independent_identity(bus: "PairedBus") -> bool:
     A ``kb_instance``-paired bus rests ENTIRELY on the KB's alt-fn possibility
     map (what a pin COULD be), with no independent check that the design
     actually uses it that way — the exact evidence-class misuse the M14-F1
-    recon (``investigation/experiments/m14_f1_recon/REPORT.md``) found: a
+    recon found: a
     genuine STM32 UART1-on-PB6/PB7 design pairs as bus "I2C1" purely because
     those same pins ALSO carry I2C1 in the vendor alt-fn table.
 

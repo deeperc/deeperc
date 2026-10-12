@@ -131,6 +131,11 @@ Note where the one red box is: **after** the verdict. It rewrites a finding's
 prose and cannot change its status. If no local model is running, findings
 carry canned text instead and the verdict is identical.
 
+Board verdicts rank `FAIL > WARN > PASS > UNRESOLVABLE`. A board with at least
+one PASS and no FAIL or WARN reports `all_pass` even when other checks were
+`UNRESOLVABLE`, so `all_pass` means nothing failed or warned among the checks
+that could run, not that every check ran.
+
 **The step numbers are the `[STEP nn]` lines a run prints,** shown in the order
 they execute. The numbering is historical, not sequential: `04b+05` runs
 *after* `07b`, because rail inference has to filter supply pins before
@@ -138,16 +143,27 @@ extraction, and passive-bridge propagation has to land before the signal
 checker sees driver rails.
 
 `[STEP 05]` and `[STEP 10]` are not progress tags, and neither appears on a
-clean run. Each is conditional: `[STEP 05]` prints when a validation gate
-fires, and `[STEP 10]` prints when a finding needed explanation text and no
-local model was running —
+clean `run_checks.py` run. Each is conditional: `[STEP 05]` prints when a
+validation gate fires, and `[STEP 10]` prints when a finding needed
+explanation text and no local model was running —
 
 ```
 [STEP 10] explanation text unavailable (local LLM not running) — verdicts unaffected
 ```
 
-which is the optional explanation step saying so on your screen. The
-report-written line is logged below the default threshold and does not print.
+which is the optional explanation step saying so on your screen. It prints
+once per run, on the first finding that needed it. Under `run_checks.py` the
+report-written line (`[STEP 10] Report written to …`) is logged below the
+default threshold and does not print; `main.py` logs at info level and prints
+it.
+
+The call waits at most 60 s per finding (`DEEPERC_LLM_TIMEOUT_S` overrides the
+figure). After the first connection failure or timeout in a run, the remaining
+findings skip the local model and use the canned text without waiting.
+`DEEPERC_NO_LOCAL_LLM=1` skips the local model entirely. None of this touches
+a verdict. In the JSON report each signal and supply finding says which text it
+carries: `explanation_source` is `local_model` or `canned` (report schema
+`poc-1.6`).
 
 Jump to: [the seven checkers](#the-seven-checkers) ·
 [inside STEP 08d](#inside-step-08d--why-one-box-is-not-one-check) ·
@@ -229,7 +245,7 @@ summary at the end.
 | Tag | Bucket | Checks |
 |---|---|---|
 | `[STEP 08]` | `signal` | Driver voltage against receiver input threshold, per signal net |
-| `[STEP 08b]` | `supply` | Each supply pin's rail against the part's rated range |
+| `[STEP 08b]` | `supply` | Each supply pin's rail against the part's rated range. A supply pin is one named on a fixed list, or, on parts with extracted data, one that an extracted power group with a rated maximum lists |
 | `[STEP 08c]` | `structural` | Floating power, connectivity integrity |
 | `[STEP 08d]` | `peripheral` | Pin-role and net-name coherence for I2C, SPI — [see below](#inside-step-08d--why-one-box-is-not-one-check) |
 | `[STEP 08d]` | `peripheral` | UART: device-relative bus capability — a TX/RX signal landing on a KB-known pin with no UART capability (no net names consulted; no TX↔RX swap detection) |
@@ -239,7 +255,7 @@ summary at the end.
 
 The report's `summary.pass`/`warn`/`fail`/`unresolvable` hoist only the
 `signal` (`[STEP 08]`) bucket; `summary.total_pass`/`total_warn`/`total_fail`/
-`total_unresolvable` (schema `poc-1.4`) sum across all seven buckets above.
+`total_unresolvable` (schema `poc-1.6`) sum across all seven buckets above.
 
 ---
 

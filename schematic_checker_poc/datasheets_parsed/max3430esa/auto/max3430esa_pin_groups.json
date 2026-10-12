@@ -1,12 +1,12 @@
 {
   "pin_groups": [
     {
-      "group_name": "VCC Supply",
+      "group_name": "Power Supply",
       "pin_type": "power",
       "example_pins": [
-        "8"
+        "?|VCC"
       ],
-      "applies_to": "VCC positive supply pin",
+      "applies_to": "VCC pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,16 +16,45 @@
       "supply_max": 3.63,
       "supply_abs_max": 5.0,
       "supply_rail_name": "VCC",
+      "citations": {
+        "supply_min": {
+          "quote": "VCC= +3.3V \u00b110%",
+          "page": 2,
+          "section": null,
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "VCC= +3.3V \u00b110%",
+          "page": 2,
+          "section": null,
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VCC........................................................................................+5V",
+          "page": 2,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.0,
+          "shipped_group": "VCC Supply",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "GND",
+      "group_name": "Ground",
       "pin_type": "power",
       "example_pins": [
-        "5"
+        "?|GND"
       ],
-      "applies_to": "Ground reference",
+      "applies_to": "GND pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -35,6 +64,7 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
@@ -42,9 +72,9 @@
       "group_name": "Driver Input (DI)",
       "pin_type": "digital_input",
       "example_pins": [
-        "4"
+        "?|DI"
       ],
-      "applies_to": "Driver input logic control",
+      "applies_to": "DI pin",
       "VIH_min": 2.0,
       "VIL_max": 0.8,
       "VOH_min": null,
@@ -54,17 +84,40 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Electrical Characteristics - Driver Logic",
-      "abs_max_source": "Absolute Maximum Ratings (VCC + 0.3V)"
+      "citations": {
+        "VIH_min": {
+          "quote": "Driver Input High Voltage VIH DI 2.0 V",
+          "page": 2,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "Driver Input Low Voltage VIL DI 0.8 V",
+          "page": 2,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "p. 2",
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 3.6,
+          "shipped_group": "Driver Input (DI)",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "Control Inputs (DE, RE)",
       "pin_type": "digital_input",
       "example_pins": [
-        "2",
-        "3"
+        "?|RE",
+        "?|DE"
       ],
-      "applies_to": "Driver Enable (DE) and Receiver Enable (RE) control pins",
+      "applies_to": "DE and RE pins",
       "VIH_min": 2.0,
       "VIL_max": 0.8,
       "VOH_min": null,
@@ -74,36 +127,83 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "DC Electrical Characteristics - Control",
-      "abs_max_source": "Absolute Maximum Ratings (VCC + 0.3V)"
+      "citations": {
+        "VIH_min": {
+          "quote": "Control Input High Voltage VCIH DE, RE 2.0 V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "Control Input Low Voltage VCIL DE, RE 0.8 V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "p. 3",
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 3.6,
+          "shipped_group": "Control Inputs (DE, RE)",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "Receiver Output (RO)",
       "pin_type": "digital_output",
       "example_pins": [
-        "1"
+        "?|RO"
       ],
-      "applies_to": "Receiver output logic level",
+      "applies_to": "RO pin",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 2.7,
+      "VOH_min": null,
       "VOL_max": 0.4,
       "absolute_max_voltage": 3.6,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "VOH_min_expr": {
+          "quote": "RO Output High Voltage VOH IO = -1.6mA VCC - 0.6 V",
+          "page": 3,
+          "section": null,
+          "match": "layout"
+        },
+        "VOL_max": {
+          "quote": "RO Output Low Voltage VOL IO = 1mA 0.4 V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings (VCC + 0.3V)"
+      "abs_max_source": null,
+      "VOH_min_expr": "VCC-0.6",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 3.6,
+          "shipped_group": "Receiver Output (RO)",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "RS-485 Bus Lines (A, B)",
+      "group_name": "Driver/Receiver Differential Lines (A, B)",
       "pin_type": "bidirectional",
       "example_pins": [
-        "6",
-        "7"
+        "?|A",
+        "?|B"
       ],
-      "applies_to": "Differential RS-485 transceiver outputs/inputs (A noninverting, B inverting)",
+      "applies_to": "A and B pins (RS-485 bus lines)",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -113,16 +213,30 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Driver Output Voltage (A, B) (Note 1)..................................\u00b180V",
+          "page": 2,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings (\u00b180V fault protection)"
+      "abs_max_source": "p. 2"
     }
   ],
-  "default_group": "RS-485 Bus Lines (A, B)",
+  "default_group": "Driver/Receiver Differential Lines (A, B)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 8,
+      "entries_dropped_as_duplicates": 0,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "4161b5cfda5d0edb9d2c6763071d285fbf4cd52f16e8a64714cfe649ec813435",
@@ -144,7 +258,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -152,6 +266,417 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "51a15a583248e351e4d82264c11fa7d16417a54418202aece44dc0c3b3be3b2c",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "max3430esa",
+      "counts": {
+        "groups": 6,
+        "malformed_groups": 0,
+        "citations": 10,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 9,
+        "layout": 1,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Power Supply",
+          "index": 0,
+          "field": "supply_min",
+          "value": 2.97,
+          "outcome": "NO-WINDOW",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply",
+          "index": 0,
+          "field": "supply_max",
+          "value": 3.63,
+          "outcome": "NO-WINDOW",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 5.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Driver Input (DI)",
+          "index": 2,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Driver Input (DI)",
+          "index": 2,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Control Inputs (DE, RE)",
+          "index": 3,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Control Inputs (DE, RE)",
+          "index": 3,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Receiver Output (RO)",
+          "index": 4,
+          "field": "VOL_max",
+          "value": 0.4,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Driver/Receiver Differential Lines (A, B)",
+          "index": 5,
+          "field": "absolute_max_voltage",
+          "value": 80.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Driver/Receiver Differential Lines (A, B)",
+            "2": "Logic Input Pins (DI, DE, RE)",
+            "3": "Driver Input (DI)"
+          },
+          "agreement": {
+            "1": 7,
+            "2": 7,
+            "3": 6
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 8,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 8,
+            "2": 12,
+            "3": 12
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "51a15a583248e351e4d82264c11fa7d16417a54418202aece44dc0c3b3be3b2c",
+          "2": "51a15a583248e351e4d82264c11fa7d16417a54418202aece44dc0c3b3be3b2c",
+          "3": "51a15a583248e351e4d82264c11fa7d16417a54418202aece44dc0c3b3be3b2c"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 6,
+            "malformed_groups": 0,
+            "citations": 10,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 9,
+            "malformed_groups": 0,
+            "citations": 14,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 1,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

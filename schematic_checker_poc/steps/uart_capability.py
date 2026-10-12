@@ -33,8 +33,8 @@ README for why a constructed fixture was necessary):
     UART part is correctly treated as unresolvable rather than falling
     through to a stale per-pin dict lookup keyed for I2C.
 
-Recon basis: ``investigation/experiments/uart_wrong_destination_recon/
-REPORT.md`` Q1/Q2. Generalizes M14's ``CAPABILITY_MISMATCH`` role-COUNT gate
+Recon basis: the UART wrong-destination recon, Q1/Q2.
+Generalizes M14's ``CAPABILITY_MISMATCH`` role-COUNT gate
 (``step_08d_peripheral_checker.py`` ~L396-415: ``len(i2c_roles) == 0`` -> FAIL)
 from I2C to UART, substituting ``Peripheral.UART`` for ``Peripheral.I2C``
 unchanged — this is a role-count check ("does this pin have ANY UART role at
@@ -42,7 +42,7 @@ all"), never a role-IDENTITY check ("is this pin specifically TX vs RX").
 
 THE MAKE-OR-BREAK (recon Q2): a "confirmed USART net" is established ONLY via
 endpoint confirmation, NEVER via net-name matching. A prior TODO-93 attempt
-(``investigation/experiments/todo93_uart_coherence/STOP_REPORT.md``, reverted
+(reverted
 commit ``7924d53``) used net-name-derived role assertion and mis-fired on
 correctly-wired USB-serial bridges (a bridge's TXD pin legitimately sits on a
 net *named* "RX", named from the MCU's receiving perspective — UART is

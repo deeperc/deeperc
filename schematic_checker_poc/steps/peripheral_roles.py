@@ -262,7 +262,7 @@ def classify_net_name(net_name: str) -> RoleAssignment | None:
     return None
 
 
-# I3C net-name recognition (card 252, investigation/experiments/i3c_band_recon).
+# I3C net-name recognition (card 252).
 # I3C is a DISTINCT protocol from I2C — push-pull for SDR signalling, no SCL
 # pull-up needed at all, and an SDA pull-up (open-drain phases/hot-join only) in
 # the tens-to-hundreds-of-kOhm range is normal — so an I3C-named net must never

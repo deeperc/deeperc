@@ -1,51 +1,53 @@
 {
   "pin_groups": [
     {
-      "group_name": "VDD Supply",
+      "group_name": "Power Supply",
       "pin_type": "power",
       "example_pins": [
-        "VDD"
+        "?|VDD",
+        "?|VSS"
       ],
-      "applies_to": "Pin 1 - positive supply for logic and I/O pins",
+      "applies_to": "VDD and VSS pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 7.0,
+      "absolute_max_voltage": null,
       "supply_min": 3.0,
       "supply_max": 5.5,
       "supply_abs_max": 7.0,
       "supply_rail_name": "VDD",
-      "VIH_source": null,
-      "abs_max_source": "Section 13.0 Absolute Maximum Ratings (PIC12C508A/509A)"
-    },
-    {
-      "group_name": "VSS Ground",
-      "pin_type": "power",
-      "example_pins": [
-        "VSS"
-      ],
-      "applies_to": "Pin 8 - ground reference for logic and I/O pins",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": null,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
+      "citations": {
+        "supply_min": {
+          "quote": "Supply Voltage VDD 3.0 5.5 V FOSC = DC to 4 MHz (Commercial/Industrial, Extended)",
+          "page": 80,
+          "section": "13.0 ELECTRICAL CHARACTERISTICS - PIC12C508A/PIC12C509A/",
+          "match": "layout"
+        },
+        "supply_max": {
+          "quote": "Supply Voltage VDD 3.0 5.5 V FOSC = DC to 4 MHz (Commercial/Industrial, Extended)",
+          "page": 80,
+          "section": "13.0 ELECTRICAL CHARACTERISTICS - PIC12C508A/PIC12C509A/",
+          "match": "layout"
+        },
+        "supply_abs_max": {
+          "quote": "Voltage on VDD with respect to VSS.................................................................................................................0 to +7.0 V",
+          "page": 79,
+          "section": "13.0 ELECTRICAL CHARACTERISTICS - PIC12C508A/PIC12C509A/",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "GP0/GP1 - TTL/Schmitt Trigger Bidirectional I/O",
+      "group_name": "GPIO Digital I/O (TTL input, CMOS output)",
       "pin_type": "bidirectional",
       "example_pins": [
-        "GP0",
-        "GP1"
+        "?|GP0",
+        "?|GP1"
       ],
-      "applies_to": "Pins 7, 6 - bidirectional I/O with TTL input buffer and Schmitt trigger in serial programming mode",
+      "applies_to": "GP0, GP1 pins with TTL input buffer",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -55,16 +57,45 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Section 13.3 D040/D040A (TTL buffer) and D041 (Schmitt trigger) - relative to VDD",
-      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+      "citations": {
+        "VIH_min_expr": {
+          "quote": "I/O ports with TTL buffer 0.25VDD + 0.8V - VDD V 4.5V \u00a3 VDD \u00a3 5.5V",
+          "page": 82,
+          "section": null,
+          "match": "layout"
+        },
+        "VIL_max_expr": {
+          "quote": "I/O ports with TTL buffer VSS - 0.8V V 4.5 < VDD \u00a3 5.5V",
+          "page": 100,
+          "section": null,
+          "match": "foreign"
+        },
+        "VOH_min_expr": {
+          "quote": "I/O ports (Note 3) VOH VDD - 0.7 - - V IOH = -3.0 mA, VDD = 4.5V, \u201340\u00b0C to +85\u00b0C",
+          "page": 82,
+          "section": null,
+          "match": "partial"
+        },
+        "VOL_max": {
+          "quote": "I/O ports VOL - - 0.6 V IOL = 8.5 mA, VDD = 4.5V, \u201340\u00b0C to +85\u00b0C",
+          "page": 82,
+          "section": null,
+          "match": "partial"
+        }
+      },
+      "VIH_source": "p. 82",
+      "abs_max_source": null,
+      "VIH_min_expr": "0.25*VDD+0.8",
+      "VIL_max_expr": "VSS-0.15*VDD",
+      "VOH_min_expr": "VDD-0.7"
     },
     {
-      "group_name": "GP2/T0CKI - Schmitt Trigger Bidirectional I/O",
+      "group_name": "GPIO Digital I/O (Schmitt Trigger input, CMOS output)",
       "pin_type": "bidirectional",
       "example_pins": [
-        "GP2/T0CKI"
+        "?|GP2/T0CKI"
       ],
-      "applies_to": "Pin 5 - bidirectional I/O, can be configured as Timer0 clock input",
+      "applies_to": "GP2/T0CKI pin with Schmitt Trigger input buffer",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -74,16 +105,45 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Section 13.3 D042 (Schmitt trigger) - relative to VDD",
-      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+      "citations": {
+        "VIH_min_expr": {
+          "quote": "with Schmitt Trigger buffer 0.8VDD - VDD V For entire VDD range",
+          "page": 82,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIL_max_expr": {
+          "quote": "with Schmitt Trigger buffer VSS - 0.2VDD V",
+          "page": 80,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VOH_min_expr": {
+          "quote": "I/O ports (Note 3) VOH VDD - 0.7 - - V IOH = -3.0 mA, VDD = 4.5V, \u201340\u00b0C to +85\u00b0C",
+          "page": 82,
+          "section": null,
+          "match": "partial"
+        },
+        "VOL_max": {
+          "quote": "I/O ports VOL - - 0.6 V IOL = 8.5 mA, VDD = 4.5V, \u201340\u00b0C to +85\u00b0C",
+          "page": 82,
+          "section": null,
+          "match": "partial"
+        }
+      },
+      "VIH_source": "p. 82",
+      "abs_max_source": null,
+      "VIH_min_expr": "0.8*VDD",
+      "VIL_max_expr": "VSS-0.2*VDD",
+      "VOH_min_expr": "VDD-0.7"
     },
     {
-      "group_name": "GP3/MCLR/VPP - Input with Schmitt Trigger",
+      "group_name": "MCLR/GP3 Input (Schmitt Trigger)",
       "pin_type": "digital_input",
       "example_pins": [
-        "GP3/MCLR/VPP"
+        "?|GP3/MCLR/VPP"
       ],
-      "applies_to": "Pin 4 - input-only port, master clear (reset) input, programming voltage input",
+      "applies_to": "GP3/MCLR/VPP pin when configured as MCLR",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -93,54 +153,136 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Section 13.3 D042 (Schmitt trigger) - relative to VDD",
-      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: 0 to +14V"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Voltage on MCLR with respect to VSS...............................................................................................................0 to +14 V",
+          "page": 65,
+          "section": "11.0 ELECTRICAL CHARACTERISTICS - PIC12C508/PIC12C509",
+          "match": "verbatim"
+        },
+        "VIH_min_expr": {
+          "quote": "MCLR, GP2/T0CKI 0.8VDD - VDD V",
+          "page": 82,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIL_max_expr": {
+          "quote": "MCLR, GP2/T0CKI (in EXTRC mode) VSS - 0.2VDD V",
+          "page": 80,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "p. 82",
+      "abs_max_source": "11.0 ELECTRICAL CHARACTERISTICS - PIC12C508/PIC12C509",
+      "VIH_min_expr": "0.8*VDD",
+      "VIL_max_expr": "VSS-0.2*VDD"
     },
     {
-      "group_name": "GP4/OSC2 - TTL Bidirectional I/O",
-      "pin_type": "bidirectional",
+      "group_name": "OSC1/CLKIN Input (XT/LP mode, Schmitt Trigger)",
+      "pin_type": "digital_input",
       "example_pins": [
-        "GP4/OSC2"
+        "?|GP5/OSC1/CLKIN"
       ],
-      "applies_to": "Pin 3 - bidirectional I/O port, oscillator crystal output in XT/LP modes",
+      "applies_to": "GP5/OSC1/CLKIN pin in XT and LP oscillator modes",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
-      "VOL_max": 0.6,
+      "VOL_max": null,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Section 13.3 D040/D040A (TTL buffer) - relative to VDD",
-      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+      "citations": {
+        "VIH_min_expr": {
+          "quote": "OSC1 (XT and LP) 0.7VDD - VDD V Note 1",
+          "page": 67,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIL_max_expr": {
+          "quote": "OSC1 (in XT and LP) VSS - 0.3VDD V Note 1",
+          "page": 79,
+          "section": "13.0 ELECTRICAL CHARACTERISTICS - PIC12C508A/PIC12C509A/",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "p. 67",
+      "abs_max_source": null,
+      "VIH_min_expr": "0.7*VDD",
+      "VIL_max_expr": "VSS-0.3*VDD"
     },
     {
-      "group_name": "GP5/OSC1/CLKIN - TTL/Schmitt Trigger Bidirectional I/O",
-      "pin_type": "bidirectional",
+      "group_name": "OSC1/CLKIN Input (EXTRC mode, Schmitt Trigger)",
+      "pin_type": "digital_input",
       "example_pins": [
-        "GP5/OSC1/CLKIN"
+        "?|GP5/OSC1/CLKIN"
       ],
-      "applies_to": "Pin 2 - bidirectional I/O, oscillator crystal input, external clock source input",
+      "applies_to": "GP5/OSC1/CLKIN pin in EXTRC oscillator mode",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
-      "VOL_max": 0.6,
+      "VOL_max": null,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Section 13.3 D040/D040A (TTL in GPIO mode) and D043 (Schmitt trigger in EXTRC mode) - relative to VDD",
-      "abs_max_source": "Section 13.0 Absolute Maximum Ratings: \u20130.3V to (VDD + 0.3V)"
+      "citations": {
+        "VIH_min_expr": {
+          "quote": "OSC1 (in EXTRC mode) 0.9VDD - VDD V",
+          "page": 2,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.9*VDD"
+        },
+        "VIL_max_expr": {
+          "quote": "OSC1 (in EXTRC mode) VSS - 0.2VDD Note 1",
+          "page": 80,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": "VSS-0.2*VDD"
+        }
+      },
+      "VIH_source": "p. 2",
+      "abs_max_source": null
+    },
+    {
+      "group_name": "OSC2 Output (XT/LP mode)",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|GP4/OSC2"
+      ],
+      "applies_to": "GP4/OSC2 pin in XT and LP oscillator modes",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null
     }
   ],
-  "default_group": "GP0/GP1 - TTL/Schmitt Trigger Bidirectional I/O",
+  "default_group": "GPIO Digital I/O (TTL input, CMOS output)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-08-01T20:12:16+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 9,
+      "entries_dropped_as_duplicates": 0,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "754a25a8793d92e4b56f0026c5511cc96d0a8544bc042859e21de50d6b7780df",
@@ -162,7 +304,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-08-01T20:12:16+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -170,6 +312,401 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "0b07166a4ba59642223c245b03a9be92d0ad7be09dd87e8218446cbe6c559185",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "pic12c508a",
+      "counts": {
+        "groups": 7,
+        "malformed_groups": 0,
+        "citations": 19,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 10,
+        "layout": 3,
+        "partial": 4,
+        "foreign": 2,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Power Supply",
+          "index": 0,
+          "field": "supply_min",
+          "value": 3.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply",
+          "index": 0,
+          "field": "supply_max",
+          "value": 5.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 7.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "GPIO Digital I/O (TTL input, CMOS output)",
+          "index": 1,
+          "field": "VIH_min",
+          "value": 0.25,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "GPIO Digital I/O (TTL input, CMOS output)",
+          "index": 1,
+          "field": "VOL_max",
+          "value": 0.6,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "GPIO Digital I/O (Schmitt Trigger input, CMOS output)",
+          "index": 2,
+          "field": "VOL_max",
+          "value": 0.6,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "MCLR/GP3 Input (Schmitt Trigger)",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 14.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 2,
+        "base_without_probe": 2,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "GPIO Digital I/O (TTL input, CMOS output)",
+            "2": "GPIO Digital I/O (TTL input, CMOS output)",
+            "3": "GPIO Digital I/O (TTL input, CMOS output)"
+          },
+          "agreement": {
+            "1": 5,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 8,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 9,
+            "2": 9,
+            "3": 9
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 8,
+          "GROUP-NOVOTE_valued": 2,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 5,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 5,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "0b07166a4ba59642223c245b03a9be92d0ad7be09dd87e8218446cbe6c559185",
+          "2": "0b07166a4ba59642223c245b03a9be92d0ad7be09dd87e8218446cbe6c559185",
+          "3": "0b07166a4ba59642223c245b03a9be92d0ad7be09dd87e8218446cbe6c559185"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 25,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 19,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 7,
+            "malformed_groups": 0,
+            "citations": 19,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

@@ -1,29 +1,62 @@
 {
   "pin_groups": [
     {
-      "group_name": "VCC Power Supply",
+      "group_name": "Power Supply VCC",
       "pin_type": "power",
       "example_pins": [
-        "20"
+        "?|VCC"
       ],
-      "applies_to": "VCC power supply pin",
+      "applies_to": "VCC power pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 7.0,
-      "supply_min": 2.0,
-      "supply_max": 6.0,
+      "supply_min": null,
+      "supply_max": null,
       "supply_abs_max": 7.0,
       "supply_rail_name": "VCC",
+      "citations": {
+        "supply_min": {
+          "quote": "VCC Supply voltage 2 5 6 2 5 6 V",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 2.0
+        },
+        "supply_max": {
+          "quote": "VCC Supply voltage 2 5 6 2 5 6 V",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 6.0
+        },
+        "supply_abs_max": {
+          "quote": "VCC Supply voltage range \u20130.5 7 V",
+          "page": 4,
+          "section": "4.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 7.0,
+          "shipped_group": "VCC Power Supply",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "GND Ground",
+      "group_name": "Ground",
       "pin_type": "power",
       "example_pins": [
-        "10"
+        "?|GND"
       ],
       "applies_to": "GND ground pin",
       "VIH_min": null,
@@ -34,28 +67,29 @@
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
-      "supply_rail_name": "GND",
+      "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Digital Inputs",
+      "group_name": "Digital Inputs (A inputs and OE)",
       "pin_type": "digital_input",
       "example_pins": [
-        "1",
-        "2",
-        "4",
-        "6",
-        "8",
-        "11",
-        "13",
-        "15",
-        "17",
-        "19"
+        "?|1OE",
+        "?|1A1",
+        "?|1A2",
+        "?|1A3",
+        "?|1A4",
+        "?|2A1",
+        "?|2A2",
+        "?|2A3",
+        "?|2A4",
+        "?|2OE"
       ],
-      "applies_to": "1OE, 1A1, 1A2, 1A3, 1A4, 2A1, 2A2, 2A3, 2A4, 2OE input pins",
-      "VIH_min": 1.5,
-      "VIL_max": 0.5,
+      "applies_to": "All input pins (1A1-1A4, 2A1-2A4, 1OE, 2OE)",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 7.0,
@@ -63,42 +97,248 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions (VCC = 2V)",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VCC Supply voltage range \u20130.5 7 V",
+          "page": 4,
+          "section": "4.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[0]": {
+          "quote": "VIH High-level input voltage VCC = 2 V 1.5 1.5",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "layout"
+        },
+        "VIH_min_alts[1]": {
+          "quote": "VIH High-level input voltage VCC = 4.5 V 3.15 3.15 V",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_alts[2]": {
+          "quote": "VIH High-level input voltage VCC = 6 V 4.2 4.2",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "layout"
+        },
+        "VIL_max_alts[0]": {
+          "quote": "VIL Low-level input voltage VCC = 2 V 0.5 0.5",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "layout"
+        },
+        "VIL_max_alts[1]": {
+          "quote": "VIL Low-level input voltage VCC = 4.5 V 1.35 1.35 V",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_alts[2]": {
+          "quote": "VIL Low-level input voltage VCC = 6 V 1.8 1.8",
+          "page": 4,
+          "section": "4.2 Recommended Operating Conditions",
+          "match": "layout"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "4.1 Absolute Maximum Ratings",
+      "VIH_min_alts": [
+        {
+          "condition": "VCC = 2V",
+          "value": 1.5,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 4.5V",
+          "value": 3.15,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 6V",
+          "value": 4.2,
+          "expr": null
+        }
+      ],
+      "VIL_max_alts": [
+        {
+          "condition": "VCC = 2V",
+          "value": 0.5,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 4.5V",
+          "value": 1.35,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 6V",
+          "value": 1.8,
+          "expr": null
+        }
+      ]
     },
     {
-      "group_name": "Digital Outputs",
+      "group_name": "Digital Outputs (Y outputs)",
       "pin_type": "digital_output",
       "example_pins": [
-        "3",
-        "5",
-        "7",
-        "9",
-        "12",
-        "14",
-        "16",
-        "18"
+        "?|2Y4",
+        "?|2Y3",
+        "?|2Y2",
+        "?|2Y1",
+        "?|1Y4",
+        "?|1Y3",
+        "?|1Y2",
+        "?|1Y1"
       ],
-      "applies_to": "1Y1, 1Y2, 1Y3, 1Y4, 2Y1, 2Y2, 2Y3, 2Y4 output pins",
+      "applies_to": "All output pins (1Y1-1Y4, 2Y1-2Y4)",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 1.9,
-      "VOL_max": 0.1,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": 7.0,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "VCC Supply voltage range \u20130.5 7 V",
+          "page": 4,
+          "section": "4.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[0]": {
+          "quote": "VOH VI = VIH or VIL 2 V 1.9 1.998 1.9 1.9",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "VOH VI = VIH or VIL 4.5 V 4.4 4.499 4.4 4.4",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOH_min_alts[2]": {
+          "quote": "VOH VI = VIH or VIL 6 V 5.9 5.999 5.9 5.9 V",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[3]": {
+          "quote": "IOH = \u20136 mA 4.5 V 3.98 4.3 3.7 3.84",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOH_min_alts[4]": {
+          "quote": "IOH = \u20137.8 mA 6 V 5.48 5.8 5.2 5.34",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "VOL VI = VIH or VIL 2 V 0.002 0.1 0.1 0.1",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL = 20 \u00b5A 4.5 V 0.001 0.1 0.1 0.1",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[2]": {
+          "quote": "IOL = 20 \u00b5A 6 V 0.001 0.1 0.1 0.1 V",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "layout"
+        },
+        "VOL_max_alts[3]": {
+          "quote": "IOL = 6 mA 4.5 V 0.17 0.26 0.4 0.33",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VOL_max_alts[4]": {
+          "quote": "IOL = 7.8 mA 6 V 0.15 0.26 0.4 0.33",
+          "page": 5,
+          "section": "4.4 Electrical Characteristics",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "4.1 Absolute Maximum Ratings",
+      "VOH_min_alts": [
+        {
+          "condition": "VCC = 2V, IOH = -20\u00b5A",
+          "value": 1.9,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 4.5V, IOH = -20\u00b5A",
+          "value": 4.4,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 6V, IOH = -20\u00b5A",
+          "value": 5.9,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 4.5V, IOH = -6mA",
+          "value": 3.7,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 6V, IOH = -7.8mA",
+          "value": 5.2,
+          "expr": null
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "VCC = 2V, IOL = 20\u00b5A",
+          "value": 0.1,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 4.5V, IOL = 20\u00b5A",
+          "value": 0.1,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 6V, IOL = 20\u00b5A",
+          "value": 0.1,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 4.5V, IOL = 6mA",
+          "value": 0.4,
+          "expr": null
+        },
+        {
+          "condition": "VCC = 6V, IOL = 7.8mA",
+          "value": 0.4,
+          "expr": null
+        }
+      ]
     }
   ],
-  "default_group": "Digital Inputs",
+  "default_group": "Digital Inputs (A inputs and OE)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 20,
+      "entries_dropped_as_duplicates": 0,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "a22474af80ff66fd36c2a4c7efaec14eb64b0bbbeb5f40586b4f5265004d8a1d",
@@ -120,7 +360,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -128,6 +368,402 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "9cd761899e277dfb27fc28c1fe8b92e7ab05630238e5f8d1254ec88af610ddce",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "74hc240pwr",
+      "counts": {
+        "groups": 4,
+        "malformed_groups": 0,
+        "citations": 21,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 2,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 13,
+        "layout": 8,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [
+          "Power Supply VCC"
+        ],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_min",
+          "value": 2.0,
+          "rule": "f"
+        },
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_max",
+          "value": 6.0,
+          "rule": "f"
+        }
+      ],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_min",
+          "value": 2.0,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_max",
+          "value": 6.0,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply VCC",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Digital Inputs (A inputs and OE)",
+          "index": 2,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Digital Outputs (Y outputs)",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Digital Inputs (A inputs and OE)",
+            "2": "Digital Inputs (A inputs and OE)",
+            "3": "Digital Inputs (A inputs and OE)"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 20,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 20,
+            "2": 20,
+            "3": 20
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "9cd761899e277dfb27fc28c1fe8b92e7ab05630238e5f8d1254ec88af610ddce",
+          "2": "9cd761899e277dfb27fc28c1fe8b92e7ab05630238e5f8d1254ec88af610ddce",
+          "3": "9cd761899e277dfb27fc28c1fe8b92e7ab05630238e5f8d1254ec88af610ddce"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 4,
+            "malformed_groups": 0,
+            "citations": 21,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 2,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 4,
+            "malformed_groups": 0,
+            "citations": 21,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 2,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 4,
+            "malformed_groups": 0,
+            "citations": 21,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 2,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

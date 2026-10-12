@@ -14,8 +14,6 @@ Schema (`<netlist>.rails.json` sidecar, or --rail-map <path>):
     { "<net-name-or-basename>": { "voltage": <float|null>,
                                   "is_rail":  <bool, default true>,
                                   "is_ground": <bool, default false> } }
-
-Design: investigation/confirmed_rail_map_design.md
 """
 from __future__ import annotations
 

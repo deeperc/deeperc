@@ -4,32 +4,75 @@
       "group_name": "Power Supply (VDD33)",
       "pin_type": "power",
       "example_pins": [
-        "2",
-        "15",
-        "38"
+        "?|3V3",
+        "?|GND"
       ],
-      "applies_to": "3V3 power supply pins",
+      "applies_to": "VDD33 supply pins and ground pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 3.6,
+      "absolute_max_voltage": null,
       "supply_min": 3.0,
       "supply_max": 3.6,
       "supply_abs_max": 3.6,
       "supply_rail_name": "VDD33",
+      "citations": {
+        "supply_min": {
+          "quote": "VDD33 Powersupplyvoltage 3.0 3.3 3.6 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "VDD33 Powersupplyvoltage 3.0 3.3 3.6 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VDD33 Powersupplyvoltage \u20130.3 3.6 V",
+          "page": 28,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+      "abs_max_source": null
     },
     {
-      "group_name": "Ground",
-      "pin_type": "power",
+      "group_name": "Digital I/O (GPIO)",
+      "pin_type": "bidirectional",
       "example_pins": [
-        "1",
-        "15",
-        "38"
+        "?|EN",
+        "?|SENSOR_VP",
+        "?|SENSOR_VN",
+        "?|IO34",
+        "?|IO35",
+        "?|IO32",
+        "?|IO33",
+        "?|IO25",
+        "?|IO26",
+        "?|IO27",
+        "?|IO14",
+        "?|IO12",
+        "?|IO13",
+        "?|IO15",
+        "?|IO2",
+        "?|IO0",
+        "?|IO4",
+        "?|IO16",
+        "?|IO17",
+        "?|IO5",
+        "?|IO18",
+        "?|IO19",
+        "?|IO21",
+        "?|TXD0",
+        "?|RXD0",
+        "?|IO22",
+        "?|IO23"
       ],
-      "applies_to": "GND pins",
+      "applies_to": "All GPIO and signal pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -39,63 +82,53 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": null
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": "VIH High-levelinputvoltage 0.75\u00d7VDD1 \u2014 VDD1 +0.3 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIH_min_expr": {
+          "quote": "VIH High-levelinputvoltage 0.75\u00d7VDD1 \u2014 VDD1 +0.3 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VIL_max_expr": {
+          "quote": "VIL Low-levelinputvoltage \u20130.3 \u2014 0.25\u00d7VDD1 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VOH_min_expr": {
+          "quote": "VOH High-leveloutputvoltage 0.8\u00d7VDD1 \u2014 \u2014 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "VOL_max_expr": {
+          "quote": "VOL Low-leveloutputvoltage \u2014 \u2014 0.1\u00d7VDD1 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "6.2 Recommended Operating Conditions",
+      "abs_max_source": "6.2 Recommended Operating Conditions",
+      "absolute_max_voltage_expr": "VDD1+0.3",
+      "VIH_min_expr": "0.75*VDD1",
+      "VIL_max_expr": "0.25*VDD1",
+      "VOH_min_expr": "0.8*VDD1",
+      "VOL_max_expr": "0.1*VDD1"
     },
     {
-      "group_name": "Digital I/O (3.3V domain)",
-      "pin_type": "bidirectional",
+      "group_name": "EN (Enable/Reset) Pin",
+      "pin_type": "digital_input",
       "example_pins": [
-        "3",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "16",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29",
-        "30",
-        "31",
-        "33",
-        "35",
-        "36",
-        "37"
+        "?|EN"
       ],
-      "applies_to": "GPIO pins and signal pins in VDD3P3_CPU/VDD3P3_RTC power domains",
-      "VIH_min": 0.75,
-      "VIL_max": 0.25,
-      "VOH_min": 0.8,
-      "VOL_max": 0.1,
-      "absolute_max_voltage": 3.6,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 15: DC Characteristics (3.3V, 25\u00b0C) - VIH = 0.75\u00d7VDD1 to VDD1+0.3V",
-      "abs_max_source": "Table 13: Absolute Maximum Ratings - VDD33 max 3.6V"
-    },
-    {
-      "group_name": "Analog Input (ADC)",
-      "pin_type": "analog",
-      "example_pins": [
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
-      ],
-      "applies_to": "SENSOR_VP, SENSOR_VN, IO34, IO35, IO32, IO33 - ADC input pins",
+      "applies_to": "EN pin for chip enable/disable control",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -105,35 +138,103 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+      "citations": {
+        "VIH_min_expr": {
+          "quote": "VIH High-levelinputvoltage 0.75\u00d7VDD1 \u2014 VDD1 +0.3 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.75*VDD1"
+        },
+        "VIL_max_expr": {
+          "quote": "VIL Low-levelinputvoltage \u20130.3 \u2014 0.25\u00d7VDD1 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.25*VDD1"
+        },
+        "absolute_max_voltage_expr": {
+          "quote": "VIH High-levelinputvoltage 0.75\u00d7VDD1 \u2014 VDD1 +0.3 V",
+          "page": 28,
+          "section": "6.2 Recommended Operating Conditions",
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": "VDD1+0.3"
+        }
+      },
+      "VIH_source": "6.2 Recommended Operating Conditions",
+      "abs_max_source": "6.2 Recommended Operating Conditions",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 3.6,
+          "shipped_group": [
+            "Digital I/O (3.3V domain)",
+            "Enable Pin (EN)"
+          ],
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": "nulled:group_novote"
+        }
+      }
     },
     {
-      "group_name": "Enable Pin (EN)",
+      "group_name": "CHIP_PU (Reset Release) Pin",
       "pin_type": "digital_input",
-      "example_pins": [
-        "3"
-      ],
-      "applies_to": "EN pin - chip enable/disable control",
-      "VIH_min": 0.75,
-      "VIL_max": 0.25,
+      "example_pins": [],
+      "applies_to": "CHIP_PU internal reset pin (not exposed on module)",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": 3.6,
+      "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 15: DC Characteristics - VIH = 0.75\u00d7VDD1 to VDD1+0.3V",
-      "abs_max_source": "Table 13: Absolute Maximum Ratings"
+      "citations": {
+        "VIL_max": {
+          "quote": "V IL_nRST Low-levelinputvoltageofCHIP_PU toshutdownthechip \u2014 \u2014 0.6 V",
+          "page": 29,
+          "section": "6 ElectricalCharacteristics",
+          "match": "layout",
+          "status": "nulled:group_novote",
+          "rejected_value": 0.6
+        },
+        "VIH_min_expr": {
+          "quote": "V IH_nRST Chipresetreleasevoltage(CHIP_PUvoltage iswithinthespecifiedrange) 0.75\u00d7VDD1 \u2014 VDD1 +0.3 V",
+          "page": 29,
+          "section": "6 ElectricalCharacteristics",
+          "match": "layout",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.75*VDD1"
+        },
+        "absolute_max_voltage_expr": {
+          "quote": "V IH_nRST Chipresetreleasevoltage(CHIP_PUvoltage iswithinthespecifiedrange) 0.75\u00d7VDD1 \u2014 VDD1 +0.3 V",
+          "page": 29,
+          "section": "6 ElectricalCharacteristics",
+          "match": "layout",
+          "status": "nulled:group_novote",
+          "rejected_value": "VDD1+0.3"
+        }
+      },
+      "VIH_source": "6 ElectricalCharacteristics",
+      "abs_max_source": "6 ElectricalCharacteristics"
     }
   ],
-  "default_group": "Digital I/O (3.3V domain)",
+  "default_group": "Digital I/O (GPIO)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:24:43+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 32,
+      "entries_dropped_as_duplicates": 2,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "efe677acdc51ea3a86b1bb5dd08b712e506259173939a9b4077a4f57be8c17b4",
@@ -155,7 +256,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:24:43+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -163,6 +264,377 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "ad1386d35220397198a484b68560d4c78fde3264267c78ec7c0104346ee3c156",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "esp32-wroom-32e-n4",
+      "counts": {
+        "groups": 4,
+        "malformed_groups": 0,
+        "citations": 14,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 11,
+        "layout": 3,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Power Supply (VDD33)",
+          "index": 0,
+          "field": "supply_min",
+          "value": 3.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply (VDD33)",
+          "index": 0,
+          "field": "supply_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply (VDD33)",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "CHIP_PU (Reset Release) Pin",
+          "index": 3,
+          "field": "VIL_max",
+          "value": 0.6,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Digital I/O (GPIO)",
+            "2": "Digital I/O (GPIO)",
+            "3": "Digital I/O (GPIO)"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 3,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 38,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 32,
+            "2": 39,
+            "3": 32
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 16,
+          "GROUP-NOVOTE_valued": 6,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 2,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 2,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 2,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 2,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "ad1386d35220397198a484b68560d4c78fde3264267c78ec7c0104346ee3c156",
+          "2": "ad1386d35220397198a484b68560d4c78fde3264267c78ec7c0104346ee3c156",
+          "3": "ad1386d35220397198a484b68560d4c78fde3264267c78ec7c0104346ee3c156"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 4,
+            "malformed_groups": 0,
+            "citations": 14,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 4,
+            "malformed_groups": 0,
+            "citations": 11,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 3,
+            "malformed_groups": 0,
+            "citations": 11,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

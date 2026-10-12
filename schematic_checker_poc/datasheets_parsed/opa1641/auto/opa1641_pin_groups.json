@@ -1,12 +1,12 @@
 {
   "pin_groups": [
     {
-      "group_name": "Positive Supply Rail (V+)",
+      "group_name": "Positive Supply Voltage (V+)",
       "pin_type": "power",
       "example_pins": [
-        "V+"
+        "?|V+"
       ],
-      "applies_to": "Positive (highest) power supply pins on all variants",
+      "applies_to": "OPA1641 pin 7, OPA1642 pin 8, OPA1644 pin 4",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -16,39 +16,88 @@
       "supply_max": 36.0,
       "supply_abs_max": 40.0,
       "supply_rail_name": "V+",
+      "citations": {
+        "supply_min": {
+          "quote": "Singlesupply 4.5 36 Supplyvoltage(V+,V\u2013) V",
+          "page": 6,
+          "section": "6.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "Singlesupply 4.5 36 Supplyvoltage(V+,V\u2013) V",
+          "page": 6,
+          "section": "6.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VS Supplyvoltage 40 V",
+          "page": 6,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 40.0,
+          "shipped_group": "Positive Supply Rail (V+)",
+          "pins_counted": 3,
+          "pins_total": 3,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "Negative Supply Rail (V-)",
+      "group_name": "Negative Supply Voltage (V-)",
       "pin_type": "power",
       "example_pins": [
-        "V-"
+        "?|V\u2013"
       ],
-      "applies_to": "Negative (lowest) power supply pins on all variants",
+      "applies_to": "OPA1641 pin 4, OPA1642 pin 4, OPA1644 pin 11",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": -40.0,
+      "absolute_max_voltage": null,
       "supply_min": -36.0,
       "supply_max": -4.5,
       "supply_abs_max": -40.0,
-      "supply_rail_name": "V-",
+      "supply_rail_name": "V\u2013",
+      "citations": {
+        "supply_min": {
+          "quote": "Dualsupply \u00b12.25 \u00b118 Supplyvoltage(V+,V\u2013) V",
+          "page": null,
+          "section": null,
+          "match": "foreign"
+        },
+        "supply_max": {
+          "quote": "Dualsupply \u00b12.25 \u00b118 Supplyvoltage(V+,V\u2013) V",
+          "page": null,
+          "section": null,
+          "match": "foreign"
+        },
+        "supply_abs_max": {
+          "quote": "VS Supplyvoltage 40 V",
+          "page": 17,
+          "section": "7.4.1 OperatingVoltage",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null
     },
     {
       "group_name": "Inverting Input",
       "pin_type": "analog",
       "example_pins": [
-        "-IN",
-        "-INA",
-        "-INB",
-        "-INC",
-        "-IND"
+        "?|\u2013IN",
+        "?|\u2013INA",
+        "?|\u2013INB",
+        "?|\u2013INC",
+        "?|\u2013IND"
       ],
-      "applies_to": "Inverting input pins on all variants (OPA1641, OPA1642, OPA1644)",
+      "applies_to": "All inverting input pins across OPA1641, OPA1642, and OPA1644",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -58,43 +107,61 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": "VIN Inputvoltage(2) (V\u2013)\u20130.5 (V+)+0.5 V",
+          "page": 6,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings (input voltage range: (V-)-0.5 to (V+)+0.5)"
+      "abs_max_source": "6.1 Absolute Maximum Ratings",
+      "absolute_max_voltage_expr": "(V\u2013)\u20130.5"
     },
     {
       "group_name": "Non-Inverting Input",
       "pin_type": "analog",
       "example_pins": [
-        "+IN",
-        "+INA",
-        "+INB",
-        "+INC",
-        "+IND"
+        "?|+IN",
+        "?|+INA",
+        "?|+INB",
+        "?|+INC",
+        "?|+IND"
       ],
-      "applies_to": "Non-inverting input pins on all variants (OPA1641, OPA1642, OPA1644)",
+      "applies_to": "All non-inverting input pins across OPA1641, OPA1642, and OPA1644",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
-      "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": "VIN Inputvoltage(2) (V\u2013)\u20130.5 (V+)+0.5 V",
+          "page": 6,
+          "section": "6.1 Absolute Maximum Ratings",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings (input voltage range: (V-)-0.5 to (V+)+0.5)"
+      "abs_max_source": "6.1 Absolute Maximum Ratings",
+      "absolute_max_voltage": null,
+      "absolute_max_voltage_expr": "(V+)+0.5"
     },
     {
       "group_name": "Output",
       "pin_type": "analog",
       "example_pins": [
-        "OUT",
-        "OUTA",
-        "OUTB",
-        "OUTC",
-        "OUTD"
+        "?|OUT",
+        "?|OUTA",
+        "?|OUTB",
+        "?|OUTC",
+        "?|OUTD"
       ],
-      "applies_to": "Output pins on all variants (OPA1641, OPA1642, OPA1644)",
+      "applies_to": "All output pins across OPA1641, OPA1642, and OPA1644",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -104,16 +171,66 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "VOH_min_alts[0]": {
+          "quote": "RL =10k\u03a9,AOL \u2265120dB (V\u2013)+0.2 (V+)\u20130.2",
+          "page": 8,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VOH_min_alts[1]": {
+          "quote": "RL =2k\u03a9,AOL \u2265114dB (V\u2013)+0.35 (V+)\u20130.35",
+          "page": 8,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VOL_max_alts[0]": {
+          "quote": "RL =10k\u03a9,AOL \u2265120dB (V\u2013)+0.2 (V+)\u20130.2",
+          "page": 8,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VOL_max_alts[1]": {
+          "quote": "RL =2k\u03a9,AOL \u2265114dB (V\u2013)+0.35 (V+)\u20130.35",
+          "page": 8,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings (output swing: (V-)+0.2 to (V+)-0.2 at RL=10k\u03a9, or (V-)+0.35 to (V+)-0.35 at RL=2k\u03a9)"
+      "abs_max_source": null,
+      "VOH_min_alts": [
+        {
+          "condition": "RL=10k\u03a9, AOL\u2265120dB",
+          "value": null,
+          "expr": "(V\u2013)+0.2"
+        },
+        {
+          "condition": "RL=2k\u03a9, AOL\u2265114dB",
+          "value": null,
+          "expr": "(V\u2013)+0.35"
+        }
+      ],
+      "VOL_max_alts": [
+        {
+          "condition": "RL=10k\u03a9, AOL\u2265120dB",
+          "value": null,
+          "expr": "(V+)\u20130.2"
+        },
+        {
+          "condition": "RL=2k\u03a9, AOL\u2265114dB",
+          "value": null,
+          "expr": "(V+)\u20130.35"
+        }
+      ]
     },
     {
       "group_name": "No Connection",
       "pin_type": "digital_input",
       "example_pins": [
-        "NC"
+        "?|NC"
       ],
-      "applies_to": "No connection pins (pins 1, 5, 8 on OPA1641; pins 1, 8 on OPA1642)",
+      "applies_to": "OPA1641 pins 1, 5, 8 (no internal connection)",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -123,16 +240,23 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     }
   ],
   "default_group": "Output",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 24,
+      "entries_dropped_as_duplicates": 6,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "84c71da85c1e86a604f8791eb1b4744cdae9815e54fcab1afe9d86b559bddda0",
@@ -154,7 +278,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -162,6 +286,393 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "99f2bd1879ba7e55ab943612f45e0476f6179e493ed63dbab7b3ba49dce45f09",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "opa1641",
+      "counts": {
+        "groups": 6,
+        "malformed_groups": 0,
+        "citations": 12,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 10,
+        "layout": 0,
+        "partial": 0,
+        "foreign": 2,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Positive Supply Voltage (V+)",
+          "index": 0,
+          "field": "supply_min",
+          "value": 4.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Positive Supply Voltage (V+)",
+          "index": 0,
+          "field": "supply_max",
+          "value": 36.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Positive Supply Voltage (V+)",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 40.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "Negative Supply Voltage (V-)",
+          "index": 1,
+          "field": "supply_min",
+          "value": -36.0,
+          "outcome": "NO-WINDOW",
+          "a_fail": false
+        },
+        {
+          "group": "Negative Supply Voltage (V-)",
+          "index": 1,
+          "field": "supply_max",
+          "value": -4.5,
+          "outcome": "NO-WINDOW",
+          "a_fail": false
+        },
+        {
+          "group": "Negative Supply Voltage (V-)",
+          "index": 1,
+          "field": "supply_abs_max",
+          "value": -40.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 2,
+        "base_without_probe": 2,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Inverting Input",
+            "2": "Output",
+            "3": "Output"
+          },
+          "agreement": {
+            "1": 7,
+            "2": 6,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 23,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 24,
+            "2": 24,
+            "3": 24
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 15,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 10,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 5,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "99f2bd1879ba7e55ab943612f45e0476f6179e493ed63dbab7b3ba49dce45f09",
+          "2": "99f2bd1879ba7e55ab943612f45e0476f6179e493ed63dbab7b3ba49dce45f09",
+          "3": "99f2bd1879ba7e55ab943612f45e0476f6179e493ed63dbab7b3ba49dce45f09"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 6,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 6,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 6,
+            "malformed_groups": 0,
+            "citations": 8,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

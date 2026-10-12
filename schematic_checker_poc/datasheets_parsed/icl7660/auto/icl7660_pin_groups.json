@@ -4,28 +4,56 @@
       "group_name": "Supply Voltage (V+)",
       "pin_type": "power",
       "example_pins": [
-        "8"
+        "?|V+"
       ],
-      "applies_to": "Pin 8 - positive supply input",
+      "applies_to": "Pin 8, positive supply input",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 13.0,
-      "supply_min": 1.5,
+      "supply_min": null,
       "supply_max": 12.0,
       "supply_abs_max": 13.0,
       "supply_rail_name": "V+",
+      "citations": {
+        "supply_min": {
+          "quote": "Supply Voltage Range - Low V+L RL = 10k, LV to GND, TMIN < TA < TMAX 1.5 - 3.5 V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 1.5
+        },
+        "supply_max": {
+          "quote": "Supply Voltage Range - High V+H RL = 10k, LV Open, TMIN < TA < TMAX 3.0 - 12 V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "Supply Voltage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . +13.0V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "Supply Voltage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . +13.0V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "p. 3"
     },
     {
       "group_name": "Ground",
       "pin_type": "power",
       "example_pins": [
-        "3"
+        "?|GND"
       ],
-      "applies_to": "Pin 3 - ground reference",
+      "applies_to": "Pin 3, ground reference",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -35,17 +63,17 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Charge Pump Capacitor Pins",
+      "group_name": "Charge Pump Capacitor Positive",
       "pin_type": "analog",
       "example_pins": [
-        "2",
-        "4"
+        "?|CAP+"
       ],
-      "applies_to": "Pin 2 (CAP+) and Pin 4 (CAP-) - external capacitor connections",
+      "applies_to": "Pin 2, positive terminal of pump capacitor",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -55,16 +83,17 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Output Voltage (VOUT)",
+      "group_name": "Charge Pump Capacitor Negative",
       "pin_type": "analog",
       "example_pins": [
-        "5"
+        "?|CAP-"
       ],
-      "applies_to": "Pin 5 - negative output voltage",
+      "applies_to": "Pin 4, negative terminal of pump capacitor",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -74,16 +103,17 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "Low Voltage Pin (LV)",
-      "pin_type": "digital_input",
+      "group_name": "Negative Output",
+      "pin_type": "analog",
       "example_pins": [
-        "6"
+        "?|VOUT"
       ],
-      "applies_to": "Pin 6 - internal regulator bypass control",
+      "applies_to": "Pin 5, negative voltage output",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -93,16 +123,17 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null
     },
     {
-      "group_name": "Oscillator Pin (OSC)",
+      "group_name": "Low Voltage Pin",
       "pin_type": "digital_input",
       "example_pins": [
-        "7"
+        "?|LV"
       ],
-      "applies_to": "Pin 7 - oscillator frequency control",
+      "applies_to": "Pin 6, low voltage regulator bypass control",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -112,16 +143,129 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_alts[0]": {
+          "quote": "LV and OSC Input Voltage (Note5) V+ < 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . . . .-0.3V to V+ + 0.3V",
+          "page": 3,
+          "section": null,
+          "match": "layout",
+          "status": "nulled:disagree",
+          "rejected_value": {
+            "condition": "V+ < 5.5V",
+            "value": null,
+            "expr": "V++0.3"
+          }
+        },
+        "absolute_max_voltage_alts[1]": {
+          "quote": "V+ > 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . .V+ -5.5V to V+ +0.3V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:disagree",
+          "rejected_value": {
+            "condition": "V+ > 5.5V",
+            "value": null,
+            "expr": "V++0.3"
+          }
+        },
+        "VIH_min_alts[0]": {
+          "quote": "LV and OSC Input Voltage (Note5) V+ < 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . . . .-0.3V to V+ + 0.3V",
+          "page": 3,
+          "section": null,
+          "match": "layout"
+        },
+        "VIL_max_expr": {
+          "quote": "LV and OSC Input Voltage (Note5) V+ < 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . . . .-0.3V to V+ + 0.3V",
+          "page": 3,
+          "section": null,
+          "match": "layout",
+          "from_alts": true
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "VIH_min_alts": [
+        {
+          "condition": "V+ < 5.5V",
+          "value": null,
+          "expr": null
+        }
+      ],
+      "VIL_max_expr": "V++0.3"
+    },
+    {
+      "group_name": "Oscillator Pin",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|OSC"
+      ],
+      "applies_to": "Pin 7, oscillator frequency control",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_alts[0]": {
+          "quote": "LV and OSC Input Voltage (Note5) V+ < 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . . . .-0.3V to V+ + 0.3V",
+          "page": 3,
+          "section": null,
+          "match": "layout",
+          "status": "nulled:disagree",
+          "rejected_value": {
+            "condition": "V+ < 5.5V",
+            "value": null,
+            "expr": "V++0.3"
+          }
+        },
+        "absolute_max_voltage_alts[1]": {
+          "quote": "V+ > 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . .V+ -5.5V to V+ +0.3V",
+          "page": 3,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:disagree",
+          "rejected_value": {
+            "condition": "V+ > 5.5V",
+            "value": null,
+            "expr": "V++0.3"
+          }
+        },
+        "VIH_min_alts[0]": {
+          "quote": "LV and OSC Input Voltage (Note5) V+ < 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . . . .-0.3V to V+ + 0.3V",
+          "page": 3,
+          "section": null,
+          "match": "layout"
+        },
+        "VIL_max_expr": {
+          "quote": "LV and OSC Input Voltage (Note5) V+ < 5.5V. . . . . . . . . . . . . . . . . . . . . . . . . . . . .-0.3V to V+ + 0.3V",
+          "page": 3,
+          "section": null,
+          "match": "layout",
+          "from_alts": true
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": null,
+      "VIH_min_alts": [
+        {
+          "condition": "V+ < 5.5V",
+          "value": null,
+          "expr": null
+        }
+      ],
+      "VIL_max_expr": "V++0.3"
     },
     {
       "group_name": "Boost Pin",
       "pin_type": "digital_input",
       "example_pins": [
-        "1"
+        "?|BOOST"
       ],
-      "applies_to": "Pin 1 - oscillator frequency boost control",
+      "applies_to": "Pin 1, frequency boost control",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -131,16 +275,23 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     }
   ],
-  "default_group": "Charge Pump Capacitor Pins",
+  "default_group": "Boost Pin",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 8,
+      "entries_dropped_as_duplicates": 0,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "281e1bb29754510848547617f618a5aa4dab210be2a4494025188db152c814bb",
@@ -162,7 +313,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -170,6 +321,421 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "63085eb425ad4bfef300de643a58d1ab0078d99eaa0a1914fbd9f2e4ff6d23e5",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "icl7660",
+      "counts": {
+        "groups": 8,
+        "malformed_groups": 0,
+        "citations": 12,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 1,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 2,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 6,
+        "layout": 6,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [
+          "Supply Voltage (V+)"
+        ],
+        "f4": [
+          "Low Voltage Pin",
+          "Oscillator Pin"
+        ],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [
+        {
+          "group": "Supply Voltage (V+)",
+          "index": 0,
+          "field": "supply_min",
+          "value": 1.5,
+          "rule": "f"
+        },
+        {
+          "group": "Low Voltage Pin",
+          "field": "VIH_min_alts[0].expr",
+          "value": "V+",
+          "rule": "f4_railless"
+        },
+        {
+          "group": "Oscillator Pin",
+          "field": "VIH_min_alts[0].expr",
+          "value": "V+",
+          "rule": "f4_railless"
+        }
+      ],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Supply Voltage (V+)",
+          "index": 0,
+          "field": "absolute_max_voltage",
+          "value": 13.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Supply Voltage (V+)",
+          "index": 0,
+          "field": "supply_min",
+          "value": 1.5,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "Supply Voltage (V+)",
+          "index": 0,
+          "field": "supply_max",
+          "value": 12.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Supply Voltage (V+)",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 13.0,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "Boost Pin",
+            "2": "Oscillator Pin",
+            "3": "Boost Pin"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 5,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 8,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          }
+        },
+        "counts": {
+          "DISAGREE": 2,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 0,
+          "GROUP-NOVOTE_valued": 0,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 2,
+          "nulled_majority": 0,
+          "vote_raw_string": 2,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 2
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 2,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 2,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 2,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 2
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 0,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [
+          {
+            "pin": "6|LV",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": "ALTS:[[\"V+ < 5.5V\", null, \"V++0.3\"], [\"V+ > 5.5V\", null, \"V++0.3\"]]",
+              "2": "ALTS:[[\"V+ > 5.5V\", null, \"V++0.3\"]]",
+              "3": null
+            }
+          },
+          {
+            "pin": "7|OSC",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": "ALTS:[[\"V+ < 5.5V\", null, \"V++0.3\"], [\"V+ > 5.5V\", null, \"V++0.3\"]]",
+              "2": "ALTS:[[\"V+ > 5.5V\", null, \"V++0.3\"]]",
+              "3": null
+            }
+          }
+        ],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "63085eb425ad4bfef300de643a58d1ab0078d99eaa0a1914fbd9f2e4ff6d23e5",
+          "2": "63085eb425ad4bfef300de643a58d1ab0078d99eaa0a1914fbd9f2e4ff6d23e5",
+          "3": "63085eb425ad4bfef300de643a58d1ab0078d99eaa0a1914fbd9f2e4ff6d23e5"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 12,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 1,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 2,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 10,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 1,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 2,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 4,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 1,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 1,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

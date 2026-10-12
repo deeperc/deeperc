@@ -1,3 +1,4 @@
+import logging
 import re
 from dataclasses import dataclass
 from typing import NamedTuple
@@ -5,6 +6,8 @@ from steps.step_02_parser import NetlistIR
 from steps.step_05_validator import ValidatedPinSpec
 from steps.step_06_power import POWER_NET_RE, GROUND_NET_RE
 from trace.writer import write_trace
+
+logger = logging.getLogger(__name__)
 
 PASSIVE_REFDES_RE = re.compile(
     r'^(?:'
@@ -191,8 +194,7 @@ def _resolve_power_domain(
     """Resolve a component's VCC voltage with resolution provenance, else None.
 
     Behavior (U1 power-domain fix, Options 1+2 — see
-    investigation/experiments/u1_power_domain_recon/REPORT.md and
-    .../u1_power_domain_projection/REPORT.md):
+    the U1 power-domain recon and its projection):
     - 0 confirmed-rail pins → None (no domain to determine). Membership
       excludes rails whose confirmed voltage is None (Option 2) — a net that
       rail inference tracked but never assigned a voltage is not a domain
@@ -343,6 +345,22 @@ def _net_has_pullup_below(
     return False
 
 
+_REGEX_ONLY_SKIP_LOGGED = False
+
+
+def _note_regex_only_skip(net_name: str) -> None:
+    """TODO-196 tripwire: log once per process when a net is skipped by the
+    POWER_NET_RE / GROUND_NET_RE arm alone."""
+    global _REGEX_ONLY_SKIP_LOGGED
+    if not _REGEX_ONLY_SKIP_LOGGED:
+        _REGEX_ONLY_SKIP_LOGGED = True
+        logger.warning(
+            "[STEP 08] TODO-196 tripwire: net %r was skipped by the POWER_NET_RE / "
+            "GROUND_NET_RE name pattern alone (not in confirmed_voltages, ground_nets "
+            "or power_nets). This arm was believed unreachable; further occurrences "
+            "in this run are not logged.", net_name)
+
+
 def run(
     ir: NetlistIR,
     pin_specs: dict[tuple[str, str], ValidatedPinSpec],  # (refdes, pin_name) → spec
@@ -374,7 +392,10 @@ def run(
             continue
         if net.name in ir.power_nets:
             continue
+        # The two skips above are expected to cover every net this pattern matches;
+        # the tripwire reports the first one they do not (TODO-196).
         if POWER_NET_RE.match(net.name) or GROUND_NET_RE.match(net.name):
+            _note_regex_only_skip(net.name)
             continue
 
         # Identify drivers and receivers on this net via priority-ordered inference
@@ -656,6 +677,50 @@ def run(
                 )
                 continue
 
+            # Receiver-fallback guard (TODO-504): a receiver pin that no extracted
+            # group lists takes the part's default group (pin_type_exact False).
+            # Those limits are not evidence for this pin, so a FAIL/WARN from them is
+            # downgraded to UNRESOLVABLE; a PASS is kept and labelled. Placed after
+            # the driver-type guard so driver-guarded rows keep their text.
+            if spec is not None and not spec.pin_type_exact and status in ("FAIL", "WARN"):
+                results.append(CheckResult(
+                    net_name=net.name,
+                    status="UNRESOLVABLE",
+                    driver_refdes=driver_ref,
+                    driver_voltage=driver_voltage,
+                    driver_voltage_source=driver_voltage_source,
+                    receiver_refdes=recv_ref,
+                    receiver_pin_name=recv_pin_name,
+                    receiver_VIH_max=VIH_max,
+                    receiver_abs_max=abs_max,
+                    receiver_confidence=recv_conf,
+                    driver_confidence=drv_conf,
+                    combined_confidence="low",
+                    evidence_label=(
+                        f"Receiver {recv_ref} pin {recv_pin_name} is not listed in any extracted "
+                        f"pin group; its limits come from the part's default group, so the "
+                        f"would-be {status} ({compat_evidence}) is not established"
+                    ),
+                    unresolvable_reason=(
+                        f"Receiver {recv_ref} pin {recv_pin_name} matched no "
+                        f"pin group; default-group limits are not evidence for this pin"
+                    ),
+                    receiver_VIH_min=VIH_min,
+                ))
+                write_trace(
+                    net_name=net.name, step_id="step_08_checker",
+                    step_display_name="Net compatibility checker", step_type="deterministic",
+                    decision_path="unresolvable_receiver_fallback_spec",
+                    inputs={"driver_refdes": driver_ref, "driver_voltage": driver_voltage,
+                            "receiver_refdes": recv_ref, "receiver_pin": recv_pin_name,
+                            "driver_priority": driver_priority, "would_be_status": status},
+                    outputs={"status": "UNRESOLVABLE", "downgraded_from": status},
+                )
+                continue
+            if spec is not None and not spec.pin_type_exact and status == "PASS":
+                compat_evidence += (" (receiver limits from the part's default pin group;"
+                                    " pin not listed)")
+
             results.append(CheckResult(
                 net_name=net.name,
                 status=status,
@@ -684,4 +749,29 @@ def run(
                          "combined_confidence": combined_conf},
             )
 
+    for r in results:
+        _attach_expr_notes(r, pin_specs.get((r.receiver_refdes, r.receiver_pin_name)))
     return results
+
+
+def _attach_expr_notes(result: CheckResult, spec: ValidatedPinSpec | None) -> None:
+    """TODO-336: surface step_05's rail-expression notes on every result for a
+    receiver whose spec carries them. The evidence label gains a " [note; note]"
+    suffix. A "no receiver specs" UNRESOLVABLE (the only rows emitted with all
+    three receiver limits None) names the notes as its reason, because an
+    unresolved expression field is exactly why the spec is missing. Status is
+    never touched here."""
+    notes = getattr(spec, "expr_notes", None) if spec is not None else None
+    if not notes:
+        return
+    joined = "; ".join(notes)
+    result.evidence_label = f"{result.evidence_label} [{joined}]"
+    if (result.status == "UNRESOLVABLE" and result.receiver_VIH_min is None
+            and result.receiver_VIH_max is None and result.receiver_abs_max is None):
+        if result.driver_voltage is None:
+            result.unresolvable_reason = (
+                f"Neither driver voltage nor receiver pin specs could be determined — "
+                f"receiver specs unresolved: {joined}")
+        else:
+            result.unresolvable_reason = (
+                f"Receiver specs unresolved — {result.receiver_refdes}: {joined}")

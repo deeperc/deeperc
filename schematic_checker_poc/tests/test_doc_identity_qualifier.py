@@ -242,9 +242,10 @@ def test_no_prompt_template_can_carry_a_qualifier():
         assert doc_identity.QUALIFIER_UNVERIFIABLE not in template
 
 
-def test_explanation_field_is_never_qualified(tmp_path, monkeypatch):
-    """P2's scope: deltas are confined to evidence_label. The UNRESOLVABLE branch
-    of _supply_explain passes the label straight through — unqualified."""
+def test_canned_supply_explanation_equals_emitted_label(tmp_path, monkeypatch):
+    """TODO-520 E4 reverses TODO-337 P2's confinement for the EMITTED explanation:
+    the canned (UNRESOLVABLE) text is the emitted, qualified label so the two
+    fields cannot disagree. The prompt still never sees the qualifier."""
     monkeypatch.setattr(step_10_report.ollama_client, "generate",
                         lambda *a, **k: "unused")
     out = tmp_path / "report.json"
@@ -253,6 +254,6 @@ def test_explanation_field_is_never_qualified(tmp_path, monkeypatch):
         extraction_metadata=_meta("PART-X", MISS), output_path=str(out),
         supply_results=[_supply_result("PART-X", status="UNRESOLVABLE")])
     entry = report["power_supply_results"][0]
-    assert entry["explanation"] == LABEL
-    assert entry["evidence_label"] == (
+    assert entry["explanation"] == entry["evidence_label"] == (
         LABEL + step_10_report._W_NETLIST_EVIDENCE_ONLY + doc_identity.QUALIFIER_MISS)
+    assert entry["explanation_source"] == "canned"

@@ -1,16 +1,12 @@
 {
   "pin_groups": [
     {
-      "group_name": "PVIN - Power Supply Input (Switching)",
+      "group_name": "Power Supply Input (PVIN)",
       "pin_type": "power",
       "example_pins": [
-        "1",
-        "11",
-        "12",
-        "39",
-        "40"
+        "?|PVIN"
       ],
-      "applies_to": "Input switching voltage pins that supply the power switches",
+      "applies_to": "Input switching voltage pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -20,16 +16,42 @@
       "supply_max": 17.0,
       "supply_abs_max": 20.0,
       "supply_rail_name": "PVIN",
+      "citations": {
+        "supply_min": {
+          "quote": "PVIN InputSwitchingVoltage 2.95 17 V",
+          "page": 3,
+          "section": "5.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "PVIN InputSwitchingVoltage 2.95 17 V",
+          "page": 3,
+          "section": "5.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VIN,PVIN \u20130.3 20 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "VIN,PVIN \u20130.3 20 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
     },
     {
-      "group_name": "VIN - Power Supply Input (Bias)",
+      "group_name": "Power Supply Input (VIN)",
       "pin_type": "power",
       "example_pins": [
-        "3"
+        "?|VIN"
       ],
-      "applies_to": "Input bias voltage pin that supplies control circuitry",
+      "applies_to": "Input bias voltage pin",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -39,42 +61,40 @@
       "supply_max": 17.0,
       "supply_abs_max": 20.0,
       "supply_rail_name": "VIN",
+      "citations": {
+        "supply_min": {
+          "quote": "VIN InputBiasVoltage 4.5 17 V",
+          "page": 3,
+          "section": "5.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "VIN InputBiasVoltage 4.5 17 V",
+          "page": 3,
+          "section": "5.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VIN,PVIN \u20130.3 20 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "VIN,PVIN \u20130.3 20 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
     },
     {
-      "group_name": "VOUT - Output Voltage",
+      "group_name": "Power Ground (PGND)",
       "pin_type": "power",
       "example_pins": [
-        "34",
-        "35",
-        "36",
-        "37",
-        "38",
-        "41"
-      ],
-      "applies_to": "Output voltage pins connected to internal inductor",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 6.0,
-      "supply_min": 0.6,
-      "supply_max": 5.5,
-      "supply_abs_max": 6.0,
-      "supply_rail_name": "VOUT",
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "PGND - Power Ground",
-      "pin_type": "power",
-      "example_pins": [
-        "20",
-        "21",
-        "31",
-        "32",
-        "33"
+        "?|PGND"
       ],
       "applies_to": "Power stage return current path pins",
       "VIH_min": null,
@@ -86,17 +106,17 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "AGND - Analog Ground",
+      "group_name": "Analog Ground (AGND)",
       "pin_type": "power",
       "example_pins": [
-        "2",
-        "23"
+        "?|AGND"
       ],
-      "applies_to": "Analog control circuit ground reference pins",
+      "applies_to": "Analog control circuit ground pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -106,24 +126,62 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "PH - Phase Switch Node",
+      "group_name": "Output Voltage (VOUT)",
+      "pin_type": "power",
+      "example_pins": [
+        "?|VOUT"
+      ],
+      "applies_to": "Output voltage pins connected to internal inductor",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 6.0,
+      "supply_min": 0.6,
+      "supply_max": 5.5,
+      "supply_abs_max": 6.0,
+      "supply_rail_name": "VOUT",
+      "citations": {
+        "supply_min": {
+          "quote": "VOUT OutputVoltage 0.6 5.5 V",
+          "page": 3,
+          "section": "5.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "VOUT OutputVoltage 0.6 5.5 V",
+          "page": 3,
+          "section": "5.3 Recommended Operating Conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "VOUT \u20130.3 6 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        },
+        "absolute_max_voltage": {
+          "quote": "VOUT \u20130.3 6 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
+    },
+    {
+      "group_name": "Phase Node (PH)",
       "pin_type": "analog",
       "example_pins": [
-        "10",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "42"
+        "?|PH"
       ],
-      "applies_to": "Phase node pins connected to internal inductor",
+      "applies_to": "Phase switch node pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -133,16 +191,94 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "PH \u20131.0 20 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
     },
     {
-      "group_name": "INH/UVLO - Inhibit and UVLO Control",
+      "group_name": "Phase Node Transient (PH 10ns)",
+      "pin_type": "analog",
+      "example_pins": [
+        "?|PH"
+      ],
+      "applies_to": "Phase switch node pins (10ns transient condition)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 20.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "PH10nsTransient \u20133.0 20 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": 20.0
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 20.0,
+          "shipped_group": "PH - Phase Switch Node",
+          "pins_counted": 9,
+          "pins_total": 9,
+          "new_status": "nulled:group_novote"
+        }
+      }
+    },
+    {
+      "group_name": "Control Signal Inputs (Low Voltage)",
       "pin_type": "digital_input",
       "example_pins": [
-        "30"
+        "?|OCP_SEL",
+        "?|ILIM",
+        "?|VADJ",
+        "?|SENSE+",
+        "?|SS/TR",
+        "?|STSEL"
       ],
-      "applies_to": "Inhibit and undervoltage lockout adjustment pin",
+      "applies_to": "Low voltage control signal pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "ILIM,VADJ,SS/TR,STSEL,SYNC_OUT,ISHARE,OCP_SEL \u20130.3 3 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
+    },
+    {
+      "group_name": "Inhibit/UVLO Input",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|INH/UVLO"
+      ],
+      "applies_to": "Inhibit and UVLO adjustment pin",
       "VIH_min": 1.3,
       "VIL_max": 1.1,
       "VOH_min": null,
@@ -152,35 +288,36 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Electrical Characteristics",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "INH/UVLO,PWRGD,RT/CLK,SENSE+ \u20130.3 6 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        },
+        "VIH_min": {
+          "quote": "InhibitHighVoltage 1.3 open",
+          "page": 5,
+          "section": "5.6 Electrical Characteristics",
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "InhibitLowVoltage -0.3 1.1",
+          "page": 5,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "5.6 Electrical Characteristics",
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
     },
     {
-      "group_name": "PWRGD - Power Good Output",
-      "pin_type": "digital_output",
+      "group_name": "RT/CLK Input",
+      "pin_type": "digital_input",
       "example_pins": [
-        "8"
+        "?|RT/CLK"
       ],
-      "applies_to": "Open-drain power good flag output",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": 0.3,
-      "absolute_max_voltage": 6.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "RT/CLK - Frequency Setting and Clock Input",
-      "pin_type": "bidirectional",
-      "example_pins": [
-        "22"
-      ],
-      "applies_to": "Frequency setting resistor connection and external clock synchronization",
+      "applies_to": "Frequency setting and clock synchronization pin",
       "VIH_min": 2.0,
       "VIL_max": 0.5,
       "VOH_min": null,
@@ -190,35 +327,104 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Electrical Characteristics",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "INH/UVLO,PWRGD,RT/CLK,SENSE+ \u20130.3 6 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        },
+        "VIH_min": {
+          "quote": "CLKHigh-Level 2.0 5.5 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim"
+        },
+        "VIL_max": {
+          "quote": "CLKLow-Level 0.5 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": "p. 5",
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
     },
     {
-      "group_name": "SENSE+ - Remote Sense Input",
-      "pin_type": "analog",
+      "group_name": "SYNC_OUT Output",
+      "pin_type": "digital_output",
       "example_pins": [
-        "27"
+        "?|SYNC_OUT"
       ],
-      "applies_to": "Remote sense connection to output voltage",
+      "applies_to": "Synchronization output pin (180\u00b0 out-of-phase clock)",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
+      "absolute_max_voltage": 3.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VOH_min": {
+          "quote": "CLKHigh-Level 2.0 5.5 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:majority",
+          "rejected_value": 2.0
+        },
+        "absolute_max_voltage": {
+          "quote": "ILIM,VADJ,SS/TR,STSEL,SYNC_OUT,ISHARE,OCP_SEL \u20130.3 3 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
+    },
+    {
+      "group_name": "PWRGD Output",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|PWRGD"
+      ],
+      "applies_to": "Power good flag open-drain output",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.3,
       "absolute_max_voltage": 6.0,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "INH/UVLO,PWRGD,RT/CLK,SENSE+ \u20130.3 6 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        },
+        "VOL_max": {
+          "quote": "PWRGDLowVoltage I(PWRGD)=0.5mA 0.3 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
     },
     {
-      "group_name": "VADJ - Output Voltage Adjustment",
+      "group_name": "ISHARE Pin",
       "pin_type": "analog",
       "example_pins": [
-        "26"
+        "?|ISHARE"
       ],
-      "applies_to": "Output voltage setting resistor connection",
+      "applies_to": "Current share pin for parallel operation",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -228,132 +434,24 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "ILIM,VADJ,SS/TR,STSEL,SYNC_OUT,ISHARE,OCP_SEL \u20130.3 3 V",
+          "page": 3,
+          "section": "5.1 Absolute Maximum Ratings(1)",
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings(1)"
     },
     {
-      "group_name": "SS/TR - Soft Start and Tracking",
-      "pin_type": "analog",
-      "example_pins": [
-        "28"
-      ],
-      "applies_to": "Soft-start capacitor and tracking voltage input",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 3.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "STSEL - Soft Start or Tracking Feature Select",
+      "group_name": "Do Not Connect (DNC)",
       "pin_type": "digital_input",
       "example_pins": [
-        "29"
+        "?|DNC"
       ],
-      "applies_to": "Feature selection pin for soft-start or tracking mode",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 3.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "SYNC_OUT - Synchronization Output",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "7"
-      ],
-      "applies_to": "180-degree out-of-phase clock signal output",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 3.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "ILIM - Current Limit Threshold",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "6"
-      ],
-      "applies_to": "Current limit threshold adjustment pin",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 3.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "OCP_SEL - Overcurrent Protection Select",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "4"
-      ],
-      "applies_to": "Overcurrent protection mode selection pin",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 3.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "ISHARE - Current Share",
-      "pin_type": "analog",
-      "example_pins": [
-        "25"
-      ],
-      "applies_to": "Current sharing pin for parallel operation",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 3.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "DNC - Do Not Connect",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "5",
-        "9",
-        "24"
-      ],
-      "applies_to": "Pins connected to internal circuitry that must be isolated",
+      "applies_to": "Do not connect pins",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -363,16 +461,23 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     }
   ],
-  "default_group": "DNC - Do Not Connect",
+  "default_group": "Control Signal Inputs (Low Voltage)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 51,
+      "entries_dropped_as_duplicates": 32,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "f44ac09f4d70762acc09b62916c4c1f8c6da1de2a24163889334a0432f8f533f",
@@ -394,7 +499,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -402,6 +507,553 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "bac5a3b835d7117f705b9c9373d748e029ba868b992bf4242b73306e6d34a0d3",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "lmz31704rvqt",
+      "counts": {
+        "groups": 14,
+        "malformed_groups": 0,
+        "citations": 26,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 0,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 26,
+        "layout": 0,
+        "partial": 0,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Power Supply Input (PVIN)",
+          "index": 0,
+          "field": "absolute_max_voltage",
+          "value": 20.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply Input (PVIN)",
+          "index": 0,
+          "field": "supply_min",
+          "value": 2.95,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply Input (PVIN)",
+          "index": 0,
+          "field": "supply_max",
+          "value": 17.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply Input (PVIN)",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 20.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply Input (VIN)",
+          "index": 1,
+          "field": "absolute_max_voltage",
+          "value": 20.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply Input (VIN)",
+          "index": 1,
+          "field": "supply_min",
+          "value": 4.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply Input (VIN)",
+          "index": 1,
+          "field": "supply_max",
+          "value": 17.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power Supply Input (VIN)",
+          "index": 1,
+          "field": "supply_abs_max",
+          "value": 20.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Voltage (VOUT)",
+          "index": 4,
+          "field": "absolute_max_voltage",
+          "value": 6.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Voltage (VOUT)",
+          "index": 4,
+          "field": "supply_min",
+          "value": 0.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Voltage (VOUT)",
+          "index": 4,
+          "field": "supply_max",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Output Voltage (VOUT)",
+          "index": 4,
+          "field": "supply_abs_max",
+          "value": 6.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Phase Node (PH)",
+          "index": 5,
+          "field": "absolute_max_voltage",
+          "value": 20.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Phase Node Transient (PH 10ns)",
+          "index": 6,
+          "field": "absolute_max_voltage",
+          "value": 20.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Control Signal Inputs (Low Voltage)",
+          "index": 7,
+          "field": "absolute_max_voltage",
+          "value": 3.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Inhibit/UVLO Input",
+          "index": 8,
+          "field": "VIH_min",
+          "value": 1.3,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "Inhibit/UVLO Input",
+          "index": 8,
+          "field": "VIL_max",
+          "value": 1.1,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Inhibit/UVLO Input",
+          "index": 8,
+          "field": "absolute_max_voltage",
+          "value": 6.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "RT/CLK Input",
+          "index": 9,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "RT/CLK Input",
+          "index": 9,
+          "field": "VIL_max",
+          "value": 0.5,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "RT/CLK Input",
+          "index": 9,
+          "field": "absolute_max_voltage",
+          "value": 6.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "SYNC_OUT Output",
+          "index": 10,
+          "field": "VOH_min",
+          "value": 2.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "SYNC_OUT Output",
+          "index": 10,
+          "field": "absolute_max_voltage",
+          "value": 3.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "PWRGD Output",
+          "index": 11,
+          "field": "VOL_max",
+          "value": 0.3,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "PWRGD Output",
+          "index": 11,
+          "field": "absolute_max_voltage",
+          "value": 6.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "ISHARE Pin",
+          "index": 12,
+          "field": "absolute_max_voltage",
+          "value": 3.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 3,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "DNC - Do Not Connect",
+            "2": "Control Inputs (INH/UVLO, PWRGD, RT/CLK, SENSE+, ILIM, VADJ, SS/TR, STSEL, SYNC_OUT, ISHARE, OCP_SEL)",
+            "3": "Control Signal Inputs (Low Voltage)"
+          },
+          "agreement": {
+            "1": 7,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": true
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 42,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 51,
+            "2": 54,
+            "3": 51
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 8,
+          "GROUP-NOVOTE_valued": 1,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 1,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 1,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "bac5a3b835d7117f705b9c9373d748e029ba868b992bf4242b73306e6d34a0d3",
+          "2": "bac5a3b835d7117f705b9c9373d748e029ba868b992bf4242b73306e6d34a0d3",
+          "3": "bac5a3b835d7117f705b9c9373d748e029ba868b992bf4242b73306e6d34a0d3"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 19,
+            "malformed_groups": 0,
+            "citations": 30,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 12,
+            "malformed_groups": 0,
+            "citations": 21,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 14,
+            "malformed_groups": 0,
+            "citations": 26,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 0,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

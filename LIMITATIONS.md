@@ -3,6 +3,12 @@
 - Coverage is bounded by what's in `kb/` plus your cached extractions. Anything
   outside both is reported `UNRESOLVABLE`, by design — absence of evidence is
   never converted into a verdict.
+- Board verdicts rank `FAIL > WARN > PASS > UNRESOLVABLE`. A board with at
+  least one PASS and no FAIL or WARN reports `all_pass` even when other checks
+  were `UNRESOLVABLE`, so `all_pass` means nothing failed or warned among the
+  checks that could run, not that every check ran. `main.py` prints the count
+  on an `[UNRESOLVABLE]` line under its `[VERDICT]` line, and the JSON report
+  lists each unevaluated finding.
 - This tool complements KiCad's ERC; it does not replace it. It targets defect
   classes ERC cannot express (role/net-name coherence, per-part voltage limits,
   pull-up presence) and assumes you still run ERC for structural rule checking.
@@ -24,13 +30,19 @@
   or RP2040 board, where TX/RX invert) is reported WARN, not FAIL.
 - Report explanation text is LLM-generated where a local model is available;
   when it isn't, findings carry a one-line note instead. Verdicts are never
-  affected either way. LLM explanation is attempted only for signal- and
-  supply-check FAIL/WARN findings, and only when a local model is available;
-  verdicts never depend on it. Structural findings' evidence tiers appear in
+  affected either way. Model text is used only for signal- and supply-check
+  FAIL findings whose stated comparison holds, and only when a local model is
+  available; WARN and unresolvable findings always carry the fixed text.
+  Verdicts never depend on it. Structural findings' evidence tiers appear in
   the JSON report regardless; the console only shows a summary subset. If a
-  local model server is listening on port 11434 but does not answer, each
-  FAIL/WARN finding waits up to 300 s for explanation text before falling
-  back to the canned note; verdicts are unaffected.
+  local model server is listening on port 11434 but does not answer, the first
+  FAIL finding waits up to 60 s for explanation text (set
+  `DEEPERC_LLM_TIMEOUT_S` to change the figure); after that first failure the
+  run skips the local model for its remaining findings and uses the canned
+  note at once. Set `DEEPERC_NO_LOCAL_LLM=1` to skip the local model entirely.
+  Verdicts are unaffected either way. In the JSON
+  report, `explanation_source` on each signal and supply finding says which it
+  carries: `local_model` or `canned`.
 - Sheet-local (`/`-prefixed) POWER labels are classified as rails on the
   VDD/VBAT/VBUS/VIN/VOUT branches (plus a VSYS token), as of TODO-452/TODO-197.
   Three honest residuals remain: the PWR and VREF branches stay unslashed by
@@ -55,7 +67,8 @@
   members.
 - Extracted datasheet values pass a small deterministic validation twice. At
   use time the check is visible: a supply range that fails it (for example a
-  minimum equal to its maximum) makes every check on that pin report
+  minimum equal to its maximum, or an absolute maximum below the operating
+  maximum) makes every check on that pin report
   `UNRESOLVABLE`, with the reason named in the evidence. At extraction time
   the same check runs in advisory mode only: it emits an info-level log line,
   and the cache file is written as extracted. A cache entry therefore carries
@@ -63,6 +76,31 @@
   show that a value was ever questioned. If you need that audit trail, run
   the extraction with info-level logging enabled (`main.py` does this by
   default; `run_checks.py` does not and has no flag to raise it).
+- The supply check decides which pins are supply pins in two ways. A
+  pin whose name is on a fixed list (VCC, VDD, VIN, AVDD and similar,
+  with voltage or bank suffixes) is always checked. On a part with
+  extracted datasheet data, any other pin is checked only when the
+  part's extracted power group lists that pin and gives a rated
+  maximum; ground, pad, passive and connector pins are never admitted
+  this way. A supply pin with an unlisted name on a part with no
+  extracted data, or listed only in a group without a rated maximum,
+  is not checked and produces no finding.
+- Signal checks look up each receiver pin in the part's extracted pin
+  groups by name, or by pin number where the extraction carries pin
+  numbers, after removing KiCad markup such as ~{..}. A pin that no
+  group lists falls back to the part's default group; a check on such
+  a pin can pass but is never reported as a failure or warning,
+  because the default group is not evidence for that pin.
+- The shipped extractions for 95 of the 112 parts list pins by name only.
+  The pin numbers in their pin lists were removed in the v0.4.0 release
+  because they had not been checked against each datasheet's pin table;
+  each such file carries `extraction_meta.pin_numbers_removed`. On those
+  parts a pin binds by name. A pin whose symbol name is not a datasheet pin
+  name, common on generic op-amp and discrete symbols, is not found: it
+  falls back to the part's default group and loses its direction, and with
+  no pin on the net identified as an output the signal check picks the
+  driver by highest supply voltage, then by pin order. Known affected
+  parts: LMV358 (`lmv358idgkr`) and the ICM-42605.
 - UART is checked as device-relative capability, not as pin-role coherence: a
   TX or RX signal landing on a KB-known pin with no UART capability is a FAIL,
   and nothing else is evaluated. A TX↔RX swap between two UART-capable

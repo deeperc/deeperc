@@ -1,307 +1,59 @@
 {
   "pin_groups": [
     {
-      "group_name": "VDD Power Supply",
+      "group_name": "Power supply pins (VDD)",
       "pin_type": "power",
       "example_pins": [
-        "VDD"
+        "?|VDD"
       ],
-      "applies_to": "All VDD pins (main supply)",
+      "applies_to": "All VDD power supply pins across all packages",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 4.0,
-      "supply_min": 1.7,
+      "supply_min": null,
       "supply_max": 3.6,
       "supply_abs_max": 4.0,
       "supply_rail_name": "VDD",
+      "citations": {
+        "supply_min": {
+          "quote": "VDD Standard operating voltage 1.7(1) - 3.6 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 1.7
+        },
+        "supply_max": {
+          "quote": "VDD Standard operating voltage 1.7(1) - 3.6 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "External main supply voltage (including VDD, VDDA and VBAT) VDD \u2013 VSS \u20130.3 4.0 V",
+          "page": 61,
+          "section": "Table 11. Voltage characteristics",
+          "match": "foreign"
+        },
+        "absolute_max_voltage": {
+          "quote": "External main supply voltage (including VDD, VDDA and VBAT) VDD \u2013 VSS \u20130.3 4.0 V",
+          "page": 61,
+          "section": "Table 11. Voltage characteristics",
+          "match": "foreign"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Table 11: Voltage characteristics"
+      "abs_max_source": "Table 11. Voltage characteristics"
     },
     {
-      "group_name": "VDDA Analog Power Supply",
+      "group_name": "Ground pins (VSS)",
       "pin_type": "power",
       "example_pins": [
-        "VDDA"
+        "?|VSS"
       ],
-      "applies_to": "Analog power supply for ADC, Reset blocks, RCs, and PLL",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 4.0,
-      "supply_min": 1.7,
-      "supply_max": 3.6,
-      "supply_abs_max": 4.0,
-      "supply_rail_name": "VDDA",
-      "VIH_source": null,
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "VBAT Backup Supply",
-      "pin_type": "power",
-      "example_pins": [
-        "VBAT"
-      ],
-      "applies_to": "Backup domain power supply for RTC and backup registers",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 4.0,
-      "supply_min": 1.65,
-      "supply_max": 3.6,
-      "supply_abs_max": 4.0,
-      "supply_rail_name": "VBAT",
-      "VIH_source": null,
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "FT I/O - 5V Tolerant",
-      "pin_type": "bidirectional",
-      "example_pins": [
-        "PA0",
-        "PA1",
-        "PA2",
-        "PA3",
-        "PA4",
-        "PA5",
-        "PA6",
-        "PA7",
-        "PA8",
-        "PA9",
-        "PA10",
-        "PA11",
-        "PA12",
-        "PA13",
-        "PA14",
-        "PA15",
-        "PB0",
-        "PB1",
-        "PB2",
-        "PB3",
-        "PB4",
-        "PB5",
-        "PB6",
-        "PB7",
-        "PB8",
-        "PB9",
-        "PB10",
-        "PB12",
-        "PB13",
-        "PB14",
-        "PB15",
-        "PC0",
-        "PC1",
-        "PC2",
-        "PC3",
-        "PC4",
-        "PC5",
-        "PC6",
-        "PC7",
-        "PC8",
-        "PC9",
-        "PC10",
-        "PC11",
-        "PC12",
-        "PD0",
-        "PD1",
-        "PD2",
-        "PD3",
-        "PD4",
-        "PD5",
-        "PD6",
-        "PD7",
-        "PD8",
-        "PD9",
-        "PD10",
-        "PD11",
-        "PD12",
-        "PD13",
-        "PD14",
-        "PD15",
-        "PE0",
-        "PE1",
-        "PE2",
-        "PE3",
-        "PE4",
-        "PE5",
-        "PE6",
-        "PE7",
-        "PE8",
-        "PE9",
-        "PE10",
-        "PE11",
-        "PE12",
-        "PE13",
-        "PE14",
-        "PE15",
-        "PH0",
-        "PH1"
-      ],
-      "applies_to": "5V tolerant I/O pins (FT structure)",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
-      "VOH_min": 2.4,
-      "VOL_max": 0.4,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 53: I/O static characteristics (0.7*VDD for 1.7-3.6V)",
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "TC I/O - Standard 3.3V",
-      "pin_type": "bidirectional",
-      "example_pins": [
-        "PB5"
-      ],
-      "applies_to": "Standard 3.3V I/O pins (TC structure)",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
-      "VOH_min": 2.4,
-      "VOL_max": 0.4,
-      "absolute_max_voltage": 4.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 53: I/O static characteristics (0.7*VDD for 1.7-3.6V)",
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "NRST Reset Pin",
-      "pin_type": "bidirectional",
-      "example_pins": [
-        "NRST"
-      ],
-      "applies_to": "Reset pin with embedded weak pull-up",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 53: I/O static characteristics",
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "BOOT0 Boot Pin",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "BOOT0"
-      ],
-      "applies_to": "Boot mode selection pin",
-      "VIH_min": 0.17,
-      "VIL_max": 0.1,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 9.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 53: I/O static characteristics (0.17*VDD + 0.7V for 1.75-3.6V)",
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "Oscillator Input Pins",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "OSC_IN",
-        "OSC32_IN",
-        "PH0-OSC_IN",
-        "PC14-OSC32_IN"
-      ],
-      "applies_to": "External oscillator input pins",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Table 53: I/O static characteristics",
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "Oscillator Output Pins",
-      "pin_type": "digital_output",
-      "example_pins": [
-        "OSC_OUT",
-        "OSC32_OUT",
-        "PH1-OSC_OUT",
-        "PC15-OSC32_OUT"
-      ],
-      "applies_to": "External oscillator output pins",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": 2.4,
-      "VOL_max": 0.4,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "VCAP Regulator Capacitor Pins",
-      "pin_type": "power",
-      "example_pins": [
-        "VCAP_1",
-        "VCAP_2"
-      ],
-      "applies_to": "External capacitor pins for voltage regulator",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 4.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": null,
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "VREF Reference Voltage Pins",
-      "pin_type": "power",
-      "example_pins": [
-        "VREF+",
-        "VREF-"
-      ],
-      "applies_to": "ADC reference voltage pins",
-      "VIH_min": null,
-      "VIL_max": null,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 4.0,
-      "supply_min": 1.7,
-      "supply_max": 3.6,
-      "supply_abs_max": 4.0,
-      "supply_rail_name": "VREF",
-      "VIH_source": null,
-      "abs_max_source": "Table 11: Voltage characteristics"
-    },
-    {
-      "group_name": "VSS Ground Pins",
-      "pin_type": "power",
-      "example_pins": [
-        "VSS",
-        "VSSA"
-      ],
-      "applies_to": "All ground pins",
+      "applies_to": "All VSS ground pins across all packages",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -311,18 +63,430 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
-      "abs_max_source": "Table 11: Voltage characteristics"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 0.0,
+          "shipped_group": "VSS Ground Pins",
+          "pins_counted": 5,
+          "pins_total": 5,
+          "new_status": null
+        }
+      }
     },
     {
-      "group_name": "PDR_ON Power Supply Supervisor Control",
-      "pin_type": "digital_input",
+      "group_name": "Analog power supply (VDDA)",
+      "pin_type": "power",
       "example_pins": [
-        "PDR_ON"
+        "?|VDDA"
       ],
-      "applies_to": "Power supply supervisor control pin (UFBGA100, WLCSP49 only)",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
+      "applies_to": "VDDA analog power supply pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": null,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": "VDDA",
+      "citations": {
+        "supply_min": {
+          "quote": "Analog operating voltage (ADC limited to 1.2 M samples) VDDA Must be the same potential as VDD 1.7(1) - 2.4 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "layout",
+          "status": "nulled:f",
+          "rejected_value": 1.7
+        },
+        "supply_max": {
+          "quote": "Analog operating voltage (ADC limited to 2.4 M samples) 2.4 - 3.6 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "layout"
+        },
+        "supply_abs_max": {
+          "quote": "External main supply voltage (including VDD, VDDA and VBAT) VDD \u2013 VSS \u20130.3 4.0 V",
+          "page": 61,
+          "section": "Table 11. Voltage characteristics",
+          "match": "foreign"
+        },
+        "absolute_max_voltage": {
+          "quote": "External main supply voltage (including VDD, VDDA and VBAT) VDD \u2013 VSS \u20130.3 4.0 V",
+          "page": 61,
+          "section": "Table 11. Voltage characteristics",
+          "match": "foreign"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "Table 11. Voltage characteristics"
+    },
+    {
+      "group_name": "Analog ground (VSSA)",
+      "pin_type": "power",
+      "example_pins": [
+        "?|VSSA"
+      ],
+      "applies_to": "VSSA analog ground pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 0.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 0.0,
+          "shipped_group": "VSS Ground Pins",
+          "pins_counted": 5,
+          "pins_total": 5,
+          "new_status": null
+        }
+      }
+    },
+    {
+      "group_name": "Backup battery supply (VBAT)",
+      "pin_type": "power",
+      "example_pins": [
+        "?|VBAT"
+      ],
+      "applies_to": "VBAT backup battery supply pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": 1.65,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": "VBAT",
+      "citations": {
+        "supply_min": {
+          "quote": "VBAT Backup operating voltage 1.65 - 3.6 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "verbatim"
+        },
+        "supply_max": {
+          "quote": "VBAT Backup operating voltage 1.65 - 3.6 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "verbatim"
+        },
+        "supply_abs_max": {
+          "quote": "External main supply voltage (including VDD, VDDA and VBAT) VDD \u2013 VSS \u20130.3 4.0 V",
+          "page": 61,
+          "section": "Table 11. Voltage characteristics",
+          "match": "foreign"
+        },
+        "absolute_max_voltage": {
+          "quote": "External main supply voltage (including VDD, VDDA and VBAT) VDD \u2013 VSS \u20130.3 4.0 V",
+          "page": 61,
+          "section": "Table 11. Voltage characteristics",
+          "match": "foreign"
+        }
+      },
+      "VIH_source": null,
+      "abs_max_source": "Table 11. Voltage characteristics"
+    },
+    {
+      "group_name": "Voltage regulator capacitor pins (VCAP_1/VCAP_2)",
+      "pin_type": "power",
+      "example_pins": [
+        "?|VCAP_1",
+        "?|VCAP_2"
+      ],
+      "applies_to": "VCAP_1 and VCAP_2 external capacitor pins for voltage regulator",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 4.0,
+          "shipped_group": "VCAP Regulator Capacitor Pins",
+          "pins_counted": 3,
+          "pins_total": 3,
+          "new_status": null
+        }
+      }
+    },
+    {
+      "group_name": "Reference voltage pins (VREF+/VREF-)",
+      "pin_type": "power",
+      "example_pins": [
+        "?|VREF+",
+        "?|VREF-"
+      ],
+      "applies_to": "VREF+ and VREF- ADC reference voltage pins",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 4.0,
+      "supply_min": 1.7,
+      "supply_max": 3.6,
+      "supply_abs_max": 4.0,
+      "supply_rail_name": null,
+      "citations": {},
+      "VIH_source": null,
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 4.0,
+          "shipped_group": "VREF Reference Voltage Pins",
+          "pins_counted": 6,
+          "pins_total": 6,
+          "new_status": null
+        },
+        "supply_min": {
+          "value": 1.7,
+          "shipped_group": "VREF Reference Voltage Pins",
+          "pins_counted": 6,
+          "pins_total": 6,
+          "new_status": null
+        },
+        "supply_max": {
+          "value": 3.6,
+          "shipped_group": "VREF Reference Voltage Pins",
+          "pins_counted": 6,
+          "pins_total": 6,
+          "new_status": null
+        },
+        "supply_abs_max": {
+          "value": 4.0,
+          "shipped_group": "VREF Reference Voltage Pins",
+          "pins_counted": 6,
+          "pins_total": 6,
+          "new_status": null
+        }
+      }
+    },
+    {
+      "group_name": "Standard 3.3V I/O (TC pins)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "?|PA0",
+        "?|PA1",
+        "?|PA2",
+        "?|PA3",
+        "?|PA4",
+        "?|PA5",
+        "?|PA6",
+        "?|PA7",
+        "?|PC4",
+        "?|PC5",
+        "?|PB0",
+        "?|PB1",
+        "?|PB2",
+        "?|PB5"
+      ],
+      "applies_to": "Standard 3.3V tolerant I/O pins (TC type)",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage_expr": {
+          "quote": "Input voltage on FT and TC pins(2) 2 V \u2264 VDD \u2264 3.6 V \u20130.3 VDD +4.0 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "partial"
+        },
+        "VIH_min_expr": {
+          "quote": "FT, TC and NRST I/O input high level voltage(5) 1.7 V\u2264 VDD \u2264 3.6 V 0.7VDD -",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "FT, TC and NRST I/O input low level voltage 1.7 V\u2264 VDD \u2264 3.6 V - - 0.3VDD",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial"
+        },
+        "VOH_min_expr": {
+          "quote": "Output high level voltage for an I/O pin 2.7 V \u2264 VDD \u2264 3.6 V VDD \u20130.4 -",
+          "page": 101,
+          "section": "Table 54. Output voltage characteristics",
+          "match": "layout"
+        },
+        "VOL_max": {
+          "quote": "Output low level voltage for an I/O pin CMOS port(2) I = +8 mA - 0.4 V",
+          "page": 101,
+          "section": "Table 54. Output voltage characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": "Table 53. I/O static characteristics",
+      "abs_max_source": "Table 14. General operating conditions",
+      "absolute_max_voltage_expr": "VDD+0.3",
+      "VIH_min_expr": "0.7*VDD",
+      "VIL_max_expr": "0.3*VDD",
+      "VOH_min_expr": "VDD-0.4"
+    },
+    {
+      "group_name": "5V tolerant I/O (FT pins)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "?|PE2",
+        "?|PE3",
+        "?|PE4",
+        "?|PE5",
+        "?|PE6",
+        "?|PC13",
+        "?|PC14",
+        "?|PC15",
+        "?|PH0",
+        "?|PH1",
+        "?|NRST",
+        "?|PC0",
+        "?|PC1",
+        "?|PC2",
+        "?|PC3",
+        "?|PA8",
+        "?|PA9",
+        "?|PA10",
+        "?|PA11",
+        "?|PA12",
+        "?|PA13",
+        "?|PA14",
+        "?|PA15",
+        "?|PC6",
+        "?|PC7",
+        "?|PC8",
+        "?|PC9",
+        "?|PE7",
+        "?|PE8",
+        "?|PE9",
+        "?|PE10",
+        "?|PE11",
+        "?|PE12",
+        "?|PE13",
+        "?|PE14",
+        "?|PE15",
+        "?|PB10",
+        "?|PB12",
+        "?|PB13",
+        "?|PB14",
+        "?|PB15",
+        "?|PD8",
+        "?|PD9",
+        "?|PD10",
+        "?|PD11",
+        "?|PD12",
+        "?|PD13",
+        "?|PD14",
+        "?|PD15",
+        "?|PD0",
+        "?|PD1",
+        "?|PD2",
+        "?|PD3",
+        "?|PD4",
+        "?|PD5",
+        "?|PD6",
+        "?|PD7",
+        "?|PB3",
+        "?|PB4",
+        "?|PB6",
+        "?|PB7",
+        "?|PB8",
+        "?|PB9",
+        "?|PE0",
+        "?|PE1"
+      ],
+      "applies_to": "5V tolerant I/O pins (FT type) - can accept up to 5.5V",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": 0.4,
+      "absolute_max_voltage": 5.5,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Input voltage on FT and TC pins(2) 2 V \u2264 VDD \u2264 3.6 V \u20130.3 VDD +4.0 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "partial",
+          "status": "nulled:group_split",
+          "rejected_value": 5.5
+        },
+        "VIH_min_expr": {
+          "quote": "FT, TC and NRST I/O input high level voltage(5) 1.7 V\u2264 VDD \u2264 3.6 V 0.7VDD -",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "FT, TC and NRST I/O input low level voltage 1.7 V\u2264 VDD \u2264 3.6 V - - 0.3VDD",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial"
+        },
+        "VOH_min_expr": {
+          "quote": "Output high level voltage for an I/O pin 2.7 V \u2264 VDD \u2264 3.6 V VDD \u20130.4 -",
+          "page": 101,
+          "section": "Table 54. Output voltage characteristics",
+          "match": "layout"
+        },
+        "VOL_max": {
+          "quote": "Output low level voltage for an I/O pin CMOS port(2) I = +8 mA - 0.4 V",
+          "page": 101,
+          "section": "Table 54. Output voltage characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": "Table 53. I/O static characteristics",
+      "abs_max_source": "Table 14. General operating conditions",
+      "VIH_min_expr": "0.7*VDD",
+      "VIL_max_expr": "0.3*VDD",
+      "VOH_min_expr": "VDD-0.4",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.5,
+          "shipped_group": [
+            "FT I/O - 5V Tolerant",
+            "NRST Reset Pin"
+          ],
+          "pins_counted": 62,
+          "pins_total": 65,
+          "new_status": "nulled:group_split"
+        }
+      }
+    },
+    {
+      "group_name": "Reset pin (NRST)",
+      "pin_type": "bidirectional",
+      "example_pins": [
+        "?|NRST"
+      ],
+      "applies_to": "NRST reset pin with embedded weak pull-up",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 5.5,
@@ -330,18 +494,94 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 53: I/O static characteristics",
-      "abs_max_source": "Table 11: Voltage characteristics"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Input voltage on FT and TC pins(2) 2 V \u2264 VDD \u2264 3.6 V \u20130.3 VDD +4.0 V",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": 5.5
+        },
+        "VIH_min_expr": {
+          "quote": "FT, TC and NRST I/O input high level voltage(5) 1.7 V\u2264 VDD \u2264 3.6 V 0.7VDD -",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.7*VDD"
+        },
+        "VIL_max_expr": {
+          "quote": "FT, TC and NRST I/O input low level voltage 1.7 V\u2264 VDD \u2264 3.6 V - - 0.3VDD",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": "0.3*VDD"
+        }
+      },
+      "VIH_source": "Table 53. I/O static characteristics",
+      "abs_max_source": "Table 14. General operating conditions",
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 5.5,
+          "shipped_group": "NRST Reset Pin",
+          "pins_counted": 2,
+          "pins_total": 2,
+          "new_status": "nulled:group_novote"
+        }
+      }
     },
     {
-      "group_name": "BYPASS_REG Regulator Bypass Control",
+      "group_name": "Boot pin (BOOT0)",
       "pin_type": "digital_input",
       "example_pins": [
-        "BYPASS_REG"
+        "?|BOOT0"
       ],
-      "applies_to": "Regulator bypass control pin (UFBGA100 only)",
-      "VIH_min": 0.7,
-      "VIL_max": 0.3,
+      "applies_to": "BOOT0 dedicated boot selection pin",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": 9.0,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": "Input voltage for BOOT0 - 0 - 9",
+          "page": 63,
+          "section": "Table 14. General operating conditions",
+          "match": "partial"
+        },
+        "VIH_min_expr": {
+          "quote": "BOOT0 I/O input high level voltage 1.75 V\u2264 VDD \u2264 3.6 V, -40 \u00b0C\u2264 TA \u2264 125 \u00b0C 0.17VDD +0.7 -",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "BOOT0 I/O input low level voltage 1.75 V\u2264 VDD \u2264 3.6 V, -40 \u00b0C\u2264 TA \u2264 125 \u00b0C - - VDD +0.1",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "layout"
+        }
+      },
+      "VIH_source": "Table 53. I/O static characteristics",
+      "abs_max_source": "Table 14. General operating conditions",
+      "VIH_min_expr": "0.17*VDD+0.7",
+      "VIL_max_expr": "0.1*VDD+0.1"
+    },
+    {
+      "group_name": "PDR_ON pin (internal reset control)",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|PDR_ON"
+      ],
+      "applies_to": "PDR_ON pin for internal reset ON/OFF control (UFBGA100 and WLCSP49 only)",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 5.5,
@@ -349,16 +589,44 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Table 53: I/O static characteristics",
-      "abs_max_source": "Table 11: Voltage characteristics"
+      "citations": {
+        "absolute_max_voltage": {
+          "quote": null,
+          "page": null,
+          "section": null,
+          "match": "no-quote"
+        },
+        "VIH_min_expr": {
+          "quote": "FT, TC and NRST I/O input high level voltage(5) 1.7 V\u2264 VDD \u2264 3.6 V 0.7VDD -",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial"
+        },
+        "VIL_max_expr": {
+          "quote": "FT, TC and NRST I/O input low level voltage 1.7 V\u2264 VDD \u2264 3.6 V - - 0.3VDD",
+          "page": 98,
+          "section": "Table 53. I/O static characteristics",
+          "match": "partial"
+        }
+      },
+      "VIH_source": "Table 53. I/O static characteristics",
+      "abs_max_source": null,
+      "VIH_min_expr": "0.7*VDD",
+      "VIL_max_expr": "0.3*VDD"
     }
   ],
-  "default_group": "FT I/O - 5V Tolerant",
+  "default_group": "5V tolerant I/O (FT pins)",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-17T04:58:11+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:16+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 114,
+      "entries_dropped_as_duplicates": 23,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "659265ade004137629f673082dc3962a8a4a51b5c3c9b93e64806609b7dc4cd7",
@@ -380,7 +648,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-17T04:58:11+00:00",
+    "stamped_at": "2026-10-04T17:45:16+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -388,6 +656,967 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "c449d1a29da9606423beb6bbe966748e195bdad4e44c009f43e690adefa57df8",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "stm32f411",
+      "counts": {
+        "groups": 12,
+        "malformed_groups": 0,
+        "citations": 31,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 2,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 4,
+        "layout": 7,
+        "partial": 13,
+        "foreign": 6,
+        "no-quote": 1
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [
+          "Power supply pins (VDD)",
+          "Analog power supply (VDDA)"
+        ],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [
+        {
+          "group": "Power supply pins (VDD)",
+          "index": 0,
+          "field": "supply_min",
+          "value": 1.7,
+          "rule": "f"
+        },
+        {
+          "group": "Analog power supply (VDDA)",
+          "index": 2,
+          "field": "supply_min",
+          "value": 1.7,
+          "rule": "f"
+        }
+      ],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "Power supply pins (VDD)",
+          "index": 0,
+          "field": "absolute_max_voltage",
+          "value": 4.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power supply pins (VDD)",
+          "index": 0,
+          "field": "supply_min",
+          "value": 1.7,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "Power supply pins (VDD)",
+          "index": 0,
+          "field": "supply_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Power supply pins (VDD)",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 4.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Analog power supply (VDDA)",
+          "index": 2,
+          "field": "absolute_max_voltage",
+          "value": 4.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Analog power supply (VDDA)",
+          "index": 2,
+          "field": "supply_min",
+          "value": 1.7,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "Analog power supply (VDDA)",
+          "index": 2,
+          "field": "supply_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Analog power supply (VDDA)",
+          "index": 2,
+          "field": "supply_abs_max",
+          "value": 4.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Backup battery supply (VBAT)",
+          "index": 4,
+          "field": "absolute_max_voltage",
+          "value": 4.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Backup battery supply (VBAT)",
+          "index": 4,
+          "field": "supply_min",
+          "value": 1.65,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Backup battery supply (VBAT)",
+          "index": 4,
+          "field": "supply_max",
+          "value": 3.6,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Backup battery supply (VBAT)",
+          "index": 4,
+          "field": "supply_abs_max",
+          "value": 4.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Standard 3.3V I/O (TC pins)",
+          "index": 7,
+          "field": "VOL_max",
+          "value": 0.4,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "5V tolerant I/O (FT pins)",
+          "index": 8,
+          "field": "VOL_max",
+          "value": 0.4,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "5V tolerant I/O (FT pins)",
+          "index": 8,
+          "field": "absolute_max_voltage",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Reset pin (NRST)",
+          "index": 9,
+          "field": "absolute_max_voltage",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "Boot pin (BOOT0)",
+          "index": 10,
+          "field": "absolute_max_voltage",
+          "value": 9.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "PDR_ON pin (internal reset control)",
+          "index": 11,
+          "field": "absolute_max_voltage",
+          "value": 5.5,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "5V tolerant I/O (FT pins)",
+            "2": "Standard 3.3V I/O (TC pins)",
+            "3": "Standard 3.3V I/O (TC pins)"
+          },
+          "agreement": {
+            "1": 7,
+            "2": 7,
+            "3": 6
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 126,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 114,
+            "2": 63,
+            "3": 75
+          }
+        },
+        "counts": {
+          "DISAGREE": 51,
+          "GROUP-SPLIT": 1,
+          "GROUP-SPLIT_valued": 1,
+          "GROUP-NOVOTE": 8,
+          "GROUP-NOVOTE_valued": 3,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 51,
+            "GROUP-SPLIT": 1,
+            "GROUP-SPLIT_valued": 1,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 1,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [
+          {
+            "pin": "1|PE2",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "29|PA8",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "30|PA9",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "31|PA10",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "32|PA11",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "33|PA12",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "34|PA13",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "35|PA14",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "36|PA15",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "38|PC6",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "39|PC7",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "40|PC8",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "41|PC9",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "42|PE7",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "43|PE8",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "44|PE9",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "45|PE10",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "46|PE11",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "47|PE12",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "48|PE13",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "49|PE14",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "50|PE15",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "51|PB10",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "52|PB12",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "53|PB13",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "54|PB14",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "55|PB15",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "56|PD8",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "57|PD9",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "58|PD10",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "59|PD11",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "60|PD12",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "61|PD13",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "62|PD14",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "63|PD15",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "81|PD0",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "82|PD1",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "83|PD2",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "84|PD3",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "85|PD4",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "86|PD5",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "87|PD6",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "88|PD7",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "89|PB3",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "90|PB4",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "92|PB6",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "93|PB7",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "95|PB8",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "96|PB9",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "97|PE0",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          },
+          {
+            "pin": "98|PE1",
+            "field": "absolute_max_voltage",
+            "values": {
+              "1": 5.5,
+              "2": "REL:VDD+0.3",
+              "3": null
+            }
+          }
+        ],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "c449d1a29da9606423beb6bbe966748e195bdad4e44c009f43e690adefa57df8",
+          "2": "c449d1a29da9606423beb6bbe966748e195bdad4e44c009f43e690adefa57df8",
+          "3": "c449d1a29da9606423beb6bbe966748e195bdad4e44c009f43e690adefa57df8"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 12,
+            "malformed_groups": 0,
+            "citations": 31,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 2,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 11,
+            "malformed_groups": 0,
+            "citations": 31,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 2,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 13,
+            "malformed_groups": 0,
+            "citations": 44,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 2,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

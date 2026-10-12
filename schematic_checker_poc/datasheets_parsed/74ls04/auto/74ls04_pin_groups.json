@@ -1,31 +1,60 @@
 {
   "pin_groups": [
     {
-      "group_name": "VCC Supply Power",
+      "group_name": "VCC Power Supply",
       "pin_type": "power",
       "example_pins": [
-        "14"
+        "?|VCC"
       ],
-      "applies_to": "VCC supply pin",
+      "applies_to": "VCC pin for all variants",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 7.0,
-      "supply_min": 4.75,
-      "supply_max": 5.25,
+      "supply_min": 4.5,
+      "supply_max": 5.5,
       "supply_abs_max": 7.0,
       "supply_rail_name": "VCC",
+      "citations": {
+        "supply_min": {
+          "quote": "VCC Supply voltage 4.5 5 5.5 V (SN5404)",
+          "page": 5,
+          "section": null,
+          "match": "partial"
+        },
+        "supply_max": {
+          "quote": "VCC Supply voltage 4.5 5 5.5 V (SN5404)",
+          "page": 5,
+          "section": null,
+          "match": "partial"
+        },
+        "supply_abs_max": {
+          "quote": "Supply voltage, VCC (see Note 1) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
-      "abs_max_source": "Absolute Maximum Ratings"
+      "abs_max_source": null,
+      "carried_from_shipped": {
+        "absolute_max_voltage": {
+          "value": 7.0,
+          "shipped_group": "VCC Supply Power",
+          "pins_counted": 1,
+          "pins_total": 1,
+          "new_status": null
+        }
+      }
     },
     {
       "group_name": "GND Ground",
       "pin_type": "power",
       "example_pins": [
-        "7"
+        "?|GND"
       ],
-      "applies_to": "GND ground pin",
+      "applies_to": "GND pin for all variants",
       "VIH_min": null,
       "VIL_max": null,
       "VOH_min": null,
@@ -34,24 +63,25 @@
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
-      "supply_rail_name": "GND",
+      "supply_rail_name": null,
+      "citations": {},
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "SN7404 Digital Inputs",
+      "group_name": "SN5404 and SN7404 Inputs",
       "pin_type": "digital_input",
       "example_pins": [
-        "1A",
-        "2A",
-        "3A",
-        "4A",
-        "5A",
-        "6A"
+        "?|1A",
+        "?|2A",
+        "?|3A",
+        "?|4A",
+        "?|5A",
+        "?|6A"
       ],
-      "applies_to": "All input pins (1A, 2A, 3A, 4A, 5A, 6A) on SN7404",
-      "VIH_min": 2.0,
-      "VIL_max": 0.8,
+      "applies_to": "Input pins (A) for SN5404 and SN7404 variants",
+      "VIH_min": null,
+      "VIL_max": null,
       "VOH_min": null,
       "VOL_max": null,
       "absolute_max_voltage": 5.5,
@@ -59,136 +89,334 @@
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions (SN7404)",
-      "abs_max_source": "Absolute Maximum Ratings"
+      "citations": {
+        "VIH_min": {
+          "quote": "VIH High-level input voltage 2 2 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 2.0
+        },
+        "VIL_max": {
+          "quote": "VIL Low-level input voltage 0.8 0.8 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 0.8
+        },
+        "absolute_max_voltage": {
+          "quote": "Input voltage, V: '04, 'S04 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5.5 V",
+          "page": 5,
+          "section": null,
+          "match": "partial"
+        }
+      },
+      "VIH_source": "p. 5",
+      "abs_max_source": "p. 5"
     },
     {
-      "group_name": "SN7404 Digital Outputs",
-      "pin_type": "digital_output",
+      "group_name": "SN54LS04 and SN74LS04 Inputs",
+      "pin_type": "digital_input",
       "example_pins": [
-        "1Y",
-        "2Y",
-        "3Y",
-        "4Y",
-        "5Y",
-        "6Y"
+        "?|1A",
+        "?|2A",
+        "?|3A",
+        "?|4A",
+        "?|5A",
+        "?|6A"
       ],
-      "applies_to": "All output pins (1Y, 2Y, 3Y, 4Y, 5Y, 6Y) on SN7404",
+      "applies_to": "Input pins (A) for SN54LS04 and SN74LS04 variants",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 2.4,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VIH_min": {
+          "quote": "VIH High-level input voltage 2 2 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 2.0
+        },
+        "absolute_max_voltage": {
+          "quote": "'LS04 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7 V",
+          "page": 5,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": 7.0
+        },
+        "VIL_max_alts[0]": {
+          "quote": "VIL Low-level input voltage 0.7 0.8 V (SN54LS04)",
+          "page": 6,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "SN54LS04",
+            "value": 0.7,
+            "expr": null
+          }
+        },
+        "VIL_max_alts[1]": {
+          "quote": "VIL Low-level input voltage 0.7 0.8 V (SN74LS04)",
+          "page": 6,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "SN74LS04",
+            "value": 0.8,
+            "expr": null
+          }
+        }
+      },
+      "VIH_source": "p. 5",
+      "abs_max_source": "p. 5"
+    },
+    {
+      "group_name": "SN54S04 and SN74S04 Inputs",
+      "pin_type": "digital_input",
+      "example_pins": [
+        "?|1A",
+        "?|2A",
+        "?|3A",
+        "?|4A",
+        "?|5A",
+        "?|6A"
+      ],
+      "applies_to": "Input pins (A) for SN54S04 and SN74S04 variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
+      "VOL_max": null,
+      "absolute_max_voltage": null,
+      "supply_min": null,
+      "supply_max": null,
+      "supply_abs_max": null,
+      "supply_rail_name": null,
+      "citations": {
+        "VIH_min": {
+          "quote": "VIH High-level input voltage 2 2 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 2.0
+        },
+        "VIL_max": {
+          "quote": "VIL Low-level input voltage 0.8 0.8 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 0.8
+        },
+        "absolute_max_voltage": {
+          "quote": "Input voltage, V: '04, 'S04 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5.5 V",
+          "page": 5,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": 5.5
+        }
+      },
+      "VIH_source": "p. 5",
+      "abs_max_source": "p. 5"
+    },
+    {
+      "group_name": "SN5404 and SN7404 Outputs",
+      "pin_type": "digital_output",
+      "example_pins": [
+        "?|1Y",
+        "?|2Y",
+        "?|3Y",
+        "?|4Y",
+        "?|5Y",
+        "?|6Y"
+      ],
+      "applies_to": "Output pins (Y) for SN5404 and SN7404 variants",
+      "VIH_min": null,
+      "VIL_max": null,
+      "VOH_min": null,
       "VOL_max": 0.4,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "VOH_min": {
+          "quote": "VOH VCC = MIN, VIL = 0.8 V, IOH = \u22120.4 mA 2.4 3.4 2.4 3.4 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:f",
+          "rejected_value": 2.4
+        },
+        "VOL_max": {
+          "quote": "VOL VCC = MIN, VIH = 2 V, IOL = 16 mA 0.2 0.4 0.2 0.4 V",
+          "page": 5,
+          "section": null,
+          "match": "verbatim"
+        }
+      },
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "SN74LS04 Digital Inputs",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "1A",
-        "2A",
-        "3A",
-        "4A",
-        "5A",
-        "6A"
-      ],
-      "applies_to": "All input pins (1A, 2A, 3A, 4A, 5A, 6A) on SN74LS04",
-      "VIH_min": 2.0,
-      "VIL_max": 0.8,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 7.0,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions (SN74LS04)",
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "SN74LS04 Digital Outputs",
+      "group_name": "SN54LS04 and SN74LS04 Outputs",
       "pin_type": "digital_output",
       "example_pins": [
-        "1Y",
-        "2Y",
-        "3Y",
-        "4Y",
-        "5Y",
-        "6Y"
+        "?|1Y",
+        "?|2Y",
+        "?|3Y",
+        "?|4Y",
+        "?|5Y",
+        "?|6Y"
       ],
-      "applies_to": "All output pins (1Y, 2Y, 3Y, 4Y, 5Y, 6Y) on SN74LS04",
+      "applies_to": "Output pins (Y) for SN54LS04 and SN74LS04 variants",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 2.7,
-      "VOL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "VOH_min_alts[0]": {
+          "quote": "VOH VCC = MIN, VIL = MAX, IOH = \u22120.4 mA 2.5 3.4 2.7 3.4 V (SN54LS04)",
+          "page": 6,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "SN54LS04",
+            "value": 2.5,
+            "expr": null
+          }
+        },
+        "VOH_min_alts[1]": {
+          "quote": "VOH VCC = MIN, VIL = MAX, IOH = \u22120.4 mA 2.5 3.4 2.7 3.4 V (SN74LS04)",
+          "page": 6,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "SN74LS04",
+            "value": 2.7,
+            "expr": null
+          }
+        },
+        "VOL_max_alts[0]": {
+          "quote": "VVOOOLL VVCCCC == MMIINN,, VVIIHH == 22 VV VV IOL = 4 mA 0.25 0.4 0.4",
+          "page": 6,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "IOL = 4 mA",
+            "value": 0.4,
+            "expr": null
+          }
+        },
+        "VOL_max_alts[1]": {
+          "quote": "IOL = 8 mA 0.25 0.5",
+          "page": 6,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "IOL = 8 mA",
+            "value": 0.5,
+            "expr": null
+          }
+        }
+      },
       "VIH_source": null,
       "abs_max_source": null
     },
     {
-      "group_name": "SN74S04 Digital Inputs",
-      "pin_type": "digital_input",
-      "example_pins": [
-        "1A",
-        "2A",
-        "3A",
-        "4A",
-        "5A",
-        "6A"
-      ],
-      "applies_to": "All input pins (1A, 2A, 3A, 4A, 5A, 6A) on SN74S04",
-      "VIH_min": 2.0,
-      "VIL_max": 0.8,
-      "VOH_min": null,
-      "VOL_max": null,
-      "absolute_max_voltage": 5.5,
-      "supply_min": null,
-      "supply_max": null,
-      "supply_abs_max": null,
-      "supply_rail_name": null,
-      "VIH_source": "Recommended Operating Conditions (SN74S04)",
-      "abs_max_source": "Absolute Maximum Ratings"
-    },
-    {
-      "group_name": "SN74S04 Digital Outputs",
+      "group_name": "SN54S04 and SN74S04 Outputs",
       "pin_type": "digital_output",
       "example_pins": [
-        "1Y",
-        "2Y",
-        "3Y",
-        "4Y",
-        "5Y",
-        "6Y"
+        "?|1Y",
+        "?|2Y",
+        "?|3Y",
+        "?|4Y",
+        "?|5Y",
+        "?|6Y"
       ],
-      "applies_to": "All output pins (1Y, 2Y, 3Y, 4Y, 5Y, 6Y) on SN74S04",
+      "applies_to": "Output pins (Y) for SN54S04 and SN74S04 variants",
       "VIH_min": null,
       "VIL_max": null,
-      "VOH_min": 2.7,
-      "VOL_max": 0.5,
+      "VOH_min": null,
+      "VOL_max": null,
       "absolute_max_voltage": null,
       "supply_min": null,
       "supply_max": null,
       "supply_abs_max": null,
       "supply_rail_name": null,
+      "citations": {
+        "VOL_max": {
+          "quote": "VOL VCC = MIN, VIH = 2 V, IOL = 20 mA 0.5 0.5 V",
+          "page": 7,
+          "section": null,
+          "match": "verbatim",
+          "status": "nulled:group_novote",
+          "rejected_value": 0.5
+        },
+        "VOH_min_alts[0]": {
+          "quote": "VOH VCC = MIN, VIL = 0.8 V, IOH = \u22121 mA 2.5 3.4 2.7 3.4 V (SN54S04)",
+          "page": 7,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "SN54S04",
+            "value": 2.5,
+            "expr": null
+          }
+        },
+        "VOH_min_alts[1]": {
+          "quote": "VOH VCC = MIN, VIL = 0.8 V, IOH = \u22121 mA 2.5 3.4 2.7 3.4 V (SN74S04)",
+          "page": 7,
+          "section": null,
+          "match": "partial",
+          "status": "nulled:group_novote",
+          "rejected_value": {
+            "condition": "SN74S04",
+            "value": 2.7,
+            "expr": null
+          }
+        }
+      },
       "VIH_source": null,
       "abs_max_source": null
     }
   ],
-  "default_group": "SN74LS04 Digital Inputs",
+  "default_group": "SN5404 and SN7404 Inputs",
   "extraction_meta": {
-    "extractor": "claude-code",
+    "extractor": "haiku_pdfplumber",
     "model": "claude-haiku-4-5-20251001",
-    "extracted_at": "2026-07-02T04:16:23+00:00",
-    "schema_version": 1
+    "extracted_at": "2026-10-04T17:45:15+00:00",
+    "schema_version": 1,
+    "pin_numbers_removed": {
+      "date": "2026-10-10",
+      "pairs_rewritten": 38,
+      "entries_dropped_as_duplicates": 0,
+      "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    }
   },
   "provenance": {
     "source_hash": "fe4edf0844a7acbea2cb11c46cb2eb588f5fa65222ccfee90808235374d5c080",
@@ -210,7 +438,7 @@
       "provenance_schema_version": 1
     },
     "parse_quality": "current_code_full",
-    "stamped_at": "2026-07-02T04:16:23+00:00",
+    "stamped_at": "2026-10-04T17:45:15+00:00",
     "extractor_impl": "haiku_pdfplumber",
     "input_path": "pdfplumber_full",
     "doc_identity": {
@@ -218,6 +446,505 @@
       "tier": 1,
       "depth": 0,
       "ratio": 1.0
+    },
+    "extractor_fingerprint": {
+      "fields": {
+        "model": "claude-haiku-4-5-20251001",
+        "temperature_sent": 0,
+        "thinking": "NONE",
+        "max_tokens": 16384,
+        "template_sha256": "7aea41e93251d1a541160ba64e2960c9cdcf84e4ce0dfbc13d6c38282dc5e94d",
+        "slice": {
+          "SLICE_THRESHOLD_CHARS": 390000,
+          "_FRONT_CHARS": 8000,
+          "_WINDOW_CHARS": 5000,
+          "_DENSITY_PROBE": 3500,
+          "_SUPPLY_WINDOW_CHARS": 3000,
+          "_ABS_MAX_RE": {
+            "pattern": "absolute\\s+maximum\\s+ratings?",
+            "flags": 34
+          },
+          "_DC_CHAR_RE": {
+            "pattern": "(dc\\s+characteristics|dc\\s+electrical\\s+characteristics|electrical\\s+characteristics)",
+            "flags": 34
+          },
+          "_SUPPLY_NAME_RE": {
+            "pattern": "\\b(IOVDD|DVDD|AVDD|VDDA|VDD|AVCC|VCCA|VCC|USB_?VDD)\\b",
+            "flags": 32
+          },
+          "_VRANGE_RE": {
+            "pattern": "\\d\\.\\d+\\s*(?:V\\b|to\\b|[\u2013\\-/]\\s*)\\s*\\d\\.?\\d*|nominal\\s+voltage",
+            "flags": 34
+          }
+        },
+        "input_path": "pdfplumber_full",
+        "glue_version": 1,
+        "draws": 3,
+        "aggregate": "majority_2of3_null_on_disagree; citation=base_replicate; one_entry_alts=plain",
+        "validator_version": "3",
+        "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539"
+      },
+      "sha256": "3a28471514ccd32e802c9542702f1f15db5e80897a1436c47850e7e254f17570"
+    },
+    "pdfplumber_version": "0.11.9",
+    "service_tier": "batch",
+    "request_sha256": "9be44e760eaf2a45f483a4696782385ebbbf8ded433cedbd4e85ab05f1e61e65",
+    "input_regime": "whole",
+    "validation": {
+      "validator_version": "3",
+      "validator_sha256": "32e66704712f46b19d0d4ff2bb9ed3f6fe269ec9b4d897d0ce1d3b24df79b539",
+      "stem": "74ls04",
+      "counts": {
+        "groups": 8,
+        "malformed_groups": 0,
+        "citations": 22,
+        "sibling_fallback": 0,
+        "nulled_a": 0,
+        "nulled_f": 6,
+        "expr_bare_coerced": 0,
+        "expr_bare_moved": 0,
+        "expr_bare_dropped": 0,
+        "expr_railless_nulled": 0,
+        "retyped": 0,
+        "na_nulled": 0,
+        "rating_nulled": 0,
+        "default_group_nulled": 0,
+        "example_pins_blanket_dropped": 0,
+        "example_pins_null_to_empty": 0,
+        "example_pins_malformed": 0
+      },
+      "match": {
+        "verbatim": 10,
+        "layout": 0,
+        "partial": 12,
+        "foreign": 0,
+        "no-quote": 0
+      },
+      "groups_touched": {
+        "a": [],
+        "f": [
+          "SN5404 and SN7404 Inputs",
+          "SN54LS04 and SN74LS04 Inputs",
+          "SN54S04 and SN74S04 Inputs",
+          "SN5404 and SN7404 Outputs"
+        ],
+        "f4": [],
+        "retype": [],
+        "na": [],
+        "rating": [],
+        "504": []
+      },
+      "nulled": [
+        {
+          "group": "SN5404 and SN7404 Inputs",
+          "index": 2,
+          "field": "VIH_min",
+          "value": 2.0,
+          "rule": "f"
+        },
+        {
+          "group": "SN5404 and SN7404 Inputs",
+          "index": 2,
+          "field": "VIL_max",
+          "value": 0.8,
+          "rule": "f"
+        },
+        {
+          "group": "SN54LS04 and SN74LS04 Inputs",
+          "index": 3,
+          "field": "VIH_min",
+          "value": 2.0,
+          "rule": "f"
+        },
+        {
+          "group": "SN54S04 and SN74S04 Inputs",
+          "index": 4,
+          "field": "VIH_min",
+          "value": 2.0,
+          "rule": "f"
+        },
+        {
+          "group": "SN54S04 and SN74S04 Inputs",
+          "index": 4,
+          "field": "VIL_max",
+          "value": 0.8,
+          "rule": "f"
+        },
+        {
+          "group": "SN5404 and SN7404 Outputs",
+          "index": 5,
+          "field": "VOH_min",
+          "value": 2.4,
+          "rule": "f"
+        }
+      ],
+      "coerced": [],
+      "retyped": [],
+      "b_flags": [],
+      "f_outcomes": [
+        {
+          "group": "VCC Power Supply",
+          "index": 0,
+          "field": "supply_min",
+          "value": 4.5,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "VCC Power Supply",
+          "index": 0,
+          "field": "supply_max",
+          "value": 5.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "VCC Power Supply",
+          "index": 0,
+          "field": "supply_abs_max",
+          "value": 7.0,
+          "outcome": "PASS-SINGLE",
+          "a_fail": false
+        },
+        {
+          "group": "SN5404 and SN7404 Inputs",
+          "index": 2,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "SN5404 and SN7404 Inputs",
+          "index": 2,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "SN5404 and SN7404 Inputs",
+          "index": 2,
+          "field": "absolute_max_voltage",
+          "value": 5.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "SN54LS04 and SN74LS04 Inputs",
+          "index": 3,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "SN54LS04 and SN74LS04 Inputs",
+          "index": 3,
+          "field": "absolute_max_voltage",
+          "value": 7.0,
+          "outcome": "PASS-BOUND",
+          "a_fail": false
+        },
+        {
+          "group": "SN54S04 and SN74S04 Inputs",
+          "index": 4,
+          "field": "VIH_min",
+          "value": 2.0,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "SN54S04 and SN74S04 Inputs",
+          "index": 4,
+          "field": "VIL_max",
+          "value": 0.8,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "SN54S04 and SN74S04 Inputs",
+          "index": 4,
+          "field": "absolute_max_voltage",
+          "value": 5.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "SN5404 and SN7404 Outputs",
+          "index": 5,
+          "field": "VOH_min",
+          "value": 2.4,
+          "outcome": "NULLED",
+          "a_fail": false
+        },
+        {
+          "group": "SN5404 and SN7404 Outputs",
+          "index": 5,
+          "field": "VOL_max",
+          "value": 0.4,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        },
+        {
+          "group": "SN54S04 and SN74S04 Outputs",
+          "index": 7,
+          "field": "VOL_max",
+          "value": 0.5,
+          "outcome": "UNDECIDABLE",
+          "a_fail": false
+        }
+      ],
+      "majority": {
+        "valid_draws": [
+          1,
+          2,
+          3
+        ],
+        "n_draws": 3,
+        "base_replicate": 1,
+        "base_without_probe": 1,
+        "probe": {
+          "pin": "mj-probe-0|MJ_FALLBACK_PROBE",
+          "dropped": false,
+          "group_per_draw": {
+            "1": "SN5404 and SN7404 Inputs",
+            "2": "SN5404 and SN7404 Inputs",
+            "3": "SN5404 and SN7404 Inputs"
+          },
+          "agreement": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          },
+          "base_changed": false
+        },
+        "supply_set": {
+          "kept": [],
+          "nulled": []
+        },
+        "pin_list": {
+          "size": 14,
+          "source": "union_example_pins",
+          "entries_per_replicate": {
+            "1": 38,
+            "2": 38,
+            "3": 38
+          }
+        },
+        "counts": {
+          "DISAGREE": 0,
+          "GROUP-SPLIT": 0,
+          "GROUP-SPLIT_valued": 0,
+          "GROUP-NOVOTE": 32,
+          "GROUP-NOVOTE_valued": 7,
+          "SUPPLY-SET-KEPT": 0,
+          "SUPPLY-SET-NULL": 0,
+          "SUPPLY-SET-NULL_valued": 0,
+          "nulled_disagree": 0,
+          "nulled_majority": 0,
+          "vote_raw_string": 0,
+          "citation_from_other_replicate": 0,
+          "base_unresolved_pin_fields": 0,
+          "written_plain_from_alts": 0
+        },
+        "per_field": {
+          "supply_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "supply_abs_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "absolute_max_voltage": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 2,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 0,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VIL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 1,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOH_min": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 2,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          },
+          "VOL_max": {
+            "DISAGREE": 0,
+            "GROUP-SPLIT": 0,
+            "GROUP-SPLIT_valued": 0,
+            "GROUP-NOVOTE": 4,
+            "GROUP-NOVOTE_valued": 2,
+            "SUPPLY-SET-KEPT": 0,
+            "SUPPLY-SET-NULL": 0,
+            "SUPPLY-SET-NULL_valued": 0,
+            "nulled_disagree": 0,
+            "nulled_majority": 0,
+            "vote_raw_string": 0,
+            "citation_from_other_replicate": 0,
+            "base_unresolved_pin_fields": 0,
+            "written_plain_from_alts": 0
+          }
+        },
+        "disagree": [],
+        "source_labels": "re-derived with extraction_validator._source_label",
+        "request_sha256s": {
+          "1": "9be44e760eaf2a45f483a4696782385ebbbf8ded433cedbd4e85ab05f1e61e65",
+          "2": "9be44e760eaf2a45f483a4696782385ebbbf8ded433cedbd4e85ab05f1e61e65",
+          "3": "9be44e760eaf2a45f483a4696782385ebbbf8ded433cedbd4e85ab05f1e61e65"
+        },
+        "draw_counts": {
+          "1": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 22,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 6,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "2": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 22,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 6,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          },
+          "3": {
+            "groups": 8,
+            "malformed_groups": 0,
+            "citations": 22,
+            "sibling_fallback": 0,
+            "nulled_a": 0,
+            "nulled_f": 6,
+            "expr_bare_coerced": 0,
+            "expr_bare_moved": 0,
+            "expr_bare_dropped": 0,
+            "expr_railless_nulled": 0,
+            "retyped": 0,
+            "na_nulled": 0,
+            "rating_nulled": 0,
+            "default_group_nulled": 0,
+            "example_pins_blanket_dropped": 0,
+            "example_pins_null_to_empty": 0,
+            "example_pins_malformed": 0
+          }
+        }
+      }
     }
   }
 }

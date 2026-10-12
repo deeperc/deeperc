@@ -26,7 +26,7 @@
   },
   "expected_verdict": {
     "board_status": "has_fail",
-    "supply_checks": {"pass": 4, "warn": 0, "fail": 1, "unresolvable": 0},
+    "supply_checks": {"pass": 5, "warn": 0, "fail": 1, "unresolvable": 0},
     "fail_findings": [
       {
         "refdes": "U2",
@@ -44,7 +44,7 @@
     ],
     "confidence": "high (deterministic voltage-vs-cache-limit comparison; abs_max sourced from the shipped stm32f103c8 pin_groups cache, not invented by this fixture)",
     "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the unmodified board, unaffected by this mutation",
-    "unchanged_axes": "signal 0, structural 11 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the unmodified board; remaining supply rows (VBAT, VDD pin36, VDD pin48, VDDA) stay PASS unchanged"
+    "unchanged_axes": "signal 0, structural 11 PASS, peripheral 2 UNRESOLVABLE, pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN -- byte-identical to the unmodified board; remaining supply rows (VBAT, VDD pin36, VDD pin48, VDDA) stay PASS unchanged, plus the U1 AMS1117-3.3 VI (pin 3) <- VBUS row (PASS, 5.0V within rated 2.0V - 12.0V, admitted by TODO-484) that this fixture also carries"
   },
   "verified_by": "python3 run_checks.py --board examples/my_stm32_board_supply_overvoltage/my_stm32_board_supply_overvoltage.net --skip-confirm",
   "arg_surface_note": "run_checks.py's parser accepts --board PATH, not --netlist (that flag belongs to main.py). Confirmed via --help; --board is the form used here and in the t1 fixtures.",

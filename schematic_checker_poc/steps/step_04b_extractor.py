@@ -1,6 +1,7 @@
 import logging
 import re
 from llm.ollama_client import generate_json
+from steps.pin_match import resolve_pin_spec_from_groups, pin_match_meta  # noqa: F401  (moved, TODO-504)
 
 logger = logging.getLogger(__name__)
 
@@ -18,8 +19,15 @@ CRITICAL — numeric fields must be floating-point numbers in Volts:
 - VIH_min, VIL_max, VOH_min, VOL_max, absolute_max_voltage
   MUST be numbers like 2.0 or 2.31 or 4.6 — NOT table names or section names.
 - VIH_source and abs_max_source ARE the table/section names (strings).
-- If a value is given as a formula (e.g. "0.7 × VCC"), compute it using the
-  supply_max you found (e.g. 0.7 × 3.3 = 2.31). Write 2.31 in VIH_min, not the formula.
+- Never compute a formula. If a value is written relative to a supply rail
+  (e.g. "0.7 VDD", "0.7×VCC", "VCC+0.3", "(V+)-1.5V"), leave the numeric field
+  null and copy the expression verbatim into "<field>_expr"
+  (e.g. "VIH_min_expr": "0.7×VCC").
+- If a value differs by condition (e.g. separate rows at VCC = 2 V, 4.5 V, 6 V),
+  leave the numeric field null and list every row in "<field>_alts" as
+  [{{"condition": "...", "value": <number or null>, "expr": <string or null>}}].
+- _expr and _alts are optional (omit when unused), apply only to VIH_min,
+  VIL_max, VOH_min, VOL_max and absolute_max_voltage, never to supply_* fields.
 - Use null only when the value is truly absent from the text.
 
 Other rules:
@@ -120,86 +128,6 @@ def extract_part_pin_groups(
     return result
 
 
-def resolve_pin_spec_from_groups(
-    pin_id: str,
-    pin_name: str,
-    pin_groups_result: dict | None,
-) -> dict | None:
-    if not pin_groups_result:
-        return None
-
-    groups = pin_groups_result.get("pin_groups", [])
-    default_group_name = pin_groups_result.get("default_group")
-
-    # Priority 1: exact match on pin_id or pin_name in example_pins
-    for group in groups:
-        examples = [str(p).upper() for p in group.get("example_pins", [])]
-        if pin_id.upper() in examples or pin_name.upper() in examples:
-            return group
-
-    # Priority 2: default_group — but ONLY if it is not a power group
-    if default_group_name:
-        for group in groups:
-            if (group.get("group_name") == default_group_name
-                    and group.get("pin_type") != "power"):
-                return group
-
-    # Priority 3: first signal group — never return a power group as fallback
-    SIGNAL_TYPES = {"bidirectional", "digital_input", "digital_output", "analog"}
-    signal_groups = [g for g in groups
-                     if g.get("pin_type", "").lower() in SIGNAL_TYPES]
-    if signal_groups:
-        return signal_groups[0]
-
-    # Priority 4: absolute last resort — any non-power group
-    non_power = [g for g in groups if g.get("pin_type") != "power"]
-    if non_power:
-        return non_power[0]
-
-    return None
-
-
-_OPEN_DRAIN_RE = re.compile(r"open[\s_-]?drain", re.IGNORECASE)
-
-
-def _group_is_open_drain(group: dict | None) -> bool:
-    """True when the group's metadata documents it as open-drain (e.g. an
-    AP22615 FLG fault flag). An open-drain output sinks only — it never sources
-    its VCC onto the net — so it must not be trusted as a push-pull driver that
-    asserts an overvoltage."""
-    if not group:
-        return False
-    text = f"{group.get('group_name', '')} {group.get('applies_to', '')}"
-    return bool(_OPEN_DRAIN_RE.search(text))
-
-
-def pin_match_meta(pin_id: str, pin_name: str,
-                   pin_groups_result: dict | None) -> tuple[bool, bool]:
-    """Returns (pin_type_exact, open_drain) for the group this pin resolves to.
-
-    - pin_type_exact: the pin POSITIVELY matched a group's `example_pins` (True),
-      vs. fell through to the default/first-signal/last-resort fallback (False).
-      A pin whose "output" type came from a fallback (e.g. a ULN2003 base input
-      landing on the `default_group` that happens to be the collector-output
-      group) is NOT a trustworthy push-pull driver.
-    - open_drain: the resolved group is documented open-drain.
-
-    step_08 uses both to gate whether an output-typed driver pin may assert an
-    OVERVOLTAGE (only a genuine, positively-matched, non-open-drain push-pull
-    output can). Trap-proof for real drivers: 74HC595 QA positively matches its
-    digital-output group, so its 5V overdrive is preserved.
-    """
-    if not pin_groups_result:
-        return False, False
-    for group in pin_groups_result.get("pin_groups", []):
-        examples = [str(p).upper() for p in group.get("example_pins", [])]
-        if str(pin_id).upper() in examples or str(pin_name).upper() in examples:
-            return True, _group_is_open_drain(group)
-    # No exact match — resolves via fallback; report open-drain of the fallback
-    # group for completeness, but pin_type_exact is False.
-    grp = resolve_pin_spec_from_groups(pin_id, pin_name, pin_groups_result)
-    return False, _group_is_open_drain(grp)
-
 SECTION_CHARS = 6000
 FALLBACK_CHARS = 6000
 
@@ -239,8 +167,15 @@ IMPORTANT rules:
 - VIH_min and absolute_max_voltage are DIFFERENT values from DIFFERENT tables.
   If they are the same value, you have read from only one table — check again.
 - For bidirectional pins, report I/O specs (both input and output thresholds).
-- If the datasheet shows a range like "VIH min = 0.7 x VCC", compute the value
-  using the supply_voltage you found. Example: 0.7 x 3.3 = 2.31V.
+- Never compute a formula. If a value is written relative to a supply rail
+  (e.g. "VIH min = 0.7 x VCC", "VCC+0.3", "(V+)-1.5V"), leave the numeric field
+  null and copy the expression verbatim into "<field>_expr"
+  (e.g. "VIH_min_expr": "0.7 x VCC").
+- If a value differs by condition (e.g. separate rows at VCC = 2 V, 4.5 V, 6 V),
+  leave the numeric field null and list every row in "<field>_alts" as
+  [{{"condition": "...", "value": <number or null>, "expr": <string or null>}}].
+- _expr and _alts are optional (omit when unused) and apply only to VIH_min,
+  VIL_max, VOH_min, VOL_max and absolute_max_voltage.
 - For split-supply devices, use the supply voltage for the port this pin belongs to.
 - If a value is truly not found, use null.
 

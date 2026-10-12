@@ -51,6 +51,8 @@ pytestmark = pytest.mark.skipif(not BOARD.exists(), reason="anchor board fixture
 sys.path.insert(0, str(POC))
 sys.path.insert(0, str(REPO))
 
+from steps import doc_identity  # noqa: E402
+
 # See test_missing_corpus_dir.py's identical fixture for why this degrades to
 # a no-op strip (and why that's correct) when the private-tier L2 vendor
 # seam isn't importable.
@@ -89,7 +91,11 @@ def test_missing_datasheets_dir_resolves_from_pdf_free_cache(tmp_path):
     PDF was ever opened) and mineru_used=false (no parse ran) — that part of
     the original assertion is unchanged — but the report's cache-derived
     findings now ALSO carry evidence_tier="cache_unverified" and their
-    evidence_label ends with the frozen tier-2 parenthetical.
+    evidence_label ends with the frozen tier-2 parenthetical, which may itself be followed by one
+    document-identity qualifier (steps.doc_identity: QUALIFIER_MISS or
+    QUALIFIER_UNVERIFIABLE) -- a part whose cache classifies MISS, e.g.
+    AMS1117-3.3 once it binds, ends "(not locally verified); source-text MPN
+    match: none".
     """
     missing = tmp_path / "no_such_datasheets_dir"
     assert not missing.exists()
@@ -126,7 +132,12 @@ def test_missing_datasheets_dir_resolves_from_pdf_free_cache(tmp_path):
         assert entry["evidence_tier"] == "cache_unverified", (
             f"{entry['refdes']}/{entry['part_number']}: expected cache_unverified "
             f"(the part resolved with pdf_path=None), got {entry['evidence_tier']!r}")
-        assert entry["evidence_label"].endswith(" (not locally verified)"), (
+        label = entry["evidence_label"]
+        for qualifier in (doc_identity.QUALIFIER_MISS, doc_identity.QUALIFIER_UNVERIFIABLE):
+            if label.endswith(qualifier):
+                label = label[:-len(qualifier)]
+                break
+        assert label.endswith(" (not locally verified)"), (
             f"{entry['refdes']}/{entry['part_number']}: evidence_label missing the "
             f"frozen tier-2 parenthetical: {entry['evidence_label']!r}")
 

@@ -38,8 +38,13 @@ class SupplyUnresolvableReason(Enum):
     # here for enum completeness (no UNRESOLVABLE SupplyCheckResult should be
     # silently reason-less); excluded from the 7-row cause-site table.
     NET_VOLTAGE_NOT_CONFIRMED  = "NET_VOLTAGE_NOT_CONFIRMED"
+    # evaluate_supply's second UNRESOLVABLE return: a matched group with neither a rated max nor an absolute max.
+    NO_RATED_CEILING           = "NO_RATED_CEILING"
 
 from steps.step_05_validator import validate_supply_group
+from steps.part_class import is_ground_or_pad_pin, is_pseudo_part_by_provenance
+from steps import pin_match
+from steps.step_08_checker import is_passive_component
 from steps.step_06_power import (
     _converter_family,
     _VIN_PIN_RE,
@@ -51,7 +56,7 @@ from steps.step_06_power import (
 # steps/passive_traversal.py and consumed identically here, in step_08c
 # (POWER_PIN_NAMES) and by the traversal walk itself (POWER_PIN_FUNCTIONS = this
 # base | {"VBUS"}). Re-exported under the module-local name so existing importers
-# (tests/test_supply_checker.py, investigation/ scan scripts) keep working. This
+# (tests/test_supply_checker.py, out-of-tree scan scripts) keep working. This
 # checker's own matching semantics are UNCHANGED — exact membership plus the
 # reduce-to-canonical widen below; only the membership list is now shared.
 from steps.passive_traversal import SUPPLY_PIN_NAMES
@@ -272,6 +277,37 @@ def _find_matching_supply_group(pin_name: str, pin_groups_result: dict | None,
     return None
 
 
+def _listing_supply_groups(pin, groups_result, comp=None) -> list[dict]:
+    """Power groups with a ceiling (supply_max or supply_abs_max) that LIST this pin, by
+    the spec-lookup matcher's rule (steps/pin_match.listing_supply_groups, TODO-504):
+    exact pin_id / pin_name / symbol name first; failing that, a normalized,
+    alternate or number match (a nameless pin, or, when comp is given, a named pin's
+    NAME-RELATED bind over comp's pins, TODO-531) admits only when every group it hits is
+    a power group with a ceiling. An explicit null example_pins is treated as empty."""
+    part_pins = (None if comp is None else
+                 [(p.pin_id, p.pin_name, getattr(p, "symbol_name", "")) for p in comp.pins])
+    return pin_match.listing_supply_groups(pin.pin_id, pin.pin_name or "", groups_result,
+                                           symbol_name=getattr(pin, "symbol_name", ""),
+                                           part_pins=part_pins)
+
+
+def _admit_supply_pin(comp, pin, groups_result) -> list | bool:
+    """TODO-484 A-prime supply-pin admission, shared by the sibling loop and the main gate.
+
+    True  — the pin passes the name gate (_is_supply_pin): today's path, unchanged.
+    list  — the name gate rejects it; on a part with extracted groups, the power groups
+            with a ceiling that list it (non-empty admits; the pin binds to one of THESE,
+            never via Pass 1 / Pass 2). Passive refdes, pseudo-parts and ground/pad pin
+            names are never admitted this way ([]).
+    """
+    if _is_supply_pin(pin.pin_name):
+        return True
+    if (not groups_result or is_passive_component(comp.refdes)
+            or is_pseudo_part_by_provenance(comp) or is_ground_or_pad_pin(pin.pin_name)):
+        return []
+    return _listing_supply_groups(pin, groups_result, comp)
+
+
 def evaluate_supply(
     actual_voltage: float | None,
     rated_min: float | None,
@@ -284,7 +320,13 @@ def evaluate_supply(
 
     FAIL: actual > supply_abs_max (damage) or actual > supply_max (out of spec)
     WARN: actual > 0.95 * supply_abs_max (transient overshoot) or actual < supply_min (undervoltage)
-    PASS: supply_min <= actual <= supply_max
+    PASS: supply_min <= actual <= supply_max. The PASS label names the bounds the
+    datasheet actually gives (TODO-484 R1): both min and max → "within rated range
+    {min}V - {max}V"; max only → "within rated max {max}V (datasheet states no rated
+    minimum)"; neither, abs-max only → "below supply absolute max {abs}V (datasheet
+    states no rated operating range)"; min and max → the range text. A group with
+    neither a rated max nor an absolute max (voltage known, no ceiling) is
+    UNRESOLVABLE, never PASS; an actual below a given supply_min still WARNs first.
 
     D2 label shape (TODO-398): every non-UNRESOLVABLE label carries a
     "Confirmed — " prefix (this checker asserts each of these off a
@@ -331,6 +373,21 @@ def evaluate_supply(
             f"{rated_min}V — device may not operate correctly"
         )
 
+    if rated_max is None and rated_abs_max is None:
+        return "UNRESOLVABLE", (
+            "No rated supply maximum in the part data; supply not evaluated against a ceiling"
+        )
+
+    if rated_min is None and rated_max is not None:
+        return "PASS", (
+            f"Confirmed — supply {actual_voltage}V within rated max {rated_max}V "
+            f"(datasheet states no rated minimum)"
+        )
+    if rated_max is None and rated_abs_max is not None:
+        return "PASS", (
+            f"Confirmed — supply {actual_voltage}V below supply absolute max "
+            f"{rated_abs_max}V (datasheet states no rated operating range)"
+        )
     return "PASS", (
         f"Confirmed — supply {actual_voltage}V within rated range "
         f"{rated_min}V - {rated_max}V"
@@ -432,18 +489,23 @@ def check_component_supplies(
         # matched group actually describes). Computed per-part, not per-pin.
         sibling_rails: dict[str, float] = {}
         for sp in comp.pins:
-            if _is_supply_pin(sp.pin_name):
+            if _admit_supply_pin(comp, sp, groups_result):
                 sv = _voltage_for(sp.net)
                 if sv is not None:
                     sibling_rails[sp.net] = sv
 
         for pin in comp.pins:
-            if not _is_supply_pin(pin.pin_name):
+            admit = _admit_supply_pin(comp, pin, groups_result)
+            if not admit:
                 continue
 
             actual_voltage = _voltage_for(pin.net)
 
-            group = _find_matching_supply_group(pin.pin_name, groups_result, actual_voltage)
+            if admit is True:
+                group = _find_matching_supply_group(pin.pin_name, groups_result, actual_voltage)
+            else:
+                group = _pick_by_voltage(admit, actual_voltage)
+                _log_latent_flip(admit, group, pin.pin_name, actual_voltage)
 
             if group is not None:
                 supply_val = validate_supply_group(group)
@@ -531,13 +593,17 @@ def check_component_supplies(
                 rated_abs_max=rated_abs_max,
                 abs_max_source=abs_max_source,
             )
-            unresolvable_reason = (
-                SupplyUnresolvableReason.NET_VOLTAGE_NOT_CONFIRMED
-                if status == "UNRESOLVABLE" else None
-            )
+            if status != "UNRESOLVABLE":
+                unresolvable_reason = None
+            elif actual_voltage is None:
+                unresolvable_reason = SupplyUnresolvableReason.NET_VOLTAGE_NOT_CONFIRMED
+            else:
+                unresolvable_reason = SupplyUnresolvableReason.NO_RATED_CEILING
 
             confidence = "high" if (rated_min is not None and rated_max is not None) else "medium"
             if actual_voltage is None:
+                confidence = "low"
+            if unresolvable_reason is SupplyUnresolvableReason.NO_RATED_CEILING:
                 confidence = "low"
 
             # Option A: a converter VIN whose value is topologically implausible

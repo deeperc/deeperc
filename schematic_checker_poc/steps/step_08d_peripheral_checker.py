@@ -396,8 +396,8 @@ def _resolve_pin(mpn: str, pin_id: str, kb: dict, peripheral_routing: dict | Non
     ``peripheral`` selects WHICH tracked peripheral's routing flag gates the
     matrix short-circuit (default ``Peripheral.I2C``, preserving every existing
     call site's behavior unchanged). Generalized 2026-07-11 alongside the ESP32
-    KB routing-flag correction (UART/SPI are now correctly flagged "matrix" —
-    see investigation/experiments/esp32_kb_recon/REPORT.md) so a future
+    KB routing-flag correction (UART/SPI are now correctly flagged "matrix")
+    so a future
     UART/SPI-anchored capability check can pass ``peripheral=Peripheral.UART``/
     ``Peripheral.SPI`` and get the same PERIPHERAL_UNCONSTRAINED protection I2C
     already has. Mirrors the pattern already used by
@@ -902,7 +902,7 @@ def check_peripheral_buses(
     # cross-device MINORITY (consensus) path emit NO capability FAIL here — the
     # consensus/swap path stays REPORT-ONLY this phase (it overlaps M6, thin data).
     #
-    # M14-F1 (investigation/experiments/m14_f1_recon/REPORT.md): a bus paired
+    # M14-F1: a bus paired
     # SOLELY via KB instance possibility (no independent net-name corroboration)
     # must NOT be admitted to this verdict — see the has_independent_identity
     # gate below. possible_roles may CONDEMN a member (incapable) but a

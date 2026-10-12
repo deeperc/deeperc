@@ -59,6 +59,10 @@ def main() -> None:
     # registry-driven verdict the corpus driver records — new, small, free.
     verdict = pipeline.classify_report(report)
     print(f"[VERDICT] {verdict}")
+    # TODO-524: disclose unevaluated checks; the verdict itself is unchanged
+    n_unresolvable = pipeline.count_unresolvable(report)
+    if n_unresolvable > 0:
+        print(f"[UNRESOLVABLE] {n_unresolvable} finding(s) not evaluated; see LIMITATIONS.md (board verdicts)")
 
     # TODO-426: exit code gated on the cross-axis classify_report() verdict, not the
     # signal-only (step_08) fail bucket — a peripheral/supply/structural-only FAIL

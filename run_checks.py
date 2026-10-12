@@ -40,6 +40,9 @@ from steps import (                     # noqa: E402
     step_02_parser,
     step_03_resolver,
 )
+from steps.part_class import (  # noqa: E402  (moved, TODO-484)
+    _REFDES_PREFIX_RE, pseudo_part_provenance,
+    is_pseudo_part_by_provenance)
 from steps import checker_registry as _checker_registry  # noqa: E402 (registry-derived per-checker counts, Todo 248)
 from pipeline import (  # noqa: E402  (single pipeline assembly, Phase 3)
     run_board as _run_board,
@@ -204,64 +207,6 @@ def is_non_ic_part(part_number: str) -> bool:
     if stripped.upper() in NET_LABEL_DENYLIST:
         return True
     return bool(NON_IC_RE.match(stripped))
-
-
-# ── Provenance-based pseudo-part recognizer (eligibility gate only) ────────────
-# A real test point / solder jumper / connector / crystal whose VALUE is a signal
-# name (e.g. a TestPoint valued "SPI1 MOSI", a SolderJumper valued "SDA", a
-# connector valued "CANBUS") reads as a signal-shaped IC under the value-string
-# heuristic and wrongly counts as a BLOCKING unresolvable part, inflating the
-# eligibility blocking ratio. The distinguishing signal is PROVENANCE — the
-# libsource part / footprint / refdes prefix — NOT the value string (keying on the
-# value misfires on genuinely oddly-named real ICs like ME6210-SOT89 or BL4054B).
-# This recognizes those pseudo-parts so they do not block eligibility. It is used
-# ONLY by is_eligible — it does NOT alter the IR consumed by the checkers.
-# See investigation/scoping_step02_netlabel_leakage_2026-06-15.md.
-_REFDES_PREFIX_RE = re.compile(r'^[A-Za-z#]+')
-
-
-def pseudo_part_provenance(refdes: str, footprint: str, libsource_part: str) -> str | None:
-    """Return the pseudo-part class (testpoint/jumper/connector/crystal/switch/
-    buzzer/mounting) inferred from PROVENANCE, else None for a genuine IC.
-
-    Keyed on libsource part / footprint / refdes prefix, never the value string.
-    """
-    ref = refdes or ""
-    m = _REFDES_PREFIX_RE.match(ref)
-    refpre = m.group(0) if m else ""
-    lp = (libsource_part or "")
-    lpl = lp.lower()
-    fpl = (footprint or "").lower()
-
-    if lp == "TestPoint" or fpl.startswith("testpoint:") or refpre == "TP":
-        return "testpoint"
-    if "mountinghole" in lpl or "mountinghole" in fpl or "fiducial" in lpl or "fiducial" in fpl:
-        return "mounting"
-    if (lpl.startswith("solderjumper") or lpl == "sj" or refpre in ("JP", "SJ")
-            or "jumper" in lpl or "solder_jumper" in fpl):
-        return "jumper"
-    if (refpre in ("J", "P", "CON", "CAN", "BH") or "connector" in lpl
-            or fpl.startswith("connector:") or re.match(r"(?i)conn?\d", lp)
-            or re.match(r"(?i)bh\d", lp) or "_connectors" in fpl or "uext" in fpl):
-        return "connector"
-    if (refpre in ("Y", "X") or lpl.startswith("crystal") or fpl.startswith("crystal:")
-            or lpl.startswith("resonator")):
-        return "crystal"
-    if refpre == "SW" or "switch" in lpl:
-        return "switch"
-    if refpre == "BZ" or "buzzer" in lpl:
-        return "buzzer"
-    return None
-
-
-def is_pseudo_part_by_provenance(comp) -> bool:
-    """True when a ComponentIR is a non-IC pseudo-part by provenance — must not
-    count toward the eligibility blocking-unresolvable numerator."""
-    return pseudo_part_provenance(
-        getattr(comp, "refdes", "") or "",
-        getattr(comp, "footprint", "") or "",
-        getattr(comp, "libsource_part", "") or "",
-    ) is not None
 
 
 # ── Resolver / CWD setup ──────────────────────────────────────────────────────
@@ -567,10 +512,16 @@ def _peripheral_detail(r: dict) -> list[str]:
 
 
 def _supply_detail(r: dict) -> list[str]:
+    if r.get("unresolvable_reason") == "NO_RATED_CEILING":
+        bounds = f"{r.get('actual_voltage_v')}V; no rated maximum in the part data"
+        if r.get("rated_min_v") is not None:
+            bounds += f" (rated min {r.get('rated_min_v')}V)"
+    else:
+        bounds = (f"{r.get('actual_voltage_v')}V vs rated {r.get('rated_min_v')}V-{r.get('rated_max_v')}V "
+                  f"(abs max {r.get('rated_abs_max_v')}V)")
     return [
         f"{r.get('refdes')} ({r.get('part_number')})  pin={r.get('supply_pin')}  net={r.get('connected_net')}",
-        f"{r.get('actual_voltage_v')}V vs rated {r.get('rated_min_v')}V-{r.get('rated_max_v')}V "
-        f"(abs max {r.get('rated_abs_max_v')}V)",
+        bounds,
         f"evidence: {r.get('evidence_label')}",
         f"confidence: {r.get('confidence')}",
     ]

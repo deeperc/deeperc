@@ -40,6 +40,7 @@ sys.path.insert(0, str(POC))
 sys.path.insert(0, str(REPO))
 
 import pipeline  # noqa: E402
+from llm import ollama_client  # noqa: E402
 
 SKIP_ENV_VAR = "SCHECKER_SKIP_TREE_TRIPWIRE"
 
@@ -194,3 +195,13 @@ def pytest_sessionfinish(session, exitstatus):
         return
     print(_format_diff(diff))
     session.exitstatus = 1
+
+
+@pytest.fixture(autouse=True)
+def _reset_ollama_breaker():
+    """llm.ollama_client's circuit breaker is a module global that stays tripped
+    for the rest of the process, so one test's refused connection (no local model
+    listening) would make a later test see "skipped after an earlier failure"."""
+    ollama_client.reset_breaker()
+    yield
+    ollama_client.reset_breaker()

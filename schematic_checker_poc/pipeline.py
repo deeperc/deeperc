@@ -702,6 +702,13 @@ def run_board(ctx: PipelineContext):
                 "extraction_method": "whole_part_groups",
                 "pin_groups": groups_meta,
                 "source_hash": (pin_groups_result or {}).get("provenance", {}).get("source_hash"),
+                # TODO-401: the cited cache's extractor-fingerprint sha (None on a
+                # legacy cache) and the load-time sha256 of the served file's bytes
+                # (a TOP-LEVEL key set by the cache loader, like cache_currency).
+                # Both None for a fresh this-run extraction, exactly as source_hash.
+                "extractor_fingerprint_sha256": ((pin_groups_result or {}).get(
+                    "provenance", {}).get("extractor_fingerprint") or {}).get("sha256"),
+                "cache_body_sha256": (pin_groups_result or {}).get("cache_body_sha256"),
                 # TODO-337 Phase 2b-iii: the cited cache's doc-identity verdict,
                 # lifted from the SAME provenance block as source_hash above. This
                 # is the linkage the evidence-label qualifier reads in
@@ -740,6 +747,8 @@ def run_board(ctx: PipelineContext):
                     details={"cache_hit": _cache_hit},
                 )
 
+        # every pin of the part: the matcher's NAME-RELATED number bind (TODO-531) needs it
+        part_pins = [(p.pin_id, p.pin_name, getattr(p, "symbol_name", "")) for p in comp.pins]
         for pin in comp.pins:
             pin_low = pin.pin_name.lower()
             if (pin_low in {"vdd", "vcc", "gnd", "vss"}
@@ -754,6 +763,8 @@ def run_board(ctx: PipelineContext):
                 pin_id=pin.pin_id,
                 pin_name=pin.pin_name,
                 pin_groups_result=pin_groups_result,
+                symbol_name=getattr(pin, "symbol_name", ""),
+                part_pins=part_pins,
             )
             if raw_group and raw_group.get("pin_type") != "power":
                 spec = step_05_validator.validate(
@@ -761,16 +772,20 @@ def run_board(ctx: PipelineContext):
                     pin_name=pin.pin_name,
                     pin_id=pin.pin_id,
                     VIH_max=None,
-                    VIH_min=step_05_validator._to_float(raw_group.get("VIH_min")),
-                    absolute_max_voltage=step_05_validator._to_float(
-                        raw_group.get("absolute_max_voltage")
-                    ),
+                    VIH_min=raw_group.get("VIH_min"),
+                    absolute_max_voltage=raw_group.get("absolute_max_voltage"),
                     pin_type=raw_group.get("pin_type"),
                     source_snippet=raw_group.get("VIH_source") or "",
+                    VIH_min_expr=raw_group.get("VIH_min_expr"),
+                    VIH_min_alts=raw_group.get("VIH_min_alts"),
+                    absolute_max_voltage_expr=raw_group.get("absolute_max_voltage_expr"),
+                    absolute_max_voltage_alts=raw_group.get("absolute_max_voltage_alts"),
+                    rails=[(p.pin_name, confirmed_voltages.get(p.net)) for p in comp.pins],
                 )
                 spec.pin_type_exact, spec.open_drain = (
                     step_04b_extractor.pin_match_meta(
-                        pin.pin_id, pin.pin_name, pin_groups_result))
+                        pin.pin_id, pin.pin_name, pin_groups_result,
+                        symbol_name=getattr(pin, "symbol_name", ""), part_pins=part_pins))
                 pin_specs[(comp.refdes, pin.pin_name)] = spec
 
     ctx.pin_specs = pin_specs
@@ -950,6 +965,15 @@ def run_board(ctx: PipelineContext):
 
 # ── Verdict classification (relocated from run_corpus_test.classify_netlist_status) ──
 
+def _verdict_moving_statuses(report: dict) -> list[str]:
+    """Every VERDICT_MOVING checker's statuses, in registry order."""
+    statuses: list[str] = []
+    for spec in reg.VERDICT_MOVING:
+        bucket = report.get(spec.report_bucket) or []
+        statuses.extend(spec.extract_statuses(bucket))
+    return statuses
+
+
 def classify_report(report: dict) -> str:
     """Board-verdict status, registry-driven. Reproduces the old
     ``run_corpus_test.classify_netlist_status`` VERBATIM (proven by the fixture-matrix
@@ -974,10 +998,7 @@ def classify_report(report: dict) -> str:
     if report.get("pipeline_error"):
         return "pipeline_error"
 
-    statuses: list[str] = []
-    for spec in reg.VERDICT_MOVING:
-        bucket = report.get(spec.report_bucket) or []
-        statuses.extend(spec.extract_statuses(bucket))
+    statuses = _verdict_moving_statuses(report)
 
     if not statuses:               # no VERDICT_MOVING results at all
         return "no_checkable_nets"
@@ -990,3 +1011,10 @@ def classify_report(report: dict) -> str:
     if statuses.count("UNRESOLVABLE") > 0:
         return "has_unresolvable_only"
     return "no_checkable_nets"     # buckets non-empty but no recognized status
+
+
+def count_unresolvable(report: dict) -> int:
+    """UNRESOLVABLE statuses over the VERDICT_MOVING buckets (0 on pipeline_error); TODO-524."""
+    if report.get("pipeline_error"):
+        return 0
+    return _verdict_moving_statuses(report).count("UNRESOLVABLE")
