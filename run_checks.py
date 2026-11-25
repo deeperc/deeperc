@@ -39,6 +39,7 @@ from steps import (                     # noqa: E402
     # eligibility scan + provenance check.
     step_02_parser,
     step_03_resolver,
+    part_bindings,
 )
 from steps.part_class import (  # noqa: E402  (moved, TODO-484)
     _REFDES_PREFIX_RE, pseudo_part_provenance,
@@ -73,15 +74,12 @@ DEFAULT_OUTPUT_DIR     = PROJECT_ROOT / "corpus_results"
 # UNSKIPPED: it now runs end-to-end in 0.4s (step_06 0.0s, 0 Gemma calls),
 # 71 PASS / 0 FAIL / 128 UNRESOLVABLE (coverage gap, not defect).
 #
-# vme-wren.net remains skipped, but for a *different* reason than the original
-# step_06 timeout: 73 uncached active parts (incl. a Zynq UltraScale FPGA) mean a
-# cold re-eval would be dominated by step_03 datasheet-parse cost (MinerU), not
-# step_06. Full re-eval is blocked on a broader datasheet pre-warm strategy
-# (TODO-4 territory).
+# vme-wren.net was UNSKIPPED by TODO-574 (2026-11): the four-roots recon measured 9 IC
+# parts with no local PDF (not 73) and a 2 s run on warm caches; the root sheet replaced
+# its 18 sub-sheet exports in the precision gate (logs/v2_13_boards.txt). The set is kept
+# (empty) so the skip mechanism and its summary field stay in place.
 # See investigation/skip_list_reeval_v2_10_5/SUMMARY.md.
-CORPUS_SKIP_LIST = {
-    "vme-wren.net",
-}
+CORPUS_SKIP_LIST: set[str] = set()
 
 logging.basicConfig(level=logging.WARNING, format="%(message)s")
 
@@ -135,7 +133,7 @@ def is_passive_value(part_number: str) -> bool:
 
 # ── Non-IC part classifier ────────────────────────────────────────────────────
 
-PAREN_SUFFIX_RE = re.compile(r'\s*\(.*\)$')
+PAREN_SUFFIX_RE = part_bindings.PAREN_SUFFIX_RE  # definition lives in steps/part_bindings.py (TODO-225)
 MIN_MPN_LENGTH  = 4
 
 # Patterns that identify non-IC parts — unresolvable instances of these
@@ -613,8 +611,12 @@ def _unresolvable_line(r: dict) -> str:
     """The cause, then its citation: when the entry carries a structured
     unresolvable_reason (signal axis today), lead with it and keep the evidence
     label as a bracketed source rather than dropping it. Other axes are
-    unchanged (evidence, then evidence_label, then unresolvable_reason)."""
+    unchanged (evidence, then evidence_label, then unresolvable_reason).
+    TODO-557: a signal row (it has a "driver" key) carries a reason CODE, so it
+    leads with its explanation text when set, falling back to the code."""
     reason = r.get("unresolvable_reason")
+    if "driver" in r:
+        reason = r.get("explanation") or reason
     if reason:
         label = r.get("evidence_label")
         return f"{reason} [{label}]".strip() if label else reason.strip()
@@ -698,7 +700,8 @@ def _write_summary(
     total_found: int,
     total_elapsed: float,
 ) -> None:
-    counts = {"all_pass": 0, "has_warn": 0, "has_fail": 0, "has_unresolvable_only": 0, "no_checkable_nets": 0, "pipeline_error": 0}
+    # TODO-558 / TODO-525: pass_with_unresolvable is a frozen bucket (schema 1.0).
+    counts = {"all_pass": 0, "pass_with_unresolvable": 0, "has_warn": 0, "has_fail": 0, "has_unresolvable_only": 0, "no_checkable_nets": 0, "pipeline_error": 0}
     for r in run_results:
         counts[r["status"]] = counts.get(r["status"], 0) + 1
 
@@ -1274,10 +1277,11 @@ def main() -> None:
     ran          = len(run_results)
     completed    = sum(1 for r in run_results if r["status"] != "pipeline_error")
     pipe_errors  = ran - completed
-    all_pass_ct     = sum(1 for r in run_results if r["status"] == "all_pass")
-    has_warn_ct     = sum(1 for r in run_results if r["status"] == "has_warn")
-    has_fail_ct     = sum(1 for r in run_results if r["status"] == "has_fail")
-    no_checkable_ct = sum(1 for r in run_results if r["status"] == "no_checkable_nets")
+    # TODO-558: the Results line prints every board-verdict bucket except
+    # pipeline_error, which the Ran line above already counts.
+    _bucket_ct = {b: sum(1 for r in run_results if r["status"] == b)
+                  for b in ("all_pass", "pass_with_unresolvable", "has_warn", "has_fail",
+                            "has_unresolvable_only", "no_checkable_nets")}
 
     mins, secs  = divmod(int(total_elapsed), 60)
     elapsed_str = f"{mins}m {secs}s" if mins else f"{secs}s"
@@ -1285,7 +1289,7 @@ def main() -> None:
     print("─" * 52)
     print("  DONE")
     print(f"  Ran: {ran}  |  Completed: {completed}  |  Pipeline errors: {pipe_errors}")
-    print(f"  Results: {all_pass_ct} all_pass  |  {has_warn_ct} has_warn  |  {has_fail_ct} has_fail  |  {no_checkable_ct} no_checkable_nets")
+    print("  Results: " + "  |  ".join(f"{n} {b}" for b, n in _bucket_ct.items()))
     print(f"  Total time: {elapsed_str}")
     print(f"  Summary: {output_dir / 'summary.json'}")
     print(f"           {output_dir / 'summary.csv'}")

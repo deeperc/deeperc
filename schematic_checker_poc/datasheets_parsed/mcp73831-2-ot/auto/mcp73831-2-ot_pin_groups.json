@@ -118,7 +118,15 @@
       },
       "VIH_source": null,
       "abs_max_source": null,
-      "VOH_min_expr": "VDD-1"
+      "VOH_min_expr": "VDD-1",
+      "example_pins_by_package": {
+        "DFN-9": [
+          "5|STAT"
+        ],
+        "SOT-23-5": [
+          "5|STAT"
+        ]
+      }
     },
     {
       "group_name": "Current Regulation Set (PROG)",
@@ -138,7 +146,12 @@
       "supply_rail_name": null,
       "citations": {},
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "DFN-9": [
+          "8|PROG"
+        ]
+      }
     },
     {
       "group_name": "All Inputs and Outputs (General)",
@@ -171,7 +184,16 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "p. 3"
+      "abs_max_source": "p. 3",
+      "example_pins_by_package": {
+        "DFN-9": [
+          "5|STAT",
+          "8|PROG"
+        ],
+        "SOT-23-5": [
+          "5|STAT"
+        ]
+      }
     }
   ],
   "default_group": "All Inputs and Outputs (General)",
@@ -185,6 +207,89 @@
       "pairs_rewritten": 13,
       "entries_dropped_as_duplicates": 2,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/microchip/mcp73831-2-ot.pdf",
+        "sha256": "75297f2a5235599368381adfb63df2652cc22d757f171f388147b2ab3d32776f"
+      },
+      "packages": [
+        "DFN-9",
+        "SOT-23-5"
+      ],
+      "restored": [
+        {
+          "group": 3,
+          "name": "STAT",
+          "number": "5",
+          "package": "DFN-9",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "STAT",
+          "number": "5",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "PROG",
+          "number": "8",
+          "package": "DFN-9",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "STAT",
+          "number": "5",
+          "package": "DFN-9",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "PROG",
+          "number": "8",
+          "package": "DFN-9",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "STAT",
+          "number": "5",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 6,
+        "contradicted": 2,
+        "not_shown": 18,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

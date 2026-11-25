@@ -259,6 +259,31 @@
       "pairs_rewritten": 29,
       "entries_dropped_as_duplicates": 2,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/espressif/esp32-wrover-e.pdf",
+        "sha256": "ca632257a99c32903b932501e7f3dfe172a87e3179e6b9290f667bf11ef02c55"
+      },
+      "packages": [],
+      "restored": [],
+      "counts": {
+        "confirmed": 0,
+        "contradicted": 0,
+        "not_shown": 0,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

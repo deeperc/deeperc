@@ -40,10 +40,13 @@ class SupplyUnresolvableReason(Enum):
     NET_VOLTAGE_NOT_CONFIRMED  = "NET_VOLTAGE_NOT_CONFIRMED"
     # evaluate_supply's second UNRESOLVABLE return: a matched group with neither a rated max nor an absolute max.
     NO_RATED_CEILING           = "NO_RATED_CEILING"
+    # TODO-569: the row's refdes is merged in the netlist (steps/merged_refdes.py).
+    MERGED_REFDES              = "MERGED_REFDES"
 
 from steps.step_05_validator import validate_supply_group
-from steps.part_class import is_ground_or_pad_pin, is_pseudo_part_by_provenance
+from steps.part_class import classify_part, is_ground_or_pad_pin, is_pseudo_part_by_provenance
 from steps import pin_match
+from steps import package_key
 from steps.step_08_checker import is_passive_component
 from steps.step_06_power import (
     _converter_family,
@@ -118,7 +121,19 @@ def _supply_pin_candidates(name: str) -> set[str]:
     return cands
 
 
+def _unbraced(name) -> str:
+    """Delete KiCad subscript braces ("{" and "}") and nothing else: V_{IN} -> V_IN.
+
+    TODO-528: a KiCad subscript pin name never reaches SUPPLY_PIN_NAMES through
+    _supply_pin_candidates (which strips "_", "-" and voltage / digit decorations but not
+    braces). Precedent: steps/part_class.is_ground_or_pad_pin already deletes both braces.
+    """
+    return (name or "").replace("{", "").replace("}", "")
+
+
 def _is_supply_pin(pin_name: str) -> bool:
+    """Raw-name supply gate. Brace names (V_{IN}) are deliberately NOT reduced here: the
+    brace path lives in _admit_supply_pin (TODO-528), after the group listing."""
     if not pin_name:
         return False
     name = pin_name.upper().strip()
@@ -253,12 +268,18 @@ def _find_matching_supply_group(pin_name: str, pin_groups_result: dict | None,
         return None
 
     pin_upper = pin_name.upper().strip()
+    # TODO-528 D2: a KiCad subscript pin (V_{IN}) also meets a rail named VIN / V_IN in Pass 1.
+    # Brace pins only; a brace-free pin compares exactly as before. Rail-name side unchanged.
+    pin_keys = {pin_upper}
+    if "{" in pin_name or "}" in pin_name:
+        ub = _unbraced(pin_name).upper().strip()
+        pin_keys |= {ub, ub.replace('_', '').replace('-', '')}
     power = [g for g in pin_groups_result.get("pin_groups", []) if g.get("pin_type") == "power"]
 
     # Pass 1: exact rail_name == pin_name (the pin's OWN rail). Negatives are KEPT here — a pin
     # naming its own negative rail is routed to UNRESOLVABLE by the caller, not given a 0V ceiling.
     # LLM extractor may return non-string values; coerce defensively.
-    exact = [g for g in power if str(g.get("supply_rail_name") or "").upper().strip() == pin_upper]
+    exact = [g for g in power if str(g.get("supply_rail_name") or "").upper().strip() in pin_keys]
     if exact:
         picked = _pick_by_voltage(exact, actual_voltage)
         _log_latent_flip(exact, picked, pin_name, actual_voltage)
@@ -286,9 +307,11 @@ def _listing_supply_groups(pin, groups_result, comp=None) -> list[dict]:
     a power group with a ceiling. An explicit null example_pins is treated as empty."""
     part_pins = (None if comp is None else
                  [(p.pin_id, p.pin_name, getattr(p, "symbol_name", "")) for p in comp.pins])
+    package = (None if comp is None else  # TODO-550: the footprint's document package
+               package_key.component_package(comp, package_key.cache_packages(groups_result)))
     return pin_match.listing_supply_groups(pin.pin_id, pin.pin_name or "", groups_result,
                                            symbol_name=getattr(pin, "symbol_name", ""),
-                                           part_pins=part_pins)
+                                           part_pins=part_pins, package=package)
 
 
 def _admit_supply_pin(comp, pin, groups_result) -> list | bool:
@@ -299,13 +322,63 @@ def _admit_supply_pin(comp, pin, groups_result) -> list | bool:
             with a ceiling that list it (non-empty admits; the pin binds to one of THESE,
             never via Pass 1 / Pass 2). Passive refdes, pseudo-parts and ground/pad pin
             names are never admitted this way ([]).
+    True (2nd) — TODO-528: a KiCad subscript name (V_{IN}) that no group lists, whose
+            brace-deleted form passes _is_supply_pin. Listing keeps precedence; only pins
+            that previously got NO supply row change. Ground / pad names never reduce to a
+            canonical supply name, so they stay [].
     """
     if _is_supply_pin(pin.pin_name):
         return True
     if (not groups_result or is_passive_component(comp.refdes)
             or is_pseudo_part_by_provenance(comp) or is_ground_or_pad_pin(pin.pin_name)):
-        return []
-    return _listing_supply_groups(pin, groups_result, comp)
+        listed = []
+    else:
+        listed = _listing_supply_groups(pin, groups_result, comp)
+    if listed:
+        return listed
+    if _is_supply_pin(_unbraced(pin.pin_name)):
+        return True
+    return []
+
+
+# ── TODO-556 decision 19: a part's own regulator-output / bootstrap pins ───────
+# A supply-admitted pin whose name (or, for a numeric pin name, the netlist's libparts
+# symbol name, PinIR.symbol_name) carries one of these tokens is the part's OWN
+# regulator output, core-capacitor or bootstrap node, not a supply input. When its net
+# has no voltage it gets no supply row; it is disclosed per pin in not_checked_pins
+# with reason OWN_SUPPLY_PIN. A pin on a net WITH a voltage keeps its row (70 PASS rows
+# on the 67-board gate match a token). Bare VREG is not a token (VREG_VIN is an input);
+# BST<letter> (DRV8300 BSTA / BSTB / BSTC) is. Measured by the TODO-556 checker build
+# recon (todo556_cbr / _c) and the second UNRESOLVABLE analysis (todo556_unres2).
+OWN_SUPPLY_PIN_TOKENS = frozenset({
+    "VDDCR", "VCAP", "VCAP1", "VCAP2", "VCAP_1", "VCAP_2", "VREGOUT", "REGOUT",
+    "VREG_OUT", "VDD_CORE_OUT", "VDDCORE_OUT", "LDO_OUT", "VOUT_LDO", "BST", "BOOT", "BTST",
+    "CBOOT", "BOOTSTRAP", "CB", "VBST", "VDDA_OUT", "VDD_OUT", "VCORE_OUT", "DCOUPL",
+    "VDDCORE", "VCC_CORE_OUT", "REGIN_OUT",
+})
+_OWN_BST_RE = re.compile(r"BST[A-Z]")
+_OWN_NON_WORD_RE = re.compile(r"[^A-Z0-9_]")
+_DIGITS_RE = re.compile(r"\d+")
+
+
+def own_supply_pin_token(name) -> str | None:
+    """The own-pin token a pin name carries, else None. The whole name, then each
+    underscore-separated part, is tested (braces deleted, other separators -> "_")."""
+    u = _OWN_NON_WORD_RE.sub("_", str(name or "").upper().replace("{", "").replace("}", "")).strip("_")
+    for t in [u] + [t for t in u.split("_") if t]:
+        if t in OWN_SUPPLY_PIN_TOKENS or _OWN_BST_RE.fullmatch(t):
+            return t
+    return None
+
+
+def _own_pin_token(pin) -> str | None:
+    """Own-pin token from the pin name, or (a numeric name) from its symbol name."""
+    name = pin.pin_name or ""
+    sym = getattr(pin, "symbol_name", "") or ""
+    tok = own_supply_pin_token("" if _DIGITS_RE.fullmatch(name.strip()) else name)
+    if tok is None and sym and not _DIGITS_RE.fullmatch(sym.strip()):
+        tok = own_supply_pin_token(sym)
+    return tok
 
 
 def evaluate_supply(
@@ -463,7 +536,16 @@ def check_component_supplies(
     pin_groups: dict,           # part_number → pin_groups_result
     confirmed_voltages: dict,   # net_name → voltage_v
     derived_provenance: dict | None = None,  # net → {confidence, rail, voltage, bridge, bridge_type}
+    *,
+    not_checked_pins_out: list | None = None,
+    not_checked_out: list | None = None,
 ) -> list[SupplyCheckResult]:
+    """not_checked_pins_out, when given, is extended with one OWN_SUPPLY_PIN dict per
+    supply-admitted pin skipped by the own-pin rule (TODO-556 decision 19).
+
+    TODO-556 decision 27: a part classify_part classes as a connector gets no supply
+    rows (a connector has no supply spec). not_checked_out, when given, is extended with
+    one NON_IC_PART dict (checker "supply") per such part that has a supply-admitted pin."""
     from steps.net_name_utils import normalize_net_name
     results = []
     derived_provenance = derived_provenance or {}
@@ -483,6 +565,19 @@ def check_component_supplies(
         pn = comp.part_number
         groups_result = pin_groups.get(pn)
 
+        part_cls = classify_part(comp)
+        if part_cls is not None and part_cls[0] == "connector":
+            # TODO-556 decision 27: TODO-554's non-IC rule, applied to supply.
+            skipped = [p for p in comp.pins if _admit_supply_pin(comp, p, groups_result)]
+            if skipped and not_checked_out is not None:
+                not_checked_out.append({
+                    "refdes": comp.refdes, "part_number": pn,
+                    "part_class": part_cls[0], "class_evidence": part_cls[1],
+                    "checker": "supply", "reason": "NON_IC_PART",
+                    "nets": sorted({p.net for p in skipped}), "pins_with_rows": 0,
+                })
+            continue
+
         # Sibling supply rails on this part: {net → voltage} across all its supply
         # pins. Used by the rail/group-mismatch guard to tell a genuine
         # undervoltage from a wrong-rail binding (a distinct sibling rail that the
@@ -500,6 +595,22 @@ def check_component_supplies(
                 continue
 
             actual_voltage = _voltage_for(pin.net)
+
+            if actual_voltage is None:
+                own_tok = _own_pin_token(pin)
+                if own_tok is not None:
+                    # TODO-556 decision 19: the part's own regulator / bootstrap node on
+                    # a net with no voltage: no supply row, disclosed per pin.
+                    if not_checked_pins_out is not None:
+                        entry = {"refdes": comp.refdes, "part_number": pn,
+                                 "pin_name": pin.pin_name, "net": pin.net,
+                                 "checker": "supply", "reason": "OWN_SUPPLY_PIN",
+                                 "token": own_tok}
+                        sym = getattr(pin, "symbol_name", "") or ""
+                        if sym and sym != pin.pin_name:
+                            entry["symbol_name"] = sym
+                        not_checked_pins_out.append(entry)
+                    continue
 
             if admit is True:
                 group = _find_matching_supply_group(pin.pin_name, groups_result, actual_voltage)

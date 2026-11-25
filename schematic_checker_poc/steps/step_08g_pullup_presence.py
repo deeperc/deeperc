@@ -144,6 +144,8 @@ ACTIVATION_I2C_NET_NAME = "i2c_net_name"
 # handling routes to UNRESOLVABLE, never a silent downgrade). Applies at all five
 # presence sites; the element pairing is disclosed, never inferred.
 REASON_PULL_PATH_INDETERMINATE = "PULL_PATH_INDETERMINATE"
+# TODO-569: a finding resting on a merged refdes (relabelled by steps/merged_refdes.py).
+REASON_MERGED_REFDES = "MERGED_REFDES"
 
 # I2C role set classify_net_name may resolve (peripheral_roles.Role); used only
 # to gate the name-based alternate entry, never to broaden it to other buses.

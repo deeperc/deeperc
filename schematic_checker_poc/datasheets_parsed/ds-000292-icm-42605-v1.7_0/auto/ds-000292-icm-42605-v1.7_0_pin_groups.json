@@ -43,7 +43,12 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "3.7 ABSOLUTE MAXIMUM RATINGS"
+      "abs_max_source": "3.7 ABSOLUTE MAXIMUM RATINGS",
+      "example_pins_by_package": {
+        "LGA-14": [
+          "8|VDD"
+        ]
+      }
     },
     {
       "group_name": "Power Supply VDDIO",
@@ -88,7 +93,12 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "3.7 ABSOLUTE MAXIMUM RATINGS"
+      "abs_max_source": "3.7 ABSOLUTE MAXIMUM RATINGS",
+      "example_pins_by_package": {
+        "LGA-14": [
+          "5|VDDIO"
+        ]
+      }
     },
     {
       "group_name": "Ground",
@@ -108,7 +118,12 @@
       "supply_rail_name": null,
       "citations": {},
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "LGA-14": [
+          "6|GND"
+        ]
+      }
     },
     {
       "group_name": "Digital Input (FSYNC, SCLK, SDI, CS)",
@@ -146,7 +161,14 @@
       "VIH_source": "Table 3. D.C. Electrical Characteristics",
       "abs_max_source": null,
       "VIH_min_expr": "0.7*VDDIO",
-      "VIL_max_expr": "0.3*VDDIO"
+      "VIL_max_expr": "0.3*VDDIO",
+      "example_pins_by_package": {
+        "LGA-14": [
+          "9|INT2 / FSYNC",
+          "13|AP_SCL / AP_SCLK",
+          "12|AP_CS"
+        ]
+      }
     },
     {
       "group_name": "Digital Output (SDO, INT1, INT2)",
@@ -182,7 +204,14 @@
       },
       "VIH_source": null,
       "abs_max_source": null,
-      "VOH_min_expr": "0.9*VDDIO"
+      "VOH_min_expr": "0.9*VDDIO",
+      "example_pins_by_package": {
+        "LGA-14": [
+          "1|AP_SDO / AP_AD0",
+          "4|INT1 / INT",
+          "9|INT2 / FSYNC"
+        ]
+      }
     },
     {
       "group_name": "I2C I/O (SCL, SDA)",
@@ -222,7 +251,12 @@
         }
       },
       "VIH_source": "Table 3. D.C. Electrical Characteristics",
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "LGA-14": [
+          "13|AP_SCL / AP_SCLK"
+        ]
+      }
     },
     {
       "group_name": "Reserved/No Connect Pins",
@@ -242,7 +276,16 @@
       "supply_rail_name": null,
       "citations": {},
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "LGA-14": [
+          "2|RESV",
+          "3|RESV",
+          "7|RESV",
+          "10|RESV",
+          "11|RESV"
+        ]
+      }
     }
   ],
   "default_group": "Digital Input (FSYNC, SCLK, SDI, CS)",
@@ -256,6 +299,169 @@
       "pairs_rewritten": 17,
       "entries_dropped_as_duplicates": 4,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/misc/DS-000292-ICM-42605-v1.7_0.pdf",
+        "sha256": "ef040cc4ef6c8c999f17634b87ba8add9f726814acc8179ccebdcd21ad19b71e"
+      },
+      "packages": [
+        "LGA-14"
+      ],
+      "restored": [
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "8",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "VDDIO",
+          "number": "5",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "GND",
+          "number": "6",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "AP_CS",
+          "number": "12",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "AP_SCL / AP_SCLK",
+          "number": "13",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "INT2 / FSYNC",
+          "number": "9",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "AP_SDO / AP_AD0",
+          "number": "1",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "INT1 / INT",
+          "number": "4",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "INT2 / FSYNC",
+          "number": "9",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "AP_SCL / AP_SCLK",
+          "number": "13",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "RESV",
+          "number": "10",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "RESV",
+          "number": "11",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "RESV",
+          "number": "2",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "RESV",
+          "number": "3",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "RESV",
+          "number": "7",
+          "package": "LGA-14",
+          "source": "pdf_table",
+          "page": 19,
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 15,
+        "contradicted": 0,
+        "not_shown": 2,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

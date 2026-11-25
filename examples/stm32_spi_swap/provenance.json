@@ -17,7 +17,7 @@
     "board_status": "has_fail",
     "peripheral_checks": {"total": 2, "pass": 0, "warn": 0, "fail": 2, "unresolvable": 0},
     "signal_checks": {"total": 4, "pass": 0, "warn": 0, "fail": 0, "unresolvable": 4},
-    "supply_checks": {"total": 5, "pass": 1, "warn": 0, "fail": 0, "unresolvable": 4},
+    "supply_checks": {"total": 5, "pass": 4, "warn": 0, "fail": 0, "unresolvable": 1},
     "structural_checks": {"total": 10, "pass": 10, "warn": 0, "fail": 0},
     "fail_findings": [
       {
@@ -36,9 +36,10 @@
       }
     ],
     "confidence": "high (KB-sourced pin role, unambiguous, MCU KB evidence -- no datasheet involved)",
-    "unrelated_unresolvables": "4 signal + 4 supply UNRESOLVABLE (net voltage not confirmed, no rails.json sidecar) and 0 peripheral UNRESOLVABLE -- present with or without the swap; not injected by this fixture's construction",
+    "unrelated_unresolvables": "4 signal + 1 supply UNRESOLVABLE (U1 VBAT: net voltage not confirmed, no rails.json sidecar) and 0 peripheral UNRESOLVABLE -- present with or without the swap; not injected by this fixture's construction. Since TODO-581 (a6a73d9, v0.5.0 era) the bare 3V3 net is a recognised 3.3 V rail, so U1 VDD 24/36/48 are PASS (was 1 PASS / 4 UNRESOLVABLE through v0.4.x)",
     "unchanged_axes": "pullup_value 0, output_conflict 0 FAIL, pullup_presence 0 WARN"
   },
   "verified_by": "python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-confirm",
-  "date": "2026-09-07"
+  "date": "2026-09-07",
+  "expected_updated": "2026-11-24 (TODO-586 export rehearsal; supply 1/4 -> 4/1 after TODO-581)"
 }

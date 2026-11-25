@@ -55,6 +55,14 @@ does not match, rather than choosing among them (the R-C6/R-C8 principle).
 
 A group whose example_pins is null or missing is treated as having none: it is
 never a match target and never raises.
+
+Per-package view (TODO-550 D4): every public entry point takes package=None.
+With a package key (steps/package_key.pick), each "?|NAME" entry of a group's
+example_pins is replaced by that group's example_pins_by_package[package] pairs
+for NAME (all of them if several); a name with no confirmed pair stays ?|NAME.
+The stages above run unchanged on that view, and every hit is mapped back to the
+ORIGINAL group object. package None, or a key no group carries, is exactly the
+matching without the view.
 """
 import re
 
@@ -107,6 +115,46 @@ def _distinct(groups: list) -> list:
             seen.add(id(g))
             out.append(g)
     return out
+
+
+def _package_view(groups: list, package) -> list:
+    """The per-call view of `groups` under `package` (module docstring, TODO-550 D4). A group
+    with no confirmed pair for the package is the SAME object; a group with confirmed pairs
+    is a shallow copy with only example_pins replaced. No change -> `groups` itself."""
+    if not package or not groups:
+        return groups
+    out, changed = [], False
+    for g in groups:
+        bp = g.get("example_pins_by_package") if isinstance(g, dict) else None
+        pairs = bp.get(package) if isinstance(bp, dict) else None
+        byname = {}
+        for e in pairs or []:
+            kind, _num, name = split_entry(e)
+            if kind == "pair":
+                byname.setdefault(name, []).append(e)
+        if not byname:
+            out.append(g)
+            continue
+        view = []
+        for e in _examples(g):
+            kind, _num, name = split_entry(e)
+            if kind == "name" and name in byname:
+                view.extend(byname[name])
+            else:
+                view.append(e)
+        copy = dict(g)
+        copy["example_pins"] = view
+        out.append(copy)
+        changed = True
+    return out if changed else groups
+
+
+def _originals(hits: list, view: list, groups: list) -> list:
+    """Map hit groups of `view` back to the original objects of `groups`, by index."""
+    if view is groups:
+        return hits
+    back = {id(v): groups[i] for i, v in enumerate(view)}
+    return [back.get(id(h), h) for h in hits]
 
 
 def _hits_exact(pin_id, pin_name, groups: list, symbol_name="") -> list:
@@ -197,14 +245,22 @@ def _number_name_bind(pin_id, pin_name, symbol_name, groups: list, part_pins) ->
 
 
 def match_groups(pin_id: str, pin_name: str, groups: list, *,
-                 symbol_name: str = "", part_pins=None) -> tuple[str, list]:
+                 symbol_name: str = "", part_pins=None,
+                 package: str | None = None) -> tuple[str, list]:
     """("exact", every S1 group in file order) | ("norm", [group]) |
     ("slash", [group]) (S3) | ("number", [group]) (nameless pin) |
     ("number_name", [group]) (named pin, NAME-RELATED number bind; only with
     part_pins) | ("num_conflict", []) | ("num_ambiguous", []) | ("none", []).
     part_pins: iterable of (pin_id, pin_name, symbol_name) for every pin of the
-    part; None (the default) keeps TODO-488 J2: a named pin never binds by number."""
+    part; None (the default) keeps TODO-488 J2: a named pin never binds by number.
+    package: the per-package view's key (TODO-550); hits are the original groups."""
     groups = groups or []
+    view = _package_view(groups, package)
+    kind, hits = _match_groups(pin_id, pin_name, view, symbol_name, part_pins)
+    return kind, _originals(hits, view, groups)
+
+
+def _match_groups(pin_id, pin_name, groups: list, symbol_name, part_pins) -> tuple[str, list]:
     exact = _hits_exact(pin_id, pin_name, groups, symbol_name)
     if exact:
         return "exact", exact
@@ -234,6 +290,7 @@ def resolve_pin_spec_from_groups(
     *,
     symbol_name: str = "",
     part_pins=None,
+    package: str | None = None,
 ) -> dict | None:
     if not pin_groups_result:
         return None
@@ -243,9 +300,10 @@ def resolve_pin_spec_from_groups(
 
     # Priority 1: S1 exact, else S2 normalized, else S3 alternates (TODO-504),
     # else the number stage for a nameless pin (TODO-488) or, with part_pins, a
-    # NAME-RELATED number bind of a named pin (TODO-531)
+    # NAME-RELATED number bind of a named pin (TODO-531); under `package`, on the
+    # per-package view (TODO-550), returning the original group
     _kind, hits = match_groups(pin_id, pin_name, groups, symbol_name=symbol_name,
-                               part_pins=part_pins)
+                               part_pins=part_pins, package=package)
     if hits:
         return hits[0]
 
@@ -287,7 +345,8 @@ def _group_is_open_drain(group: dict | None) -> bool:
 
 def pin_match_meta(pin_id: str, pin_name: str,
                    pin_groups_result: dict | None, *,
-                   symbol_name: str = "", part_pins=None) -> tuple[bool, bool]:
+                   symbol_name: str = "", part_pins=None,
+                   package: str | None = None) -> tuple[bool, bool]:
     """Returns (pin_type_exact, open_drain) for the group this pin resolves to.
 
     - pin_type_exact: the pin POSITIVELY matched a group's `example_pins` (True),
@@ -305,13 +364,14 @@ def pin_match_meta(pin_id: str, pin_name: str,
     if not pin_groups_result:
         return False, False
     kind, hits = match_groups(pin_id, pin_name, pin_groups_result.get("pin_groups", []),
-                              symbol_name=symbol_name, part_pins=part_pins)
+                              symbol_name=symbol_name, part_pins=part_pins, package=package)
     if hits:
         return True, _group_is_open_drain(hits[0])
     # No positive match — resolves via fallback; report open-drain of the fallback
     # group for completeness, but pin_type_exact is False.
     grp = resolve_pin_spec_from_groups(pin_id, pin_name, pin_groups_result,
-                                       symbol_name=symbol_name, part_pins=part_pins)
+                                       symbol_name=symbol_name, part_pins=part_pins,
+                                       package=package)
     return False, _group_is_open_drain(grp)
 
 
@@ -320,7 +380,8 @@ def _has_ceiling(g: dict) -> bool:
 
 
 def listing_supply_groups(pin_id, pin_name, groups_result, *,
-                          symbol_name: str = "", part_pins=None) -> list[dict]:
+                          symbol_name: str = "", part_pins=None,
+                          package: str | None = None) -> list[dict]:
     """Power groups with a ceiling (supply_max or supply_abs_max) that list this pin
     (step_08b's TODO-484 admission).
 
@@ -329,10 +390,15 @@ def listing_supply_groups(pin_id, pin_name, groups_result, *,
     or, when S1-S3 hit nothing, the number stage: a nameless pin's "number" hit or,
     with part_pins, a named pin's "number_name" hit) admits only
     when EVERY group it hits is a power group with a ceiling; step_08b's
-    _pick_by_voltage then chooses among them. Otherwise [].
+    _pick_by_voltage then chooses among them. Otherwise []. Under `package`, on the
+    per-package view (TODO-550), returning the original groups.
     """
     groups = (groups_result or {}).get("pin_groups", []) or []
-    pin_name = pin_name or ""
+    view = _package_view(groups, package)
+    return _originals(_listing(pin_id, pin_name or "", view, symbol_name, part_pins), view, groups)
+
+
+def _listing(pin_id, pin_name, groups: list, symbol_name, part_pins) -> list[dict]:
     exact = _hits_exact(pin_id, pin_name, groups, symbol_name)
     s1 = [g for g in exact if g.get("pin_type") == "power" and _has_ceiling(g)]
     if s1:
@@ -340,8 +406,7 @@ def listing_supply_groups(pin_id, pin_name, groups_result, *,
     hits = (_hits_s2(pin_id, pin_name, groups, symbol_name)
             or _hits_s3(pin_id, pin_name, groups, symbol_name))
     if not hits and not exact:
-        kind, hits = match_groups(pin_id, pin_name, groups, symbol_name=symbol_name,
-                                  part_pins=part_pins)
+        kind, hits = _match_groups(pin_id, pin_name, groups, symbol_name, part_pins)
         hits = hits if kind in ("number", "number_name") else []
     if hits and all(g.get("pin_type") == "power" and _has_ceiling(g) for g in hits):
         return hits

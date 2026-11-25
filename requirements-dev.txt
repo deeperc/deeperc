@@ -13,3 +13,8 @@
 # requirements.txt-only venv died on "No module named pytest". This file closes
 # that gap without widening the runtime manifest. LT-15 Phase B.1 STEP 2a.
 pytest==9.0.3
+# jsonschema validates reports against docs/report_schema.json (JSON Schema draft
+# 2020-12, which needs jsonschema 4 or later): tests/test_report_schema.py fails
+# without it, and examples_smoke.py prints one "schema check skipped" line.
+# TODO-558.
+jsonschema>=4.18,<5

@@ -273,7 +273,8 @@ def _sig(recv, drv):
 def test_u7_fallback_receiver_fail_downgraded():
     r = _sig(_recv(3.6, exact=False), _drv("output"))
     assert r.status == "UNRESOLVABLE"
-    assert r.unresolvable_reason == (
+    assert r.unresolvable_reason.value == "RECEIVER_DEFAULT_GROUP"
+    assert r.unresolvable_detail == (
         "Receiver U_RCV pin IN matched no pin group; "
         "default-group limits are not evidence for this pin")
     assert r.combined_confidence == "low"
@@ -296,7 +297,7 @@ def test_u7_fallback_receiver_pass_labelled():
 def test_u7_driver_guard_takes_precedence():
     r = _sig(_recv(3.6, exact=False), _drv("bidirectional"))
     assert r.status == "UNRESOLVABLE"
-    assert "push-pull" in r.unresolvable_reason
+    assert "push-pull" in r.unresolvable_detail
 
 
 # ── U8 wiring ───────────────────────────────────────────────────────────────
@@ -321,6 +322,7 @@ def test_u9_receiver_guard_fires_on_dataclass_default_pin_type_exact():
     )
     r = _sig(recv, _drv("output"))
     assert r.status == "UNRESOLVABLE"
-    assert r.unresolvable_reason == (
+    assert r.unresolvable_reason.value == "RECEIVER_DEFAULT_GROUP"
+    assert r.unresolvable_detail == (
         "Receiver U_RCV pin IN matched no pin group; "
         "default-group limits are not evidence for this pin")

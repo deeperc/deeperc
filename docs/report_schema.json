@@ -1,0 +1,1209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeepERC report, schema 1.0",
+  "description": "The JSON report one board run writes (steps/step_10_report.py build_report). THE 1.x PROMISE: within 1.x only additive changes are made: new optional keys and new reason codes. A new row status value, or removing, renaming or retyping a covered key, or changing a covered key's meaning, is 2.0. COVERED: schema_version, generated_at, provenance (the key, not its contents), source_netlist, summary, the seven finding arrays, not_checked_parts, not_checked_pins, power_rails_confirmed, and the optional drift_warning and staged_cache_notice. The keys evidence_label, evidence and explanation are covered; their wording is not. NOT COVERED: extraction_metadata, the contents of provenance, rail_candidates, rail_map_conflicts. Every object is open (additionalProperties is not restricted), so a 1.x report with keys added later still validates. ROW STATUS: closed list PASS, WARN, FAIL, UNRESOLVABLE. The key holding it is status on results, power_supply_results, structural_integrity_results and output_conflict_results, and severity on peripheral_integrity_results, pullup_value_results and pullup_presence_results. REASON CODES: upper-snake strings; every code list is open and the known codes are listed in each key's description and x-known-codes. PART NUMBERS: every covered part_number is written with leading and trailing whitespace removed. BOARD VERDICT: not stored in the report. classify_report computes it from the verdict keys above, and the [VERDICT] line, the main.py exit code and the corpus summary.json status carry it. Its frozen vocabulary is all_pass, pass_with_unresolvable, has_warn, has_fail, has_unresolvable_only, no_checkable_nets, pipeline_error; all_pass means no UNRESOLVABLE row. main.py exits non-zero on has_fail (and on a pipeline failure, which writes no report). The rest of summary.json is not part of the 1.0 promise.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^1\\.[0-9]+(?![\\s\\S])",
+      "description": "\"1.0\" for this file. Checked by pattern, so a 1.x report validates against the 1.x schema file."
+    },
+    "generated_at": {
+      "type": "string",
+      "description": "UTC time the report was written (ISO 8601)."
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Which code, cache and input produced the report. The key is covered; its contents are not."
+    },
+    "source_netlist": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "object",
+      "description": "Counts. pass / warn / fail / unresolvable at this level are the signal (step_08) array only; total_* sum every array.",
+      "properties": {
+        "total_nets_checked": {
+          "$ref": "#/$defs/count"
+        },
+        "pass": {
+          "$ref": "#/$defs/count"
+        },
+        "warn": {
+          "$ref": "#/$defs/count"
+        },
+        "fail": {
+          "$ref": "#/$defs/count"
+        },
+        "unresolvable": {
+          "$ref": "#/$defs/count"
+        },
+        "signal_checks": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/$defs/count"
+            },
+            "pass": {
+              "$ref": "#/$defs/count"
+            },
+            "warn": {
+              "$ref": "#/$defs/count"
+            },
+            "fail": {
+              "$ref": "#/$defs/count"
+            },
+            "unresolvable": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "total",
+            "pass",
+            "warn",
+            "fail",
+            "unresolvable"
+          ]
+        },
+        "supply_checks": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/$defs/count"
+            },
+            "pass": {
+              "$ref": "#/$defs/count"
+            },
+            "warn": {
+              "$ref": "#/$defs/count"
+            },
+            "fail": {
+              "$ref": "#/$defs/count"
+            },
+            "unresolvable": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "total",
+            "pass",
+            "warn",
+            "fail",
+            "unresolvable"
+          ]
+        },
+        "structural_checks": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/$defs/count"
+            },
+            "pass": {
+              "$ref": "#/$defs/count"
+            },
+            "warn": {
+              "$ref": "#/$defs/count"
+            },
+            "fail": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "total",
+            "pass",
+            "warn",
+            "fail"
+          ]
+        },
+        "pullup_value_checks": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/$defs/count"
+            },
+            "warn": {
+              "$ref": "#/$defs/count"
+            },
+            "fail": {
+              "$ref": "#/$defs/count"
+            },
+            "unresolvable": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "total",
+            "warn",
+            "fail",
+            "unresolvable"
+          ]
+        },
+        "peripheral_checks": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/$defs/count"
+            },
+            "pass": {
+              "$ref": "#/$defs/count"
+            },
+            "warn": {
+              "$ref": "#/$defs/count"
+            },
+            "fail": {
+              "$ref": "#/$defs/count"
+            },
+            "unresolvable": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "total",
+            "pass",
+            "warn",
+            "fail",
+            "unresolvable"
+          ]
+        },
+        "output_conflict_checks": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/$defs/count"
+            },
+            "fail": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "total",
+            "fail"
+          ]
+        },
+        "pullup_presence_checks": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "$ref": "#/$defs/count"
+            },
+            "warn": {
+              "$ref": "#/$defs/count"
+            },
+            "unresolvable": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "total",
+            "warn",
+            "unresolvable"
+          ]
+        },
+        "not_checked_parts": {
+          "$ref": "#/$defs/count"
+        },
+        "evidence_tier_checks": {
+          "type": "object",
+          "properties": {
+            "confirmed_local_count": {
+              "$ref": "#/$defs/count"
+            },
+            "cache_drift_count": {
+              "$ref": "#/$defs/count"
+            },
+            "cache_unverified_count": {
+              "$ref": "#/$defs/count"
+            },
+            "assumed_count": {
+              "$ref": "#/$defs/count"
+            },
+            "not_cache_derived_count": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "confirmed_local_count",
+            "cache_drift_count",
+            "cache_unverified_count",
+            "assumed_count",
+            "not_cache_derived_count"
+          ]
+        },
+        "total_pass": {
+          "$ref": "#/$defs/count"
+        },
+        "total_warn": {
+          "$ref": "#/$defs/count"
+        },
+        "total_fail": {
+          "$ref": "#/$defs/count"
+        },
+        "total_unresolvable": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "required": [
+        "total_nets_checked",
+        "pass",
+        "warn",
+        "fail",
+        "unresolvable",
+        "signal_checks",
+        "supply_checks",
+        "structural_checks",
+        "pullup_value_checks",
+        "peripheral_checks",
+        "output_conflict_checks",
+        "pullup_presence_checks",
+        "not_checked_parts",
+        "evidence_tier_checks",
+        "total_pass",
+        "total_warn",
+        "total_fail",
+        "total_unresolvable"
+      ]
+    },
+    "results": {
+      "type": "array",
+      "description": "Signal checker (step_08): one row per checked receiver pin. Verdict key: status.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/$defs/status",
+            "description": "This array's verdict key (closed list)."
+          },
+          "driver": {
+            "type": "object",
+            "properties": {
+              "refdes": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "part_number": {
+                "$ref": "#/$defs/part_number"
+              },
+              "pin_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "selection": {
+                "enum": [
+                  "explicit_output",
+                  "highest_rail",
+                  "first_pin",
+                  "none"
+                ],
+                "description": "How the driver was chosen (closed list). none when no driver is on the net (refdes null)."
+              },
+              "voltage_v": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "voltage_source": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "refdes",
+              "part_number",
+              "pin_name",
+              "selection",
+              "voltage_v",
+              "voltage_source",
+              "confidence"
+            ]
+          },
+          "receiver": {
+            "type": "object",
+            "properties": {
+              "refdes": {
+                "type": "string"
+              },
+              "part_number": {
+                "$ref": "#/$defs/part_number"
+              },
+              "pin_name": {
+                "type": "string"
+              },
+              "VIH_min_v": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "VIH_max_v": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "absolute_max_v": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "refdes",
+              "part_number",
+              "pin_name",
+              "VIH_min_v",
+              "VIH_max_v",
+              "absolute_max_v"
+            ]
+          },
+          "confidence": {
+            "type": "string"
+          },
+          "evidence_label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_tier": {
+            "$ref": "#/$defs/evidence_tier"
+          },
+          "unresolvable_reason": {
+            "$ref": "#/$defs/reason_code_or_null",
+            "description": "Why the row is UNRESOLVABLE; null otherwise (signal checker, step_08). Open code list: a reader must tolerate a code it does not know. Known codes: NO_DRIVER_VOLTAGE_NO_RECEIVER_SPECS, DRIVER_NO_DATASHEET, DRIVER_NO_CONFIRMED_RAIL, DRIVER_DOMAIN_AMBIGUOUS, RECEIVER_SPECS_NOT_EXTRACTED, DRIVER_NOT_PUSH_PULL, RECEIVER_DEFAULT_GROUP, RECEIVER_SPECS_UNRESOLVED, NO_DRIVER_ON_NET, MERGED_REFDES.",
+            "x-known-codes": [
+              "NO_DRIVER_VOLTAGE_NO_RECEIVER_SPECS",
+              "DRIVER_NO_DATASHEET",
+              "DRIVER_NO_CONFIRMED_RAIL",
+              "DRIVER_DOMAIN_AMBIGUOUS",
+              "RECEIVER_SPECS_NOT_EXTRACTED",
+              "DRIVER_NOT_PUSH_PULL",
+              "RECEIVER_DEFAULT_GROUP",
+              "RECEIVER_SPECS_UNRESOLVED",
+              "NO_DRIVER_ON_NET",
+              "MERGED_REFDES"
+            ]
+          },
+          "explanation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "explanation_source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Where explanation came from: local_model or canned; null on a PASS row."
+          },
+          "cache_tier": {
+            "type": "string",
+            "description": "Present only when the cited cache was served from the unpromoted staging tier; value \"staged\"."
+          }
+        },
+        "required": [
+          "net",
+          "status",
+          "driver",
+          "receiver",
+          "confidence",
+          "evidence_label",
+          "evidence_tier",
+          "unresolvable_reason",
+          "explanation",
+          "explanation_source"
+        ]
+      }
+    },
+    "power_supply_results": {
+      "type": "array",
+      "description": "Supply checker (step_08b). Verdict key: status.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "refdes": {
+            "type": "string"
+          },
+          "part_number": {
+            "$ref": "#/$defs/part_number"
+          },
+          "supply_pin": {
+            "type": "string"
+          },
+          "connected_net": {
+            "type": "string"
+          },
+          "actual_voltage_v": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "rated_min_v": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "rated_max_v": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "rated_abs_max_v": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "$ref": "#/$defs/status",
+            "description": "This array's verdict key (closed list)."
+          },
+          "confidence": {
+            "type": "string"
+          },
+          "evidence_label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_tier": {
+            "$ref": "#/$defs/evidence_tier"
+          },
+          "explanation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "explanation_source": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "unresolvable_reason": {
+            "$ref": "#/$defs/reason_code_or_null",
+            "description": "Why the row is UNRESOLVABLE; null otherwise (supply checker, step_08b). Open code list: a reader must tolerate a code it does not know. Known codes: VALIDATOR_REJECTED, SPEC_NOT_EXTRACTED, NEGATIVE_RAIL, CONVERTER_VIN_IMPLAUSIBLE, RAIL_NAME_MISMATCH, SIBLING_RAIL_MISMATCH, WEAK_BRIDGE_PROPAGATION, NET_VOLTAGE_NOT_CONFIRMED, NO_RATED_CEILING, MERGED_REFDES.",
+            "x-known-codes": [
+              "VALIDATOR_REJECTED",
+              "SPEC_NOT_EXTRACTED",
+              "NEGATIVE_RAIL",
+              "CONVERTER_VIN_IMPLAUSIBLE",
+              "RAIL_NAME_MISMATCH",
+              "SIBLING_RAIL_MISMATCH",
+              "WEAK_BRIDGE_PROPAGATION",
+              "NET_VOLTAGE_NOT_CONFIRMED",
+              "NO_RATED_CEILING",
+              "MERGED_REFDES"
+            ]
+          },
+          "cache_tier": {
+            "type": "string",
+            "description": "Present only when the cited cache was served from the unpromoted staging tier; value \"staged\"."
+          }
+        },
+        "required": [
+          "refdes",
+          "part_number",
+          "supply_pin",
+          "connected_net",
+          "actual_voltage_v",
+          "rated_min_v",
+          "rated_max_v",
+          "rated_abs_max_v",
+          "status",
+          "confidence",
+          "evidence_label",
+          "evidence_tier",
+          "explanation",
+          "explanation_source",
+          "unresolvable_reason"
+        ]
+      }
+    },
+    "structural_integrity_results": {
+      "type": "array",
+      "description": "Structural checker (step_08c). Verdict key: status.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "refdes": {
+            "type": "string"
+          },
+          "part_number": {
+            "$ref": "#/$defs/part_number"
+          },
+          "pin": {
+            "type": "string"
+          },
+          "pin_kind": {
+            "type": "string"
+          },
+          "connected_net": {
+            "type": "string"
+          },
+          "expected_kind": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/$defs/status",
+            "description": "This array's verdict key (closed list)."
+          },
+          "confidence": {
+            "type": "string"
+          },
+          "evidence_label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_tier": {
+            "$ref": "#/$defs/evidence_tier"
+          },
+          "explanation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "finding_code": {
+            "$ref": "#/$defs/reason_code_or_null",
+            "description": "Open code list; null on most rows. Known codes: NC_POWER_PIN_INTENTIONAL."
+          },
+          "cache_tier": {
+            "type": "string",
+            "description": "Present only when the cited cache was served from the unpromoted staging tier; value \"staged\"."
+          }
+        },
+        "required": [
+          "refdes",
+          "part_number",
+          "pin",
+          "pin_kind",
+          "connected_net",
+          "expected_kind",
+          "status",
+          "confidence",
+          "evidence_label",
+          "evidence_tier",
+          "explanation",
+          "finding_code"
+        ]
+      }
+    },
+    "peripheral_integrity_results": {
+      "type": "array",
+      "description": "Peripheral checker (step_08d). Verdict key: severity.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string"
+          },
+          "violation": {
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/$defs/status",
+            "description": "This array's verdict key, named severity on this array (closed list)."
+          },
+          "pins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "kb_provenance": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence_tier": {
+            "$ref": "#/$defs/evidence_tier"
+          },
+          "reason": {
+            "$ref": "#/$defs/reason_code_or_null",
+            "description": "Structured cause; null on some rows (peripheral checker, step_08d). Open code list: a reader must tolerate a code it does not know. Known codes: KB_MISSING, PIN_NOT_IN_KB, NO_MPN, PERIPHERAL_UNCONSTRAINED, COHERENCE_MATRIX_GUARD, COHERENCE_KB_INSTANCE_GUARD, M14_TIE_UNRESOLVABLE, M14_CONSENSUS_MINORITY, UART_CLEARED_UNRESOLVABLE, SPI_DIRECTION_UNCORROBORATED, MERGED_REFDES.",
+            "x-known-codes": [
+              "KB_MISSING",
+              "PIN_NOT_IN_KB",
+              "NO_MPN",
+              "PERIPHERAL_UNCONSTRAINED",
+              "COHERENCE_MATRIX_GUARD",
+              "COHERENCE_KB_INSTANCE_GUARD",
+              "M14_TIE_UNRESOLVABLE",
+              "M14_CONSENSUS_MINORITY",
+              "UART_CLEARED_UNRESOLVABLE",
+              "SPI_DIRECTION_UNCORROBORATED",
+              "MERGED_REFDES"
+            ]
+          }
+        },
+        "required": [
+          "net",
+          "violation",
+          "severity",
+          "pins",
+          "evidence",
+          "kb_provenance",
+          "evidence_tier",
+          "reason"
+        ]
+      }
+    },
+    "pullup_value_results": {
+      "type": "array",
+      "description": "Pull-up value checker (step_08e). Verdict key: severity.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string"
+          },
+          "refdes": {
+            "type": "string"
+          },
+          "violation": {
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/$defs/status",
+            "description": "This array's verdict key, named severity on this array (closed list)."
+          },
+          "ohms": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "value_str": {
+            "type": "string"
+          },
+          "band": {
+            "type": "string"
+          },
+          "pins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "evidence_tier": {
+            "$ref": "#/$defs/evidence_tier"
+          },
+          "reason": {
+            "$ref": "#/$defs/reason_code_or_null",
+            "description": "Structured cause; null unless the finding was relabelled (pull-up value checker, step_08e). Open code list: a reader must tolerate a code it does not know. Known codes: MERGED_REFDES.",
+            "x-known-codes": [
+              "MERGED_REFDES"
+            ]
+          }
+        },
+        "required": [
+          "net",
+          "refdes",
+          "violation",
+          "severity",
+          "ohms",
+          "value_str",
+          "band",
+          "pins",
+          "evidence",
+          "evidence_tier",
+          "reason"
+        ]
+      }
+    },
+    "output_conflict_results": {
+      "type": "array",
+      "description": "Output-conflict checker (step_08f). Verdict key: status (severity is a separate open string).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string"
+          },
+          "violation": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/$defs/status",
+            "description": "This array's verdict key (closed list)."
+          },
+          "severity": {
+            "type": "string",
+            "description": "Open string outside the verdict vocabulary (today always \"critical\"). The verdict key on this array is status."
+          },
+          "drivers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "refdes": {
+                  "type": "string"
+                },
+                "pin_id": {
+                  "type": "string"
+                },
+                "pin_name": {
+                  "type": "string"
+                },
+                "pintype": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "refdes",
+                "pin_id",
+                "pin_name",
+                "pintype"
+              ]
+            }
+          },
+          "evidence_label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_tier": {
+            "$ref": "#/$defs/evidence_tier"
+          },
+          "cache_tier": {
+            "type": "string",
+            "description": "Present only when the cited cache was served from the unpromoted staging tier; value \"staged\"."
+          }
+        },
+        "required": [
+          "net",
+          "violation",
+          "status",
+          "severity",
+          "drivers",
+          "evidence_label",
+          "evidence_tier"
+        ]
+      }
+    },
+    "pullup_presence_results": {
+      "type": "array",
+      "description": "Pull-up presence checker (step_08g). Verdict key: severity.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "violation": {
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/$defs/status",
+            "description": "This array's verdict key, named severity on this array (closed list)."
+          },
+          "pins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "corroboration": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "activation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "$ref": "#/$defs/reason_code_or_null",
+            "description": "Structured cause; null on every WARN (pull-up presence checker, step_08g). Open code list: a reader must tolerate a code it does not know. Known codes: PULL_PATH_INDETERMINATE, MERGED_REFDES.",
+            "x-known-codes": [
+              "PULL_PATH_INDETERMINATE",
+              "MERGED_REFDES"
+            ]
+          },
+          "evidence_tier": {
+            "$ref": "#/$defs/evidence_tier"
+          }
+        },
+        "required": [
+          "net",
+          "family",
+          "violation",
+          "severity",
+          "pins",
+          "corroboration",
+          "evidence",
+          "activation",
+          "reason",
+          "evidence_tier"
+        ]
+      }
+    },
+    "not_checked_parts": {
+      "type": "array",
+      "description": "Parts a checker did not check, one entry per part; [] when none. Not a status: no board verdict reads it.",
+      "items": {
+        "type": "object",
+        "description": "One disclosure per part a checker did not check. Common keys on every entry; each known reason adds its own required keys.",
+        "properties": {
+          "refdes": {
+            "type": "string"
+          },
+          "part_number": {
+            "$ref": "#/$defs/part_number"
+          },
+          "checker": {
+            "type": "string",
+            "description": "Which checker did not check the part. Open string; known values: signal, supply, all."
+          },
+          "reason": {
+            "$ref": "#/$defs/reason_code",
+            "description": "Why the part was not checked. Open code list: a reader must tolerate a code it does not know (an entry with an unknown reason is checked on these common keys only). Known codes: NON_IC_PART, MERGED_REFDES, SAME_INSTANCE.",
+            "x-known-codes": [
+              "NON_IC_PART",
+              "MERGED_REFDES",
+              "SAME_INSTANCE"
+            ]
+          },
+          "part_class": {
+            "type": "string"
+          },
+          "class_evidence": {
+            "type": "string"
+          },
+          "nets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pins_with_rows": {
+            "$ref": "#/$defs/count"
+          },
+          "records": {
+            "$ref": "#/$defs/count"
+          },
+          "sheet_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "part_numbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/part_number"
+            }
+          },
+          "collided_pins": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pin": {
+                  "type": "string"
+                },
+                "nets": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "pin",
+                "nets"
+              ]
+            }
+          },
+          "test": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "refdes",
+          "part_number",
+          "checker",
+          "reason"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "reason": {
+                  "const": "NON_IC_PART"
+                }
+              },
+              "required": [
+                "reason"
+              ]
+            },
+            "then": {
+              "required": [
+                "part_class",
+                "class_evidence",
+                "nets",
+                "pins_with_rows"
+              ],
+              "description": "NON_IC_PART (TODO-554): a recognised non-IC part. With checker signal, a signal-net pin left without a row (a part classed protection_diode is never a signal endpoint, TODO-556 decision 17); with checker supply (TODO-556 decision 27), a part classed connector whose supply pins get no power_supply_results row (pins_with_rows is then 0)."
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "reason": {
+                  "const": "MERGED_REFDES"
+                }
+              },
+              "required": [
+                "reason"
+              ]
+            },
+            "then": {
+              "required": [
+                "records",
+                "sheet_paths",
+                "part_numbers",
+                "collided_pins",
+                "test"
+              ],
+              "description": "MERGED_REFDES (TODO-569): a reference designator the netlist merges; part_number is null when the ref has no (comp) record."
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "reason": {
+                  "const": "SAME_INSTANCE"
+                }
+              },
+              "required": [
+                "reason"
+              ]
+            },
+            "then": {
+              "required": [
+                "nets",
+                "pins",
+                "pins_with_rows"
+              ],
+              "description": "SAME_INSTANCE (TODO-556 decision 16, TODO-567): signal rows whose receiver is the same part instance as the net's driver are not emitted; one entry per part names the nets and pins of those rows, and pins_with_rows counts the part's own (net, pin) receiver rows that remain."
+            }
+          }
+        ]
+      }
+    },
+    "power_rails_confirmed": {
+      "type": "object",
+      "description": "Net name -> confirmed voltage (null when not confirmed).",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "null"
+        ]
+      }
+    },
+    "drift_warning": {
+      "type": "string",
+      "description": "Present only when at least one finding is cache_drift. Key covered; wording not."
+    },
+    "staged_cache_notice": {
+      "type": "object",
+      "description": "Present only when a cache was served from the staging tier. Keys covered; message wording not.",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "staged_stems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "message",
+        "staged_stems"
+      ]
+    },
+    "not_checked_pins": {
+      "type": "array",
+      "description": "Pins a checker did not check, one entry per pin; build_report always writes it ([] when none), but it is not required, so a report without it still validates. Not a status: no board verdict reads it. First producer: step_08b, reason OWN_SUPPLY_PIN (TODO-556 decision 19); the shape is also reserved for TODO-559 (strap pins).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "refdes": {
+            "type": "string"
+          },
+          "part_number": {
+            "$ref": "#/$defs/part_number"
+          },
+          "pin_name": {
+            "type": "string"
+          },
+          "net": {
+            "type": "string"
+          },
+          "checker": {
+            "type": "string",
+            "description": "Which checker did not check the pin. Open string; known values: supply."
+          },
+          "reason": {
+            "$ref": "#/$defs/reason_code",
+            "description": "Why the pin was not checked. Open code list: a reader must tolerate a code it does not know. Known codes: OWN_SUPPLY_PIN.",
+            "x-known-codes": [
+              "OWN_SUPPLY_PIN"
+            ]
+          },
+          "token": {
+            "type": "string"
+          },
+          "symbol_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "refdes",
+          "part_number",
+          "pin_name",
+          "net",
+          "checker",
+          "reason"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "reason": {
+                  "const": "OWN_SUPPLY_PIN"
+                }
+              },
+              "required": [
+                "reason"
+              ]
+            },
+            "then": {
+              "required": [
+                "token"
+              ],
+              "description": "OWN_SUPPLY_PIN (TODO-556 decision 19): a supply-admitted pin whose name, or for a numeric pin name its libparts symbol name (symbol_name), carries an own regulator-output / core-capacitor / bootstrap token (token), on a net with no voltage; it gets no power_supply_results row."
+            }
+          }
+        ]
+      }
+    },
+    "extraction_metadata": {
+      "description": "NOT COVERED by the 1.0 promise: per-part extraction details keyed by the part number as the netlist wrote it (keys are not stripped)."
+    },
+    "rail_candidates": {
+      "description": "NOT COVERED by the 1.0 promise (present on main.py reports)."
+    },
+    "rail_map_conflicts": {
+      "description": "NOT COVERED by the 1.0 promise."
+    }
+  },
+  "required": [
+    "schema_version",
+    "generated_at",
+    "provenance",
+    "source_netlist",
+    "summary",
+    "results",
+    "power_supply_results",
+    "structural_integrity_results",
+    "peripheral_integrity_results",
+    "pullup_value_results",
+    "output_conflict_results",
+    "pullup_presence_results",
+    "not_checked_parts",
+    "power_rails_confirmed"
+  ],
+  "$defs": {
+    "status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL",
+        "UNRESOLVABLE"
+      ]
+    },
+    "reason_code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*(?![\\s\\S])"
+    },
+    "reason_code_or_null": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z][A-Z0-9_]*(?![\\s\\S])"
+    },
+    "part_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(?!\\s)(?:.*\\S)?(?![\\s\\S])",
+      "description": "A part number with no leading or trailing whitespace, or null."
+    },
+    "evidence_tier": {
+      "enum": [
+        "confirmed_local",
+        "cache_drift",
+        "cache_unverified",
+        "assumed",
+        "not_cache_derived"
+      ],
+      "description": "Which kind of evidence backs the row (closed list; the five-value tier vocabulary is frozen in step_10_report.py)."
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

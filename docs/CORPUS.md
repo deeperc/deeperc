@@ -29,7 +29,7 @@ pin-function evidence in the netlist plus the vendor datasheet alone.
 
 ## What the corpus is
 
-The precision gate runs on **126 real boards**. They are exported KiCad
+The precision gate runs on **67 real boards**. They are exported KiCad
 netlists from open-hardware projects, drawn from a few ecosystems:
 
 - vendor-published open hardware (SoM carriers, FPGA and SDR boards, baseboards)
@@ -42,9 +42,12 @@ Boards are named in this repository only where the project is verifiably
 open-licensed and already public in FINDINGS.md or a filed issue. Everything
 else is described at the ecosystem level.
 
-The 126 is a deliberate scope, not a sample of everything we have parsed. Every
-board in the gate has been run repeatedly across checker eras, so a new FAIL on
-one of them is a regression to explain, not a discovery to celebrate. The gate
+The 67 is a deliberate scope, not a sample of everything we have parsed.
+Earlier releases counted 126 boards: that count included the sub-sheet
+exports of multi-sheet designs, which the gate now replaces with their root
+sheets, so the number fell without any design leaving the gate. Most boards
+in the gate have been run across several checker eras, so a new FAIL on one
+of them is a regression to explain, not a discovery to celebrate. The gate
 exists to hold precision, and the credibility anchor for recall is the table
 above — real bugs, not volume.
 
@@ -98,12 +101,12 @@ that vocabulary:
   marker flags any value the checker inferred rather than read.
 
 "Precision gate" means what it says: the measurement is whether FAILs on
-known-good boards are real. The one number this document cites for corpus size
-is the 126 boards in that gate.
+known-good boards are real. The one current number this document cites for
+corpus size is the 67 boards in that gate.
 
 ## Why the corpus does not ship
 
-The 126 boards carry a mix of third-party licenses, and the synthetic mutants
+The 67 boards carry a mix of third-party licenses, and the synthetic mutants
 are derived from them. Redistributing either set would mean re-licensing other
 people's work, so neither is in this repository or its history.
 

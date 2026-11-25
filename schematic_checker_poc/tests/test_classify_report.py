@@ -5,7 +5,8 @@ independent summary-based reimplementation, across every precedence branch.
 run_corpus_test.classify_netlist_status (git-blame anchor: run_corpus_test.py @
 2e14de8) — that Phase-2 copy proved the registry refactor preserved behavior
 byte-for-byte. It now also counts the 08e pullup bucket, which joined the
-VERDICT_MOVING set in TODO-164 (2026-07-07); the two implementations read
+VERDICT_MOVING set in TODO-164 (2026-07-07), and splits PASS + UNRESOLVABLE into
+pass_with_unresolvable (TODO-525, schema 1.0 / TODO-558); the two implementations read
 different report surfaces (result ARRAYS vs summary sub-dicts), so their agreement
 proves classify_report matches the current verdict contract — not merely my
 expectations.
@@ -56,7 +57,7 @@ def _legacy_classify(report: dict) -> str:
     if warns > 0:
         return "has_warn"
     if passes > 0:
-        return "all_pass"
+        return "pass_with_unresolvable" if unres > 0 else "all_pass"
     if unres > 0:
         return "has_unresolvable_only"
     return "no_checkable_nets"
@@ -118,7 +119,10 @@ CASES = [
     ("has_unresolvable_only",  _mk(net=(0, 0, 0, 1))),                 # signal UNRES only
     ("has_unresolvable_only",  _mk(sup=(0, 0, 0, 1))),                 # supply UNRES only
     ("has_unresolvable_only",  _mk(per=(0, 0, 0, 1))),                 # peripheral UNRES only
-    ("all_pass",               _mk(net=(1, 0, 0, 1))),                 # PASS+UNRES → all_pass (real precedence)
+    ("pass_with_unresolvable", _mk(net=(1, 0, 0, 1))),                 # PASS+UNRES → pass_with_unresolvable (TODO-558)
+    ("pass_with_unresolvable", _mk(sup=(1, 0, 0, 0), per=(0, 0, 0, 2))),  # PASS on one axis, UNRES on another
+    ("pass_with_unresolvable", _mk(st=(1, 0, 0), pull=(0, 0, 1))),       # structural PASS + 08e UNRES
+    ("all_pass",               _mk(net=(2, 0, 0, 0), sup=(1, 0, 0, 0))),  # PASS only on two axes → all_pass
     ("has_warn",               _mk(net=(0, 1, 0, 1))),                 # WARN+UNRES → has_warn
     ("has_fail",               _mk(net=(1, 1, 1, 1))),                 # everything → has_fail
     ("has_warn",               _mk(net=(1, 1, 0, 0))),                 # PASS+WARN → has_warn

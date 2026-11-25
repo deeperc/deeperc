@@ -83,6 +83,12 @@ CORE_PIPELINE_FILES = (
     "steps/rail_map.py",
     "steps/part_class.py",  # TODO-484: supply-pin admission exclusions (pseudo-part + ground/pad)
     "steps/pin_match.py",  # TODO-504: spec-lookup matcher (verdict-affecting; was outside the era hash in step_04b)
+    "steps/package_key.py",  # TODO-550: footprint -> package key; picks the per-package pin-number view
+    "steps/part_bindings.py",  # TODO-554: explicit part-string -> cache-stem bindings
+    "steps/step_02_parser.py",  # TODO-569: merged-refdes detection + one-record keep (verdict-affecting)
+    "steps/merged_refdes.py",  # TODO-569: relabel/drop of findings resting on a merged refdes
+    "steps/pin_supply_map.py",  # TODO-415: curated per-pin supply map read by step_08 (verdict-affecting)
+    "steps/component_values.py",  # TODO-581: resistor value parser read by step_08d/08e/08g (verdict-affecting)
 )
 
 # CHECKER_SOURCE_FILES = CORE + the registry-derived checker files (08/08b/08c/08d/08e/08g,

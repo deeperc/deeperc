@@ -127,6 +127,7 @@ WARN: corpus dir not found: <repo>/netlist_corpus — proceeding anyway;
 WARN: datasheets dir not found: <repo>/netlist_corpus/datasheets —
 proceeding with 0 datasheets; datasheet-backed checks will use the
 shipped cache where available, otherwise UNRESOLVABLE.
+...
 [STEP 03] L2 vendor lookup: off (optional — the vendor-lookup extension
 isn't installed, or no credentials are configured). Using local
 datasheets only.
@@ -223,8 +224,9 @@ python3 run_checks.py --board examples/my_stm32_board_i2c_fixed/my_stm32_board_i
 ```
 
 ```
+...
 ─────────────────────────────────────
-  RESULT: all_pass
+  RESULT: pass_with_unresolvable
 ─────────────────────────────────────
   FAIL:            0
   WARN:            0
@@ -249,7 +251,7 @@ UNRESOLVABLE
 
 (From `schematic_checker_poc/`: `main.py --netlist
 ../examples/my_stm32_board_i2c_fixed/my_stm32_board_i2c_fixed.net
---skip-confirm` prints `[VERDICT] all_pass` and exits `0`. The line under
+--skip-confirm` prints `[VERDICT] pass_with_unresolvable` and exits `0`. The line under
 the verdict, `[UNRESOLVABLE] 2 finding(s) not evaluated; see LIMITATIONS.md (board verdicts)`,
 counts the two findings that could not be evaluated.)
 
@@ -280,6 +282,7 @@ Console output, captured from a clean public export (env-stripped, no
 credentials):
 
 ```
+...
 [STEP 03] L2 vendor lookup: off (optional — the vendor-lookup extension
 isn't installed, or no credentials are configured). Using local
 datasheets only.
@@ -291,7 +294,7 @@ datasheets only.
 ─────────────────────────────────────
   FAIL:            2
   WARN:            0
-  UNRESOLVABLE:    8
+  UNRESOLVABLE:    5
 
   Full report:
   <repo>/corpus_results/spi_no_rails/reports/spi_swap_stm32.json
@@ -300,19 +303,22 @@ datasheets only.
 [STEP 08b] Supply evidence:
   UNRESOLVABLE  U1 STM32F103C8Tx VBAT (pin 1) <- VBAT  —  Net voltage
   not confirmed (not locally verified)
-  UNRESOLVABLE  U1 STM32F103C8Tx VDD (pin 24) <- 3V3  —  Net voltage
-  not confirmed (not locally verified)
-  UNRESOLVABLE  U1 STM32F103C8Tx VDD (pin 36) <- 3V3  —  Net voltage
-  not confirmed (not locally verified)
-  UNRESOLVABLE  U1 STM32F103C8Tx VDD (pin 48) <- 3V3  —  Net voltage
-  not confirmed (not locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 24) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 36) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
+  PASS          U1 STM32F103C8Tx VDD (pin 48) <- 3V3  —
+  Cache-sourced — supply 3.3V within rated range 2.0V - 3.6V (not
+  locally verified)
   PASS          U1 STM32F103C8Tx VDDA (pin 9) <- VDDA_3V3  —
   Cache-sourced — supply 3.3V within rated range 2.4V - 3.6V (not
   locally verified)
 
 Status: has_fail
   signal           0 PASS  0 WARN  0 FAIL  4 UNRESOLVABLE
-  supply           1 PASS  0 WARN  0 FAIL  4 UNRESOLVABLE
+  supply           4 PASS  0 WARN  0 FAIL  1 UNRESOLVABLE
   structural       10 PASS  0 WARN  0 FAIL
   peripheral       0 PASS  0 WARN  2 FAIL  0 UNRESOLVABLE
   pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
@@ -334,32 +340,40 @@ FINDINGS
 
 UNRESOLVABLE
 
-  signal /CSb — Receiver specs unknown — U2 pin specs not extracted
-  (signal_score too low or datasheet section not found)
-  [Assumed/low-confidence]
-    driver=U1  receiver=U2 pin=CONVST
-    evidence: Assumed/low-confidence
+  signal /CSb — Driver voltage unknown — U2 power domain ambiguous (2
+  rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA4
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
-  signal /MISO — Receiver specs unknown — U2 pin specs not extracted
-  (signal_score too low or datasheet section not found)
-  [Assumed/low-confidence]
-    driver=U1  receiver=U2 pin=SDO
-    evidence: Assumed/low-confidence
+  signal /MISO — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA7
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
-  signal /MOSI — Receiver specs unknown — U2 pin specs not extracted
-  (signal_score too low or datasheet section not found)
-  [Assumed/low-confidence]
-    driver=U1  receiver=U2 pin=SDI
-    evidence: Assumed/low-confidence
+  signal /MOSI — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA6
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
-  signal /SCLK — Receiver specs unknown — U2 pin specs not extracted
-  (signal_score too low or datasheet section not found)
-  [Assumed/low-confidence]
-    driver=U1  receiver=U2 pin=SCLK
-    evidence: Assumed/low-confidence
+  signal /SCLK — Driver voltage unknown — U2 power domain ambiguous
+  (2 rail pin(s), 2 distinct voltage(s): [3.3, 5.0]) [Cache-sourced —
+  Table 36: I/O static characteristics (formula: 0.41*(VDD-2V)+1.3V)
+  (not locally verified)]
+    driver=U2  receiver=U1 pin=PA5
+    evidence: Cache-sourced — Table 36: I/O static characteristics
+    (formula: 0.41*(VDD-2V)+1.3V) (not locally verified)
     confidence: low
 
   supply U1 VBAT (pin 1) <- VBAT — NET_VOLTAGE_NOT_CONFIRMED [Net
@@ -369,32 +383,14 @@ UNRESOLVABLE
     evidence: Net voltage not confirmed (not locally verified)
     confidence: low
 
-  supply U1 VDD (pin 24) <- 3V3 — NET_VOLTAGE_NOT_CONFIRMED [Net
-  voltage not confirmed (not locally verified)]
-    U1 (STM32F103C8Tx)  pin=VDD (pin 24)  net=3V3
-    NoneV vs rated 2.0V-3.6V (abs max 4.0V)
-    evidence: Net voltage not confirmed (not locally verified)
-    confidence: low
-
-  supply U1 VDD (pin 36) <- 3V3 — NET_VOLTAGE_NOT_CONFIRMED [Net
-  voltage not confirmed (not locally verified)]
-    U1 (STM32F103C8Tx)  pin=VDD (pin 36)  net=3V3
-    NoneV vs rated 2.0V-3.6V (abs max 4.0V)
-    evidence: Net voltage not confirmed (not locally verified)
-    confidence: low
-
-  supply U1 VDD (pin 48) <- 3V3 — NET_VOLTAGE_NOT_CONFIRMED [Net
-  voltage not confirmed (not locally verified)]
-    U1 (STM32F103C8Tx)  pin=VDD (pin 48)  net=3V3
-    NoneV vs rated 2.0V-3.6V (abs max 4.0V)
-    evidence: Net voltage not confirmed (not locally verified)
-    confidence: low
-
-  (11 PASS finding(s) not shown — full detail in the JSON report)
+  (14 PASS finding(s) not shown — full detail in the JSON report)
 ```
 
-Tell it what they are — save this as `spi_swap_stm32.net.rails.json`
-next to the netlist:
+The names `3V3` and `5V` are already read as rails, so the three VDD
+pins on `3V3` pass. `VBAT` is not a name DeepERC reads as a rail, so
+its supply pin stays `UNRESOLVABLE`. Tell it what `VBAT` is — save
+this as `spi_swap_stm32.net.rails.json` next to the netlist (the `3V3`
+and `5V` entries only restate what the names already give):
 
 ```json
 {
@@ -412,6 +408,7 @@ python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-
 Console output for this state:
 
 ```
+...
 [STEP 03] L2 vendor lookup: off (optional — the vendor-lookup extension
 isn't installed, or no credentials are configured). Using local
 datasheets only.
@@ -519,6 +516,7 @@ python3 run_checks.py --board examples/stm32_spi_swap/spi_swap_stm32.net --skip-
 Console output for this state:
 
 ```
+...
 [STEP 03] L2 vendor lookup: off (optional — the vendor-lookup extension
 isn't installed, or no credentials are configured). Using local
 datasheets only.
@@ -562,7 +560,7 @@ Status: has_fail
   pullup_value     0 WARN  0 FAIL  0 UNRESOLVABLE
   output_conflict  0 FAIL
   pullup_presence  0 WARN  0 UNRESOLVABLE
-  (4.1s)
+  (0.1s)
 
 FINDINGS
 
@@ -746,6 +744,7 @@ python3 main.py --netlist ../examples/my_stm32_board_i2c_swap/my_stm32_board_i2c
 ```
 
 ```
+...
   Full report: ./report.json
 ─────────────────────────────────────
 ...
@@ -762,8 +761,9 @@ before the other six checkers existed. For a grand total across every
 checker (`supply`, `structural`, `peripheral`, `pullup_value`,
 `output_conflict`, `pullup_presence` included), read
 `summary.total_pass`/`total_warn`/`total_fail`/`total_unresolvable`
-instead (schema `poc-1.6`, purely additive — the four un-prefixed keys
-keep their original signal-only meaning).
+instead (schema `1.0`, purely additive — the four un-prefixed keys
+keep their original signal-only meaning). The report's shape, and what a
+later `1.x` may add, is specified in `docs/report_schema.json`.
 
 ## Extracting your own parts
 
@@ -845,11 +845,12 @@ KB authoring is only about the peripheral role/topology tables.
   outside both is reported `UNRESOLVABLE`, by design — absence of evidence is
   never converted into a verdict.
 - Board verdicts rank `FAIL > WARN > PASS > UNRESOLVABLE`. A board with at
-  least one PASS and no FAIL or WARN reports `all_pass` even when other checks
-  were `UNRESOLVABLE`, so `all_pass` means nothing failed or warned among the
-  checks that could run, not that every check ran. `main.py` prints the count
-  on an `[UNRESOLVABLE]` line under its `[VERDICT]` line, and the JSON report
-  lists each unevaluated finding.
+  least one PASS and no FAIL or WARN reports `all_pass` only when no check was
+  `UNRESOLVABLE`; when some were, it reports `pass_with_unresolvable`, so
+  nothing failed or warned among the checks that could run, but not every
+  check ran. `has_warn` and `has_fail` boards can carry `UNRESOLVABLE` findings
+  too. `main.py` prints the count on an `[UNRESOLVABLE]` line under its
+  `[VERDICT]` line, and the JSON report lists each unevaluated finding.
 - This tool complements KiCad's ERC; it does not replace it. It targets defect
   classes ERC cannot express (role/net-name coherence, per-part voltage limits,
   pull-up presence) and assumes you still run ERC for structural rule checking.
@@ -866,8 +867,9 @@ KB authoring is only about the peripheral role/topology tables.
   run skips the local model for its remaining findings and uses the canned
   note at once. Set `DEEPERC_NO_LOCAL_LLM=1` to skip the local model entirely.
   Verdicts are unaffected either way. In the JSON
-  report, `explanation_source` on each signal and supply finding says which it
-  carries: `local_model` or `canned`.
+  report, `explanation_source` on each signal and supply FAIL, WARN or
+  UNRESOLVABLE finding says which it carries: `local_model` or `canned`. PASS
+  findings carry no explanation, and the field is null.
 - For how the precision/recall numbers this project reports are measured, see
   [CORPUS.md](docs/CORPUS.md).
 - The full, current list — including release-specific limitations — lives in

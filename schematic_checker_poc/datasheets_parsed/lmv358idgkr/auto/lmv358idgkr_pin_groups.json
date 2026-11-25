@@ -43,7 +43,24 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "6.1 Absolute Maximum Ratings"
+      "abs_max_source": "6.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "MSOP-8": [
+          "8|VCC+"
+        ],
+        "SC-70-5": [
+          "5|VCC+"
+        ],
+        "SOIC-8": [
+          "8|VCC+"
+        ],
+        "SOT-23-5": [
+          "5|VCC+"
+        ],
+        "TSSOP-8": [
+          "8|VCC+"
+        ]
+      }
     },
     {
       "group_name": "Ground (GND)",
@@ -93,6 +110,23 @@
           "pins_total": 3,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "MSOP-8": [
+          "4|GND"
+        ],
+        "SC-70-5": [
+          "2|GND"
+        ],
+        "SOIC-8": [
+          "4|GND"
+        ],
+        "SOT-23-5": [
+          "2|GND"
+        ],
+        "TSSOP-8": [
+          "4|GND"
+        ]
       }
     },
     {
@@ -123,7 +157,27 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "6.1 Absolute Maximum Ratings"
+      "abs_max_source": "6.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "MSOP-8": [
+          "3|1IN+",
+          "5|2IN+"
+        ],
+        "SC-70-5": [
+          "1|1IN+"
+        ],
+        "SOIC-8": [
+          "3|1IN+",
+          "5|2IN+"
+        ],
+        "SOT-23-5": [
+          "1|1IN+"
+        ],
+        "TSSOP-8": [
+          "3|1IN+",
+          "5|2IN+"
+        ]
+      }
     },
     {
       "group_name": "Inverting Input (IN\u2013)",
@@ -153,7 +207,27 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "6.1 Absolute Maximum Ratings"
+      "abs_max_source": "6.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "MSOP-8": [
+          "2|1IN\u2013",
+          "6|2IN\u2013"
+        ],
+        "SC-70-5": [
+          "3|1IN\u2013"
+        ],
+        "SOIC-8": [
+          "2|1IN\u2013",
+          "6|2IN\u2013"
+        ],
+        "SOT-23-5": [
+          "3|1IN\u2013"
+        ],
+        "TSSOP-8": [
+          "2|1IN\u2013",
+          "6|2IN\u2013"
+        ]
+      }
     },
     {
       "group_name": "Output (OUT)",
@@ -185,6 +259,26 @@
           "pins_total": 5,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "MSOP-8": [
+          "1|OUT",
+          "7|2OUT"
+        ],
+        "SC-70-5": [
+          "4|OUT"
+        ],
+        "SOIC-8": [
+          "1|OUT",
+          "7|2OUT"
+        ],
+        "SOT-23-5": [
+          "4|OUT"
+        ],
+        "TSSOP-8": [
+          "1|OUT",
+          "7|2OUT"
+        ]
       }
     }
   ],
@@ -199,6 +293,346 @@
       "pairs_rewritten": 21,
       "entries_dropped_as_duplicates": 7,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/ti/lmv358idgkr.pdf",
+        "sha256": "17d4aab5006683766ec1fadb83d1953e5d4ad768864629fcd21412e795e568f3"
+      },
+      "packages": [
+        "MSOP-8",
+        "SC-70-5",
+        "SOIC-14",
+        "SOIC-8",
+        "SOT-23-5",
+        "TSSOP-14",
+        "TSSOP-8"
+      ],
+      "restored": [
+        {
+          "group": 0,
+          "name": "VCC+",
+          "number": "8",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VCC+",
+          "number": "5",
+          "package": "SC-70-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VCC+",
+          "number": "8",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VCC+",
+          "number": "5",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VCC+",
+          "number": "8",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GND",
+          "number": "4",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GND",
+          "number": "2",
+          "package": "SC-70-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GND",
+          "number": "4",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GND",
+          "number": "2",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GND",
+          "number": "4",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "1IN+",
+          "number": "3",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "2IN+",
+          "number": "5",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "1IN+",
+          "number": "1",
+          "package": "SC-70-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "1IN+",
+          "number": "3",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "2IN+",
+          "number": "5",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "1IN+",
+          "number": "1",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "1IN+",
+          "number": "3",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "2IN+",
+          "number": "5",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "1IN\u2013",
+          "number": "2",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "2IN\u2013",
+          "number": "6",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "1IN\u2013",
+          "number": "3",
+          "package": "SC-70-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "1IN\u2013",
+          "number": "2",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "2IN\u2013",
+          "number": "6",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "1IN\u2013",
+          "number": "3",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "1IN\u2013",
+          "number": "2",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "2IN\u2013",
+          "number": "6",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "OUT",
+          "number": "1",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "2OUT",
+          "number": "7",
+          "package": "MSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "OUT",
+          "number": "4",
+          "package": "SC-70-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "OUT",
+          "number": "1",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "2OUT",
+          "number": "7",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "OUT",
+          "number": "4",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "OUT",
+          "number": "1",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "2OUT",
+          "number": "7",
+          "package": "TSSOP-8",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 34,
+        "contradicted": 35,
+        "not_shown": 78,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

@@ -134,7 +134,7 @@ def test_null_specs_unresolvable():
     r = _run_single(3.3, None, confidence="low")
     assert r.status == "UNRESOLVABLE"
     assert r.combined_confidence == "low"
-    assert "specs" in (r.unresolvable_reason or "").lower()
+    assert "specs" in (r.unresolvable_detail or "").lower()
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -193,10 +193,11 @@ def test_component_power_domain_multi_vcc_no_extraction_returns_none():
     ) is None
 
 
-def test_component_power_domain_multi_vcc_with_extraction_returns_first():
-    # Two VCC pins; proxy detects per-pin power_domain on a spec → trust first-iter.
-    # Forward-compat: when ValidatedPinSpec gains a power_domain field on resolved
-    # parts, this path activates. SimpleNamespace stub matches the getattr proxy.
+def test_component_power_domain_multi_vcc_ignores_spec_power_domain_attr():
+    # TODO-415 (Rulings decision 7): the per-pin `power_domain` proxy and its
+    # first-iterated-rail branch are removed. A spec carrying such an attribute
+    # no longer loosens the guard: two rails at two voltages stay None. Per-pin
+    # voltages now come only from steps/pin_supply_map.py (test_todo415_*).
     ir = _make_pcd_ir("U1", [("VCCA", "VCC_5V"), ("VCCB", "VCC_3V3"), ("OUT", "SIG")])
     pin_specs = {
         ("U1", "OUT"): SimpleNamespace(power_domain="VCCA"),
@@ -205,7 +206,7 @@ def test_component_power_domain_multi_vcc_with_extraction_returns_first():
         "U1", ir,
         confirmed_voltages={"VCC_5V": 5.0, "VCC_3V3": 3.3},
         pin_specs=pin_specs,
-    ) == 5.0
+    ) is None
 
 
 def test_component_power_domain_unknown_refdes_returns_none():
@@ -267,10 +268,12 @@ def test_driver_confidence_gemma_single_vcc_is_medium():
     assert _driver_confidence(prov, "single_vcc") == "medium"
 
 
-def test_driver_confidence_deterministic_per_pin_resolved_is_high():
-    # Multi-VCC grounded by per-pin extraction is trustworthy → high (forward-compat).
+def test_driver_confidence_deterministic_pin_supply_map_is_high():
+    # TODO-415: a voltage taken from a datasheet-cited supply-map rule is high.
+    # The retired "per_pin_resolved" tag is no longer in the table (reads low).
     prov = RailProvenance(source="deterministic", confidence="high")
-    assert _driver_confidence(prov, "per_pin_resolved") == "high"
+    assert _driver_confidence(prov, "pin_supply_map") == "high"
+    assert _driver_confidence(prov, "per_pin_resolved") == "low"
 
 
 def test_driver_confidence_low_rail_caps_combined():
@@ -299,14 +302,16 @@ def test_resolve_power_domain_multi_vcc_no_extraction_is_none():
     ) is None
 
 
-def test_resolve_power_domain_per_pin_resolved_tag():
-    # Proxy detects per-pin power_domain → tagged per_pin_resolved (forward-compat).
+def test_resolve_power_domain_spec_power_domain_attr_no_longer_resolves():
+    # TODO-415 (decision 7): the "per_pin_resolved" branch is gone; part "X" has
+    # no supply-map rule, so two rails at two voltages are None with or without
+    # a power_domain attribute on a spec.
     ir = _make_pcd_ir("U1", [("VCCA", "VCC_5V"), ("VCCB", "VCC_3V3"), ("OUT", "SIG")])
     pin_specs = {("U1", "OUT"): SimpleNamespace(power_domain="VCCA")}
     res = _resolve_power_domain(
         "U1", ir, confirmed_voltages={"VCC_5V": 5.0, "VCC_3V3": 3.3}, pin_specs=pin_specs
     )
-    assert res.resolution == "per_pin_resolved" and res.voltage == 5.0
+    assert res is None
 
 
 def test_combined_confidence_gemma_driver_into_high_receiver_is_medium():
@@ -391,7 +396,7 @@ def test_guard_open_drain_like_driver_unresolvable():
     pin_specs = {("U_RCV", "IN"): _recv_absmax_spec()}
     r = _sig_result(ir, pin_specs, confirmed)
     assert r.status == "UNRESOLVABLE"
-    assert "push-pull" in (r.unresolvable_reason or "")
+    assert "push-pull" in (r.unresolvable_detail or "")
 
 
 def test_guard_passive_switch_terminal_unresolvable():
@@ -550,19 +555,19 @@ def test_unresolved_driver_voltage_reason_message_split():
     # Option 3: the three-way message split, numerals included for the
     # ambiguous case.
     ir_gap = _make_pcd_ir("U9", [("OUT", "SIG")])  # no VCC pin at all
-    reason_gap = _unresolved_driver_voltage_reason("U9", ir_gap, confirmed_voltages={})
+    _, reason_gap = _unresolved_driver_voltage_reason("U9", ir_gap, confirmed_voltages={})
     assert "no confirmed rail on any pin" in reason_gap
     assert "U9" in reason_gap
 
     ir_ambig = _make_pcd_ir("U14", [("VCCA", "VCC_5V"), ("VCCB", "VCC_3V3"), ("OUT", "SIG")])
-    reason_ambig = _unresolved_driver_voltage_reason(
+    _, reason_ambig = _unresolved_driver_voltage_reason(
         "U14", ir_ambig, confirmed_voltages={"VCC_5V": 5.0, "VCC_3V3": 3.3}
     )
     assert "ambiguous" in reason_ambig
     assert "2 rail" in reason_ambig or "2 pin" in reason_ambig
     assert "2 distinct voltage" in reason_ambig
 
-    reason_no_datasheet = _unresolved_driver_voltage_reason(
+    _, reason_no_datasheet = _unresolved_driver_voltage_reason(
         "U_GHOST", ir_gap, confirmed_voltages={}
     )
     assert "no resolved datasheet" in reason_no_datasheet

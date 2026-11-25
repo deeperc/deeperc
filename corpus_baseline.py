@@ -186,7 +186,7 @@ def _extract_stats(entry: dict) -> dict:
 # per-netlist summary doesn't break out into granular counts. This is the derive-don't-
 # maintain closure of the ID-95-class blind spot: a future verdict_role promotion is
 # scored here with ZERO comparator edits. Non-warn/fail statuses (all_pass,
-# has_unresolvable_only, no_checkable_nets, pipeline_error) map to 0 — coverage/
+# pass_with_unresolvable, has_unresolvable_only, no_checkable_nets, pipeline_error) map to 0 — coverage/
 # unresolvable moves among those stay governed by the granular unresolvable_count
 # logic, so they are not double-counted.
 _STATUS_SEVERITY = {"has_fail": 2, "has_warn": 1}

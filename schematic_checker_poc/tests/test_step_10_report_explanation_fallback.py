@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from steps import step_10_report
 from steps.step_10_report import build_report
-from steps.step_08_checker import CheckResult
+from steps.step_08_checker import CheckResult, SignalUnresolvableReason
 from steps.step_08b_supply_checker import SupplyCheckResult
 from steps.step_08c_structural_checker import StructuralCheckResult
 from llm import ollama_client
@@ -117,13 +117,14 @@ def test_supply_explanation_fallback_is_benign_and_fail_survives(monkeypatch, tm
 _RAW = "Confirmed — §5.2 Electrical Characteristics"
 
 
-def _sig(status="FAIL", reason=None):
+def _sig(status="FAIL", reason=None, detail=None):
     return CheckResult(
         net_name="/NET1", status=status, driver_refdes="U1", driver_voltage=5.0,
         driver_voltage_source="datasheet", receiver_refdes="U2", receiver_pin_name="PB6",
         receiver_VIH_max=3.6, receiver_abs_max=None, receiver_confidence="high",
         driver_confidence="high", combined_confidence="high",
         evidence_label="5.0V > 3.6V", unresolvable_reason=reason,
+        unresolvable_detail=detail,
     )
 
 
@@ -185,7 +186,9 @@ def test_n4_signal_unresolvable_uses_reason_canned(monkeypatch, tmp_path):
     def boom(*a, **k):
         raise AssertionError("generate must not be called for UNRESOLVABLE")
     _patch_gen(monkeypatch, boom)
-    e = _build(tmp_path, results=[_sig("UNRESOLVABLE", reason="no datasheet")])["results"][0]
+    e = _build(tmp_path, results=[_sig("UNRESOLVABLE",
+                     reason=SignalUnresolvableReason.DRIVER_NO_DATASHEET,
+                     detail="no datasheet")])["results"][0]
     assert e["explanation"] == "no datasheet"
     assert e["explanation_source"] == "canned"
 
@@ -239,7 +242,7 @@ def test_n9_schema_and_key_presence(monkeypatch, tmp_path):
         explanation="e", finding_code="F1")]
     rep = _build(tmp_path, results=[_sig(), _sig("PASS")],
                  supply=[_sup(), _sup("PASS")], structural=structural)
-    assert rep["schema_version"] == "poc-1.6"
+    assert rep["schema_version"] == "1.0"
     assert all("explanation_source" in r for r in rep["results"])
     assert all("explanation_source" in r for r in rep["power_supply_results"])
     assert rep["structural_integrity_results"]

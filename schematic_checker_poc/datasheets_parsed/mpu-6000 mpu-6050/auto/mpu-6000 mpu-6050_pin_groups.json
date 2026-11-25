@@ -439,6 +439,11 @@
           "pins_total": 2,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "QFN-52": [
+          "6|AUX_DA"
+        ]
       }
     },
     {
@@ -478,6 +483,11 @@
           "pins_total": 2,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "QFN-52": [
+          "6|AUX_DA"
+        ]
       }
     },
     {
@@ -568,7 +578,12 @@
       "VIH_source": "6.4 Electrical Specifications, Continued",
       "abs_max_source": null,
       "VIH_min_expr": "0.7*VDD",
-      "VIL_max_expr": "0.3*VDD"
+      "VIL_max_expr": "0.3*VDD",
+      "example_pins_by_package": {
+        "QFN-52": [
+          "1|CLKIN"
+        ]
+      }
     },
     {
       "group_name": "Not Connected Pins",
@@ -588,7 +603,15 @@
       "supply_rail_name": null,
       "citations": {},
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "QFN-52": [
+          "2|NC",
+          "3|NC",
+          "4|NC",
+          "5|NC"
+        ]
+      }
     },
     {
       "group_name": "Reserved Pins",
@@ -622,6 +645,97 @@
       "pairs_rewritten": 39,
       "entries_dropped_as_duplicates": 9,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/tdk/MPU-6000 MPU-6050.pdf",
+        "sha256": "a4fdf69590b8cbab1cf0a5bcd359327b0ac022061fb233855aff2e191e7e3584"
+      },
+      "packages": [
+        "QFN-52"
+      ],
+      "restored": [
+        {
+          "group": 10,
+          "name": "AUX_DA",
+          "number": "6",
+          "package": "QFN-52",
+          "source": "pdf_table",
+          "page": 22,
+          "confirmer": null
+        },
+        {
+          "group": 11,
+          "name": "AUX_DA",
+          "number": "6",
+          "package": "QFN-52",
+          "source": "pdf_table",
+          "page": 22,
+          "confirmer": null
+        },
+        {
+          "group": 14,
+          "name": "CLKIN",
+          "number": "1",
+          "package": "QFN-52",
+          "source": "pdf_table",
+          "page": 22,
+          "confirmer": null
+        },
+        {
+          "group": 15,
+          "name": "NC",
+          "number": "2",
+          "package": "QFN-52",
+          "source": "pdf_table",
+          "page": 21,
+          "confirmer": null
+        },
+        {
+          "group": 15,
+          "name": "NC",
+          "number": "3",
+          "package": "QFN-52",
+          "source": "pdf_table",
+          "page": 21,
+          "confirmer": null
+        },
+        {
+          "group": 15,
+          "name": "NC",
+          "number": "4",
+          "package": "QFN-52",
+          "source": "pdf_table",
+          "page": 21,
+          "confirmer": null
+        },
+        {
+          "group": 15,
+          "name": "NC",
+          "number": "5",
+          "package": "QFN-52",
+          "source": "pdf_table",
+          "page": 21,
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 7,
+        "contradicted": 4,
+        "not_shown": 28,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

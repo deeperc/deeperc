@@ -37,6 +37,14 @@ _LEADING_R_RE = re.compile(r"^R(\d+)$")
 # never a resistance value. Used to skip footprint tokens inside symbol names.
 _FOOTPRINT_TOKEN_RE = re.compile(r"^\d{4}$")
 
+# TODO-581: an R-prefixed footprint code (R0402, R0603 …) as one underscore token
+# of a value string is not a value either. vme-wren writes values as
+# R0402_4K7_1%_0.0625W_100PPM, and the R0402 token used to parse as 0.0402 ohm
+# (leading-R RKM), under the 10 ohm jumper floor, so every such pull-up was
+# dropped. Skipped ONLY inside an underscore-joined string: a bare "R0402" still
+# parses as before (0.0402 ohm), and "R47" / "R100" are untouched.
+_FOOTPRINT_R_TOKEN_RE = re.compile(r"^R\d{4}$", re.IGNORECASE)
+
 
 def _parse_core(su: str):
     """Parse an already-normalized (uppercased, comma→dot, no footprint) token."""
@@ -81,7 +89,7 @@ def resistance_ohms(value_str) -> float | None:
             parts = parts[1:]
         cand = None
         for p in parts:
-            if _FOOTPRINT_TOKEN_RE.match(p):
+            if _FOOTPRINT_TOKEN_RE.match(p) or _FOOTPRINT_R_TOKEN_RE.match(p):
                 continue
             if re.search(r"\d", p) and re.fullmatch(r"(?i)[\d.,rkmg]+", p):
                 cand = p

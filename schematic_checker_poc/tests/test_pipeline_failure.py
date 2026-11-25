@@ -34,10 +34,10 @@ I2C_SWAP_BOARD = REPO / "examples" / "my_stm32_board_i2c_swap" / "my_stm32_board
 # TODO-428: repointed from an unmanifested netlist_corpus board to the shipped,
 # manifested corrected twin — this fixture (and therefore this test) now exists
 # and runs in a public clone, not only in the private corpus checkout. The twin
-# is the swap board with its I2C2 SDA/SCL crossing fixed; it still classifies
-# all_pass with the swap board's 2 unrelated peripheral UNRESOLVABLE findings
-# present (logs/recon_417_428.md Part 2 / Notion TODO-428's ruled semantics:
-# UNRESOLVABLE never blocks all_pass).
+# is the swap board with its I2C2 SDA/SCL crossing fixed; it passes with the swap
+# board's 2 unrelated peripheral UNRESOLVABLE findings present (logs/recon_417_428.md
+# Part 2 / Notion TODO-428's ruled semantics: UNRESOLVABLE never blocks a pass). Since
+# schema 1.0 (TODO-558) that verdict reads pass_with_unresolvable, still exit 0.
 ALL_PASS_BOARD = (REPO / "examples" / "my_stm32_board_i2c_fixed" /
                   "my_stm32_board_i2c_fixed.net")
 
@@ -105,16 +105,16 @@ def test_main_py_exits_1_on_cross_axis_has_fail(tmp_path):
     assert r.returncode == 1
 
 
-@pytest.mark.skipif(not ALL_PASS_BOARD.exists(), reason="all_pass fixture not on disk")
-def test_main_py_exits_0_on_all_pass(tmp_path):
+@pytest.mark.skipif(not ALL_PASS_BOARD.exists(), reason="passing fixture not on disk")
+def test_main_py_exits_0_on_pass_with_unresolvable(tmp_path):
     r = subprocess.run(
         [sys.executable, str(POC / "main.py"), "--netlist", str(ALL_PASS_BOARD),
          "--skip-confirm"],
         capture_output=True, text=True, cwd=tmp_path)
-    assert "all_pass" in r.stdout
+    assert "[VERDICT] pass_with_unresolvable" in r.stdout
     assert r.returncode == 0
 
-    # TODO-428: pin the ruled semantics (all_pass WITH UNRESOLVABLE findings
+    # TODO-428: pin the ruled semantics (a pass WITH UNRESOLVABLE findings
     # present, never blocked by them) on this exact fixture, so a future
     # verdict-vocabulary change fails loudly here rather than silently.
     import json

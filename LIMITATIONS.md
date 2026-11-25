@@ -4,11 +4,12 @@
   outside both is reported `UNRESOLVABLE`, by design — absence of evidence is
   never converted into a verdict.
 - Board verdicts rank `FAIL > WARN > PASS > UNRESOLVABLE`. A board with at
-  least one PASS and no FAIL or WARN reports `all_pass` even when other checks
-  were `UNRESOLVABLE`, so `all_pass` means nothing failed or warned among the
-  checks that could run, not that every check ran. `main.py` prints the count
-  on an `[UNRESOLVABLE]` line under its `[VERDICT]` line, and the JSON report
-  lists each unevaluated finding.
+  least one PASS and no FAIL or WARN reports `all_pass` only when no check was
+  `UNRESOLVABLE`; when some were, it reports `pass_with_unresolvable`, so
+  nothing failed or warned among the checks that could run, but not every
+  check ran. `has_warn` and `has_fail` boards can carry `UNRESOLVABLE` findings
+  too. `main.py` prints the count on an `[UNRESOLVABLE]` line under its
+  `[VERDICT]` line, and the JSON report lists each unevaluated finding.
 - This tool complements KiCad's ERC; it does not replace it. It targets defect
   classes ERC cannot express (role/net-name coherence, per-part voltage limits,
   pull-up presence) and assumes you still run ERC for structural rule checking.
@@ -41,8 +42,9 @@
   run skips the local model for its remaining findings and uses the canned
   note at once. Set `DEEPERC_NO_LOCAL_LLM=1` to skip the local model entirely.
   Verdicts are unaffected either way. In the JSON
-  report, `explanation_source` on each signal and supply finding says which it
-  carries: `local_model` or `canned`.
+  report, `explanation_source` on each signal and supply FAIL, WARN or
+  UNRESOLVABLE finding says which it carries: `local_model` or `canned`. PASS
+  findings carry no explanation, and the field is null.
 - Sheet-local (`/`-prefixed) POWER labels are classified as rails on the
   VDD/VBAT/VBUS/VIN/VOUT branches (plus a VSYS token), as of TODO-452/TODO-197.
   Three honest residuals remain: the PWR and VREF branches stay unslashed by
@@ -91,16 +93,20 @@
   group lists falls back to the part's default group; a check on such
   a pin can pass but is never reported as a failure or warning,
   because the default group is not evidence for that pin.
-- The shipped extractions for 95 of the 112 parts list pins by name only.
-  The pin numbers in their pin lists were removed in the v0.4.0 release
-  because they had not been checked against each datasheet's pin table;
-  each such file carries `extraction_meta.pin_numbers_removed`. On those
-  parts a pin binds by name. A pin whose symbol name is not a datasheet pin
-  name, common on generic op-amp and discrete symbols, is not found: it
-  falls back to the part's default group and loses its direction, and with
-  no pin on the net identified as an output the signal check picks the
-  driver by highest supply voltage, then by pin order. Known affected
-  parts: LMV358 (`lmv358idgkr`) and the ICM-42605.
+- In v0.4.0 the pin numbers were removed from the shipped extractions
+  for 95 of the 112 parts, because they had not been checked against each
+  datasheet's pin table; each such file carries
+  `extraction_meta.pin_numbers_removed`. v0.5.0 restores pin numbers on
+  39 of those 95, per package, where each number was checked against the
+  datasheet's own pin table (834 pin-number pairs, under
+  `example_pins_by_package`). On those 39 parts a pin binds by number
+  when the board's footprint names a package the datasheet lists, and by
+  name otherwise; on the other 56 a pin binds by name. A pin that binds
+  by name and whose symbol name is not a datasheet pin name, common on
+  generic op-amp and discrete symbols, is not found: it falls back to the
+  part's default group and loses its direction, and with no pin on the
+  net identified as an output the signal check picks the driver by
+  highest supply voltage, then by pin order.
 - UART is checked as device-relative capability, not as pin-role coherence: a
   TX or RX signal landing on a KB-known pin with no UART capability is a FAIL,
   and nothing else is evaluated. A TX↔RX swap between two UART-capable

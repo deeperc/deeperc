@@ -51,6 +51,7 @@ from steps import rail_map as rail_map_mod
 from steps import passive_traversal
 from steps.passive_traversal import Confidence
 from steps import checker_registry as reg
+from steps import package_key
 
 logger = logging.getLogger(__name__)
 
@@ -190,6 +191,8 @@ class PipelineContext:
     pin_specs: dict = field(default_factory=dict)
     seen_parts: dict = field(default_factory=dict)
     extraction_metadata: dict = field(default_factory=dict)
+    not_checked_parts: list = field(default_factory=list)  # TODO-554: step_08 NON_IC_PART disclosure
+    not_checked_pins: list = field(default_factory=list)  # TODO-556 decision 19: step_08b OWN_SUPPLY_PIN
 
 
 def _step(n: str, msg: str) -> None:
@@ -598,8 +601,11 @@ def run_board(ctx: PipelineContext):
     derived_provenance: dict[str, dict] = {}
     try:
         known_voltages = {n: v for n, v in confirmed_voltages.items() if v is not None}
+        # TODO-556 decision 18: rail-named nets with no voltage may take a single
+        # HIGH inductor / ferrite bridge (passive_traversal docstring).
+        rail_named_nets = {n for n, v in confirmed_voltages.items() if v is None}
         derived_by_net, _ = passive_traversal.traverse_passive_bridges(
-            ir, known_voltages, ir.ground_nets
+            ir, known_voltages, ir.ground_nets, rail_named_nets=rail_named_nets
         )
         for net, sources in derived_by_net.items():
             if confirmed_voltages.get(net) is not None:
@@ -749,6 +755,8 @@ def run_board(ctx: PipelineContext):
 
         # every pin of the part: the matcher's NAME-RELATED number bind (TODO-531) needs it
         part_pins = [(p.pin_id, p.pin_name, getattr(p, "symbol_name", "")) for p in comp.pins]
+        # TODO-550: the document package this footprint names (None = today's matching)
+        package = package_key.component_package(comp, package_key.cache_packages(pin_groups_result))
         for pin in comp.pins:
             pin_low = pin.pin_name.lower()
             if (pin_low in {"vdd", "vcc", "gnd", "vss"}
@@ -765,6 +773,7 @@ def run_board(ctx: PipelineContext):
                 pin_groups_result=pin_groups_result,
                 symbol_name=getattr(pin, "symbol_name", ""),
                 part_pins=part_pins,
+                package=package,
             )
             if raw_group and raw_group.get("pin_type") != "power":
                 spec = step_05_validator.validate(
@@ -785,7 +794,8 @@ def run_board(ctx: PipelineContext):
                 spec.pin_type_exact, spec.open_drain = (
                     step_04b_extractor.pin_match_meta(
                         pin.pin_id, pin.pin_name, pin_groups_result,
-                        symbol_name=getattr(pin, "symbol_name", ""), part_pins=part_pins))
+                        symbol_name=getattr(pin, "symbol_name", ""), part_pins=part_pins,
+                        package=package))
                 pin_specs[(comp.refdes, pin.pin_name)] = spec
 
     ctx.pin_specs = pin_specs
@@ -898,6 +908,8 @@ def run_board(ctx: PipelineContext):
             pullup_presence_results=pullup_presence_results,
             rail_candidates=rail_candidates,
             rail_map_conflicts=getattr(ir, "rail_map_conflicts", None),
+            not_checked_parts=ctx.not_checked_parts,
+            not_checked_pins=ctx.not_checked_pins,
         )
     except Exception as e:
         return PipelineFailure("internal", "10", f"ERROR: {e}")
@@ -984,10 +996,14 @@ def classify_report(report: dict) -> str:
     Status values / precedence (as executed — NOT the spec's linear prose):
       pipeline_error  → set when the pipeline raised
       no_checkable_nets → every VERDICT_MOVING bucket empty (08e joined this set in TODO-164)
-      then, over all VERDICT_MOVING results: FAIL > WARN > PASS > UNRESOLVABLE
-      (i.e. `all_pass` outranks `has_unresolvable_only`; a board with a PASS and an
-      UNRESOLVABLE classifies all_pass — matching the legacy function, whose branch
-      order checks passes before unres).
+      then, over all VERDICT_MOVING results: FAIL > WARN > PASS > UNRESOLVABLE.
+      A board with a PASS and no FAIL or WARN is `all_pass` only when no
+      VERDICT_MOVING result is UNRESOLVABLE; with one or more it is
+      `pass_with_unresolvable` (TODO-525, schema 1.0 / TODO-558). `has_warn` does
+      not split. Exit codes are unchanged (main.py: non-zero on has_fail, and on a
+      pipeline failure, which writes no report).
+      Frozen vocabulary (TODO-558): all_pass, pass_with_unresolvable, has_warn,
+      has_fail, has_unresolvable_only, no_checkable_nets, pipeline_error.
 
     Structural bounded-LLM guarantee (TODO-417 H2 rider, recon PART B2): this
     function reads ONLY each VERDICT_MOVING spec's report bucket + its already-
@@ -1007,6 +1023,8 @@ def classify_report(report: dict) -> str:
     if statuses.count("WARN") > 0:
         return "has_warn"
     if statuses.count("PASS") > 0:
+        if statuses.count("UNRESOLVABLE") > 0:
+            return "pass_with_unresolvable"
         return "all_pass"
     if statuses.count("UNRESOLVABLE") > 0:
         return "has_unresolvable_only"

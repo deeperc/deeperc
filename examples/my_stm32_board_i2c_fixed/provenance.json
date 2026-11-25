@@ -1,6 +1,6 @@
 {
   "fixture_file": "examples/my_stm32_board_i2c_fixed/my_stm32_board_i2c_fixed.net",
-  "purpose": "TODO-428: the corrected twin of my_stm32_board_i2c_swap -- the README's before/after demo, and a public-clone-runnable all_pass fixture (TODO-426's all_pass regression test now runs against this board instead of an unmanifested corpus board).",
+  "purpose": "TODO-428: the corrected twin of my_stm32_board_i2c_swap -- the README's before/after demo, and a public-clone-runnable all_pass fixture (TODO-426's all_pass regression test now runs against this board instead of an unmanifested corpus board). Since report schema 1.0 (TODO-558) its verdict reads pass_with_unresolvable: it passes, and its 2 unrelated peripheral findings are UNRESOLVABLE.",
   "source": {
     "board_net": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.net",
     "board_schematic": "netlist_corpus/stm32/community/shadaab1904-STM32-PCB-Design/My_STM32_Board.kicad_sch",
@@ -22,7 +22,7 @@
     "pin_b": {"pin": "22", "pinfunction": "PB11_22", "role": "I2C_DATA", "net": "/I2C2_SDA"}
   },
   "expected_verdict": {
-    "board_status": "all_pass",
+    "board_status": "pass_with_unresolvable",
     "peripheral_checks": {"pass": 0, "warn": 0, "fail": 0, "unresolvable": 2},
     "fail_findings": [],
     "unrelated_unresolvables": "2 pre-existing peripheral UNRESOLVABLE on /I2C2_SDA and /I2C2_SCL ('Conn_01x04_Pin' not in KB) -- identical on the swap board, unaffected by the correction",

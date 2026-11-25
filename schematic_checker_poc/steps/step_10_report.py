@@ -23,7 +23,10 @@ console = Console()
 # block, the new M14 consensus-path emitter, M15 .cleared surfacing, and the
 # additive "signal_checks" summary sub-dict below — F4 re-scope rides this bump).
 # 1.5 -> 1.6 adds `explanation_source` on results[] and power_supply_results[] (TODO-520).
-REPORT_SCHEMA_VERSION = "poc-1.6"
+# poc-1.6 -> 1.0 is the schema freeze (TODO-558): docs/report_schema.json states the
+# shape and what 1.x promises. Adds receiver.part_number and receiver.VIH_min_v on
+# results[], and writes every covered part_number with surrounding whitespace removed.
+REPORT_SCHEMA_VERSION = "1.0"
 
 # TODO-520: where a row's `explanation` text came from.
 EXPLANATION_SOURCE_LOCAL_MODEL = "local_model"
@@ -111,6 +114,26 @@ def _get_part_number(refdes: str | None, components) -> str | None:
         return None
     comp = next((c for c in components if c.refdes == refdes), None)
     return comp.part_number if comp else None
+
+
+def _out_pn(part_number):
+    """TODO-558: a part number as the report WRITES it — leading and trailing
+    whitespace removed. Output only: every cache / tier / doc-identity lookup
+    keeps the unstripped value, and extraction_metadata keys are not touched."""
+    return part_number.strip() if isinstance(part_number, str) else part_number
+
+
+def _out_not_checked(entry):
+    """A not_checked_parts entry as written: a copy with part_number and every
+    part_numbers[] element stripped (the producer's dict is not mutated)."""
+    if not isinstance(entry, dict):
+        return entry
+    out = dict(entry)
+    if "part_number" in out:
+        out["part_number"] = _out_pn(out["part_number"])
+    if isinstance(out.get("part_numbers"), list):
+        out["part_numbers"] = [_out_pn(p) for p in out["part_numbers"]]
+    return out
 
 
 # ── evidence-tier vocabulary (TODO-368 Phase 2 FIX) ────────────────────────────
@@ -380,7 +403,7 @@ def _explain(result: CheckResult, emitted_label: str) -> tuple[str, str]:
     a FAIL row whose driver voltage exceeds the receiver threshold.
     The canned text is the EMITTED label, as in _supply_explain."""
     if result.status == "UNRESOLVABLE":
-        return (result.unresolvable_reason or "Insufficient data to evaluate this net.",
+        return (result.unresolvable_detail or "Insufficient data to evaluate this net.",
                 EXPLANATION_SOURCE_CANNED)
 
     receiver_threshold = result.receiver_VIH_max or result.receiver_abs_max
@@ -516,6 +539,8 @@ def build_report(
     pullup_presence_results: list | None = None,
     rail_candidates: list | None = None,
     rail_map_conflicts: list | None = None,
+    not_checked_parts: list | None = None,
+    not_checked_pins: list | None = None,
 ) -> dict:
     if components is None:
         components = []
@@ -546,22 +571,29 @@ def build_report(
             "status": r.status,
             "driver": {
                 "refdes": r.driver_refdes,
-                "part_number": _get_part_number(r.driver_refdes, components),
-                "power_domain": None,
+                "part_number": _out_pn(_get_part_number(r.driver_refdes, components)),
+                "pin_name": r.driver_pin_name,
+                "selection": r.driver_selection,
                 "voltage_v": r.driver_voltage,
                 "voltage_source": r.driver_voltage_source,
                 "confidence": r.driver_confidence,
             },
             "receiver": {
                 "refdes": r.receiver_refdes,
+                # TODO-558: the receiver's part, as driver.part_number names the driver's.
+                "part_number": _out_pn(_receiver_part),
                 "pin_name": r.receiver_pin_name,
+                # TODO-558: the VIH limit the WARN test reads (VIH_max_v stays).
+                "VIH_min_v": r.receiver_VIH_min,
                 "VIH_max_v": r.receiver_VIH_max,
                 "absolute_max_v": r.receiver_abs_max,
             },
             "confidence": r.combined_confidence,
             "evidence_label": emitted,
             "evidence_tier": _tier,
-            "unresolvable_reason": r.unresolvable_reason,
+            "unresolvable_reason": (
+                r.unresolvable_reason.value if r.unresolvable_reason is not None else None
+            ),
             "explanation": None,
             "explanation_source": None,
             # S3-α: same part whose cache backs evidence_tier above (the RECEIVER).
@@ -591,7 +623,7 @@ def build_report(
         explanation, explanation_source = _supply_explain(r, emitted)
         supply_report_results.append({
             "refdes": r.refdes,
-            "part_number": r.part_number,
+            "part_number": _out_pn(r.part_number),
             "supply_pin": f"{r.supply_pin_name} (pin {r.supply_pin_id})",
             "connected_net": r.connected_net,
             "actual_voltage_v": r.actual_voltage,
@@ -616,7 +648,7 @@ def build_report(
             r.evidence_label, r.part_number, extraction_metadata, _W_NETLIST_EVIDENCE_ONLY)
         structural_report_results.append({
             "refdes": r.refdes,
-            "part_number": r.part_number,
+            "part_number": _out_pn(r.part_number),
             "pin": f"{r.pin_name} (pin {r.pin_id})",
             "pin_kind": r.pin_kind,
             "connected_net": r.connected_net,
@@ -664,6 +696,8 @@ def build_report(
             "pins": r.pins,
             "evidence": r.evidence + _W_TOPOLOGY,
             "evidence_tier": TIER_NOT_CACHE_DERIVED,
+            # TODO-569: "MERGED_REFDES" on a relabelled finding, else None.
+            "reason": r.reason,
         }
         for r in pullup_results
     ]
@@ -801,6 +835,8 @@ def build_report(
             # TODO-368 Phase 2 (D368-D): "_count"-suffixed -> _COUNT_SUFFIXES-
             # compatible, automatically retained by corpus_baseline._extract_stats
             # once flattened into a per-netlist stats key (run_checks.py).
+            # TODO-554: count of report["not_checked_parts"] entries.
+            "not_checked_parts": len(not_checked_parts or []),
             "evidence_tier_checks": {
                 f"{tier}_count": n for tier, n in evidence_tier_counts.items()
             },
@@ -812,6 +848,12 @@ def build_report(
         "pullup_value_results": pullup_value_report_results,
         "output_conflict_results": output_conflict_report_results,
         "pullup_presence_results": pullup_presence_report_results,
+        # TODO-554: recognised non-IC parts the signal check did not check
+        # (always present; [] when none). TODO-558: part numbers written stripped.
+        "not_checked_parts": [_out_not_checked(e) for e in (not_checked_parts or [])],
+        # TODO-556 decision 19: per-pin disclosure (first producer: step_08b
+        # OWN_SUPPLY_PIN); always present, [] when none; part numbers written stripped.
+        "not_checked_pins": [_out_not_checked(e) for e in (not_checked_pins or [])],
         "power_rails_confirmed": confirmed_voltages,
         "extraction_metadata": extraction_metadata,
     }

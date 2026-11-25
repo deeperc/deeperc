@@ -1,10 +1,13 @@
 import logging
 import re
 from dataclasses import dataclass
+from enum import Enum
 from typing import NamedTuple
 from steps.step_02_parser import NetlistIR
 from steps.step_05_validator import ValidatedPinSpec
 from steps.step_06_power import POWER_NET_RE, GROUND_NET_RE
+from steps.part_class import classify_part
+from steps import pin_supply_map
 from trace.writer import write_trace
 
 logger = logging.getLogger(__name__)
@@ -17,7 +20,7 @@ PASSIVE_REFDES_RE = re.compile(
     r'PPTC|FUSE|PTC|NTC|'                          # polyfuses, fuses, thermistors
     r'SW|BTN|KEY|PB|'                              # switches
     r'TP|FID|MH|H'                                 # test points, fiducials, mounting holes
-    r')\d+',
+    r')(?:\d+|\?)',                                # "?" = unannotated (TODO-554)
     re.IGNORECASE
 )
 
@@ -65,14 +68,21 @@ class RailProvenance(NamedTuple):
 class PowerDomainResolution(NamedTuple):
     voltage: float
     net: str
-    resolution: str    # "single_vcc" | "per_pin_resolved"
+    resolution: str    # "single_vcc" | "unanimous_rails" | "pin_supply_map"
+    # TODO-415: for "pin_supply_map", the supply pin and the datasheet citation
+    # the voltage rests on; appended to the row's evidence label.
+    detail: "str | None" = None
 
 
-# Both voltage-yielding resolution branches mean "we know this is correct";
-# the weakest-link combination already catches a flaky (low-confidence) rail,
-# so per_pin_resolved is high too (forward-compat; currently unreachable while
-# _has_per_pin_power_domain is universally False).
-_RESOLUTION_CONF = {"single_vcc": "high", "per_pin_resolved": "high"}
+# A resolution listed here means "we know this voltage is the pin's"; the
+# weakest-link combination already catches a flaky (low-confidence) rail.
+# pin_supply_map (TODO-415): the pin's supply is named by a datasheet-cited rule.
+# unanimous_rails (TODO-415 Rulings decision 19): several confirmed supply pins
+# that all show one voltage are as certain as one; the entry was missing, so
+# such drivers read low.
+# A resolution not listed reads as low.
+_RESOLUTION_CONF = {"single_vcc": "high", "unanimous_rails": "high",
+                    "pin_supply_map": "high"}
 
 
 def _driver_confidence(rail_prov: "RailProvenance | None", resolution: str) -> str:
@@ -134,6 +144,21 @@ def evaluate_compatibility(
     return "PASS", f"driver {driver_voltage}V within receiver limits"
 
 
+class SignalUnresolvableReason(Enum):
+    """Why a signal row is UNRESOLVABLE (TODO-557 / TODO-558 section 5). The
+    human-readable text for the row is CheckResult.unresolvable_detail."""
+    NO_DRIVER_VOLTAGE_NO_RECEIVER_SPECS = "NO_DRIVER_VOLTAGE_NO_RECEIVER_SPECS"
+    DRIVER_NO_DATASHEET = "DRIVER_NO_DATASHEET"
+    DRIVER_NO_CONFIRMED_RAIL = "DRIVER_NO_CONFIRMED_RAIL"
+    DRIVER_DOMAIN_AMBIGUOUS = "DRIVER_DOMAIN_AMBIGUOUS"
+    RECEIVER_SPECS_NOT_EXTRACTED = "RECEIVER_SPECS_NOT_EXTRACTED"
+    DRIVER_NOT_PUSH_PULL = "DRIVER_NOT_PUSH_PULL"
+    RECEIVER_DEFAULT_GROUP = "RECEIVER_DEFAULT_GROUP"
+    RECEIVER_SPECS_UNRESOLVED = "RECEIVER_SPECS_UNRESOLVED"
+    NO_DRIVER_ON_NET = "NO_DRIVER_ON_NET"
+    MERGED_REFDES = "MERGED_REFDES"  # TODO-569: driver or receiver refdes is merged
+
+
 @dataclass
 class CheckResult:
     net_name: str
@@ -149,8 +174,11 @@ class CheckResult:
     driver_confidence: str
     combined_confidence: str
     evidence_label: str
-    unresolvable_reason: str | None
+    unresolvable_reason: SignalUnresolvableReason | None
     receiver_VIH_min: float | None = None   # Fix 4: stored separately from VIH_max
+    unresolvable_detail: str | None = None  # TODO-557: the prose for unresolvable_reason
+    driver_pin_name: str | None = None      # TODO-557: the driver's pin on this net
+    driver_selection: str | None = None     # TODO-557: how the driver was chosen
 
 
 # Pin names that indicate a VCC/power supply pin
@@ -168,21 +196,9 @@ def _is_gnd_pin(pin_name: str) -> bool:
     return pin_name.lower() in _GND_NAMES
 
 
-def _has_per_pin_power_domain(
-    refdes: str,
-    pin_specs: dict[tuple[str, str], "ValidatedPinSpec"],
-) -> bool:
-    """Forward-compatible proxy for 'extraction provides per-pin power-domain mapping.'
-
-    Today: ValidatedPinSpec has no `power_domain` field, so this is universally
-    False — multi-VCC parts fall into the guard's None branch. When extraction is
-    later improved to populate a per-pin `power_domain` attribute on resolved
-    parts, this proxy auto-loosens and those parts resume returning a voltage.
-    """
-    for (rd, _), spec in pin_specs.items():
-        if rd == refdes and getattr(spec, "power_domain", None):
-            return True
-    return False
+def _first_component(ir: NetlistIR, refdes: "str | None"):
+    """The first component carrying refdes, or None."""
+    return next((c for c in ir.components if c.refdes == refdes), None) if refdes else None
 
 
 def _resolve_power_domain(
@@ -190,11 +206,20 @@ def _resolve_power_domain(
     ir: NetlistIR,
     confirmed_voltages: dict[str, float],
     pin_specs: dict[tuple[str, str], "ValidatedPinSpec"],
+    pin_name: "str | None" = None,
 ) -> "PowerDomainResolution | None":
-    """Resolve a component's VCC voltage with resolution provenance, else None.
+    """Resolve the voltage a pin of a component runs from, with resolution
+    provenance, else None.
 
-    Behavior (U1 power-domain fix, Options 1+2 — see
-    the U1 power-domain recon and its projection):
+    Per-pin supply map first (TODO-415), when pin_name is given and
+    steps/pin_supply_map.py has a rule for (part, pin) whose supply pin is on the
+    component: the voltage is that supply pin's confirmed rail voltage, tagged
+    "pin_supply_map". If that supply is on no confirmed rail, or on rails of more
+    than one voltage, the result is None: a mapped pin never falls back to another
+    supply of the part. Where the map is silent, the part-level logic below runs.
+
+    Part-level logic (U1 power-domain fix, Options 1+2 — see the U1 power-domain
+    recon and its projection):
     - 0 confirmed-rail pins → None (no domain to determine). Membership
       excludes rails whose confirmed voltage is None (Option 2) — a net that
       rail inference tracked but never assigned a voltage is not a domain
@@ -205,25 +230,35 @@ def _resolve_power_domain(
       not pin/rail COUNT — a part with several same-voltage supply pins, e.g.
       +3V3 and VDDA both at 3.3V, or two pins on the same net, is not
       ambiguous just because it has more than one pin).
-    - >1 confirmed-rail pin, genuinely disagreeing on voltage → trust the
-      first-iter heuristic only when extraction provides per-pin power-domain
-      mapping for this part (see `_has_per_pin_power_domain`), tagged
-      "per_pin_resolved"; otherwise None.
+    - >1 confirmed-rail pin, genuinely disagreeing on voltage → None. Which rail
+      a given pin runs from is not known at part level; only a supply-map rule
+      resolves such a pin.
 
     Pre-Fix-α logic returned the first-iterated VCC pin's voltage in all
-    cases, which produced wrong attributions on multi-VCC parts without per-pin
-    extraction (FPGAs, connectors, modules). See
+    cases, which produced wrong attributions on multi-VCC parts (FPGAs,
+    connectors, modules). See
     `corpus_results/cross_board_confident_wrong_analysis.md` for the cases that
     motivated the guard. The guard itself (pre-Options-1+2) then over-rejected:
     it counted PINS, not DISTINCT VOLTAGES, so a same-voltage multi-rail MCU
     (the common case) was misclassified as ambiguous.
 
+    pin_specs is unused (kept for the callers' signature).
+
     Returns the matched net name so callers can look up rail-classification
     provenance (v2_10.4 drv_conf calibration).
     """
-    comp = next((c for c in ir.components if c.refdes == refdes), None)
+    comp = _first_component(ir, refdes)
     if comp is None:
         return None
+    if pin_name is not None:
+        mapped = pin_supply_map.pin_supply(comp, pin_name, confirmed_voltages)
+        if mapped is not None:
+            if mapped.voltage is None:
+                return None
+            return PowerDomainResolution(
+                voltage=mapped.voltage, net=mapped.net, resolution="pin_supply_map",
+                detail=(f"driver pin {pin_name} runs from {mapped.supply} per the "
+                        f"supply map: {mapped.citation}"))
     vcc_pins = [(pin.net, confirmed_voltages[pin.net])
                 for pin in comp.pins
                 if pin.net in confirmed_voltages and confirmed_voltages[pin.net] is not None]
@@ -237,13 +272,7 @@ def _resolve_power_domain(
     if len(distinct_voltages) == 1:
         net, v = vcc_pins[0]
         return PowerDomainResolution(voltage=v, net=net, resolution="unanimous_rails")
-    # Genuine multi-voltage ambiguity: unless extraction disambiguates.
-    # _has_per_pin_power_domain is the escape hatch for that case; it is
-    # permanently-False until ValidatedPinSpec.power_domain exists (see its
-    # docstring) — kept wired here unchanged, not removed or extended.
-    if _has_per_pin_power_domain(refdes, pin_specs):
-        net, v = vcc_pins[0]  # preserve existing first-iter behavior for extraction-grounded parts
-        return PowerDomainResolution(voltage=v, net=net, resolution="per_pin_resolved")
+    # Genuine multi-voltage ambiguity and no supply-map rule for this pin.
     return None
 
 
@@ -251,8 +280,9 @@ def _unresolved_driver_voltage_reason(
     refdes: str | None,
     ir: NetlistIR,
     confirmed_voltages: dict[str, float],
-) -> str:
-    """Classify why _resolve_power_domain returned no voltage, for the
+    pin_name: "str | None" = None,
+) -> tuple[SignalUnresolvableReason, str]:
+    """(code, prose) — classify why _resolve_power_domain returned no voltage, for the
     UNRESOLVABLE message (Option 3: the message used to conflate two different
     conditions — "no resolved datasheet" and "power domain ambiguous" — into
     one string, even when the driver's part_number was known; see the recon's
@@ -264,17 +294,35 @@ def _unresolved_driver_voltage_reason(
     from a component already found via comp_by_ref — but is kept as the
     honest classification for a refdes with no component of record, and to
     keep this function correct if ever called on an unvalidated refdes.
+
+    TODO-415: when pin_name is given and the supply map has a rule for the pin,
+    the reason is about that rule's supply pin: on no confirmed rail
+    (DRIVER_NO_CONFIRMED_RAIL), or on rails of more than one voltage
+    (DRIVER_DOMAIN_AMBIGUOUS). No new reason code.
     """
-    comp = next((c for c in ir.components if c.refdes == refdes), None) if refdes else None
+    comp = _first_component(ir, refdes)
     if comp is None:
-        return f"Driver voltage unknown — {refdes or 'unknown'} has no resolved datasheet"
+        return (SignalUnresolvableReason.DRIVER_NO_DATASHEET,
+                f"Driver voltage unknown — {refdes or 'unknown'} has no resolved datasheet")
+    if pin_name is not None:
+        mapped = pin_supply_map.pin_supply(comp, pin_name, confirmed_voltages)
+        if mapped is not None and mapped.state == "SUPPLY_MIXED":
+            return (SignalUnresolvableReason.DRIVER_DOMAIN_AMBIGUOUS,
+                    f"Driver voltage unknown — {refdes} pin {pin_name} runs from "
+                    f"{mapped.supply} (supply map), whose pins are on rails of more "
+                    f"than one voltage: {list(mapped.voltages)}")
+        if mapped is not None and mapped.state == "SUPPLY_UNCONFIRMED":
+            return (SignalUnresolvableReason.DRIVER_NO_CONFIRMED_RAIL,
+                    f"Driver voltage unknown — {refdes} pin {pin_name} runs from "
+                    f"{mapped.supply} (supply map), which is on no confirmed rail")
     vcc_pins = [(pin.net, confirmed_voltages[pin.net])
                 for pin in comp.pins
                 if pin.net in confirmed_voltages and confirmed_voltages[pin.net] is not None]
     if not vcc_pins:
-        return f"Driver voltage unknown — {refdes} has no confirmed rail on any pin"
+        return (SignalUnresolvableReason.DRIVER_NO_CONFIRMED_RAIL,
+                f"Driver voltage unknown — {refdes} has no confirmed rail on any pin")
     distinct_voltages = sorted({v for _, v in vcc_pins})
-    return (
+    return SignalUnresolvableReason.DRIVER_DOMAIN_AMBIGUOUS, (
         f"Driver voltage unknown — {refdes} power domain ambiguous "
         f"({len(vcc_pins)} rail pin(s), {len(distinct_voltages)} distinct voltage(s): "
         f"{distinct_voltages})"
@@ -313,6 +361,23 @@ def _get_component_vcc_voltage(
     return max(voltages) if voltages else None
 
 
+def _rank_voltage(
+    refdes: str,
+    pin_name: str,
+    ir: NetlistIR,
+    confirmed_voltages: dict[str, float],
+) -> float | None:
+    """The voltage an endpoint pin is ranked at for the highest-rail driver choice
+    (TODO-415): the pin's supply-map voltage when a rule applies to it (None when
+    that supply has no single confirmed voltage), else the part's highest
+    confirmed rail as before."""
+    mapped = pin_supply_map.pin_supply(
+        _first_component(ir, refdes), pin_name, confirmed_voltages)
+    if mapped is not None:
+        return mapped.voltage
+    return _get_component_vcc_voltage(refdes, ir.components, confirmed_voltages)
+
+
 _RESISTOR_REFDES_RE = re.compile(r'^(?:R|RN)\d', re.IGNORECASE)
 
 
@@ -345,6 +410,25 @@ def _net_has_pullup_below(
     return False
 
 
+def _driver_ineligible(p: dict) -> bool:
+    """TODO-557: a signal endpoint that may never be picked as a net's driver —
+    an open-drain pin (any match, default group included), or a pin whose
+    extracted group positively types it as an input. It stays a receiver."""
+    return bool(p.get("open_drain")) or (
+        p.get("pin_type") in ("digital_input", "input") and bool(p.get("pin_type_exact")))
+
+
+# TODO-557: report value of CheckResult.driver_selection per driver_priority path.
+_DRIVER_SELECTION = {
+    "driver_explicit_output": "explicit_output",
+    "driver_highest_vcc_bidirectional": "highest_rail",
+    "driver_first_pin": "first_pin",
+}
+
+_NO_DRIVER_DETAIL = ("No driver on this net in the netlist: every endpoint is an input "
+                     "pin, an open-drain pin or a non-IC part")
+
+
 _REGEX_ONLY_SKIP_LOGGED = False
 
 
@@ -366,14 +450,45 @@ def run(
     pin_specs: dict[tuple[str, str], ValidatedPinSpec],  # (refdes, pin_name) → spec
     confirmed_voltages: dict[str, float],
     rail_provenance: "dict[str, RailProvenance] | None" = None,
+    *,
+    not_checked_out: list | None = None,
 ) -> list[CheckResult]:
     """rail_provenance: optional net name → RailProvenance (source+confidence)
     from step_06. When provided, drv_conf is provenance-calibrated; when omitted,
-    falls back to the legacy presence-based labeling (backward compatible)."""
+    falls back to the legacy presence-based labeling (backward compatible).
+
+    TODO-554: a part recognised as non-IC by part_class.classify_part whose refdes
+    the passive regex misses (a GAP part) is never a driver, and is a receiver only
+    on a pin with extracted limits. not_checked_out, when given, is extended with one
+    NON_IC_PART dict per recognised part that has a signal pin on a net with an IC
+    endpoint and is not the receiver of a row there.
+
+    TODO-556 decision 17: a GAP part classed protection_diode (a TVS / ESD array) is
+    never a signal endpoint, with or without limits; it is disclosed as NON_IC_PART.
+    TODO-556 decision 16 (TODO-567): a receiver that is the same part instance as the
+    net's driver gets no row; each such part is disclosed once, after the NON_IC_PART
+    entries, as a SAME_INSTANCE dict (nets, pins, pins_with_rows)."""
     results: list[CheckResult] = []
 
     # Index components by refdes
     comp_by_ref = {c.refdes: c for c in ir.components}
+
+    # TODO-554: classify each component once; a refdes is RECOGNISED only if every
+    # component carrying it is, with the first such component's class/evidence.
+    positions_by_ref: dict[str, list[int]] = {}
+    for i, c in enumerate(ir.components):
+        positions_by_ref.setdefault(c.refdes, []).append(i)
+    classes = [classify_part(c) for c in ir.components]
+    recognised: dict[str, tuple[str, str]] = {}
+    for ref, idxs in positions_by_ref.items():
+        if all(classes[i] is not None for i in idxs):
+            recognised[ref] = classes[idxs[0]]
+    gap_refs = {ref for ref in recognised if not is_passive_component(ref)}
+    # (refdes) -> set of (net, pin_name) qualifying disclosure pins (step 4g)
+    disclosure_pins: dict[str, set[tuple[str, str]]] = {}
+    # TODO-556 decision 16: (refdes) -> set of (net, pin_name) whose row was dropped
+    # because the receiver is the driver's own part instance.
+    same_instance: dict[str, set[tuple[str, str]]] = {}
     # Build (refdes, pin_id) → pin_name map
     pin_name_map: dict[tuple[str, str], str] = {}
     for comp in ir.components:
@@ -409,12 +524,31 @@ def run(
             if is_passive_component(refdes):
                 continue
             spec     = pin_specs.get((refdes, pin_name))
+            is_gap = refdes in gap_refs
+            if is_gap and recognised[refdes][0] == "protection_diode":
+                continue  # TODO-556 decision 17: a protection diode is never an endpoint
+            if is_gap and not (spec is not None and (
+                    spec.VIH_min is not None or spec.VIH_max is not None
+                    or spec.absolute_max_voltage is not None)):
+                continue  # TODO-554: GAP pin without extracted limits is not an endpoint
             pin_type = spec.pin_type if spec else None
-            vcc      = _get_component_vcc_voltage(refdes, ir.components, confirmed_voltages)
+            vcc      = _rank_voltage(refdes, pin_name, ir, confirmed_voltages)
             signal_pins.append({"refdes": refdes, "pin_name": pin_name,
                                  "pin_type": pin_type, "vcc": vcc,
                                  "pin_type_exact": spec.pin_type_exact if spec else False,
-                                 "open_drain": spec.open_drain if spec else False})
+                                 "open_drain": spec.open_drain if spec else False,
+                                 "gap": is_gap})
+
+        # TODO-554 step 4g: candidate disclosure pins — recognised parts' signal
+        # pins on a net that has at least one IC (non-GAP) endpoint.
+        if not_checked_out is not None and any(not p["gap"] for p in signal_pins):
+            for refdes, pin_id in net.pins:
+                if refdes not in recognised or comp_by_ref.get(refdes) is None:
+                    continue
+                pin_name = pin_name_map.get((refdes, pin_id), "")
+                if _is_power_pin(pin_name) or _is_gnd_pin(pin_name):
+                    continue
+                disclosure_pins.setdefault(refdes, set()).add((net.name, pin_name))
 
         # If all pins on this net are passive, skip without generating a result
         all_pins_on_net = [
@@ -437,7 +571,13 @@ def run(
         # Both then fall to the priority-2/3 path and are downgraded (non-push-pull
         # FAIL/WARN → UNRESOLVABLE) by the driver-type guard below. A genuine,
         # positively-matched push-pull output (74HC595 QA → STM32) is untouched.
-        explicit_out = [p for p in signal_pins
+        # TODO-554 / TODO-557: a non-IC (GAP) part, an open-drain pin and a pin
+        # typed as an input by its own extracted group are never drivers under any
+        # priority. Driver choice runs over the remaining endpoints only; every
+        # other endpoint, ineligible ones included, is a receiver.
+        drv_candidates = [p for p in signal_pins
+                          if not p["gap"] and not _driver_ineligible(p)]
+        explicit_out = [p for p in drv_candidates
                         if p["pin_type"] in {"output", "digital_output", "power_output"}
                         and p.get("pin_type_exact")
                         and not p.get("open_drain")]
@@ -446,10 +586,12 @@ def run(
             recv_pins     = [p for p in signal_pins if p not in explicit_out]
             driver_priority = "driver_explicit_output"
         else:
-            # Priority 2: no explicit output — highest-VCC component drives
-            # (conservative: higher supply → more likely to overdrive the lower-voltage side)
+            # Priority 2: no explicit output — the endpoint with the highest rail
+            # drives (conservative: higher supply → more likely to overdrive the
+            # lower-voltage side). TODO-415: p["vcc"] is the pin's own supply-map
+            # voltage where a rule applies, else the part's highest confirmed rail.
             with_vcc = sorted(
-                [p for p in signal_pins if p["vcc"] is not None],
+                [p for p in drv_candidates if p["vcc"] is not None],
                 key=lambda p: p["vcc"], reverse=True,
             )
             if len(with_vcc) >= 2:
@@ -462,8 +604,9 @@ def run(
                 driver_priority = "driver_highest_vcc_bidirectional"
             else:
                 # Priority 3: no VCC info — first pin is driver, rest receive
-                drv_pins        = signal_pins[:1]
-                recv_pins       = signal_pins[1:]
+                drv_pins        = drv_candidates[:1]
+                recv_pins       = [p for p in signal_pins
+                                   if not any(p is d for d in drv_pins)]
                 driver_priority = "driver_first_pin"
 
         drivers   = [(p["refdes"], p["pin_name"]) for p in drv_pins]
@@ -471,8 +614,50 @@ def run(
 
         if not receivers:
             continue
+        # TODO-557: no eligible driver. When the net has an IC endpoint and at
+        # least two signal endpoints, every receiver gets an UNRESOLVABLE
+        # NO_DRIVER_ON_NET row; otherwise the net stays silent.
+        if not drivers:
+            if any(not p["gap"] for p in signal_pins) and len(signal_pins) >= 2:
+                for p in recv_pins:
+                    _s = pin_specs.get((p["refdes"], p["pin_name"]))
+                    results.append(CheckResult(
+                        net_name=net.name,
+                        status="UNRESOLVABLE",
+                        driver_refdes=None,
+                        driver_voltage=None,
+                        driver_voltage_source="unknown",
+                        receiver_refdes=p["refdes"],
+                        receiver_pin_name=p["pin_name"],
+                        receiver_VIH_max=_s.VIH_max if _s else None,
+                        receiver_abs_max=_s.absolute_max_voltage if _s else None,
+                        receiver_confidence=_s.confidence if _s else "low",
+                        driver_confidence="low",
+                        combined_confidence="low",
+                        evidence_label="Unresolvable — no driver on this net in the netlist",
+                        unresolvable_reason=SignalUnresolvableReason.NO_DRIVER_ON_NET,
+                        receiver_VIH_min=_s.VIH_min if _s else None,
+                        unresolvable_detail=_NO_DRIVER_DETAIL,
+                        driver_pin_name=None,
+                        driver_selection="none",
+                    ))
+                    write_trace(
+                        net_name=net.name, step_id="step_08_checker",
+                        step_display_name="Net compatibility checker", step_type="deterministic",
+                        decision_path="unresolvable_no_driver_on_net",
+                        inputs={"driver_refdes": None, "receiver_refdes": p["refdes"],
+                                "receiver_pin": p["pin_name"]},
+                        outputs={"status": "UNRESOLVABLE", "reason": "NO_DRIVER_ON_NET"},
+                    )
+            continue
 
+        start = len(results)
         for recv_ref, recv_pin_name in receivers:
+            if recv_ref == drivers[0][0]:
+                # TODO-556 decision 16 (TODO-567): the receiver is the driver's own
+                # part instance; such a row asserts nothing. No row; disclosed below.
+                same_instance.setdefault(recv_ref, set()).add((net.name, recv_pin_name))
+                continue
             spec = pin_specs.get((recv_ref, recv_pin_name))
             VIH_max        = spec.VIH_max if spec else None
             VIH_min        = spec.VIH_min if spec else None
@@ -489,7 +674,8 @@ def run(
             driver_ref = drivers[0][0] if drivers else None
             resolution: PowerDomainResolution | None = None
             if driver_ref:
-                resolution = _resolve_power_domain(driver_ref, ir, confirmed_voltages, pin_specs)
+                resolution = _resolve_power_domain(
+                    driver_ref, ir, confirmed_voltages, pin_specs, pin_name=drivers[0][1])
 
             # Driver-type guard (applied at the verdict, below): only a genuine
             # push-pull output (the priority-1 explicit-output path) is confirmed to
@@ -552,8 +738,9 @@ def run(
                     driver_confidence="low",
                     combined_confidence="low",
                     evidence_label="Unresolvable — no driver voltage or receiver specs available",
-                    unresolvable_reason="Neither driver voltage nor receiver pin specs could be determined",
+                    unresolvable_reason=SignalUnresolvableReason.NO_DRIVER_VOLTAGE_NO_RECEIVER_SPECS,
                     receiver_VIH_min=None,
+                    unresolvable_detail="Neither driver voltage nor receiver pin specs could be determined",
                 ))
                 write_trace(
                     net_name=net.name, step_id="step_08_checker",
@@ -566,6 +753,8 @@ def run(
                 continue
 
             if not has_driver_voltage:
+                _code, _detail = _unresolved_driver_voltage_reason(
+                    driver_ref, ir, confirmed_voltages, pin_name=drivers[0][1])
                 results.append(CheckResult(
                     net_name=net.name,
                     status="UNRESOLVABLE",
@@ -580,8 +769,9 @@ def run(
                     driver_confidence="low",
                     combined_confidence="low",
                     evidence_label=source_evidence,
-                    unresolvable_reason=_unresolved_driver_voltage_reason(driver_ref, ir, confirmed_voltages),
+                    unresolvable_reason=_code,
                     receiver_VIH_min=VIH_min,
+                    unresolvable_detail=_detail,
                 ))
                 write_trace(
                     net_name=net.name, step_id="step_08_checker",
@@ -608,8 +798,9 @@ def run(
                     driver_confidence=drv_conf,
                     combined_confidence="low",
                     evidence_label="Assumed/low-confidence",
-                    unresolvable_reason=f"Receiver specs unknown — {recv_ref} pin specs not extracted (signal_score too low or datasheet section not found)",
+                    unresolvable_reason=SignalUnresolvableReason.RECEIVER_SPECS_NOT_EXTRACTED,
                     receiver_VIH_min=None,
+                    unresolvable_detail=f"Receiver specs unknown — {recv_ref} pin specs not extracted (signal_score too low or datasheet section not found)",
                 ))
                 write_trace(
                     net_name=net.name, step_id="step_08_checker",
@@ -629,6 +820,11 @@ def run(
                 receiver_VIH_max=VIH_max,
                 receiver_abs_max=abs_max,
             )
+            # TODO-415: a driver voltage taken from the supply map names its supply
+            # pin and datasheet citation in the label (also inside the two
+            # downgrade labels below, which quote compat_evidence).
+            if resolution is not None and resolution.detail:
+                compat_evidence += f" ({resolution.detail})"
 
             # Driver-type guard (see note above): a non-push-pull driver (priority
             # 2/3 fallback — bidirectional / passive analog-switch throw / open-drain
@@ -660,11 +856,12 @@ def run(
                         f"asserted onto the net, so the would-be {status} "
                         f"({compat_evidence}) is not established"
                     ),
-                    unresolvable_reason=(
+                    unresolvable_reason=SignalUnresolvableReason.DRIVER_NOT_PUSH_PULL,
+                    receiver_VIH_min=VIH_min,
+                    unresolvable_detail=(
                         f"Driver {driver_ref} is not a push-pull output; over-voltage "
                         f"verdict from a non-driving pin's VCC is not trustworthy"
                     ),
-                    receiver_VIH_min=VIH_min,
                 ))
                 write_trace(
                     net_name=net.name, step_id="step_08_checker",
@@ -701,11 +898,12 @@ def run(
                         f"pin group; its limits come from the part's default group, so the "
                         f"would-be {status} ({compat_evidence}) is not established"
                     ),
-                    unresolvable_reason=(
+                    unresolvable_reason=SignalUnresolvableReason.RECEIVER_DEFAULT_GROUP,
+                    receiver_VIH_min=VIH_min,
+                    unresolvable_detail=(
                         f"Receiver {recv_ref} pin {recv_pin_name} matched no "
                         f"pin group; default-group limits are not evidence for this pin"
                     ),
-                    receiver_VIH_min=VIH_min,
                 ))
                 write_trace(
                     net_name=net.name, step_id="step_08_checker",
@@ -749,8 +947,53 @@ def run(
                          "combined_confidence": combined_conf},
             )
 
+        # TODO-557: every row off this net's driver names the driver pin and how
+        # the driver was chosen.
+        for r in results[start:]:
+            r.driver_pin_name = drivers[0][1]
+            r.driver_selection = _DRIVER_SELECTION[driver_priority]
+
     for r in results:
         _attach_expr_notes(r, pin_specs.get((r.receiver_refdes, r.receiver_pin_name)))
+
+    if not_checked_out is not None:
+        receiver_of_row = {(r.net_name, r.receiver_refdes, r.receiver_pin_name)
+                           for r in results}
+        entries: list[tuple[tuple[str, int], dict]] = []
+        for ref, pins in disclosure_pins.items():
+            qualifying = {(n, pn) for n, pn in pins if (n, ref, pn) not in receiver_of_row}
+            if not qualifying:
+                continue
+            part_class, class_evidence = recognised[ref]
+            nets = sorted({n for n, _ in qualifying})
+            pins_with_rows = len({(r.net_name, r.receiver_pin_name)
+                                  for r in results if r.receiver_refdes == ref})
+            for i in positions_by_ref[ref]:
+                entries.append(((ref, i), {
+                    "refdes": ref,
+                    "part_number": ir.components[i].part_number,
+                    "part_class": part_class,
+                    "class_evidence": class_evidence,
+                    "checker": "signal",
+                    "reason": "NON_IC_PART",
+                    "nets": nets,
+                    "pins_with_rows": pins_with_rows,
+                }))
+        entries.sort(key=lambda e: e[0])
+        not_checked_out.extend(e for _, e in entries)
+        # TODO-556 decision 16: one SAME_INSTANCE entry per part, sorted by refdes.
+        for ref in sorted(same_instance):
+            dropped = same_instance[ref]
+            not_checked_out.append({
+                "refdes": ref,
+                "part_number": ir.components[positions_by_ref[ref][0]].part_number,
+                "checker": "signal",
+                "reason": "SAME_INSTANCE",
+                "nets": sorted({n for n, _ in dropped}),
+                "pins": sorted({pn for _, pn in dropped}),
+                "pins_with_rows": len({(r.net_name, r.receiver_pin_name)
+                                       for r in results if r.receiver_refdes == ref}),
+            })
     return results
 
 
@@ -768,10 +1011,15 @@ def _attach_expr_notes(result: CheckResult, spec: ValidatedPinSpec | None) -> No
     result.evidence_label = f"{result.evidence_label} [{joined}]"
     if (result.status == "UNRESOLVABLE" and result.receiver_VIH_min is None
             and result.receiver_VIH_max is None and result.receiver_abs_max is None):
+        # TODO-557 R7: a no-driver row keeps its own reason and detail.
+        if result.unresolvable_reason is SignalUnresolvableReason.NO_DRIVER_ON_NET:
+            return
         if result.driver_voltage is None:
-            result.unresolvable_reason = (
+            result.unresolvable_reason = SignalUnresolvableReason.NO_DRIVER_VOLTAGE_NO_RECEIVER_SPECS
+            result.unresolvable_detail = (
                 f"Neither driver voltage nor receiver pin specs could be determined — "
                 f"receiver specs unresolved: {joined}")
         else:
-            result.unresolvable_reason = (
+            result.unresolvable_reason = SignalUnresolvableReason.RECEIVER_SPECS_UNRESOLVED
+            result.unresolvable_detail = (
                 f"Receiver specs unresolved — {result.receiver_refdes}: {joined}")

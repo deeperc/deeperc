@@ -360,6 +360,7 @@ def traverse_passive_bridges(
     netlist,
     confirmed_voltages: dict,
     ground_nets: list,
+    rail_named_nets=None,
 ) -> tuple[dict[str, list[DerivedSource]], dict[str, DerivationRecord]]:
     """Classify unclassified power-bearing nets that reach a confirmed rail through
     a single passive bridge component.
@@ -370,6 +371,12 @@ def traverse_passive_bridges(
               with .name and .pins as list[tuple[str,str]] = [(refdes, pin_id)...])
     confirmed_voltages : dict[str, float | None] — net name → voltage
     ground_nets : list[str] — net names classified as ground
+    rail_named_nets : optional set[str] — nets the rail rules name as a rail but that
+              carry no voltage (TODO-556 decision 18). For such a net the IC-power-pin
+              gate and the side-branch downgrade / rejection are skipped, and the
+              relaxed result is kept ONLY when it is a single HIGH-confidence source
+              through an inductor / ferrite bridge and the ordinary walk gives no single
+              HIGH source. Every other net is walked exactly as before.
 
     Returns
     -------
@@ -382,6 +389,7 @@ def traverse_passive_bridges(
     normalized_cv = {normalize_net_name(n) for n in confirmed_voltages}
     normalized_ground = {normalize_net_name(n) for n in ground_nets}
 
+    rail_named = set(rail_named_nets or ())
     derived_by_net: dict[str, list[DerivedSource]] = {}
     records_by_net: dict[str, DerivationRecord] = {}
 
@@ -392,8 +400,11 @@ def traverse_passive_bridges(
         if net_norm in normalized_cv or net_norm in normalized_ground:
             continue
 
-        # Only traverse nets that contain an IC power pin
-        if not _has_ic_power_pin(net, components_by_refdes):
+        is_rail_named = net.name in rail_named
+        has_power_pin = _has_ic_power_pin(net, components_by_refdes)
+        # Only traverse nets that contain an IC power pin (TODO-556 decision 18:
+        # or that the rail rules name as a rail with no voltage)
+        if not has_power_pin and not is_rail_named:
             continue
 
         candidates: list[tuple] = []
@@ -449,6 +460,24 @@ def traverse_passive_bridges(
         side_branches, should_downgrade, should_reject = _classify_side_branches(
             net, bridge_candidate_pins, components_by_refdes, normalized_ground
         )
+
+        if is_rail_named:
+            # TODO-556 decision 18: the ordinary walk's outcome is kept when it is a
+            # single HIGH source; otherwise the relaxed walk (no power-pin gate, no
+            # side-branch downgrade or rejection) is used, but only for a single
+            # HIGH source through an inductor / ferrite.
+            ordinary_ok = has_power_pin and not should_reject and not should_downgrade
+            ordinary = _build_derived_sources(candidates) if ordinary_ok else []
+            if not (len(ordinary) == 1 and ordinary[0].confidence == Confidence.HIGH):
+                relaxed = _build_derived_sources(candidates)
+                if (len(relaxed) == 1 and relaxed[0].confidence == Confidence.HIGH
+                        and relaxed[0].bridge.bridge_type == BridgeType.INDUCTOR):
+                    derived_by_net[net.name] = relaxed
+                    records_by_net[net.name] = _build_record(
+                        net.name, candidates, side_branches, was_downgraded=False)
+                    continue
+            if not has_power_pin:
+                continue
 
         if should_reject:
             continue

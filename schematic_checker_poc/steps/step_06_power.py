@@ -69,6 +69,8 @@ POWER_NET_RE = re.compile(
     r'.*_12V$|.*_24V$|.*_48V$|'                   # higher voltage suffixes
     r'VREF\w*|/?VBAT\w*|/?VBUS\w*|VCAP\w*|'      # special supply names (VBAT/VBUS: KiCad leading '/', TODO-452)
     r'/?VIN\w*|/?VOUT\w*|VREG\w*|/?VSYS\w*|'      # regulator nets (VIN/VOUT/VSYS: KiCad leading '/', TODO-452/F6)
+    r'/?\d+V\d*(?:REG|EXT)?|'                     # TODO-581: 3V3, 5V, 5VREG, /12Vext; NOT /5VPG (power-good signal) or 3V3_EN
+    r'/?VDD\w*(?:-\w+)+|'                         # TODO-573: hyphenated VDD rail (/VDD1A-2A)
     r'EP|PAD|EPAD'                                 # thermal/exposed pads
     r')$',
     re.IGNORECASE

@@ -38,7 +38,17 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "DIP-8": [
+          "1|VDD",
+          "8|VSS"
+        ],
+        "SOIC-8": [
+          "1|VDD",
+          "8|VSS"
+        ]
+      }
     },
     {
       "group_name": "GPIO Digital I/O (TTL input, CMOS output)",
@@ -87,7 +97,17 @@
       "abs_max_source": null,
       "VIH_min_expr": "0.25*VDD+0.8",
       "VIL_max_expr": "VSS-0.15*VDD",
-      "VOH_min_expr": "VDD-0.7"
+      "VOH_min_expr": "VDD-0.7",
+      "example_pins_by_package": {
+        "DIP-8": [
+          "7|GP0",
+          "6|GP1"
+        ],
+        "SOIC-8": [
+          "7|GP0",
+          "6|GP1"
+        ]
+      }
     },
     {
       "group_name": "GPIO Digital I/O (Schmitt Trigger input, CMOS output)",
@@ -135,7 +155,15 @@
       "abs_max_source": null,
       "VIH_min_expr": "0.8*VDD",
       "VIL_max_expr": "VSS-0.2*VDD",
-      "VOH_min_expr": "VDD-0.7"
+      "VOH_min_expr": "VDD-0.7",
+      "example_pins_by_package": {
+        "DIP-8": [
+          "5|GP2/T0CKI"
+        ],
+        "SOIC-8": [
+          "5|GP2/T0CKI"
+        ]
+      }
     },
     {
       "group_name": "MCLR/GP3 Input (Schmitt Trigger)",
@@ -176,7 +204,15 @@
       "VIH_source": "p. 82",
       "abs_max_source": "11.0 ELECTRICAL CHARACTERISTICS - PIC12C508/PIC12C509",
       "VIH_min_expr": "0.8*VDD",
-      "VIL_max_expr": "VSS-0.2*VDD"
+      "VIL_max_expr": "VSS-0.2*VDD",
+      "example_pins_by_package": {
+        "DIP-8": [
+          "4|GP3/MCLR/VPP"
+        ],
+        "SOIC-8": [
+          "4|GP3/MCLR/VPP"
+        ]
+      }
     },
     {
       "group_name": "OSC1/CLKIN Input (XT/LP mode, Schmitt Trigger)",
@@ -211,7 +247,15 @@
       "VIH_source": "p. 67",
       "abs_max_source": null,
       "VIH_min_expr": "0.7*VDD",
-      "VIL_max_expr": "VSS-0.3*VDD"
+      "VIL_max_expr": "VSS-0.3*VDD",
+      "example_pins_by_package": {
+        "DIP-8": [
+          "2|GP5/OSC1/CLKIN"
+        ],
+        "SOIC-8": [
+          "2|GP5/OSC1/CLKIN"
+        ]
+      }
     },
     {
       "group_name": "OSC1/CLKIN Input (EXTRC mode, Schmitt Trigger)",
@@ -248,7 +292,15 @@
         }
       },
       "VIH_source": "p. 2",
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "DIP-8": [
+          "2|GP5/OSC1/CLKIN"
+        ],
+        "SOIC-8": [
+          "2|GP5/OSC1/CLKIN"
+        ]
+      }
     },
     {
       "group_name": "OSC2 Output (XT/LP mode)",
@@ -268,7 +320,15 @@
       "supply_rail_name": null,
       "citations": {},
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "DIP-8": [
+          "3|GP4/OSC2"
+        ],
+        "SOIC-8": [
+          "3|GP4/OSC2"
+        ]
+      }
     }
   ],
   "default_group": "GPIO Digital I/O (TTL input, CMOS output)",
@@ -282,6 +342,197 @@
       "pairs_rewritten": 9,
       "entries_dropped_as_duplicates": 0,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/microchip/pic12c508a.pdf",
+        "sha256": "038ccfcc9e0e8996b2668c78284ff8602e76120316319f5e6780a706ea65376a"
+      },
+      "packages": [
+        "DIP-8",
+        "SOIC-8"
+      ],
+      "restored": [
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "1",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VSS",
+          "number": "8",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "1",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VSS",
+          "number": "8",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GP1",
+          "number": "6",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GP0",
+          "number": "7",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GP1",
+          "number": "6",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "GP0",
+          "number": "7",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "GP2/T0CKI",
+          "number": "5",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "GP2/T0CKI",
+          "number": "5",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "GP3/MCLR/VPP",
+          "number": "4",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "GP3/MCLR/VPP",
+          "number": "4",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "GP5/OSC1/CLKIN",
+          "number": "2",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "GP5/OSC1/CLKIN",
+          "number": "2",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "GP5/OSC1/CLKIN",
+          "number": "2",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "GP5/OSC1/CLKIN",
+          "number": "2",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "GP4/OSC2",
+          "number": "3",
+          "package": "DIP-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "GP4/OSC2",
+          "number": "3",
+          "package": "SOIC-8",
+          "source": "pdf_table",
+          "page": 11,
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 18,
+        "contradicted": 0,
+        "not_shown": 0,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

@@ -85,9 +85,11 @@ def test_count_agrees_with_verdict_moving_extraction():
     assert pipeline.count_unresolvable(r) == expected
 
 
-def test_classify_report_precedence_unchanged():
+def test_classify_report_precedence_with_pass_with_unresolvable():
+    # TODO-558: PASS + UNRESOLVABLE (no FAIL / WARN) is pass_with_unresolvable.
     r = _report(supply=["PASS"], peripheral=["UNRESOLVABLE"] * 5)
-    assert pipeline.classify_report(r) == "all_pass"
+    assert pipeline.classify_report(r) == "pass_with_unresolvable"
+    assert pipeline.classify_report(_report(supply=["PASS"])) == "all_pass"
     assert pipeline.classify_report(_report(peripheral=["UNRESOLVABLE"])) == "has_unresolvable_only"
 
 
@@ -104,7 +106,7 @@ def _run_main(monkeypatch, capsys, tmp_path, report):
 
 
 @pytest.mark.parametrize("report, verdict, n, code", [
-    (_report(supply=["PASS"], peripheral=["UNRESOLVABLE", "UNRESOLVABLE"]), "all_pass", 2, 0),
+    (_report(supply=["PASS"], peripheral=["UNRESOLVABLE", "UNRESOLVABLE"]), "pass_with_unresolvable", 2, 0),
     (_report(supply=["FAIL"], peripheral=["UNRESOLVABLE"]), "has_fail", 1, 1),
     (_report(supply=["WARN"], peripheral=["UNRESOLVABLE"] * 4), "has_warn", 4, 0),
     (_report(peripheral=["UNRESOLVABLE"] * 3), "has_unresolvable_only", 3, 0),
@@ -132,7 +134,7 @@ def test_no_qualifier_when_n_zero(monkeypatch, capsys, tmp_path, report, verdict
 def test_verdict_line_is_the_only_verdict_prefixed_line(monkeypatch, capsys, tmp_path):
     rc, lines, _ = _run_main(monkeypatch, capsys, tmp_path,
                              _report(supply=["PASS"], peripheral=["UNRESOLVABLE"]))
-    assert [l for l in lines if l.startswith("[VERDICT]")] == ["[VERDICT] all_pass"]
+    assert [l for l in lines if l.startswith("[VERDICT]")] == ["[VERDICT] pass_with_unresolvable"]
     assert sum(l.startswith("[UNRESOLVABLE]") for l in lines) == 1
 
 
@@ -164,4 +166,4 @@ def test_fixture_i2c_swap_prints_qualifier(tmp_path):
 def test_fixture_i2c_fixed_prints_qualifier(tmp_path):
     r = _run_fixture(tmp_path, I2C_FIXED_BOARD)
     assert r.returncode == 0
-    assert r.stdout.splitlines()[-2:] == ["[VERDICT] all_pass", QUALIFIER.format(n=2)]
+    assert r.stdout.splitlines()[-2:] == ["[VERDICT] pass_with_unresolvable", QUALIFIER.format(n=2)]

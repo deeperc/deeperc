@@ -132,9 +132,10 @@ prose and cannot change its status. If no local model is running, findings
 carry canned text instead and the verdict is identical.
 
 Board verdicts rank `FAIL > WARN > PASS > UNRESOLVABLE`. A board with at least
-one PASS and no FAIL or WARN reports `all_pass` even when other checks were
-`UNRESOLVABLE`, so `all_pass` means nothing failed or warned among the checks
-that could run, not that every check ran.
+one PASS and no FAIL or WARN reports `all_pass` only when no check was
+`UNRESOLVABLE`, and `pass_with_unresolvable` when some were: nothing failed or
+warned among the checks that could run, but not every check ran. `has_warn` and
+`has_fail` do not split.
 
 **The step numbers are the `[STEP nn]` lines a run prints,** shown in the order
 they execute. The numbering is historical, not sequential: `04b+05` runs
@@ -161,9 +162,10 @@ The call waits at most 60 s per finding (`DEEPERC_LLM_TIMEOUT_S` overrides the
 figure). After the first connection failure or timeout in a run, the remaining
 findings skip the local model and use the canned text without waiting.
 `DEEPERC_NO_LOCAL_LLM=1` skips the local model entirely. None of this touches
-a verdict. In the JSON report each signal and supply finding says which text it
-carries: `explanation_source` is `local_model` or `canned` (report schema
-`poc-1.6`).
+a verdict. In the JSON report each signal and supply FAIL, WARN or
+UNRESOLVABLE finding says which text it carries: `explanation_source` is
+`local_model` or `canned` (report schema `1.0`); on a PASS finding it is
+null.
 
 Jump to: [the seven checkers](#the-seven-checkers) ·
 [inside STEP 08d](#inside-step-08d--why-one-box-is-not-one-check) ·
@@ -255,7 +257,13 @@ summary at the end.
 
 The report's `summary.pass`/`warn`/`fail`/`unresolvable` hoist only the
 `signal` (`[STEP 08]`) bucket; `summary.total_pass`/`total_warn`/`total_fail`/
-`total_unresolvable` (schema `poc-1.6`) sum across all seven buckets above.
+`total_unresolvable` (schema `1.0`) sum across all seven buckets above.
+
+The report's JSON shape is specified in [`report_schema.json`](report_schema.json)
+(JSON Schema draft 2020-12): which keys schema 1.0 covers, which arrays carry
+their outcome under `status` and which under `severity`, and the known reason
+codes. Within `1.x` only additive changes are made: new optional keys and new
+reason codes, so a reader must tolerate a code it does not know.
 
 ---
 

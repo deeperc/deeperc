@@ -45,7 +45,19 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "Table 11. Voltage characteristics"
+      "abs_max_source": "Table 11. Voltage characteristics",
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "11|VDD",
+          "19|VDD",
+          "28|VDD",
+          "50|VDD",
+          "75|VDD"
+        ],
+        "LQFP-64": [
+          "19|VDD"
+        ]
+      }
     },
     {
       "group_name": "Ground pins (VSS)",
@@ -74,6 +86,14 @@
           "pins_total": 5,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "10|VSS",
+          "27|VSS",
+          "49|VSS",
+          "74|VSS"
+        ]
       }
     },
     {
@@ -121,7 +141,15 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "Table 11. Voltage characteristics"
+      "abs_max_source": "Table 11. Voltage characteristics",
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "22|VDDA"
+        ],
+        "QFN-48": [
+          "9|VDDA"
+        ]
+      }
     },
     {
       "group_name": "Analog ground (VSSA)",
@@ -150,6 +178,17 @@
           "pins_total": 5,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "20|VSSA"
+        ],
+        "LQFP-64": [
+          "12|VSSA"
+        ],
+        "QFN-48": [
+          "8|VSSA"
+        ]
       }
     },
     {
@@ -195,7 +234,12 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "Table 11. Voltage characteristics"
+      "abs_max_source": "Table 11. Voltage characteristics",
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "6|VBAT"
+        ]
+      }
     },
     {
       "group_name": "Voltage regulator capacitor pins (VCAP_1/VCAP_2)",
@@ -276,6 +320,11 @@
           "pins_total": 6,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "21|VREF+"
+        ]
       }
     },
     {
@@ -344,7 +393,28 @@
       "absolute_max_voltage_expr": "VDD+0.3",
       "VIH_min_expr": "0.7*VDD",
       "VIL_max_expr": "0.3*VDD",
-      "VOH_min_expr": "VDD-0.4"
+      "VOH_min_expr": "VDD-0.4",
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "23|PA0",
+          "24|PA1",
+          "25|PA2",
+          "26|PA3",
+          "29|PA4",
+          "30|PA5",
+          "31|PA6",
+          "32|PA7",
+          "33|PC4",
+          "34|PC5",
+          "35|PB0",
+          "36|PB1",
+          "37|PB2",
+          "91|PB5"
+        ],
+        "LQFP-64": [
+          "14|PA0"
+        ]
+      }
     },
     {
       "group_name": "5V tolerant I/O (FT pins)",
@@ -476,6 +546,49 @@
           "pins_total": 65,
           "new_status": "nulled:group_split"
         }
+      },
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "1|PE2",
+          "2|PE3",
+          "3|PE4",
+          "4|PE5",
+          "5|PE6",
+          "7|PC13",
+          "8|PC14",
+          "9|PC15",
+          "12|PH0",
+          "13|PH1",
+          "14|NRST",
+          "15|PC0",
+          "16|PC1",
+          "17|PC2",
+          "18|PC3",
+          "81|PD0",
+          "82|PD1",
+          "83|PD2",
+          "84|PD3",
+          "85|PD4",
+          "86|PD5",
+          "87|PD6",
+          "88|PD7",
+          "89|PB3",
+          "90|PB4",
+          "92|PB6",
+          "93|PB7",
+          "95|PB8",
+          "96|PB9",
+          "97|PE0",
+          "98|PE1"
+        ],
+        "QFN-48": [
+          "29|PA8",
+          "30|PA9",
+          "31|PA10",
+          "32|PA11",
+          "33|PA12",
+          "34|PA13"
+        ]
       }
     },
     {
@@ -530,6 +643,17 @@
           "pins_total": 2,
           "new_status": "nulled:group_novote"
         }
+      },
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "14|NRST"
+        ],
+        "LQFP-64": [
+          "7|NRST"
+        ],
+        "QFN-48": [
+          "7|NRST"
+        ]
       }
     },
     {
@@ -571,7 +695,15 @@
       "VIH_source": "Table 53. I/O static characteristics",
       "abs_max_source": "Table 14. General operating conditions",
       "VIH_min_expr": "0.17*VDD+0.7",
-      "VIL_max_expr": "0.1*VDD+0.1"
+      "VIL_max_expr": "0.1*VDD+0.1",
+      "example_pins_by_package": {
+        "LQFP-100": [
+          "94|BOOT0"
+        ],
+        "QFN-48": [
+          "44|BOOT0"
+        ]
+      }
     },
     {
       "group_name": "PDR_ON pin (internal reset control)",
@@ -626,6 +758,700 @@
       "pairs_rewritten": 114,
       "entries_dropped_as_duplicates": 23,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": null,
+      "packages": [
+        "BGA-100",
+        "LQFP-100",
+        "LQFP-64",
+        "QFN-48"
+      ],
+      "restored": [
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "11",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "19",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "28",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "50",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "75",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 0,
+          "name": "VDD",
+          "number": "19",
+          "package": "LQFP-64",
+          "source": "cubemx",
+          "page": "STM32F411R(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "VSS",
+          "number": "10",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "VSS",
+          "number": "27",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "VSS",
+          "number": "49",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "VSS",
+          "number": "74",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "VDDA",
+          "number": "22",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "VDDA",
+          "number": "9",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "VSSA",
+          "number": "20",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "VSSA",
+          "number": "12",
+          "package": "LQFP-64",
+          "source": "cubemx",
+          "page": "STM32F411R(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "VSSA",
+          "number": "8",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "VBAT",
+          "number": "6",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "VREF+",
+          "number": "21",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA0",
+          "number": "23",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA1",
+          "number": "24",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA2",
+          "number": "25",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA3",
+          "number": "26",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA4",
+          "number": "29",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA5",
+          "number": "30",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA6",
+          "number": "31",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA7",
+          "number": "32",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PC4",
+          "number": "33",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PC5",
+          "number": "34",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PB0",
+          "number": "35",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PB1",
+          "number": "36",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PB2",
+          "number": "37",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PB5",
+          "number": "91",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "PA0",
+          "number": "14",
+          "package": "LQFP-64",
+          "source": "cubemx",
+          "page": "STM32F411R(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PE2",
+          "number": "1",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PH0",
+          "number": "12",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PH1",
+          "number": "13",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "NRST",
+          "number": "14",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PC0",
+          "number": "15",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PC1",
+          "number": "16",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PC2",
+          "number": "17",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PC3",
+          "number": "18",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PE3",
+          "number": "2",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PE4",
+          "number": "3",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PE5",
+          "number": "4",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PE6",
+          "number": "5",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PC13",
+          "number": "7",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PC14",
+          "number": "8",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD0",
+          "number": "81",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD1",
+          "number": "82",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD2",
+          "number": "83",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD3",
+          "number": "84",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD4",
+          "number": "85",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD5",
+          "number": "86",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD6",
+          "number": "87",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PD7",
+          "number": "88",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PB3",
+          "number": "89",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PC15",
+          "number": "9",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PB4",
+          "number": "90",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PB6",
+          "number": "92",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PB7",
+          "number": "93",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PB8",
+          "number": "95",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PB9",
+          "number": "96",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PE0",
+          "number": "97",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PE1",
+          "number": "98",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PA8",
+          "number": "29",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PA9",
+          "number": "30",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PA10",
+          "number": "31",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PA11",
+          "number": "32",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PA12",
+          "number": "33",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "PA13",
+          "number": "34",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 9,
+          "name": "NRST",
+          "number": "14",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 9,
+          "name": "NRST",
+          "number": "7",
+          "package": "LQFP-64",
+          "source": "cubemx",
+          "page": "STM32F411R(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 9,
+          "name": "NRST",
+          "number": "7",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        },
+        {
+          "group": 10,
+          "name": "BOOT0",
+          "number": "94",
+          "package": "LQFP-100",
+          "source": "cubemx",
+          "page": "STM32F411V(C-E)Tx.xml",
+          "confirmer": null
+        },
+        {
+          "group": 10,
+          "name": "BOOT0",
+          "number": "44",
+          "package": "QFN-48",
+          "source": "cubemx",
+          "page": "STM32F411C(C-E)Ux.xml",
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 74,
+        "contradicted": 275,
+        "not_shown": 107,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

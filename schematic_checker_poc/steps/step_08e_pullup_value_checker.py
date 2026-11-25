@@ -64,6 +64,7 @@ class PullupValueFinding:
     band:      str            # human-readable which-band-violated
     evidence:  str
     pins:      list = field(default_factory=list)  # ["R47", "U3"] refdes on the net
+    reason:    str | None = None  # TODO-569: "MERGED_REFDES" when relabelled, else None
 
 
 def classify_ohms(ohms: float | None):

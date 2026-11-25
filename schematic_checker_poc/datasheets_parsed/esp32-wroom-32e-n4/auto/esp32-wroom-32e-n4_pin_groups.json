@@ -234,6 +234,31 @@
       "pairs_rewritten": 32,
       "entries_dropped_as_duplicates": 2,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/espressif/esp32-wroom-32e-n16.pdf",
+        "sha256": "1dabd3a7eecee58e2852aaacd6af6f811f4f5d01235211de5ab8486cc001cf40"
+      },
+      "packages": [],
+      "restored": [],
+      "counts": {
+        "confirmed": 0,
+        "contradicted": 0,
+        "not_shown": 0,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

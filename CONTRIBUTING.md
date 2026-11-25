@@ -97,6 +97,11 @@ environments and releases, so don't expect a specific number. One
 exception: a skip on a test whose fixture ships in `examples/` is a
 bug — please report it.
 
+The same `make test` runs on every pull request through GitHub Actions
+(`.github/workflows/tests.yml`), with no secrets. On a first-time
+contributor's pull request the run may wait for a maintainer to approve
+it before it starts.
+
 No `make` available? The recipe's raw steps work directly from the
 repo root:
 

@@ -88,7 +88,15 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": "5.1 Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "QFN-17": [
+          "1|VCCIO"
+        ],
+        "SSOP-16": [
+          "3|VCCIO"
+        ]
+      }
     },
     {
       "group_name": "3V3OUT Regulator Output",
@@ -171,7 +179,13 @@
       "supply_rail_name": null,
       "citations": {},
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "SSOP-16": [
+          "13|GND",
+          "5|GND"
+        ]
+      }
     },
     {
       "group_name": "USB Data Lines",
@@ -211,7 +225,17 @@
         }
       },
       "VIH_source": "Table 5.6 I/O Pin Characteristics VCCIO = +1.8V (except USB PHY pins)",
-      "abs_max_source": "5.1 Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "QFN-17": [
+          "6|USBDP",
+          "7|USBDM"
+        ],
+        "SSOP-16": [
+          "8|USBDP",
+          "9|USBDM"
+        ]
+      }
     },
     {
       "group_name": "RESET# Input",
@@ -250,7 +274,15 @@
         }
       },
       "VIH_source": "Table 5.6 I/O Pin Characteristics VCCIO = +1.8V (except USB PHY pins)",
-      "abs_max_source": "5.1 Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "QFN-17": [
+          "9|RESET#"
+        ],
+        "SSOP-16": [
+          "11|RESET#"
+        ]
+      }
     },
     {
       "group_name": "UART Output Pins (TXD, RTS#)",
@@ -278,7 +310,17 @@
         }
       },
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "QFN-17": [
+          "15|TXD",
+          "16|RTS#"
+        ],
+        "SSOP-16": [
+          "1|TXD",
+          "2|RTS#"
+        ]
+      }
     },
     {
       "group_name": "UART Input Pins (RXD, CTS#)",
@@ -318,7 +360,17 @@
         }
       },
       "VIH_source": "Table 5.6 I/O Pin Characteristics VCCIO = +1.8V (except USB PHY pins)",
-      "abs_max_source": "5.1 Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "QFN-17": [
+          "2|RXD",
+          "4|CTS#"
+        ],
+        "SSOP-16": [
+          "4|RXD",
+          "6|CTS#"
+        ]
+      }
     },
     {
       "group_name": "CBUS Configurable I/O Pins",
@@ -366,7 +418,21 @@
         }
       },
       "VIH_source": "Table 5.6 I/O Pin Characteristics VCCIO = +1.8V (except USB PHY pins)",
-      "abs_max_source": "5.1 Absolute Maximum Ratings"
+      "abs_max_source": "5.1 Absolute Maximum Ratings",
+      "example_pins_by_package": {
+        "QFN-17": [
+          "12|CBUS0",
+          "11|CBUS1",
+          "5|CBUS2",
+          "14|CBUS3"
+        ],
+        "SSOP-16": [
+          "15|CBUS0",
+          "14|CBUS1",
+          "7|CBUS2",
+          "16|CBUS3"
+        ]
+      }
     }
   ],
   "default_group": "CBUS Configurable I/O Pins",
@@ -380,6 +446,269 @@
       "pairs_rewritten": 33,
       "entries_dropped_as_duplicates": 18,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/misc/FT230XQ-R.pdf",
+        "sha256": "401cd311733d43b55a894d2aa24c969cd998d67abf27b09c98d242a90f3743a2"
+      },
+      "packages": [
+        "QFN-17",
+        "SSOP-16"
+      ],
+      "restored": [
+        {
+          "group": 1,
+          "name": "VCCIO",
+          "number": "1",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 7,
+          "confirmer": null
+        },
+        {
+          "group": 1,
+          "name": "VCCIO",
+          "number": "3",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "GND",
+          "number": "13",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "GND",
+          "number": "5",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "USBDP",
+          "number": "6",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 7,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "USBDM",
+          "number": "7",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 7,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "USBDP",
+          "number": "8",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 4,
+          "name": "USBDM",
+          "number": "9",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "RESET#",
+          "number": "9",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 7,
+          "confirmer": null
+        },
+        {
+          "group": 5,
+          "name": "RESET#",
+          "number": "11",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "TXD",
+          "number": "15",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "RTS#",
+          "number": "16",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "TXD",
+          "number": "1",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 6,
+          "name": "RTS#",
+          "number": "2",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "RXD",
+          "number": "2",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "CTS#",
+          "number": "4",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "RXD",
+          "number": "4",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 7,
+          "name": "CTS#",
+          "number": "6",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS1",
+          "number": "11",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS0",
+          "number": "12",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS3",
+          "number": "14",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS2",
+          "number": "5",
+          "package": "QFN-17",
+          "source": "pdf_table",
+          "page": 8,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS1",
+          "number": "14",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS0",
+          "number": "15",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS3",
+          "number": "16",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        },
+        {
+          "group": 8,
+          "name": "CBUS2",
+          "number": "7",
+          "package": "SSOP-16",
+          "source": "pdf_table",
+          "page": 9,
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 27,
+        "contradicted": 26,
+        "not_shown": 13,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

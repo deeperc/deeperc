@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import pdfplumber
 
 import cache_paths
+from steps import part_bindings
 from llm.ollama_client import generate_json, MODEL as OLLAMA_MODEL
 
 logger = logging.getLogger(__name__)
@@ -481,12 +482,20 @@ def _find_pdf(part_number: str) -> str | None:
 
 
 def _scan_cache_root(root, part_number: str) -> tuple[Path | None, str]:
-    """One cache root's share of find_cached_dir_for_part's three-tier scan.
+    """One cache root's share of find_cached_dir_for_part's four-tier scan.
 
     Returns (hit, outcome) with outcome ∈ 'hit' | 'miss' | 'ambiguous'.
     'miss' means NOTHING matched in any tier — a clean miss, the only
     outcome the staging fallback is allowed to rescue (S2). 'ambiguous' means
     at least one tier matched >1 candidate and no tier resolved uniquely.
+
+    Tier 4 (TODO-225, V1) is the normalised cache-directory rule
+    (part_bindings.v1_match): N(P) / N(P minus its "(...)" tail) matched
+    EXACTLY against N(dir name), N = casefold + keep [a-z0-9]. It runs ONLY
+    on a clean miss of tiers 1-3 (an 'ambiguous' from tiers 1-3 stays
+    terminal and V1 never runs on it). One distinct dir -> hit; more than
+    one -> 'ambiguous'; none -> 'miss'. Cache-directory lookup only: the PDF
+    lookup has no normalised tier.
 
     Tier 3 (TODO-407) mirrors pipeline._find_pdf_recursive's family-prefix
     fallback, against cache-DIRECTORY names instead of PDF filenames, reusing
@@ -557,6 +566,24 @@ def _scan_cache_root(root, part_number: str) -> tuple[Path | None, str]:
             part_number, len(family_hits), sorted(family_hits),
         )
         return None, "ambiguous"
+
+    # Tier 4 (TODO-225, V1): normalised exact match. Reached only when tiers
+    # 1-3 were a clean miss (no ambiguity, no family hits).
+    v1_hits = part_bindings.v1_match(part_number, names, MIN_MPN_LENGTH)
+    if len(v1_hits) == 1:
+        logger.info(
+            "[STEP 03] cache: V1 normalised match for %s -> %s",
+            part_number, v1_hits[0],
+        )
+        return Path(root) / v1_hits[0], "hit"
+    if len(v1_hits) > 1:
+        logger.info(
+            "[STEP 03] PDF-optional cache lookup for %s: %d cache dirs matched "
+            "on the V1 normalised tier (%s) — ambiguous, treating as MISS "
+            "(falling through to full resolve_and_parse).",
+            part_number, len(v1_hits), v1_hits,
+        )
+        return None, "ambiguous"
     return None, "miss"
 
 
@@ -565,7 +592,8 @@ def find_cached_dir_for_part(part_number: str) -> Path | None:
     part_number to an existing datasheets_parsed/<stem>/ directory WITHOUT
     requiring a physical PDF on disk. Uses the same two-tier substring
     matching _find_pdf applies to PDF filenames (base-MPN first, then full
-    MPN) — but against on-disk cache-directory names instead, which are
+    MPN), then the STM32 family-prefix tier (TODO-407) and the normalised V1
+    tier (TODO-225) — but against on-disk cache-directory names instead, which are
     already canonical/lower-cased (TODO-321).
 
     Unlike _find_pdf, which returns the first listdir-order match, this
@@ -579,10 +607,27 @@ def find_cached_dir_for_part(part_number: str) -> Path | None:
     TODO-386 Phase 3 (S2): this is one of the two staging-fallback seams. The
     canonical root is scanned exactly as before; STAGING_DIR is consulted ONLY
     when staging reads are enabled AND the canonical scan was a CLEAN MISS.
-    A canonical AMBIGUITY is terminal and is never rescued by staging — the
+    A canonical AMBIGUITY (from any of the four tiers, V1 included) is
+    terminal and is never rescued by staging — the
     canonical tree already holds two plausible answers, and letting a staged
     third break that tie would be the riskiest guess of all. Ambiguity WITHIN
-    staging refuses on the same reasoning as the canonical scan."""
+    staging refuses on the same reasoning as the canonical scan.
+
+    A part with an explicit binding (part_bindings, TODO-554) is resolved
+    first and exclusively: it never reaches the substring scan."""
+    # TODO-554: an explicitly bound part goes to its stem and never to the
+    # substring scan. Canonical first; staging only when staging reads are on,
+    # mirroring the S2 order below. A bound stem with no directory is a MISS.
+    stem = part_bindings.bound_stem(part_number)
+    if stem is not None:
+        roots = (PARSED_DIR, STAGING_DIR) if staging_enabled() else (PARSED_DIR,)
+        for root in roots:
+            candidate = Path(root) / stem
+            if candidate.is_dir():
+                logger.info("[STEP 03] bound part %s -> cache dir %s (%s).",
+                            part_number, stem, root)
+                return candidate
+        return None
     hit, outcome = _scan_cache_root(PARSED_DIR, part_number)
     if hit is not None:
         return hit

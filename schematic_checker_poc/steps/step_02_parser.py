@@ -32,6 +32,10 @@ class ComponentIR:
     footprint: str = ""
     libsource_part: str = ""
     libsource_lib: str = ""
+    # (libparts (libpart (lib ...) (part ...) (description ...))) text for this
+    # component's (libsource_lib, libsource_part); "" when there is no entry or no
+    # description (TODO-554; read by part_class.classify_part).
+    libsource_description: str = ""
     # L2 vendor-lookup placeholder-expansion result (private-tier resolver's
     # placeholder_expansion["concrete"]), threaded back from the resolver.
     # None for every literal MPN and for any placeholder step_03 didn't
@@ -55,6 +59,18 @@ class NetIR:
 
 
 @dataclass
+class MergedRefdes:
+    """TODO-569: a reference designator the netlist merges — two or more (comp)
+    records share it, or one of its (ref, pin) nodes sits on two or more (net)
+    entries. Detected and disclosed, never separated."""
+    records: int                       # (comp) record count; 0 = ref only in net nodes
+    sheet_paths: list[str]             # (sheetpath (names ..)) per record, file order
+    part_numbers: list[str]            # sorted distinct part_number of its records
+    collided_pins: dict[str, list[str]]  # pin_id -> net names (net-entry order), >=2 entries
+    test: str                          # "records" | "pins" | "both"
+
+
+@dataclass
 class NetlistIR:
     source_file: str
     components: list[ComponentIR]
@@ -71,6 +87,9 @@ class NetlistIR:
     # Components whose (libsource_lib, libsource_part) has no (libparts ...)
     # entry, so their pins carry symbol_name "" (TODO-488).
     libparts_unmatched: int = 0
+    # TODO-569: refdes -> MergedRefdes for every MERGED refdes, sorted by ref;
+    # empty when the netlist has none.
+    merged_refdes: dict[str, MergedRefdes] = field(default_factory=dict)
 
 
 # ── S-expression tokenizer ────────────────────────────────────────────────────
@@ -156,11 +175,33 @@ def _atom(node: list, key: str) -> str | None:
 
 # ── Component extraction ──────────────────────────────────────────────────────
 
-def _extract_components(tree: list) -> list[ComponentIR]:
+def _read_libpart_descriptions(tree: list) -> dict[tuple[str, str], str]:
+    """(libparts (libpart (lib L) (part P) (description D) ...)) -> {(L, P): D}.
+    The first libpart entry per (L, P) wins; a missing description reads "".
+    (TODO-554)"""
+    out: dict[tuple[str, str], str] = {}
+    libparts_node = _find(tree, 'libparts')
+    if not libparts_node:
+        return out
+    for lp in _find_all(libparts_node, 'libpart'):
+        key = (_atom(lp, 'lib') or '', _atom(lp, 'part') or '')
+        if key in out:
+            continue
+        out[key] = _atom(lp, 'description') or ''
+    return out
+
+
+def _extract_components(
+    tree: list, sheet_paths_out: list[str] | None = None,
+) -> list[ComponentIR]:
+    """sheet_paths_out, when given, is extended with each record's
+    (sheetpath (names "..")) in record order ("" when absent) — read only by
+    the TODO-569 merged-refdes detector."""
     components_node = _find(tree, 'components')
     if not components_node:
         raise ValueError("No (components ...) section found")
 
+    descriptions = _read_libpart_descriptions(tree)
     components: list[ComponentIR] = []
     for comp in _find_all(components_node, 'comp'):
         refdes = _atom(comp, 'ref') or ''
@@ -194,6 +235,11 @@ def _extract_components(tree: list) -> list[ComponentIR]:
         libsource_part = _atom(libsource_node, 'part') or '' if libsource_node else ''
         libsource_lib = _atom(libsource_node, 'lib') or '' if libsource_node else ''
 
+        if sheet_paths_out is not None:
+            sheetpath_node = _find(comp, 'sheetpath')
+            sheet_paths_out.append(
+                (_atom(sheetpath_node, 'names') or '') if sheetpath_node else '')
+
         components.append(ComponentIR(
             refdes=refdes,
             part_number=part_number,
@@ -202,6 +248,7 @@ def _extract_components(tree: list) -> list[ComponentIR]:
             footprint=footprint,
             libsource_part=libsource_part,
             libsource_lib=libsource_lib,
+            libsource_description=descriptions.get((libsource_lib, libsource_part), ''),
         ))
 
     return components
@@ -229,6 +276,58 @@ def _extract_nets(tree: list) -> list[NetIR]:
         nets.append(NetIR(name=name, pins=pin_refs))
 
     return nets
+
+
+def _detect_merged_refdes(
+    components: list[ComponentIR],
+    sheet_paths: list[str],
+    nets: list[NetIR],
+) -> tuple[list[ComponentIR], dict[str, MergedRefdes]]:
+    """TODO-569 (decisions 1, 4, 11). A refdes is MERGED when it has two or more
+    (comp) records, OR any (ref, pin) node of it is a node on two or more (net)
+    entries (counted by entry position, not by name; a node repeated inside one
+    entry does not count). The empty ref is skipped. For a MERGED ref with two or
+    more records only the FIRST record (file order) is kept. Returns the kept
+    component list (the input list itself when nothing is dropped) and the
+    merged map, sorted by ref."""
+    records_by_ref: dict[str, list[int]] = {}
+    for i, c in enumerate(components):
+        records_by_ref.setdefault(c.refdes, []).append(i)
+
+    node_entries: dict[tuple[str, str], list[int]] = {}
+    for idx, net in enumerate(nets):
+        for ref, pin in net.pins:
+            entries = node_entries.setdefault((ref, pin), [])
+            if idx not in entries:
+                entries.append(idx)
+    collided: dict[str, dict[str, list[str]]] = {}
+    for (ref, pin), entries in node_entries.items():
+        if len(entries) >= 2:
+            collided.setdefault(ref, {})[pin] = [nets[i].name for i in sorted(entries)]
+
+    refs = set(records_by_ref) | {ref for ref, _ in node_entries}
+    merged: dict[str, MergedRefdes] = {}
+    for ref in sorted(refs):
+        if not ref:
+            continue
+        idxs = records_by_ref.get(ref, [])
+        by_records = len(idxs) >= 2
+        by_pins = ref in collided
+        if not (by_records or by_pins):
+            continue
+        merged[ref] = MergedRefdes(
+            records=len(idxs),
+            sheet_paths=[sheet_paths[i] if i < len(sheet_paths) else '' for i in idxs],
+            part_numbers=sorted({components[i].part_number for i in idxs}),
+            collided_pins={p: collided[ref][p] for p in sorted(collided.get(ref, {}))},
+            test="both" if by_records and by_pins else ("records" if by_records else "pins"),
+        )
+
+    drop = {i for ref, m in merged.items() if m.records >= 2
+            for i in records_by_ref[ref][1:]}
+    if not drop:
+        return components, merged
+    return [c for i, c in enumerate(components) if i not in drop], merged
 
 
 def _extract_pinfunctions(tree: list) -> dict[tuple[str, str], str]:
@@ -385,8 +484,9 @@ def parse_netlist(netlist_path: str | Path) -> NetlistIR:
             f"'{top}', expected 'export'"
         )
 
+    sheet_paths: list[str] = []
     try:
-        components = _extract_components(tree)
+        components = _extract_components(tree, sheet_paths)
     except ValueError as e:
         raise ValueError(f"Component extraction failed in {netlist_path}: {e}") from e
 
@@ -397,6 +497,9 @@ def parse_netlist(netlist_path: str | Path) -> NetlistIR:
 
     if not components:
         raise ValueError(f"No components found in {netlist_path}")
+
+    # TODO-569: detect MERGED refdes and keep one record each, before backfill.
+    components, merged_refdes = _detect_merged_refdes(components, sheet_paths, nets)
 
     pinfunctions = _extract_pinfunctions(tree)
     _backfill_pin_nets(components, nets, pinfunctions)
@@ -411,6 +514,7 @@ def parse_netlist(netlist_path: str | Path) -> NetlistIR:
         ground_nets=[],
         pintypes=pintypes,
         libparts_unmatched=libparts_unmatched,
+        merged_refdes=merged_refdes,
     )
 
 

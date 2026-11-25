@@ -298,7 +298,8 @@ def test_step08_unresolved_expr_names_reason():
     assert r.status == "UNRESOLVABLE"
     assert r.evidence_label == (
         "Assumed/low-confidence [VIH_min unevaluated: RAIL_SYMBOL_NOT_ON_PART (VDD)]")
-    assert r.unresolvable_reason == (
+    assert r.unresolvable_reason.value == "RECEIVER_SPECS_UNRESOLVED"
+    assert r.unresolvable_detail == (
         "Receiver specs unresolved — U_RCV: VIH_min unevaluated: RAIL_SYMBOL_NOT_ON_PART (VDD)")
 
 

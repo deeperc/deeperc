@@ -82,6 +82,7 @@ class FindingReason(Enum):
     # role/net-name mismatch with no independent pin-function corroboration on
     # the net is a WARN, not a FAIL. The only WARN-producing coherence guard.
     SPI_DIRECTION_UNCORROBORATED = "SPI_DIRECTION_UNCORROBORATED"   # M12/M99 WARN branch
+    MERGED_REFDES                = "MERGED_REFDES"                  # TODO-569 relabel
 
 
 @dataclass
@@ -301,6 +302,9 @@ def is_i2c_classified_net(net, netlist, kb, peripheral_routing=None) -> bool:
 #     NOT VREF (no current need).
 #   * dotted-decimal `+3.3V`/`+1.8V` IS matched (KiCad global-label convention;
 #     ESP32-PoE2 / kit-dev M4 sites) — C misses the dot, D must not.
+#   * TODO-581: the `P<digits>V<digits>` rail form (P3V3, P1V8, P12V, P3V3_CLK) IS
+#     matched. vme-wren pulls its SFP / WRFLASH I2C lines up to P3V3 / P1V8, and
+#     without this form those pull-ups were invisible (6 false presence WARNs).
 #   * Fix #1 (folded): the prior bare `\+` alternative matched ANY '+'-prefixed
 #     net (+EN/+RUN) as a rail. Dropped — normalize strips the leading '+', then
 #     a real rail token must still match, so `+3V3`/`+5V`/`+3.3V` keep matching
@@ -313,7 +317,8 @@ _POWER_RAIL_RE = re.compile(
     r'PVCC|PVDD|IOVCC|IOVDD|COREVDD|VBAT|VSYS'
     r')(?:$|[_/A-Z0-9])'
     r'|^\d+(?:\.\d+)?V\d*(?:$|[_/A-Z0-9])'
-    r'|.*_(?:VDD|VCC|VDDA|VDDD|VDDIO|AVDD|DVDD|PVDD)\d*$',
+    r'|.*_(?:VDD|VCC|VDDA|VDDD|VDDIO|AVDD|DVDD|PVDD)\d*$'
+    r'|^P\d+V\d*(?:$|[_/A-Z0-9])',  # TODO-581: P3V3 / P1V8 / P12V
     re.I,
 )
 

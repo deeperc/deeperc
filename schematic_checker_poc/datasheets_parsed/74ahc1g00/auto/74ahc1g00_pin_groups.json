@@ -66,7 +66,12 @@
       "supply_rail_name": null,
       "citations": {},
       "VIH_source": null,
-      "abs_max_source": null
+      "abs_max_source": null,
+      "example_pins_by_package": {
+        "SOT-23-5": [
+          "3|GND"
+        ]
+      }
     },
     {
       "group_name": "Digital Inputs",
@@ -164,7 +169,13 @@
           "value": 1.65,
           "expr": null
         }
-      ]
+      ],
+      "example_pins_by_package": {
+        "SOT-23-5": [
+          "1|A",
+          "2|B"
+        ]
+      }
     },
     {
       "group_name": "Digital Output",
@@ -528,6 +539,11 @@
           "pins_total": 1,
           "new_status": null
         }
+      },
+      "example_pins_by_package": {
+        "SOT-23-5": [
+          "4|Y"
+        ]
       }
     }
   ],
@@ -542,6 +558,71 @@
       "pairs_rewritten": 5,
       "entries_dropped_as_duplicates": 0,
       "reason": "NUMBER|NAME pin numbers from the v0.4.0 backfill were uncited and unvalidated; rewritten to ?|NAME (TODO-511 Phase 5)"
+    },
+    "pin_numbers_checked": {
+      "date": "2026-11-19",
+      "checker": [
+        {
+          "module": "steps/pin_number_check.py",
+          "sha256": "30f0344efafbb9bf2a40bc3d84edd7e1bc580b1cb746326c675a7c5783a1f790"
+        },
+        {
+          "module": "steps/package_key.py",
+          "sha256": "b6c2ef0b447f7e421615741905fcf0c17b53f1c4989ebbd162fe88cedc2c3e1c"
+        }
+      ],
+      "pdf": {
+        "path": "netlist_corpus/datasheets/nexperia/74ahc1g00.pdf",
+        "sha256": "9bfa6c4b6d3e41603e10bd19e7de3418dd45319a546f664c2740eb46eab55f2d"
+      },
+      "packages": [
+        "SC-70-5",
+        "SOT-23-5"
+      ],
+      "restored": [
+        {
+          "group": 1,
+          "name": "GND",
+          "number": "3",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "A",
+          "number": "1",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 2,
+          "name": "B",
+          "number": "2",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        },
+        {
+          "group": 3,
+          "name": "Y",
+          "number": "4",
+          "package": "SOT-23-5",
+          "source": "pdf_table",
+          "page": 3,
+          "confirmer": null
+        }
+      ],
+      "counts": {
+        "confirmed": 4,
+        "contradicted": 0,
+        "not_shown": 6,
+        "no_table": 0
+      }
     }
   },
   "provenance": {

@@ -32,6 +32,7 @@ from steps import (
     step_08g_pullup_presence,
 )
 from steps import m2_output_conflict
+from steps import merged_refdes
 
 
 class VerdictRole(Enum):
@@ -42,6 +43,31 @@ class VerdictRole(Enum):
 def _status_reader(results: list[dict]) -> list[str]:
     """Default: read each serialized result's uppercase ``status`` field."""
     return [str(r.get("status", "")).upper() for r in results]
+
+
+def _run_signal(ctx) -> list:
+    """Signal adapter: the checker (which appends its NON_IC_PART disclosures),
+    then the TODO-569 merged-refdes relabel, then one MERGED_REFDES disclosure per
+    merged ref appended AFTER the checker's own entries (decision 12)."""
+    results = merged_refdes.relabel_signal(step_08_checker.run(
+        ctx.ir, ctx.pin_specs, ctx.confirmed_voltages,
+        rail_provenance=ctx.rail_provenance,
+        not_checked_out=ctx.not_checked_parts), ctx.ir)
+    ctx.not_checked_parts.extend(merged_refdes.disclosures(ctx.ir))
+    return results
+
+
+def _run_supply(ctx) -> list:
+    """Supply adapter: the checker (which appends its OWN_SUPPLY_PIN pin disclosures,
+    TODO-556 decision 19, and one NON_IC_PART entry per connector it skips, decision 27,
+    after the signal checker's entries), then the TODO-569 merged-refdes relabel."""
+    return merged_refdes.relabel_supply(
+        step_08b_supply_checker.check_component_supplies(
+            components=ctx.ir.components, pin_groups=ctx.seen_parts,
+            confirmed_voltages=ctx.confirmed_voltages,
+            derived_provenance=ctx.derived_provenance,
+            not_checked_pins_out=getattr(ctx, "not_checked_pins", None),
+            not_checked_out=getattr(ctx, "not_checked_parts", None)), ctx.ir)
 
 
 def _severity_reader(results: list[dict]) -> list[str]:
@@ -73,19 +99,14 @@ REGISTRY: tuple[CheckerSpec, ...] = (
         source_file="steps/step_08_checker.py",
         report_bucket="results",
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: step_08_checker.run(
-            ctx.ir, ctx.pin_specs, ctx.confirmed_voltages,
-            rail_provenance=ctx.rail_provenance),
+        run=_run_signal,
     ),
     CheckerSpec(
         name="supply", step_id="08b",
         source_file="steps/step_08b_supply_checker.py",
         report_bucket="power_supply_results",
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: step_08b_supply_checker.check_component_supplies(
-            components=ctx.ir.components, pin_groups=ctx.seen_parts,
-            confirmed_voltages=ctx.confirmed_voltages,
-            derived_provenance=ctx.derived_provenance),
+        run=_run_supply,
         summary_key="supply_checks",
     ),
     CheckerSpec(
@@ -93,10 +114,11 @@ REGISTRY: tuple[CheckerSpec, ...] = (
         source_file="steps/step_08c_structural_checker.py",
         report_bucket="structural_integrity_results",
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: step_08c_structural_checker.check_structural_integrity(
-            components=ctx.ir.components, confirmed_voltages=ctx.confirmed_voltages,
-            ground_nets=ctx.ir.ground_nets, nets=ctx.ir.nets,
-            pintypes=ctx.ir.pintypes),
+        run=lambda ctx: merged_refdes.drop_structural(
+            step_08c_structural_checker.check_structural_integrity(
+                components=ctx.ir.components, confirmed_voltages=ctx.confirmed_voltages,
+                ground_nets=ctx.ir.ground_nets, nets=ctx.ir.nets,
+                pintypes=ctx.ir.pintypes), ctx.ir),
         # No "unresolvable" sub-key: step_08c never assigns status="UNRESOLVABLE"
         # (confirmed by grep, Todo 248 recon step 1) — only PASS/WARN/FAIL exist.
         summary_key="structural_checks",
@@ -106,8 +128,9 @@ REGISTRY: tuple[CheckerSpec, ...] = (
         source_file="steps/step_08d_peripheral_checker.py",
         report_bucket="peripheral_integrity_results",
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: step_08d_peripheral_checker.check_peripheral_buses(
-            ctx.ir, ctx.peripheral_kb, ctx.peripheral_routing),
+        run=lambda ctx: merged_refdes.relabel_peripheral(
+            step_08d_peripheral_checker.check_peripheral_buses(
+                ctx.ir, ctx.peripheral_kb, ctx.peripheral_routing), ctx.ir),
         extract_statuses=_severity_reader,
         summary_key="peripheral_checks",
     ),
@@ -120,7 +143,8 @@ REGISTRY: tuple[CheckerSpec, ...] = (
         # registry file is deliberately unhashed (not in CHECKER_SOURCE_FILES), so
         # it reinterprets existing reports rather than staling them.
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: step_08e_pullup_value_checker.check_pullup_values(ctx.ir),
+        run=lambda ctx: merged_refdes.relabel_pullup_value(
+            step_08e_pullup_value_checker.check_pullup_values(ctx.ir), ctx.ir),
         extract_statuses=_severity_reader,
         summary_key="pullup_value_checks",
     ),
@@ -133,7 +157,8 @@ REGISTRY: tuple[CheckerSpec, ...] = (
         # Its serialized results carry a "status" field ("FAIL"), so the default
         # _status_reader applies (no custom extract_statuses).
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: m2_output_conflict.check_output_conflicts(ctx.ir, ctx.pin_specs),
+        run=lambda ctx: merged_refdes.drop_output_conflict(
+            m2_output_conflict.check_output_conflicts(ctx.ir, ctx.pin_specs), ctx.ir),
         summary_key="output_conflict_checks",
     ),
     CheckerSpec(
@@ -146,8 +171,9 @@ REGISTRY: tuple[CheckerSpec, ...] = (
         # serialized results carry a "severity" field ("WARN"), so use the
         # severity reader (mirrors 08d/08e).
         verdict_role=VerdictRole.VERDICT_MOVING,
-        run=lambda ctx: step_08g_pullup_presence.check_pullup_presence(
-            ctx.ir, ctx.pin_specs, ctx.peripheral_kb, ctx.peripheral_routing),
+        run=lambda ctx: merged_refdes.relabel_pullup_presence(
+            step_08g_pullup_presence.check_pullup_presence(
+                ctx.ir, ctx.pin_specs, ctx.peripheral_kb, ctx.peripheral_routing), ctx.ir),
         extract_statuses=_severity_reader,
         summary_key="pullup_presence_checks",
     ),

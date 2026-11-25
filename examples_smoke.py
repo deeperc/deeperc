@@ -13,6 +13,10 @@ unresolvable counts) are diffed -- the prose fields (unrelated_unresolvables,
 unchanged_axes, confidence) are documentation for a human reader, not
 mechanically checked here.
 
+Each report is also validated against docs/report_schema.json (TODO-558) when
+the jsonschema package is importable (requirements-dev.txt); without it, one
+"schema check skipped" line is printed and the verdict diff still runs.
+
 A fixture without a provenance.json, or one whose provenance.json lacks an
 "expected_verdict" block, is reported and skipped rather than silently
 ignored -- CONTRIBUTING.md's fixture-honesty principle applies to the smoke
@@ -32,6 +36,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).parent
 EXAMPLES_DIR = REPO_ROOT / "examples"
 POC_DIR = REPO_ROOT / "schematic_checker_poc"
+SCHEMA_PATH = REPO_ROOT / "docs" / "report_schema.json"
 sys.path.insert(0, str(POC_DIR))
 
 from pipeline import classify_report  # noqa: E402
@@ -70,6 +75,24 @@ def run_board(net_path: Path, out_dir: Path) -> dict:
     return json.loads(report_path.read_text())
 
 
+def schema_validator():
+    """A Draft 2020-12 validator for docs/report_schema.json, or None when the
+    jsonschema package is not importable (it is a dev dependency only)."""
+    try:
+        import jsonschema
+    except ImportError:
+        return None
+    schema = json.loads(SCHEMA_PATH.read_text())
+    return jsonschema.Draft202012Validator(schema)
+
+
+def schema_problems(validator, report: dict) -> list[str]:
+    """One line per schema violation (path: message), sorted by path."""
+    errors = sorted(validator.iter_errors(report), key=lambda e: list(e.absolute_path))
+    return [f"    schema: /{'/'.join(str(p) for p in e.absolute_path)}: {e.message}"
+            for e in errors]
+
+
 def diff_family_checks(name: str, expected: dict, actual: dict) -> list[str]:
     """Compares only the keys present in `expected` -- a fixture's
     provenance.json need not enumerate every key the live summary carries."""
@@ -87,6 +110,10 @@ def main() -> int:
     any_skipped = False
 
     print(f"examples_smoke: {len(fixtures)} fixture(s) found under examples/\n")
+    validator = schema_validator()
+    if validator is None:
+        print("examples_smoke: schema check skipped (jsonschema not installed; "
+              "see requirements-dev.txt)\n")
 
     for fixture_name, net_path, provenance in fixtures:
         print(f"=== {fixture_name} ===")
@@ -114,6 +141,9 @@ def main() -> int:
         if expected_status is not None and actual_status != expected_status:
             problems.append(f"    board_status: expected {expected_status!r}, "
                              f"got {actual_status!r}")
+
+        if validator is not None:
+            problems.extend(schema_problems(validator, report))
 
         summary = report.get("summary", {})
         for key, expected_val in expected.items():

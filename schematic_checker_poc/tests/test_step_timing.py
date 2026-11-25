@@ -4,7 +4,7 @@ wall-time attribution).
 Covers: step_times_seconds is attached to a successful report with the expected
 step keys, its sum is approximately the driver's own wall_time_seconds, and
 run_checks's summary aggregation sums it correctly across boards. Uses a
-small, cache-warm, in-manifest board (logs/v2_11_boards.txt) so the test runs
+small, cache-warm corpus board so the test runs
 fast with 0 live network/LLM calls.
 """
 import json
